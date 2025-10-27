@@ -40,7 +40,7 @@ export default function PrivacyPage() {
       title: "Introduction",
       content: (
         <p className={styles.text}>
-          The Kenyan Student Association at the University of Minnesota ("KESA," "we," "us," or "our") is committed to
+          Lumyn ("we," "us," or "our") is committed to
           protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your
           information when you visit our website or use our services.
         </p>
@@ -65,9 +65,8 @@ export default function PrivacyPage() {
           <p className={styles.text}>This information may include:</p>
           <ul className={styles.list}>
             <li>Name and contact information (email address, phone number)</li>
-            <li>Student ID or university affiliation</li>
-            <li>Demographic information (optional)</li>
-            <li>Payment information (for paid events)</li>
+            <li>Professional information (optional)</li>
+            <li>Payment information (for services)</li>
           </ul>
 
           <h3 className={styles.subheading}>Automatically Collected Information</h3>
@@ -85,8 +84,8 @@ export default function PrivacyPage() {
         <>
           <p className={styles.text}>We use the information we collect to:</p>
           <ul className={styles.list}>
-            <li>Process membership applications and maintain member records</li>
-            <li>Communicate with you about events, news, and updates</li>
+            <li>Process service inquiries and maintain client records</li>
+            <li>Communicate with you about projects, updates, and services</li>
             <li>Respond to your inquiries and provide customer support</li>
             <li>Send you newsletters and promotional materials (with your consent)</li>
             <li>Improve our website and services</li>
@@ -117,8 +116,8 @@ export default function PrivacyPage() {
               valid legal requests
             </li>
             <li>
-              <strong>University officials:</strong> We may share information with University of Minnesota officials as
-              required for student organization operations
+              <strong>Business partners:</strong> We may share information with business partners as
+              required for project operations
             </li>
           </ul>
         </>
@@ -176,26 +175,26 @@ export default function PrivacyPage() {
   return (
     <>
       <Head>
-        <title>Privacy Policy | Kenyan Student Association - University of Minnesota</title>
+        <title>Privacy Policy | Lumyn - Modern Digital Solutions</title>
         <meta
           name="description"
-          content="Learn about how the Kenyan Student Association at the University of Minnesota collects, uses, and protects your personal information."
+          content="Learn about how Lumyn collects, uses, and protects your personal information in our digital solutions services."
         />
-        <meta name="keywords" content="KESA, Kenyan Student Association, privacy policy, data protection, personal information, University of Minnesota" />
-        <meta property="og:title" content="Privacy Policy | Kenyan Student Association - University of Minnesota" />
+        <meta name="keywords" content="Lumyn, digital solutions, privacy policy, data protection, personal information, tech company" />
+        <meta property="og:title" content="Privacy Policy | Lumyn - Modern Digital Solutions" />
         <meta
           property="og:description"
-          content="Learn about how the Kenyan Student Association at the University of Minnesota collects, uses, and protects your personal information."
+          content="Learn about how Lumyn collects, uses, and protects your personal information in our digital solutions services."
         />
-        <meta property="og:url" content="https://kesa-umn.vercel.app/privacy" />
+        <meta property="og:url" content="https://lumyn.vercel.app/privacy" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Privacy Policy | Kenyan Student Association - University of Minnesota" />
+        <meta name="twitter:title" content="Privacy Policy | Lumyn - Modern Digital Solutions" />
         <meta
           name="twitter:description"
-          content="Learn about how the Kenyan Student Association at the University of Minnesota collects, uses, and protects your personal information."
+          content="Learn about how Lumyn collects, uses, and protects your personal information in our digital solutions services."
         />
-        <link rel="canonical" href="https://kesa-umn.vercel.app/privacy" />
+        <link rel="canonical" href="https://lumyn.vercel.app/privacy" />
       </Head>
       <div className={styles.privacyPage}>
         <section className={styles.hero}>

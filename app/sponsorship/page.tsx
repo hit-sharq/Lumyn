@@ -20,8 +20,8 @@ const sponsorshipTiers: SponsorshipTier[] = [
     amount: "$100",
     color: "#051F20",
     benefits: [
-      "Recognition on KESA's social media platforms",
-      "A personalized thank-you email from the KESA board",
+      "Recognition on Lumyn's social media platforms",
+      "A personalized thank-you email from the Lumyn board",
       "Invitation to attend one of our general meetings or events",
     ],
   },
@@ -43,8 +43,8 @@ const sponsorshipTiers: SponsorshipTier[] = [
     color: "#163832",
     benefits: [
       "All benefits from the Advocate level",
-      "Logo or name featured on KESA's website and newsletters",
-      "Opportunity to showcase your business or organization at a KESA event",
+      "Logo or name featured on Lumyn's website and newsletters",
+      "Opportunity to showcase your business or organization at a Lumyn event",
       "Special recognition at both Fall and Spring Kickoff events",
     ],
   },
@@ -57,7 +57,7 @@ const sponsorshipTiers: SponsorshipTier[] = [
       "Open contributions of any amount",
       "Discussion of aligned sponsorship opportunities",
       "In-kind donations, services, or monetary contributions",
-      "Support to help KESA grow and thrive",
+      "Support to help Lumyn grow and thrive",
     ],
   },
 ]
@@ -88,32 +88,32 @@ export default function SponsorshipPage() {
   return (
     <>
       <Head>
-        <title>Sponsorship Opportunities | Kenyan Student Association - University of Minnesota</title>
+        <title>Sponsorship Opportunities | Lumyn - University of Minnesota</title>
         <meta
           name="description"
-          content="Partner with the Kenyan Student Association at the University of Minnesota. Support our mission and gain recognition through various sponsorship levels."
+          content="Partner with Lumyn, the Kenyan Student Association at the University of Minnesota. Support our mission and gain recognition through various sponsorship levels."
         />
-        <meta name="keywords" content="KESA, Kenyan Student Association, sponsorship, partner, support, University of Minnesota, student organization" />
-        <meta property="og:title" content="Sponsorship Opportunities | Kenyan Student Association - University of Minnesota" />
+        <meta name="keywords" content="Lumyn, Kenyan Student Association, sponsorship, partner, support, University of Minnesota, student organization" />
+        <meta property="og:title" content="Sponsorship Opportunities | Lumyn - University of Minnesota" />
         <meta
           property="og:description"
-          content="Partner with the Kenyan Student Association at the University of Minnesota. Support our mission and gain recognition through various sponsorship levels."
+          content="Partner with Lumyn, the Kenyan Student Association at the University of Minnesota. Support our mission and gain recognition through various sponsorship levels."
         />
-        <meta property="og:url" content="https://kesa-umn.vercel.app/sponsorship" />
+        <meta property="og:url" content="https://lumyn.vercel.app/sponsorship" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Sponsorship Opportunities | Kenyan Student Association - University of Minnesota" />
+        <meta name="twitter:title" content="Sponsorship Opportunities | Lumyn - University of Minnesota" />
         <meta
           name="twitter:description"
-          content="Partner with the Kenyan Student Association at the University of Minnesota. Support our mission and gain recognition through various sponsorship levels."
+          content="Partner with Lumyn, the Kenyan Student Association at the University of Minnesota. Support our mission and gain recognition through various sponsorship levels."
         />
-        <link rel="canonical" href="https://kesa-umn.vercel.app/sponsorship" />
+        <link rel="canonical" href="https://lumyn.vercel.app/sponsorship" />
       </Head>
       <div className={styles.sponsorshipPage}>
         {/* Hero Section */}
         <section className={styles.hero}>
           <div className={styles.heroContent}>
-            <h1 className={styles.heroTitle}>Partner With KESA</h1>
+            <h1 className={styles.heroTitle}>Partner With Lumyn</h1>
             <p className={styles.heroSubtitle}>
               Support our mission of fostering inclusivity, academic excellence, and leadership development
             </p>
@@ -216,7 +216,7 @@ export default function SponsorshipPage() {
             <div className={styles.contactCard}>
               <h3 className={styles.contactTitle}>Mailing Address</h3>
               <p className={styles.contactText}>
-                Kenyan Student Association (KESA)
+                Lumyn - Kenyan Student Association
                 <br />
                 University of Minnesota
                 <br />
@@ -238,8 +238,8 @@ export default function SponsorshipPage() {
               <p className={styles.contactText}>
                 <strong>General Inquiries:</strong>
                 <br />
-                <a href="mailto:kesa@umn.edu" className={styles.contactLink}>
-                  kesa@umn.edu
+                <a href="mailto:lumyn@umn.edu" className={styles.contactLink}>
+                  lumyn@umn.edu
                 </a>
               </p>
             </div>
@@ -247,17 +247,17 @@ export default function SponsorshipPage() {
             <div className={styles.contactCard}>
               <h3 className={styles.contactTitle}>Payment Options</h3>
               <p className={styles.contactText}>
-                <strong>CashApp:</strong> $kesaumn
+                <strong>CashApp:</strong> $lumynumn
               </p>
               <p className={styles.contactText}>
                 <strong>Instagram:</strong>{" "}
                 <a
-                  href="https://www.instagram.com/kesaumn"
+                  href="https://www.instagram.com/lumynumn"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.contactLink}
                 >
-                  @kesaumn
+                  @lumynumn
                 </a>
               </p>
             </div>

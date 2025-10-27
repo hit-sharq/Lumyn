@@ -32,7 +32,7 @@ interface Stats {
 export default function HomePage() {
   const [upcomingEvents, setUpcomingEvents] = useState<Event[]>([])
   const [latestNews, setLatestNews] = useState<News[]>([])
-  const [stats, setStats] = useState<Stats>({ members: 0, events: 0, news: 0, yearsActive: 10})
+  const [stats, setStats] = useState<Stats>({ members: 0, events: 0, news: 0, yearsActive: 1})
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -72,21 +72,19 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className={styles.hero}>
         <div className={styles.heroOverlay}></div>
-        <Image
-          src="/images/hero-team.jpg"
-          alt="Kenyan Student Association Team"
-          fill
-          priority
-          className={styles.heroImage}
+        <img
+          src="https://media.giphy.com/media/qgQUggAC3Pfv687qPC/giphy.gif"
+          alt="Developer Coding Animation"
+          className={styles.heroGif}
         />
         <div className={styles.heroContent}>
-          <h1 className={styles.heroTitle}>Kenyan Student Association</h1>
-          <p className={styles.heroSubtitle}>University of Minnesota</p>
+          <h1 className={styles.heroTitle}>Lumyn</h1>
+          <p className={styles.heroSubtitle}>Modern Digital Solutions</p>
           <p className={styles.heroDescription}>
-            Celebrating Kenyan culture, building community, and creating lasting connections
+            Transforming businesses with innovative web development, cutting-edge technology, and exceptional digital experiences
           </p>
           <Link href="/membership" className={styles.joinButton}>
-            Join Now
+            Start Your Project
           </Link>
         </div>
       </section>
@@ -94,24 +92,23 @@ export default function HomePage() {
       {/* About Section */}
       <section className={styles.aboutSection}>
         <div className={styles.container}>
-          <h2 className={styles.sectionTitle}>Welcome to KESA</h2>
+          <h2 className={styles.sectionTitle}>Welcome to Lumyn</h2>
           <p className={styles.aboutText}>
-            The Kenyan Student Association at the University of Minnesota is a vibrant community dedicated to
-            celebrating Kenyan culture, fostering connections among students, and creating a home away from home for
-            Kenyan students and friends of Kenya.
+            We are a forward-thinking tech company specializing in modern digital solutions. From web development to
+            digital strategy, we help businesses shine online with innovative technology and exceptional user experiences.
           </p>
           <div className={styles.statsGrid}>
             <div className={styles.statCard}>
               <h3 className={styles.statNumber}>{loading ? "..." : stats.members}</h3>
-              <p className={styles.statLabel}>Active Members</p>
+              <p className={styles.statLabel}>Projects Completed</p>
             </div>
             <div className={styles.statCard}>
               <h3 className={styles.statNumber}>{loading ? "..." : stats.events}</h3>
-              <p className={styles.statLabel}>Total Events</p>
+              <p className={styles.statLabel}>Happy Clients</p>
             </div>
             <div className={styles.statCard}>
               <h3 className={styles.statNumber}>{loading ? "..." : `${stats.yearsActive}+`}</h3>
-              <p className={styles.statLabel}>Years Strong</p>
+              <p className={styles.statLabel}>Years Experience</p>
             </div>
           </div>
         </div>
@@ -159,20 +156,19 @@ export default function HomePage() {
 
       {/* CTA Section */}
       <section className={styles.ctaSection}>
-        <Image
-          src="/images/WhatsApp Image 2025-10-03 at 18.32.17_5a3dc3ec.jpg"
-          alt="Join the Kenyan Student Association Community"
-          fill
-          className={styles.ctaBackgroundImage}
+        <img
+          src="https://media.giphy.com/media/SWoSkN6DxTszqIKEqv/giphy.gif"
+          alt="Developer Coding Animation"
+          className={styles.ctaGif}
         />
         <div className={styles.ctaOverlay}></div>
         <div className={`${styles.container} ${styles.ctaContainer}`}>
-          <h2 className={styles.ctaTitle}>Ready to Join Our Community?</h2>
+          <h2 className={styles.ctaTitle}>Ready to Transform Your Business?</h2>
           <p className={styles.ctaText}>
-            Become a member today and be part of something special. Membership is completely free!
+            Let's discuss your project and bring your digital vision to life. Get started with a free consultation!
           </p>
           <Link href="/membership" className={styles.ctaButton}>
-            Sign Up Now
+            Start Your Project
           </Link>
         </div>
       </section>

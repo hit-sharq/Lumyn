@@ -1,22 +1,22 @@
-# Kenyan Student Association Website
+# Lumyn - Modern Digital Solutions
 
-A full-stack web application for the Kenyan Student Association at the University of Minnesota, built with Next.js, TypeScript, Prisma, PostgreSQL, and Clerk authentication. The design aesthetic is inspired by modern sports websites (Chelsea FC's design system) featuring a bold blue and red color scheme.
+A full-stack web application for Lumyn, a modern digital solutions company, built with Next.js, TypeScript, Prisma, PostgreSQL, and Clerk authentication. The design aesthetic features a professional green and blue color scheme.
 
 
 ## 🌟 Features
 
 ### Public-Facing Pages
-- **Homepage**: Dynamic hero section with team photo, real-time statistics, upcoming events preview, and latest news
-- **About**: Mission statement, values, and leadership team information
+- **Homepage**: Dynamic hero section with company branding, real-time statistics, upcoming projects preview, and latest news
+- **About**: Company mission, values, and team information
 - **Events**: Comprehensive events listing with filtering (upcoming/past), detailed event pages, and registration links
 - **News**: Latest news articles with category filtering and individual article pages
-- **Blog**: Community blog posts with author information and category organization
-- **Gallery**: Photo gallery with category filtering and lightbox modal for full-size viewing
+- **Blog**: Company blog posts with author information and category organization
+- **Gallery**: Project gallery with category filtering and lightbox modal for full-size viewing
 - **Contact**: Contact form with real-time submission to admin dashboard and email notifications
-- **Membership**: Free membership signup form with validation
-- **Newsletter**: Email subscription page for community updates
+- **Membership**: Project consultation form with validation
+- **Newsletter**: Email subscription page for company updates
 - **Privacy Policy**: Comprehensive privacy policy for user data protection
-- **Terms & Conditions**: Legal terms for website use and membership
+- **Terms & Conditions**: Legal terms for website use and services
 
 ### Authentication & Authorization
 - **Clerk Integration**: Secure user authentication with sign-in/sign-up
@@ -42,7 +42,7 @@ A full-stack web application for the Kenyan Student Association at the Universit
 - **Framework**: Next.js 15 (App Router)
 - **Language**: TypeScript
 - **Styling**: Custom CSS Modules (no Tailwind or UI libraries)
-- **Design**: Modern sports aesthetic inspired by Chelsea FC's design system (blue/red color scheme)
+- **Design**: Modern professional aesthetic with green and blue color scheme
 - **Authentication UI**: Clerk components (SignInButton, UserButton)
 
 ### Backend
@@ -52,53 +52,7 @@ A full-stack web application for the Kenyan Student Association at the Universit
 - **Authentication**: Clerk for secure user authentication
 - **Email**: Nodemailer with Gmail for contact form notifications
 
-### Environment Variables
 
-This project requires the following environment variables:
-
-\`\`\`env
-# Database (Neon PostgreSQL)
-DATABASE_URL="postgresql://user:password@host/database?sslmode=require"
-
-# Clerk Authentication
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="pk_test_..."
-CLERK_SECRET_KEY="sk_test_..."
-
-# Admin Access Control
-NEXT_PUBLIC_ADMIN_IDS="user_xxxxxxxxxxxxx,user_yyyyyyyyyyyyy"
-
-# Email Notifications (Gmail via Nodemailer)
-GMAIL_USER="your-email@gmail.com"
-GMAIL_APP_PASSWORD="your-16-character-app-password"
-ADMIN_EMAIL="admin@ksa-umn.edu"
-\`\`\`
-
-**Setting up environment variables:**
-
-1. **Database URL**: - **v0 Project**: [Continue Building](https://v0.app/chat/projects/
-
-   - Provided automatically when you connect the Neon integration in v0
-   - Format: `postgresql://[user]:[password]@[host]/[database]?sslmode=require`
-
-2. **Clerk Authentication**:
-   - Sign up at [clerk.com](https://clerk.com)
-   - Create a new application
-   - Copy the publishable key to `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`
-   - Copy the secret key to `CLERK_SECRET_KEY`
-
-3. **Admin Access Control**:
-   - `NEXT_PUBLIC_ADMIN_IDS`: Comma-separated list of Clerk user IDs who should have admin access
-   - To find your user ID: Sign in to your app, then check the Clerk dashboard under Users
-   - Example: `"user_2abc123def,user_2xyz789ghi"`
-
-4. **Email Notifications (Gmail)**:
-   - `GMAIL_USER`: Your Gmail address (e.g., "yourname@gmail.com")
-   - `GMAIL_APP_PASSWORD`: A 16-character app-specific password from Google
-     - Go to your Google Account settings
-     - Navigate to Security → 2-Step Verification → App passwords
-     - Generate a new app password for "Mail"
-     - Copy the 16-character password (no spaces)
-   - `ADMIN_EMAIL`: The email address that should receive contact form notifications (can be the same as GMAIL_USER)
 
 ## 📁 Project Structure
 
@@ -143,7 +97,7 @@ ADMIN_EMAIL="admin@ksa-umn.edu"
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js 18+ 
+- Node.js 18+
 - npm or yarn
 - PostgreSQL database (Neon recommended)
 - Clerk account for authentication
@@ -153,8 +107,8 @@ ADMIN_EMAIL="admin@ksa-umn.edu"
 
 1. Clone the repository:
 \`\`\`bash
-git clone https://github.com/your-username/ksa-website.git
-cd ksa-website
+git clone https://github.com/your-username/lumyn-website.git
+cd lumyn-website
 \`\`\`
 
 2. Install dependencies:
@@ -171,7 +125,7 @@ CLERK_SECRET_KEY="your_clerk_secret_key"
 NEXT_PUBLIC_ADMIN_IDS="your_clerk_user_id"
 GMAIL_USER="your-email@gmail.com"
 GMAIL_APP_PASSWORD="your-16-character-app-password"
-ADMIN_EMAIL="admin@ksa-umn.edu"
+ADMIN_EMAIL="admin@lumyn.edu"
 \`\`\`
 
 4. Set up the database:
@@ -204,10 +158,10 @@ To access the admin panel:
 ## 🎨 Design System
 
 ### Color Palette
-- **Primary Blue**: `#034694` (inspired by Chelsea FC)
-- **Accent Red**: `#dc2626` (inspired by Kenyan flag)
-- **Dark Blue**: `#001f3f`
-- **Light Blue**: `#e6f2ff`
+- **Primary Green**: `#8eb69b` (professional and trustworthy)
+- **Accent Blue**: `#163832` (complementary dark tone)
+- **Dark Green**: `#051f20`
+- **Light Green**: `#daf1de`
 - **Neutrals**: White, grays, black
 
 ### Typography
@@ -306,17 +260,16 @@ This is a student organization project. To contribute:
 
 ## 📄 License
 
-This project is built for the Kenyan Student Association at the University of Minnesota.
+This project is built for Lumyn, the Kenyan Student Association at the University of Minnesota.
 
 ## 🔗 Links
 
-- **Live Site**: [Vercel Deployment](https://vercel.com/officialfoodbridgeinfo-gmailcoms-projects/v0-chelsea-fc-website-clone)
-- **Organization**: Kenyan Student Association - University of Minnesota
+- **Organization**: Lumyn - Kenyan Student Association - University of Minnesota
 
 ## 📧 Contact
 
-For questions or support, use the contact form on the website or reach out to the KSA leadership team.
+For questions or support, use the contact form on the website or reach out to the Lumyn leadership team.
 
 ---
 
-Built with ❤️ by the Kenyan Student Association community
+Built with ❤️ by the Lumyn community

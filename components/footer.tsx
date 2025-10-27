@@ -7,9 +7,9 @@ export default function Footer() {
       <div className={styles.container}>
         <div className={styles.footerGrid}>
           <div className={styles.footerSection}>
-            <h3 className={styles.footerTitle}>KESA - UMN</h3>
+            <h3 className={styles.footerTitle}>Lumyn</h3>
             <p className={styles.footerText}>
-              Kenyan Student Association at the University of Minnesota. Building community and celebrating culture.
+              Modern digital solutions company. Transforming businesses with innovative technology and exceptional user experiences.
             </p>
           </div>
 
@@ -38,7 +38,7 @@ export default function Footer() {
             <h4 className={styles.footerHeading}>Get Involved</h4>
             <nav className={styles.footerLinks}>
               <Link href="/membership" className={styles.footerLink}>
-                Join KESA
+                Join Lumyn
               </Link>
               <Link href="/sponsorship" className={styles.footerLink}>
                 Sponsorship
@@ -56,17 +56,17 @@ export default function Footer() {
             <h4 className={styles.footerHeading}>Connect</h4>
             <div className={styles.socialLinks}>
               <a href="#" className={styles.socialLink} aria-label="Facebook">
-                KE
+                L
               </a>
               <a
                 href="https://www.instagram.com/kesa.umn?igsh=MW0yYWJsdTY1b3N6eQ=="
                 className={styles.socialLink}
                 aria-label="Instagram"
               >
-                IG
+                Y
               </a>
               <a href="#" className={styles.socialLink} aria-label="Twitter">
-                SA
+                M
               </a>
             </div>
             <div className={styles.legalLinks}>
@@ -83,7 +83,7 @@ export default function Footer() {
 
         <div className={styles.footerBottom}>
           <p className={styles.copyright}>
-            © {new Date().getFullYear()} Kenyan Student Association - University of Minnesota. All rights reserved.
+            © {new Date().getFullYear()} Lumyn. All rights reserved.
           </p>
         </div>
       </div>

@@ -37,132 +37,136 @@ export default function FAQPage() {
   const sections: Section[] = [
     {
       id: "about-kesa",
-      title: "About KESA",
+      title: "About Lumyn",
       content: (
         <>
           <details className={styles.faqItem}>
-            <summary className={styles.faqQuestion}>What is KESA?</summary>
+            <summary className={styles.faqQuestion}>What is Lumyn?</summary>
             <p className={styles.faqAnswer}>
-              KESA (Kenyan Student Association) is a student organization at the University of Minnesota dedicated to
-              fostering a vibrant community for Kenyan students and friends of Kenya. We celebrate Kenyan culture,
-              promote academic excellence, and build lasting connections.
+              Lumyn is a forward-thinking tech company specializing in modern digital solutions. We design and develop
+              high-performance websites, web applications, and digital experiences that help businesses shine online.
             </p>
           </details>
           <details className={styles.faqItem}>
-            <summary className={styles.faqQuestion}>What is KESA's mission?</summary>
+            <summary className={styles.faqQuestion}>What is Lumyn's mission?</summary>
             <p className={styles.faqAnswer}>
-              Our mission is to unite and empower Kenyan youth by fostering a sense of community, academic excellence,
-              cultural pride, and professional development among our members while preserving and celebrating our rich heritage.
+              Our mission is to empower businesses with elegant, efficient, and scalable digital solutions that drive
+              growth and success in the modern digital landscape.
             </p>
           </details>
           <details className={styles.faqItem}>
-            <summary className={styles.faqQuestion}>When was KESA founded?</summary>
+            <summary className={styles.faqQuestion}>When was Lumyn founded?</summary>
             <p className={styles.faqAnswer}>
-              KESA was established to serve the growing Kenyan student community at the University of Minnesota and
-              continues to grow and evolve with the needs of our members.
+              Lumyn was founded by Joshua Mwendwa, a passionate software engineer dedicated to crafting seamless user
+              experiences and innovative digital solutions.
             </p>
           </details>
         </>
       ),
     },
     {
-      id: "membership",
-      title: "Membership",
+      id: "services",
+      title: "Services",
       content: (
         <>
           <details className={styles.faqItem}>
-            <summary className={styles.faqQuestion}>How do I become a member of KESA?</summary>
+            <summary className={styles.faqQuestion}>What services does Lumyn offer?</summary>
             <p className={styles.faqAnswer}>
-              Membership is free and open to all University of Minnesota students. Simply visit our membership page,
-              fill out the application form, and submit it. You'll receive a confirmation email once your application is processed.
+              We offer comprehensive digital solutions including web design and development, branding and digital strategy,
+              full-stack application development, cloud integration and hosting, and ongoing maintenance and security.
             </p>
           </details>
           <details className={styles.faqItem}>
-            <summary className={styles.faqQuestion}>Is membership free?</summary>
+            <summary className={styles.faqQuestion}>Do you work with businesses of all sizes?</summary>
             <p className={styles.faqAnswer}>
-              Yes! KESA membership is completely free. We believe that access to our community and resources should be
-              available to all students regardless of financial situation.
+              Yes! We work with startups, small businesses, and established companies. Our scalable solutions are designed
+              to grow with your business needs.
             </p>
           </details>
           <details className={styles.faqItem}>
-            <summary className={styles.faqQuestion}>Who can join KESA?</summary>
+            <summary className={styles.faqQuestion}>How long does a typical project take?</summary>
             <p className={styles.faqAnswer}>
-              Any current University of Minnesota student who is interested in Kenyan culture and community building
-              is welcome to join. You don't need to be Kenyan or have Kenyan heritage to be a member.
+              Project timelines vary based on complexity and scope. A simple website might take 2-4 weeks, while a full
+              web application could take 8-12 weeks or more. We'll provide a detailed timeline during our initial consultation.
             </p>
           </details>
           <details className={styles.faqItem}>
-            <summary className={styles.faqQuestion}>What benefits do members receive?</summary>
+            <summary className={styles.faqQuestion}>Do you provide ongoing support?</summary>
             <p className={styles.faqAnswer}>
-              Members get access to exclusive events, networking opportunities, mentorship programs, leadership
-              development, cultural celebrations, and a supportive community of fellow students.
+              Absolutely! We offer maintenance packages for updates, security monitoring, performance optimization,
+              and technical support to ensure your digital assets remain secure and up-to-date.
             </p>
           </details>
         </>
       ),
     },
     {
-      id: "events",
-      title: "Events",
+      id: "process",
+      title: "Our Process",
       content: (
         <>
           <details className={styles.faqItem}>
-            <summary className={styles.faqQuestion}>What types of events does KESA organize?</summary>
+            <summary className={styles.faqQuestion}>What is your development process?</summary>
             <p className={styles.faqAnswer}>
-              We organize cultural celebrations, networking events, social gatherings, academic workshops, community
-              service activities, and professional development seminars throughout the academic year.
+              Our process includes discovery and planning, design and prototyping, development and testing,
+              deployment and launch, followed by ongoing maintenance and support.
             </p>
           </details>
           <details className={styles.faqItem}>
-            <summary className={styles.faqQuestion}>How do I find out about upcoming events?</summary>
+            <summary className={styles.faqQuestion}>How do you ensure project quality?</summary>
             <p className={styles.faqAnswer}>
-              Stay updated by subscribing to our newsletter, following us on social media (@kesaumn on Instagram),
-              checking our events page regularly, or joining our mailing list.
+              We follow industry best practices with thorough testing, code reviews, performance optimization,
+              and security audits. We also provide regular updates and feedback sessions throughout the project.
             </p>
           </details>
           <details className={styles.faqItem}>
-            <summary className={styles.faqQuestion}>Do I need to be a member to attend events?</summary>
+            <summary className={styles.faqQuestion}>Can I see examples of your work?</summary>
             <p className={styles.faqAnswer}>
-              While membership provides priority access to some events, many of our events are open to the entire
-              university community. Check individual event descriptions for registration requirements.
+              While we maintain client confidentiality, we can discuss our approach and show relevant case studies.
+              Contact us to learn more about how we've helped similar businesses achieve their goals.
             </p>
           </details>
           <details className={styles.faqItem}>
-            <summary className={styles.faqQuestion}>How do I register for events?</summary>
+            <summary className={styles.faqQuestion}>What technologies do you use?</summary>
             <p className={styles.faqAnswer}>
-              Event registration details are provided on our events page. Some events require advance registration
-              through our website, while others are first-come, first-served.
+              We use modern, scalable technologies including React, Next.js, Node.js, TypeScript, PostgreSQL,
+              and cloud platforms like Vercel and AWS. We choose the best tools for each project's specific needs.
             </p>
           </details>
         </>
       ),
     },
     {
-      id: "getting-involved",
-      title: "Getting Involved",
+      id: "pricing",
+      title: "Pricing & Terms",
       content: (
         <>
           <details className={styles.faqItem}>
-            <summary className={styles.faqQuestion}>How can I get more involved with KESA?</summary>
+            <summary className={styles.faqQuestion}>How much do your services cost?</summary>
             <p className={styles.faqAnswer}>
-              There are many ways to get involved! Join committees, volunteer for events, participate in leadership
-              roles, contribute to our newsletter, or help with community outreach. Contact our leadership team to
-              learn about current opportunities.
+              Our pricing depends on project scope, complexity, and timeline. We provide custom quotes after understanding
+              your specific needs. Contact us for a free consultation and detailed proposal.
             </p>
           </details>
           <details className={styles.faqItem}>
-            <summary className={styles.faqQuestion}>Are there leadership opportunities?</summary>
+            <summary className={styles.faqQuestion}>Do you offer payment plans?</summary>
             <p className={styles.faqAnswer}>
-              Yes! KESA offers various leadership positions including committee chairs, event coordinators,
-              social media managers, and executive board roles. These positions help develop valuable skills for your
-              future career.
+              Yes, we offer flexible payment terms for larger projects. We typically require a deposit to begin work,
+              with milestone payments throughout the project lifecycle.
             </p>
           </details>
           <details className={styles.faqItem}>
-            <summary className={styles.faqQuestion}>Can I start my own initiative or event?</summary>
+            <summary className={styles.faqQuestion}>What is your refund policy?</summary>
             <p className={styles.faqAnswer}>
-              Absolutely! We encourage member-driven initiatives. If you have an idea for an event, workshop, or
-              project that aligns with our mission, reach out to our leadership team to discuss how we can support it.
+              We offer a satisfaction guarantee. If you're not happy with our work, we'll work to make it right.
+              Refunds are considered on a case-by-case basis for deposits on cancelled projects.
+            </p>
+          </details>
+          <details className={styles.faqItem}>
+            <summary className={styles.faqQuestion}>Do you provide contracts?</summary>
+            <p className={styles.faqAnswer}>
+              Yes, we provide detailed project contracts outlining scope, timeline, deliverables, and terms.
+              All agreements are transparent and protect both parties' interests.
             </p>
           </details>
         </>
@@ -174,24 +178,24 @@ export default function FAQPage() {
       content: (
         <>
           <details className={styles.faqItem}>
-            <summary className={styles.faqQuestion}>How do I contact KESA?</summary>
+            <summary className={styles.faqQuestion}>How do I contact Lumyn?</summary>
             <p className={styles.faqAnswer}>
-              You can reach us through our contact form on the website, email us at kesa@umn.edu, or connect with us
-              on Instagram (@kesaumn). For specific inquiries, contact our president at omoke005@umn.edu.
+              You can reach us through our contact form on the website or email us directly. We'll respond to all
+              inquiries within 24 hours and schedule a free consultation to discuss your project needs.
             </p>
           </details>
           <details className={styles.faqItem}>
-            <summary className={styles.faqQuestion}>Where is KESA located?</summary>
+            <summary className={styles.faqQuestion}>Where is Lumyn located?</summary>
             <p className={styles.faqAnswer}>
-              KESA operates primarily online and through campus events. Our mailing address is: Kenyan Student
-              Association, University of Minnesota, 326 SE 17th Ave, 446, Minneapolis, MN 55414.
+              Lumyn operates remotely, serving clients worldwide. Our founder Joshua Mwendwa is based in the Minneapolis area,
+              allowing us to serve local clients effectively while working with businesses globally.
             </p>
           </details>
           <details className={styles.faqItem}>
             <summary className={styles.faqQuestion}>How can I provide feedback or suggestions?</summary>
             <p className={styles.faqAnswer}>
-              We value your feedback! You can share suggestions through our contact form, email us directly, or
-              participate in our member surveys and feedback sessions.
+              We value your feedback! You can share suggestions through our contact form or email us directly.
+              We use client feedback to continuously improve our services and processes.
             </p>
           </details>
         </>
@@ -202,32 +206,30 @@ export default function FAQPage() {
   return (
     <>
       <Head>
-        <title>FAQ | Kenyan Student Association - University of Minnesota</title>
+        <title>FAQ | Lumyn - Modern Digital Solutions</title>
         <meta
           name="description"
-          content="Frequently asked questions about the Kenyan Student Association at the University of Minnesota. Learn about membership, events, and how to get involved."
+          content="Frequently asked questions about Lumyn digital solutions company. Learn about our services, process, and how we can help your business."
         />
-        <meta name="keywords" content="KESA, Kenyan Student Association, FAQ, frequently asked questions, membership, events, University of Minnesota" />
-        <meta property="og:title" content="FAQ | Kenyan Student Association - University of Minnesota" />
+        <meta name="keywords" content="Lumyn, digital solutions, FAQ, frequently asked questions, web development, tech company" />
+        <meta property="og:title" content="FAQ | Lumyn - Modern Digital Solutions" />
         <meta
           property="og:description"
-          content="Frequently asked questions about the Kenyan Student Association at the University of Minnesota."
+          content="Frequently asked questions about Lumyn digital solutions company."
         />
-        <meta property="og:url" content="https://kesa-umn.vercel.app/faq" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="FAQ | Kenyan Student Association - University of Minnesota" />
+        <meta name="twitter:title" content="FAQ | Lumyn - Modern Digital Solutions" />
         <meta
           name="twitter:description"
-          content="Frequently asked questions about the Kenyan Student Association at the University of Minnesota."
+          content="Frequently asked questions about Lumyn digital solutions company."
         />
-        <link rel="canonical" href="https://kesa-umn.vercel.app/faq" />
       </Head>
       <div className={styles.faqPage}>
         <section className={styles.hero}>
           <div className={styles.heroContent}>
             <h1 className={styles.heroTitle}>Frequently Asked Questions</h1>
-            <p className={styles.heroSubtitle}>Everything you need to know about KESA</p>
+            <p className={styles.heroSubtitle}>Everything you need to know about Lumyn</p>
             <p className={styles.lastUpdated}>Last Updated: {new Date().toLocaleDateString()}</p>
           </div>
         </section>

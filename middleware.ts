@@ -12,18 +12,14 @@ const isPublicRoute = createRouteMatcher([
   "/newsletter",
   "/privacy",
   "/terms",
-  "/robots.txt",  // Added to allow public access to robots.txt
-  "/sitemap(.*)", // Added to allow public access to sitemap.xml
   "/api/news(.*)",
   "/api/blog(.*)",
   "/api/events(.*)",
   "/api/gallery(.*)",
   "/api/contact",
-  "/api/membership",
+  "/api/membership(.*)", // Allow all membership API routes to be public for form submissions
   "/api/newsletter",
   "/api/stats",
-  "/api/sitemap",  // Added to allow public access to sitemap API
-  "/api/robots",  // Added to allow public access to robots.txt API
   "/sign-in(.*)",
   "/sign-up(.*)",
 ])

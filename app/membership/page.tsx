@@ -1,8 +1,7 @@
 "use client"
 
 import type React from "react"
-
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Head from "next/head"
 import styles from "./membership.module.css"
 
@@ -12,9 +11,13 @@ export default function MembershipPage() {
     lastName: "",
     email: "",
     phone: "",
-    year: "",
-    major: "",
-    interests: "",
+    company: "",
+    projectType: "",
+    budget: "",
+    timeline: "",
+    requirements: "",
+    goals: "",
+    references: "",
   })
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
   const [errorMessage, setErrorMessage] = useState("")
@@ -47,13 +50,18 @@ export default function MembershipPage() {
           lastName: "",
           email: "",
           phone: "",
-          year: "",
-          major: "",
-          interests: "",
+          company: "",
+          projectType: "",
+          budget: "",
+          timeline: "",
+          requirements: "",
+          goals: "",
+          references: "",
         })
       } else {
+        const errorData = await response.json()
         setStatus("error")
-        setErrorMessage("Failed to submit membership. Please try again.")
+        setErrorMessage(errorData.error || "Failed to submit project inquiry. Please try again.")
       }
     } catch (error) {
       setStatus("error")
@@ -64,272 +72,324 @@ export default function MembershipPage() {
   return (
     <>
       <Head>
-        <title>Join KESA | Kenyan Student Association - University of Minnesota</title>
+        <title>Project Inquiry | Custom Development Services - Lumyn</title>
         <meta
           name="description"
-          content="Join the Kenyan Student Association at the University of Minnesota. Connect with fellow students and access exclusive events and opportunities."
+          content="Tell us about your project needs. Get custom web development, mobile apps, and digital solutions from Lumyn's expert team."
         />
-        <meta name="keywords" content="KESA, Kenyan Student Association, membership, join, University of Minnesota, student organization" />
-        <meta property="og:title" content="Join KESA | Kenyan Student Association - University of Minnesota" />
+        <meta name="keywords" content="custom development, web development, mobile apps, project inquiry, digital solutions" />
+        <meta property="og:title" content="Project Inquiry | Custom Development Services - Lumyn" />
         <meta
           property="og:description"
-          content="Join the Kenyan Student Association at the University of Minnesota. Connect with fellow students and access exclusive events and opportunities."
+          content="Tell us about your project needs. Get custom web development, mobile apps, and digital solutions from Lumyn's expert team."
         />
-        <meta property="og:url" content="https://kesa-umn.vercel.app/membership" />
+        <meta property="og:url" content="https://lumyn.vercel.app/membership" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Join KESA | Kenyan Student Association - University of Minnesota" />
-        <meta
-          name="twitter:description"
-          content="Join the Kenyan Student Association at the University of Minnesota. Connect with fellow students and access exclusive events and opportunities."
-        />
-        <link rel="canonical" href="https://kesa-umn.vercel.app/membership" />
+        <meta name="twitter:title" content="Join Lumyn Network | Collaborate on Innovative Projects" />
       </Head>
+
       <div className={styles.membershipPage}>
+        {/* Hero Section */}
         <section className={styles.hero}>
-          <div className={styles.heroPattern}></div>
           <div className={styles.heroContent}>
-            <div className={styles.badge}>FREE MEMBERSHIP</div>
-            <h1 className={styles.heroTitle}>Join KESA Today</h1>
+            <div className={styles.badge}>START YOUR PROJECT</div>
+            <h1 className={styles.heroTitle}>Tell Us What You Need Built</h1>
             <p className={styles.heroSubtitle}>
-              Connect with fellow Kenyan students and become part of a thriving community at the University of Minnesota
+              Share your project vision and requirements. We'll create a custom solution that brings your ideas to life
+              with our expert development team.
             </p>
           </div>
         </section>
 
-      <section className={styles.benefitsSection}>
-        <div className={styles.container}>
-          <div className={styles.benefitsIntro}>
-            <h2 className={styles.sectionTitle}>Why Join KESA?</h2>
-            <p className={styles.sectionSubtitle}>
-              Membership is completely free and opens doors to incredible opportunities
-            </p>
+        {/* Benefits Section */}
+        <section className={styles.benefitsSection}>
+          <div className={styles.container}>
+            <div className={styles.benefitsIntro}>
+              <h2 className={styles.sectionTitle}>Why Choose Lumyn for Your Project?</h2>
+              <p className={styles.sectionSubtitle}>
+                We combine technical expertise with creative vision to deliver exceptional digital solutions.
+                From concept to launch, we're with you every step of the way.
+              </p>
+            </div>
+            <div className={styles.benefitsGrid}>
+              <div className={styles.benefitCard}>
+                <div className={styles.benefitIcon}>🚀</div>
+                <h3 className={styles.benefitTitle}>Custom Development</h3>
+                <p className={styles.benefitText}>
+                  Tailored solutions built specifically for your business needs and goals.
+                </p>
+              </div>
+              <div className={styles.benefitCard}>
+                <div className={styles.benefitIcon}>⚡</div>
+                <h3 className={styles.benefitTitle}>Fast Delivery</h3>
+                <p className={styles.benefitText}>
+                  Efficient development process with clear timelines and regular updates.
+                </p>
+              </div>
+              <div className={styles.benefitCard}>
+                <div className={styles.benefitIcon}>🎯</div>
+                <h3 className={styles.benefitTitle}>Quality Assurance</h3>
+                <p className={styles.benefitText}>
+                  Rigorous testing and quality checks to ensure your project exceeds expectations.
+                </p>
+              </div>
+              <div className={styles.benefitCard}>
+                <div className={styles.benefitIcon}>🛠️</div>
+                <h3 className={styles.benefitTitle}>Full Support</h3>
+                <p className={styles.benefitText}>
+                  Ongoing maintenance and support to keep your digital solution running smoothly.
+                </p>
+              </div>
+            </div>
           </div>
-          <div className={styles.benefitsGrid}>
-            <div className={styles.benefitCard}>
-              <div className={styles.benefitNumber}>01</div>
-              <h3 className={styles.benefitTitle}>Exclusive Events</h3>
-              <p className={styles.benefitText}>
-                Access to cultural celebrations, networking events, and social gatherings throughout the year.
+        </section>
+
+        {/* Application Form */}
+        <section className={styles.formSection}>
+          <div className={styles.container}>
+            <div className={styles.formHeader}>
+              <h2 className={styles.formTitle}>Tell Us About Your Project</h2>
+              <p className={styles.formSubtitle}>
+                Share your vision and requirements so we can create something amazing together
               </p>
             </div>
-            <div className={styles.benefitCard}>
-              <div className={styles.benefitNumber}>02</div>
-              <h3 className={styles.benefitTitle}>Community Network</h3>
-              <p className={styles.benefitText}>
-                Connect with fellow Kenyan students and build lasting friendships and professional relationships.
+
+            {status === "success" && (
+              <div className={styles.successMessage}>
+                <div className={styles.successIcon}>🎉</div>
+                <h3>Thank You!</h3>
+            <p>Your project inquiry has been received! We'll review your requirements and get back to you within 2-3 business days with a detailed proposal.</p>
+              </div>
+            )}
+
+            {status === "error" && (
+              <div className={styles.errorMessage}>
+                <p>{errorMessage}</p>
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className={styles.form}>
+              {/* Personal Information */}
+              <div className={styles.formCard}>
+                <div className={styles.cardHeader}>
+                  <div className={styles.cardIcon}>👤</div>
+                  <h3 className={styles.cardTitle}>Personal Information</h3>
+                </div>
+                <div className={styles.formGrid}>
+                  <div className={styles.formGroup}>
+                    <label htmlFor="firstName" className={styles.label}>First Name *</label>
+                    <input
+                      type="text"
+                      id="firstName"
+                      name="firstName"
+                      value={formData.firstName}
+                      onChange={handleChange}
+                      required
+                      className={styles.input}
+                      placeholder="Enter your first name"
+                    />
+                  </div>
+                  <div className={styles.formGroup}>
+                    <label htmlFor="lastName" className={styles.label}>Last Name *</label>
+                    <input
+                      type="text"
+                      id="lastName"
+                      name="lastName"
+                      value={formData.lastName}
+                      onChange={handleChange}
+                      required
+                      className={styles.input}
+                      placeholder="Enter your last name"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Contact Information */}
+              <div className={styles.formCard}>
+                <div className={styles.cardHeader}>
+                  <div className={styles.cardIcon}>📞</div>
+                  <h3 className={styles.cardTitle}>Contact Details</h3>
+                </div>
+                <div className={styles.formGrid}>
+                  <div className={styles.formGroup}>
+                    <label htmlFor="email" className={styles.label}>Email Address *</label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      className={styles.input}
+                      placeholder="your.email@example.com"
+                    />
+                  </div>
+                  <div className={styles.formGroup}>
+                    <label htmlFor="phone" className={styles.label}>Phone Number *</label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      required
+                      className={styles.input}
+                      placeholder="+1 (555) 123-4567"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Project Details */}
+              <div className={styles.formCard}>
+                <div className={styles.cardHeader}>
+                  <div className={styles.cardIcon}>💼</div>
+                  <h3 className={styles.cardTitle}>Project Details</h3>
+                </div>
+                <div className={styles.formGrid}>
+                  <div className={styles.formGroup}>
+                    <label htmlFor="projectType" className={styles.label}>Project Type *</label>
+                    <select
+                      id="projectType"
+                      name="projectType"
+                      value={formData.projectType}
+                      onChange={handleChange}
+                      required
+                      className={styles.select}
+                    >
+                      <option value="">Select project type</option>
+                      <option value="website">Website</option>
+                      <option value="web-app">Web Application</option>
+                      <option value="mobile-app">Mobile App</option>
+                      <option value="e-commerce">E-commerce Platform</option>
+                      <option value="cms">Content Management System</option>
+                      <option value="api">API Development</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+                  <div className={styles.formGroup}>
+                    <label htmlFor="company" className={styles.label}>Company/Organization *</label>
+                    <input
+                      type="text"
+                      id="company"
+                      name="company"
+                      value={formData.company}
+                      onChange={handleChange}
+                      required
+                      className={styles.input}
+                      placeholder="Your company or organization name"
+                    />
+                  </div>
+                </div>
+                <div className={styles.formGroup}>
+                  <label htmlFor="requirements" className={styles.label}>Project Requirements *</label>
+                  <textarea
+                    id="requirements"
+                    name="requirements"
+                    value={formData.requirements}
+                    onChange={handleChange}
+                    required
+                    className={styles.textarea}
+                    rows={4}
+                    placeholder="Describe what you need built, key features, functionality, and any specific requirements..."
+                  />
+                </div>
+              </div>
+
+              {/* Project Scope & Timeline */}
+              <div className={styles.formCard}>
+                <div className={styles.cardHeader}>
+                  <div className={styles.cardIcon}>📅</div>
+                  <h3 className={styles.cardTitle}>Scope & Timeline</h3>
+                </div>
+                <div className={styles.formGrid}>
+                  <div className={styles.formGroup}>
+                    <label htmlFor="budget" className={styles.label}>Budget Range *</label>
+                    <select
+                      id="budget"
+                      name="budget"
+                      value={formData.budget}
+                      onChange={handleChange}
+                      required
+                      className={styles.select}
+                    >
+                      <option value="">Select budget range</option>
+                      <option value="under-5k">Under $5,000</option>
+                      <option value="5k-15k">$5,000 - $15,000</option>
+                      <option value="15k-30k">$15,000 - $30,000</option>
+                      <option value="30k-50k">$30,000 - $50,000</option>
+                      <option value="50k-100k">$50,000 - $100,000</option>
+                      <option value="over-100k">Over $100,000</option>
+                    </select>
+                  </div>
+                  <div className={styles.formGroup}>
+                    <label htmlFor="timeline" className={styles.label}>Preferred Timeline *</label>
+                    <select
+                      id="timeline"
+                      name="timeline"
+                      value={formData.timeline}
+                      onChange={handleChange}
+                      required
+                      className={styles.select}
+                    >
+                      <option value="">Select timeline</option>
+                      <option value="asap">ASAP</option>
+                      <option value="1-month">Within 1 month</option>
+                      <option value="2-3-months">2-3 months</option>
+                      <option value="3-6-months">3-6 months</option>
+                      <option value="6-months-plus">6+ months</option>
+                      <option value="flexible">Flexible</option>
+                    </select>
+                  </div>
+                </div>
+                <div className={styles.formGroup}>
+                  <label htmlFor="goals" className={styles.label}>Project Goals & Objectives *</label>
+                  <textarea
+                    id="goals"
+                    name="goals"
+                    value={formData.goals}
+                    onChange={handleChange}
+                    required
+                    className={styles.textarea}
+                    rows={3}
+                    placeholder="What are the main goals and objectives you want to achieve with this project?"
+                  />
+                </div>
+                <div className={styles.formGroup}>
+                  <label htmlFor="references" className={styles.label}>References & Inspiration (Optional)</label>
+                  <textarea
+                    id="references"
+                    name="references"
+                    value={formData.references}
+                    onChange={handleChange}
+                    className={styles.textarea}
+                    rows={3}
+                    placeholder="Share any websites, apps, or examples that inspire your vision..."
+                  />
+                </div>
+              </div>
+
+              <button type="submit" className={styles.submitBtn} disabled={status === "loading"}>
+                {status === "loading" ? (
+                  <>
+                    <span className={styles.spinner}></span>
+                    Submitting Project Inquiry...
+                  </>
+                ) : (
+              "Submit Project Inquiry →"
+                )}
+              </button>
+
+              <p className={styles.disclaimer}>
+                By submitting this project inquiry, you agree to receive communications from Lumyn about your project.
+                We respect your privacy and will never share your information without permission.
               </p>
-            </div>
-            <div className={styles.benefitCard}>
-              <div className={styles.benefitNumber}>03</div>
-              <h3 className={styles.benefitTitle}>Academic Support</h3>
-              <p className={styles.benefitText}>
-                Access mentorship programs, study groups, and resources to help you succeed academically.
-              </p>
-            </div>
-            <div className={styles.benefitCard}>
-              <div className={styles.benefitNumber}>04</div>
-              <h3 className={styles.benefitTitle}>Leadership Opportunities</h3>
-              <p className={styles.benefitText}>
-                Develop leadership skills by participating in committees and organizing community events.
-              </p>
-            </div>
+            </form>
           </div>
-        </div>
-      </section>
-
-      <section className={styles.formSection}>
-        <div className={styles.container}>
-          <div className={styles.formHeader}>
-            <h2 className={styles.formTitle}>Start Your Journey</h2>
-            <p className={styles.formSubtitle}>Complete the form below to join our community</p>
-          </div>
-
-          {status === "success" && (
-            <div className={styles.successMessage}>
-              <div className={styles.successIcon}>✓</div>
-              <h3>Welcome to KESA!</h3>
-              <p>Your membership application has been received. Check your email for confirmation and next steps.</p>
-            </div>
-          )}
-
-          {status === "error" && (
-            <div className={styles.errorMessage}>
-              <p>{errorMessage}</p>
-            </div>
-          )}
-
-          <form onSubmit={handleSubmit} className={styles.form}>
-            {/* Personal Information Card */}
-            <div className={styles.formCard}>
-              <div className={styles.cardHeader}>
-                <div className={styles.cardIcon}>👤</div>
-                <h3 className={styles.cardTitle}>Personal Information</h3>
-              </div>
-              <div className={styles.formRow}>
-                <div className={styles.formGroup}>
-                  <label htmlFor="firstName" className={styles.label}>
-                    First Name *
-                  </label>
-                  <input
-                    type="text"
-                    id="firstName"
-                    name="firstName"
-                    value={formData.firstName}
-                    onChange={handleChange}
-                    required
-                    className={styles.input}
-                    placeholder="Joshua"
-                  />
-                </div>
-
-                <div className={styles.formGroup}>
-                  <label htmlFor="lastName" className={styles.label}>
-                    Last Name *
-                  </label>
-                  <input
-                    type="text"
-                    id="lastName"
-                    name="lastName"
-                    value={formData.lastName}
-                    onChange={handleChange}
-                    required
-                    className={styles.input}
-                    placeholder="Mwendwa"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Contact Information Card */}
-            <div className={styles.formCard}>
-              <div className={styles.cardHeader}>
-                <div className={styles.cardIcon}>📧</div>
-                <h3 className={styles.cardTitle}>Contact Information</h3>
-              </div>
-              <div className={styles.formRow}>
-                <div className={styles.formGroup}>
-                  <label htmlFor="email" className={styles.label}>
-                    Email Address *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className={styles.input}
-                    placeholder="officialjoshuamwendwa2gmail.com"
-                  />
-                </div>
-
-                <div className={styles.formGroup}>
-                  <label htmlFor="phone" className={styles.label}>
-                    Phone Number *
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    required
-                    className={styles.input}
-                    placeholder="(+254) 794 773 452"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Academic Information Card */}
-            <div className={styles.formCard}>
-              <div className={styles.cardHeader}>
-                <div className={styles.cardIcon}>🎓</div>
-                <h3 className={styles.cardTitle}>Academic Information</h3>
-              </div>
-              <div className={styles.formRow}>
-                <div className={styles.formGroup}>
-                  <label htmlFor="year" className={styles.label}>
-                    Academic Year *
-                  </label>
-                  <select
-                    id="year"
-                    name="year"
-                    value={formData.year}
-                    onChange={handleChange}
-                    required
-                    className={styles.select}
-                  >
-                    <option value="">Select your year</option>
-                    <option value="freshman">Freshman</option>
-                    <option value="sophomore">Sophomore</option>
-                    <option value="junior">Junior</option>
-                    <option value="senior">Senior</option>
-                    <option value="graduate">Graduate Student</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
-
-                <div className={styles.formGroup}>
-                  <label htmlFor="major" className={styles.label}>
-                    Major/Field of Study *
-                  </label>
-                  <input
-                    type="text"
-                    id="major"
-                    name="major"
-                    value={formData.major}
-                    onChange={handleChange}
-                    required
-                    className={styles.input}
-                    placeholder="Computer Science"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Interests Card */}
-            <div className={styles.formCard}>
-              <div className={styles.cardHeader}>
-                <div className={styles.cardIcon}>✨</div>
-                <h3 className={styles.cardTitle}>Get Involved</h3>
-              </div>
-              <div className={styles.formGroup}>
-                <label htmlFor="interests" className={styles.label}>
-                  Interests & How You'd Like to Get Involved
-                </label>
-                <textarea
-                  id="interests"
-                  name="interests"
-                  value={formData.interests}
-                  onChange={handleChange}
-                  className={styles.textarea}
-                  rows={4}
-                  placeholder="Tell us about your interests and how you'd like to contribute to KESA..."
-                />
-              </div>
-            </div>
-
-            <button type="submit" className={styles.submitBtn} disabled={status === "loading"}>
-              {status === "loading" ? (
-                <>
-                  <span className={styles.spinner}></span>
-                  Submitting...
-                </>
-              ) : (
-                "Join KESA Now →"
-              )}
-            </button>
-
-            <p className={styles.disclaimer}>
-              By submitting this form, you agree to receive communications from KESA about events, news, and
-              opportunities.
-            </p>
-          </form>
-        </div>
-      </section>
-    </div>
+        </section>
+      </div>
     </>
   )
 }

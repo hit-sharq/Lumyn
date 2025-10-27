@@ -40,64 +40,64 @@ export default function TermsPage() {
       title: "1. Acceptance of Terms",
       content: (
         <p className={styles.text}>
-          By accessing and using the Kenyan Student Association (KESA) website and services, you accept and agree to be
+          By accessing and using Lumyn's website and services, you accept and agree to be
           bound by these Terms and Conditions. If you do not agree to these terms, please do not use our website or
           services.
         </p>
       ),
     },
     {
-      id: "membership",
-      title: "2. Membership",
+      id: "services",
+      title: "2. Services",
       content: (
         <>
-          <h3 className={styles.subheading}>2.1 Eligibility</h3>
+          <h3 className={styles.subheading}>2.1 Service Description</h3>
           <p className={styles.text}>
-            Membership in KESA is open to all students at the University of Minnesota who are interested in Kenyan
-            culture and community. You must be a current student to maintain active membership.
+            Lumyn provides digital solutions including web design and development, branding, full-stack applications,
+            cloud integration, and ongoing maintenance services.
           </p>
 
-          <h3 className={styles.subheading}>2.2 Membership Obligations</h3>
-          <p className={styles.text}>As a member, you agree to:</p>
+          <h3 className={styles.subheading}>2.2 Client Obligations</h3>
+          <p className={styles.text}>As a client, you agree to:</p>
           <ul className={styles.list}>
-            <li>Provide accurate and current information during registration</li>
-            <li>Respect other members and maintain a welcoming community environment</li>
-            <li>Follow the University of Minnesota's student conduct code</li>
-            <li>Participate in good faith and support the organization's mission</li>
+            <li>Provide accurate and complete project requirements</li>
+            <li>Respond to communications in a timely manner</li>
+            <li>Provide necessary access and materials for project completion</li>
+            <li>Respect intellectual property rights and licensing agreements</li>
           </ul>
 
-          <h3 className={styles.subheading}>2.3 Membership Termination</h3>
+          <h3 className={styles.subheading}>2.3 Service Termination</h3>
           <p className={styles.text}>
-            KESA reserves the right to terminate or suspend membership for violations of these terms, university
-            policies, or conduct detrimental to the organization.
+            Either party may terminate services with written notice. Lumyn reserves the right to terminate services
+            for non-payment or breach of these terms.
           </p>
         </>
       ),
     },
     {
-      id: "events",
-      title: "3. Events and Activities",
+      id: "projects",
+      title: "3. Projects and Deliverables",
       content: (
         <>
-          <h3 className={styles.subheading}>3.1 Event Registration</h3>
+          <h3 className={styles.subheading}>3.1 Project Scope</h3>
           <p className={styles.text}>
-            Registration for events is subject to availability. KESA reserves the right to cancel or modify events at
-            any time. Registered participants will be notified of any changes.
+            Project scope and deliverables will be defined in writing before work begins. Any changes to scope may
+            affect timeline and pricing. Lumyn reserves the right to modify project approach for technical reasons.
           </p>
 
-          <h3 className={styles.subheading}>3.2 Event Conduct</h3>
-          <p className={styles.text}>Participants at KESA events must:</p>
+          <h3 className={styles.subheading}>3.2 Project Conduct</h3>
+          <p className={styles.text}>During project collaboration, all parties must:</p>
           <ul className={styles.list}>
-            <li>Behave respectfully toward all attendees, organizers, and venue staff</li>
-            <li>Follow all venue rules and safety guidelines</li>
-            <li>Refrain from harassment, discrimination, or disruptive behavior</li>
-            <li>Comply with applicable laws and university policies</li>
+            <li>Maintain professional and respectful communication</li>
+            <li>Meet agreed-upon deadlines and milestones</li>
+            <li>Provide constructive feedback and approvals in a timely manner</li>
+            <li>Comply with applicable laws and industry standards</li>
           </ul>
 
-          <h3 className={styles.subheading}>3.3 Photography and Media</h3>
+          <h3 className={styles.subheading}>3.3 Intellectual Property</h3>
           <p className={styles.text}>
-            By attending KESA events, you consent to being photographed or recorded for promotional purposes. If you do
-            not wish to be included in photos or videos, please inform event organizers.
+            Upon final payment, clients receive full ownership of deliverables. Lumyn retains rights to showcase work
+            in portfolios unless otherwise agreed. Third-party assets remain subject to their original licenses.
           </p>
         </>
       ),
@@ -114,12 +114,12 @@ export default function TermsPage() {
             <li>Attempt to gain unauthorized access to any part of the website</li>
             <li>Interfere with or disrupt the website's functionality</li>
             <li>Upload malicious code, viruses, or harmful content</li>
-            <li>Impersonate others or misrepresent your affiliation with KESA</li>
+            <li>Impersonate others or misrepresent your affiliation with Lumyn</li>
           </ul>
 
           <h3 className={styles.subheading}>4.2 User Content</h3>
           <p className={styles.text}>
-            If you submit content to our website (comments, photos, etc.), you grant KESA a non-exclusive, royalty-free
+            If you submit content to our website (contact forms, project inquiries, etc.), you grant Lumyn a non-exclusive, royalty-free
             license to use, reproduce, and display that content. You represent that you own or have permission to share
             any content you submit.
           </p>
@@ -131,8 +131,8 @@ export default function TermsPage() {
       title: "5. Intellectual Property",
       content: (
         <p className={styles.text}>
-          All content on the KESA website, including text, graphics, logos, images, and software, is the property of
-          KESA or its content suppliers and is protected by copyright and intellectual property laws. You may not
+          All content on the Lumyn website, including text, graphics, logos, images, and software, is the property of
+          Lumyn or its content suppliers and is protected by copyright and intellectual property laws. You may not
           reproduce, distribute, or create derivative works without explicit permission.
         </p>
       ),
@@ -142,16 +142,17 @@ export default function TermsPage() {
       title: "6. Payments and Refunds",
       content: (
         <>
-          <h3 className={styles.subheading}>6.1 Event Fees</h3>
+          <h3 className={styles.subheading}>6.1 Service Fees</h3>
           <p className={styles.text}>
-            Some events may require payment for registration. All fees must be paid in advance unless otherwise
-            specified. Payment information is processed securely through third-party payment processors.
+            Service fees are agreed upon in writing before work begins. All fees must be paid according to the
+            payment schedule outlined in the project contract. Payment information is processed securely through
+            third-party payment processors.
           </p>
 
           <h3 className={styles.subheading}>6.2 Refund Policy</h3>
           <p className={styles.text}>
-            Refunds for event registrations are handled on a case-by-case basis. Requests must be submitted at least 48
-            hours before the event. KESA reserves the right to deny refund requests.
+            Refunds for services are handled on a case-by-case basis. Requests must be submitted in writing.
+            Lumyn reserves the right to deny refund requests for completed work or services already rendered.
           </p>
         </>
       ),
@@ -161,7 +162,7 @@ export default function TermsPage() {
       title: "7. Disclaimer of Warranties",
       content: (
         <p className={styles.text}>
-          The KESA website and services are provided "as is" without warranties of any kind, either express or implied.
+          The Lumyn website and services are provided "as is" without warranties of any kind, either express or implied.
           We do not guarantee that the website will be uninterrupted, secure, or error-free.
         </p>
       ),
@@ -171,8 +172,8 @@ export default function TermsPage() {
       title: "8. Limitation of Liability",
       content: (
         <p className={styles.text}>
-          To the fullest extent permitted by law, KESA shall not be liable for any indirect, incidental, special, or
-          consequential damages arising from your use of the website or participation in events.
+          To the fullest extent permitted by law, Lumyn shall not be liable for any indirect, incidental, special, or
+          consequential damages arising from your use of the website or engagement of our services.
         </p>
       ),
     },
@@ -181,26 +182,26 @@ export default function TermsPage() {
   return (
     <>
       <Head>
-        <title>Terms and Conditions | Kenyan Student Association - University of Minnesota</title>
+        <title>Terms and Conditions | Lumyn - Modern Digital Solutions</title>
         <meta
           name="description"
-          content="Read the terms and conditions for using the Kenyan Student Association website and participating in our events and services."
+          content="Read the terms and conditions for using Lumyn's digital solutions services and website."
         />
-        <meta name="keywords" content="KESA, Kenyan Student Association, terms and conditions, terms of use, University of Minnesota" />
-        <meta property="og:title" content="Terms and Conditions | Kenyan Student Association - University of Minnesota" />
+        <meta name="keywords" content="Lumyn, digital solutions, terms and conditions, terms of use, tech company" />
+        <meta property="og:title" content="Terms and Conditions | Lumyn - Modern Digital Solutions" />
         <meta
           property="og:description"
-          content="Read the terms and conditions for using the Kenyan Student Association website and participating in our events and services."
+          content="Read the terms and conditions for using Lumyn's digital solutions services and website."
         />
-        <meta property="og:url" content="https://kesa-umn.vercel.app/terms" />
+        <meta property="og:url" content="https://lumyn.vercel.app/terms" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Terms and Conditions | Kenyan Student Association - University of Minnesota" />
+        <meta name="twitter:title" content="Terms and Conditions | Lumyn - Modern Digital Solutions" />
         <meta
           name="twitter:description"
-          content="Read the terms and conditions for using the Kenyan Student Association website and participating in our events and services."
+          content="Read the terms and conditions for using Lumyn's digital solutions services and website."
         />
-        <link rel="canonical" href="https://kesa-umn.vercel.app/terms" />
+        <link rel="canonical" href="https://lumyn.vercel.app/terms" />
       </Head>
       <div className={styles.termsPage}>
         <section className={styles.hero}>

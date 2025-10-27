@@ -47,7 +47,7 @@ export default function AdminPage() {
     <div className={styles.adminPage}>
       <div className={styles.sidebar}>
         <div className={styles.sidebarHeader}>
-          <h2 className={styles.sidebarTitle}>KESA Admin</h2>
+          <h2 className={styles.sidebarTitle}>Lumyn Admin</h2>
           <p className={styles.adminName}>{user.fullName || user.emailAddresses[0].emailAddress}</p>
         </div>
         <nav className={styles.nav}>

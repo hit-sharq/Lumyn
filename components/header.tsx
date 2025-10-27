@@ -17,8 +17,8 @@ export default function Header() {
     <header className={styles.header}>
       <div className={styles.container}>
         <Link href="/" className={styles.logo}>
-          <span className={styles.logoText}>KESA</span>
-          <span className={styles.logoSubtext}>UMN</span>
+          <span className={styles.logoText}>Lumyn</span>
+          <span className={styles.logoSubtext}>lym</span>
         </Link>
 
         <button className={styles.menuToggle} onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Toggle menu">
@@ -50,7 +50,7 @@ export default function Header() {
             </Link>
           )}
           <Link href="/membership" className={styles.joinBtn} onClick={() => setIsMenuOpen(false)}>
-            Join Now
+            Start Project
           </Link>
           <div className={styles.authButtons}>
             {isSignedIn ? (

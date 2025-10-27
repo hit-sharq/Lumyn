@@ -3,14 +3,17 @@
 import type React from "react"
 
 import { useState } from "react"
-import Head from "next/head"
 import styles from "./contact.module.css"
+
+// Enhanced contact form with phone number and areas of interest for well-detailed submissions
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     subject: "",
+    interests: "",
     message: "",
   })
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
@@ -39,7 +42,7 @@ export default function ContactPage() {
 
       if (response.ok) {
         setStatus("success")
-        setFormData({ name: "", email: "", subject: "", message: "" })
+        setFormData({ name: "", email: "", phone: "", subject: "", interests: "", message: "" })
       } else {
         setStatus("error")
         setErrorMessage("Failed to send message. Please try again.")
@@ -51,36 +54,13 @@ export default function ContactPage() {
   }
 
   return (
-    <>
-      <Head>
-        <title>Contact KESA | Kenyan Student Association - University of Minnesota</title>
-        <meta
-          name="description"
-          content="Get in touch with the Kenyan Student Association at the University of Minnesota. Have questions about KESA? Want to get involved? Reach out to us."
-        />
-        <meta name="keywords" content="KESA, Kenyan Student Association, contact, University of Minnesota, get in touch, membership, events" />
-        <meta property="og:title" content="Contact KESA | Kenyan Student Association - University of Minnesota" />
-        <meta
-          property="og:description"
-          content="Get in touch with the Kenyan Student Association at the University of Minnesota. Have questions about KESA? Want to get involved? Reach out to us."
-        />
-        <meta property="og:url" content="https://kesa-umn.vercel.app/contact" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Contact KESA | Kenyan Student Association - University of Minnesota" />
-        <meta
-          name="twitter:description"
-          content="Get in touch with the Kenyan Student Association at the University of Minnesota. Have questions about KESA? Want to get involved? Reach out to us."
-        />
-        <link rel="canonical" href="https://kesa-umn.vercel.app/contact" />
-      </Head>
-      <div className={styles.contactPage}>
-        <section className={styles.hero}>
-          <div className={styles.heroContent}>
-            <h1 className={styles.heroTitle}>Get In Touch</h1>
-            <p className={styles.heroSubtitle}>We'd love to hear from you. Send us a message!</p>
-          </div>
-        </section>
+    <div className={styles.contactPage}>
+      <section className={styles.hero}>
+        <div className={styles.heroContent}>
+          <h1 className={styles.heroTitle}>Get In Touch</h1>
+          <p className={styles.heroSubtitle}>We'd love to hear from you. Send us a message!</p>
+        </div>
+      </section>
 
       <section className={styles.contactSection}>
         <div className={styles.container}>
@@ -88,7 +68,7 @@ export default function ContactPage() {
             <div className={styles.contactInfo}>
               <h2 className={styles.infoTitle}>Contact Information</h2>
               <p className={styles.infoText}>
-                Have questions about KESA? Want to get involved? Reach out to us and we'll get back to you as soon as
+                Have questions about our services? Want to discuss a project? Reach out to us and we'll get back to you as soon as
                 possible.
               </p>
 
@@ -96,26 +76,26 @@ export default function ContactPage() {
                 <div className={styles.infoCard}>
                   <div className={styles.infoIcon}>📧</div>
                   <h3 className={styles.infoCardTitle}>Email</h3>
-                  <p className={styles.infoCardText}>kesa@umn.edu</p>
+                  <p className={styles.infoCardText}>lumyntechnologies@gmail.com</p>
                 </div>
 
                 <div className={styles.infoCard}>
                   <div className={styles.infoIcon}>📍</div>
                   <h3 className={styles.infoCardTitle}>Location</h3>
-                  <p className={styles.infoCardText}>University of Minnesota, Twin Cities</p>
+                  <p className={styles.infoCardText}>Remote & On-site Services</p>
                 </div>
 
                 <div className={styles.infoCard}>
                   <div className={styles.infoIcon}>🕐</div>
-                  <h3 className={styles.infoCardTitle}>Office Hours</h3>
-                  <p className={styles.infoCardText}>Mon-Fri: 10am - 4pm</p>
+                  <h3 className={styles.infoCardTitle}>Response Time</h3>
+                  <p className={styles.infoCardText}>Within 24 hours</p>
                 </div>
               </div>
 
               <div className={styles.socialSection}>
                 <h3 className={styles.socialTitle}>Follow Us</h3>
                 <div className={styles.socialLinks}>
-                  <a href="https://www.instagram.com/kesa.umn?igsh=MW0yYWJsdTY1b3N6eQ==" className={styles.socialLink}>
+                  <a href="https://www.instagram.com/j_lee087/" className={styles.socialLink}>
                     Instagram
                   </a>
                 </div>
@@ -171,6 +151,22 @@ export default function ContactPage() {
                 </div>
 
                 <div className={styles.formGroup}>
+                  <label htmlFor="phone" className={styles.label}>
+                    Phone Number
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className={styles.input}
+                    placeholder="+254 712 345 678"
+                  />
+                  {/* Added phone field for more detailed contact information */}
+                </div>
+
+                <div className={styles.formGroup}>
                   <label htmlFor="subject" className={styles.label}>
                     Subject *
                   </label>
@@ -184,11 +180,36 @@ export default function ContactPage() {
                   >
                     <option value="">Select a subject</option>
                     <option value="general">General Inquiry</option>
-                    <option value="membership">Membership Question</option>
-                    <option value="events">Event Information</option>
+                    <option value="project">Project Discussion</option>
+                    <option value="services">Service Information</option>
                     <option value="partnership">Partnership Opportunity</option>
+                    <option value="support">Technical Support</option>
                     <option value="other">Other</option>
                   </select>
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label htmlFor="interests" className={styles.label}>
+                    Areas of Interest
+                  </label>
+                  <select
+                    id="interests"
+                    name="interests"
+                    value={formData.interests}
+                    onChange={handleChange}
+                    className={styles.select}
+                  >
+                    <option value="">Select areas of interest (optional)</option>
+                    <option value="web-development">Web Development</option>
+                    <option value="mobile-apps">Mobile Applications</option>
+                    <option value="e-commerce">E-commerce Solutions</option>
+                    <option value="digital-strategy">Digital Strategy</option>
+                    <option value="branding">Branding & Design</option>
+                    <option value="consulting">Technical Consulting</option>
+                    <option value="maintenance">Ongoing Maintenance</option>
+                    <option value="other">Other Services</option>
+                  </select>
+                  {/* Added interests field for more detailed contact information */}
                 </div>
 
                 <div className={styles.formGroup}>
@@ -216,6 +237,5 @@ export default function ContactPage() {
         </div>
       </section>
     </div>
-    </>
   )
 }

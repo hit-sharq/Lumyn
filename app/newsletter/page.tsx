@@ -40,30 +40,30 @@ export default function NewsletterPage() {
   return (
     <>
       <Head>
-        <title>Subscribe to KESA Newsletter | Kenyan Student Association - University of Minnesota</title>
+        <title>Subscribe to Lumyn Newsletter | Kenyan Student Association - University of Minnesota</title>
         <meta
           name="description"
-          content="Stay connected with the Kenyan Student Association at the University of Minnesota. Subscribe to our newsletter for updates on events, news, and community activities."
+          content="Stay connected with Lumyn, the Kenyan Student Association at the University of Minnesota. Subscribe to our newsletter for updates on events, news, and community activities."
         />
-        <meta name="keywords" content="KESA, Kenyan Student Association, newsletter, subscribe, events, news, community, University of Minnesota" />
-        <meta property="og:title" content="Subscribe to KESA Newsletter | Kenyan Student Association - University of Minnesota" />
+        <meta name="keywords" content="Lumyn, Kenyan Student Association, newsletter, subscribe, events, news, community, University of Minnesota" />
+        <meta property="og:title" content="Subscribe to Lumyn Newsletter | Kenyan Student Association - University of Minnesota" />
         <meta
           property="og:description"
-          content="Stay connected with the Kenyan Student Association at the University of Minnesota. Subscribe to our newsletter for updates on events, news, and community activities."
+          content="Stay connected with Lumyn, the Kenyan Student Association at the University of Minnesota. Subscribe to our newsletter for updates on events, news, and community activities."
         />
-        <meta property="og:url" content="https://kesa-umn.vercel.app/newsletter" />
+        <meta property="og:url" content="https://lumyn.vercel.app/newsletter" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Subscribe to KESA Newsletter | Kenyan Student Association - University of Minnesota" />
+        <meta name="twitter:title" content="Subscribe to Lumyn Newsletter | Kenyan Student Association - University of Minnesota" />
         <meta
           name="twitter:description"
-          content="Stay connected with the Kenyan Student Association at the University of Minnesota. Subscribe to our newsletter for updates on events, news, and community activities."
+          content="Stay connected with Lumyn, the Kenyan Student Association at the University of Minnesota. Subscribe to our newsletter for updates on events, news, and community activities."
         />
-        <link rel="canonical" href="https://kesa-umn.vercel.app/newsletter" />
+        <link rel="canonical" href="https://lumyn.vercel.app/newsletter" />
       </Head>
       <div className={styles.container}>
         <div className={styles.content}>
-          <h1 className={styles.title}>Stay Connected with KESA</h1>
+          <h1 className={styles.title}>Stay Connected with Lumyn</h1>
           <p className={styles.subtitle}>
             Subscribe to our newsletter and never miss an update about upcoming events, news, and community activities.
           </p>

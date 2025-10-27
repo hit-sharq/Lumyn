@@ -1,212 +1,282 @@
-import type { Metadata } from "next"
+"use client"
+
+import { useEffect, useRef, useState } from "react"
+import Head from "next/head"
+import Link from "next/link"
 import Image from "next/image"
-import { prisma } from "@/lib/prisma"
-import styles from "./about.module.css"
+import styles from "../privacy/privacy.module.css"
+import type { JSX } from "react/jsx-runtime"
+
+interface Section {
+  id: string
+  title: string
+  content: JSX.Element
+}
 
 interface Leader {
   id: string
   name: string
   position: string
   role: string
-  imageUrl: string | null
+  imageUrl?: string
   order: number
-  createdAt: Date
-  updatedAt: Date
 }
 
-export const metadata: Metadata = {
-  title: "About KESA - Kenyan Student Association | University of Minnesota",
-  description: "Learn about the Kenyan Student Association at the University of Minnesota. Discover our mission, vision, values, and leadership team dedicated to celebrating Kenyan culture and building community.",
-  keywords: [
-    "about KESA",
-    "Kenyan Student Association",
-    "University of Minnesota",
-    "leadership team",
-    "cultural organization",
-    "student community",
-    "Kenyan diaspora"
-  ],
-  openGraph: {
-    title: "About KESA - Kenyan Student Association | University of Minnesota",
-    description: "Learn about the Kenyan Student Association at the University of Minnesota. Discover our mission, vision, values, and leadership team.",
-    url: "https://kesa-umn.vercel.app/about",
-    siteName: "KESA UMN",
-    images: [
-      {
-        url: "/images/hero-team.jpg",
-        width: 1200,
-        height: 630,
-        alt: "KESA Leadership Team",
+export default function AboutPage() {
+  const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set())
+  const [leaders, setLeaders] = useState<Leader[]>([])
+  const [loading, setLoading] = useState(true)
+  const sectionRefs = useRef<{ [key: string]: HTMLElement | null }>({})
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setVisibleSections((prev) => new Set(prev).add(entry.target.id))
+          }
+        })
       },
-    ],
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "About KESA - Kenyan Student Association | University of Minnesota",
-    description: "Learn about the Kenyan Student Association at the University of Minnesota.",
-    images: ["/images/hero-team.jpg"],
-  },
-}
+      { threshold: 0.1 },
+    )
 
-async function getLeaders(): Promise<Leader[]> {
-  try {
-    const leaders = await prisma.leadershipTeam.findMany({
-      orderBy: { order: "asc" },
+    Object.values(sectionRefs.current).forEach((ref) => {
+      if (ref) observer.observe(ref)
     })
-    return leaders
-  } catch (error) {
-    console.error("Error fetching leaders:", error)
-    return []
-  }
-}
 
-export default async function AboutPage() {
-  const leaders = await getLeaders()
+    return () => observer.disconnect()
+  }, [])
 
-  return (
-    <div className={styles.aboutPage}>
-      <section className={styles.hero}>
-        <div className={styles.heroContent}>
-          <h1 className={styles.heroTitle}>About KESA</h1>
-          <p className={styles.heroSubtitle}>Building bridges, celebrating culture, creating community</p>
-        </div>
-      </section>
+  useEffect(() => {
+    async function fetchLeaders() {
+      try {
+        const response = await fetch('/api/leadership')
+        if (response.ok) {
+          const data = await response.json()
+          setLeaders(data)
+        }
+      } catch (error) {
+        console.error('Failed to fetch leadership team:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
 
-      <section className={styles.missionSection}>
-        <div className={styles.container}>
-          <div className={styles.missionGrid}>
-            <div className={styles.missionContent}>
-              <h2 className={styles.sectionTitle}>About Us</h2>
-              <p className={styles.missionText}>
-                The Kenyan Student Association at the University of Minnesota is dedicated to creating a vibrant and
-                inclusive community for Kenyan students and friends of Kenya. We celebrate our rich cultural heritage,
-                foster academic excellence, and build lasting connections that extend beyond our time at the university.
-              </p>
-              <p className={styles.missionText}>
-                Through cultural events, networking opportunities, and community service, we strive to be a home away
-                from home for all our members while sharing the beauty of Kenyan culture with the broader university
-                community.
-              </p>
-            </div>
-            <div className={styles.missionImage}>
-              <Image src="/images/hero-team.jpg" alt="KESA Community" fill className={styles.image} />
-            </div>
-          </div>
-        </div>
-      </section>
+    fetchLeaders()
+  }, [])
 
-      <section className={styles.missionSection}>
-        <div className={styles.container}>
-          <div className={styles.missionGrid}>
-            <div className={styles.missionImage}>
-              <Image src="/images/kesa.png" alt="KESA Community" fill className={styles.image} />
-            </div>
-            <div className={styles.missionContent}>
-              <h2 className={styles.sectionTitle}>Our Vision</h2>
-              <p className={styles.missionText}>
-                Kenyan Student Association aims to unite and empower our Kenyan youth. We seek to foster a sense of
-                community, academic excellence, cultural pride, and professional development among our youth.
-              </p>
-              <h2 className={styles.sectionTitle}>Our Mission</h2>
-              <p className={styles.missionText}>
-                We aim to prepare Kenyan youth for a successful future while preserving and celebrating our rich
-                heritage. Together, we can empower our youth and create a brighter future for the Kenyan diaspora.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className={styles.valuesSection}>
-        <div className={styles.container}>
-          <h2 className={styles.sectionTitle}>Our Values</h2>
-          <div className={styles.valuesGrid}>
-            <div className={styles.valueCard}>
-              <div className={styles.valueIcon}>🤝</div>
-              <h3 className={styles.valueTitle}>Community</h3>
-              <p className={styles.valueText}>
-                Building strong connections and supporting each other through our shared experiences and cultural
-                heritage.
-              </p>
-            </div>
-            <div className={styles.valueCard}>
-              <div className={styles.valueIcon}>🎓</div>
-              <h3 className={styles.valueTitle}>Excellence</h3>
-              <p className={styles.valueText}>
-                Promoting academic achievement and professional development among our members.
-              </p>
-            </div>
-            <div className={styles.valueCard}>
-              <div className={styles.valueIcon}>🌍</div>
-              <h3 className={styles.valueTitle}>Culture</h3>
-              <p className={styles.valueText}>
-                Celebrating and sharing Kenyan traditions, values, and heritage with pride and authenticity.
-              </p>
-            </div>
-            <div className={styles.valueCard}>
-              <div className={styles.valueIcon}>💡</div>
-              <h3 className={styles.valueTitle}>Innovation</h3>
-              <p className={styles.valueText}>
-                Embracing new ideas and creating opportunities for growth and positive change.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className={styles.leadershipSection}>
-        <div className={styles.container}>
-          <h2 className={styles.sectionTitle}>Leadership Team</h2>
-          <p className={styles.leadershipIntro}>
-            Our dedicated leadership team works tirelessly to create meaningful experiences and opportunities for all
-            KESA members.
+  const sections: Section[] = [
+    {
+      id: "introduction",
+      title: "About Lumyn",
+      content: (
+        <p className={styles.text}>
+          Lumyn is a forward-thinking tech company that designs and develops modern, high-performance digital experiences.
+          We blend creativity, strategy, and engineering to help brands shine online — from sleek websites to intelligent web applications.
+        </p>
+      ),
+    },
+    {
+      id: "mission-vision",
+      title: "Mission & Vision",
+      content: (
+        <>
+          <h3 className={styles.subheading}>Our Mission</h3>
+          <p className={styles.text}>
+            To empower businesses and individuals with elegant, efficient, and scalable digital solutions.
           </p>
-          <div className={styles.leadershipGrid}>
-            {leaders.length === 0 ? (
-              <p>Our leadership team will be announced soon.</p>
-            ) : (
-              leaders.map((leader) => (
-                <div key={leader.id} className={styles.leaderCard}>
-                  {leader.imageUrl ? (
-                    <div className={styles.leaderImage}>
+          <h3 className={styles.subheading}>Our Vision</h3>
+          <p className={styles.text}>
+            To become a trusted digital partner for startups and enterprises seeking innovation and impact.
+          </p>
+        </>
+      ),
+    },
+    {
+      id: "services",
+      title: "What We Do",
+      content: (
+        <>
+          <p className={styles.text}>We specialize in comprehensive digital solutions:</p>
+          <ul className={styles.list}>
+            <li><strong>Web Design & Development:</strong> Creating beautiful, responsive websites that engage users and drive results</li>
+            <li><strong>Branding & Digital Strategy:</strong> Developing comprehensive digital strategies that align with your brand vision</li>
+            <li><strong>Full-Stack Application Development:</strong> Building robust, scalable applications with modern technologies and best practices</li>
+            <li><strong>Cloud Integration & Hosting:</strong> Seamless cloud solutions for reliable, secure, and scalable hosting</li>
+            <li><strong>Maintenance & Security:</strong> Ongoing support, updates, and security monitoring to keep your digital assets safe</li>
+          </ul>
+        </>
+      ),
+    },
+    {
+      id: "why-choose",
+      title: "Why Choose Lumyn",
+      content: (
+        <>
+          <p className={styles.text}>What sets us apart:</p>
+          <ul className={styles.list}>
+            <li><strong>Clean, Modern Design:</strong> We follow clean design principles that prioritize user experience and visual appeal</li>
+            <li><strong>Scalable Technology:</strong> Built with modern, scalable technologies that grow with your business needs</li>
+            <li><strong>Security First:</strong> Implementing best practices for security and data protection</li>
+            <li><strong>Client-First Approach:</strong> Transparent communication and collaboration throughout every project</li>
+            <li><strong>Proven Track Record:</strong> Successfully launched numerous projects with measurable results</li>
+          </ul>
+        </>
+      ),
+    },
+    {
+      id: "team",
+      title: "Our Team",
+      content: (
+        <div style={{ marginTop: '24px' }}>
+          {loading ? (
+            <p className={styles.text}>Loading team members...</p>
+          ) : leaders.length > 0 ? (
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gap: '32px',
+              marginTop: '24px'
+            }}>
+              {leaders.map((leader) => (
+                <div key={leader.id} style={{
+                  background: 'white',
+                  borderRadius: '16px',
+                  padding: '24px',
+                  boxShadow: '0 4px 20px rgba(5, 31, 32, 0.1)',
+                  border: '1px solid #e8f4f8',
+                  transition: 'all 0.3s ease',
+                  textAlign: 'center'
+                }}>
+                  <div style={{
+                    position: 'relative',
+                    width: '120px',
+                    height: '120px',
+                    margin: '0 auto 16px',
+                    borderRadius: '50%',
+                    overflow: 'hidden',
+                    border: '4px solid #8eb69b'
+                  }}>
+                    {leader.imageUrl ? (
                       <Image
-                        src={leader.imageUrl || "/placeholder.svg"}
+                        src={leader.imageUrl}
                         alt={leader.name}
                         fill
-                        className={styles.image}
+                        style={{ objectFit: 'cover' }}
                       />
-                    </div>
-                  ) : (
-                    <div className={styles.leaderImagePlaceholder}>
-                      <span>👤</span>
-                    </div>
-                  )}
-                  <div className={styles.leaderContent}>
-                    <h3 className={styles.leaderName}>{leader.name}</h3>
-                    <p className={styles.leaderPosition}>{leader.position}</p>
-                    <p className={styles.leaderRole}>{leader.role}</p>
+                    ) : (
+                      <div style={{
+                        width: '100%',
+                        height: '100%',
+                        background: 'linear-gradient(135deg, #8eb69b, #235347)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '3rem'
+                      }}>
+                        <span>👤</span>
+                      </div>
+                    )}
+                  </div>
+                  <div style={{ textAlign: 'center' }}>
+                    <h3 style={{
+                      fontSize: '1.25rem',
+                      fontWeight: '700',
+                      color: '#051f20',
+                      margin: '0 0 8px 0'
+                    }}>{leader.name}</h3>
+                    <p style={{
+                      fontSize: '1rem',
+                      fontWeight: '600',
+                      color: '#8eb69b',
+                      margin: '0 0 12px 0'
+                    }}>{leader.position}</p>
+                    <p style={{
+                      fontSize: '0.875rem',
+                      color: '#666',
+                      lineHeight: '1.6',
+                      margin: '0'
+                    }}>{leader.role}</p>
                   </div>
                 </div>
-              ))
-            )}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <p className={styles.text}>Team members will be displayed here once added through the admin panel.</p>
+          )}
         </div>
-      </section>
+      ),
+    },
+    {
+      id: "contact",
+      title: "Get Started",
+      content: (
+        <p className={styles.text}>
+          Ready to bring your vision to light? Let's build something extraordinary together.
+        </p>
+      ),
+    },
+  ]
 
-      <section className={styles.joinSection}>
-        <div className={styles.container}>
-          <h2 className={styles.joinTitle}>Join Our Community</h2>
-          <p className={styles.joinText}>
-            Become part of a vibrant community that celebrates Kenyan culture and supports your journey at the
-            University of Minnesota. Membership is free and open to all students!
-          </p>
-          <a href="/membership" className={styles.joinButton}>
-            Become a Member
-          </a>
-        </div>
-      </section>
-    </div>
+  return (
+    <>
+      <Head>
+        <title>About Lumyn | Modern Digital Solutions Company</title>
+        <meta
+          name="description"
+          content="Learn about Lumyn, a forward-thinking tech company specializing in modern digital solutions, web development, and innovative technology."
+        />
+        <meta name="keywords" content="Lumyn, digital solutions, web development, tech company, software engineering, digital strategy" />
+        <meta property="og:title" content="About Lumyn | Modern Digital Solutions Company" />
+        <meta
+          name="og:description"
+          content="Learn about Lumyn, a forward-thinking tech company specializing in modern digital solutions, web development, and innovative technology."
+        />
+        <meta property="og:url" content="https://lumyn.vercel.app/about" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="About Lumyn | Modern Digital Solutions Company" />
+        <meta
+          name="twitter:description"
+          content="Learn about Lumyn, a forward-thinking tech company specializing in modern digital solutions, web development, and innovative technology."
+        />
+        <link rel="canonical" href="https://lumyn.vercel.app/about" />
+      </Head>
+      <div className={styles.privacyPage}>
+        <section className={styles.hero}>
+          <div className={styles.heroContent}>
+            <h1 className={styles.heroTitle}>About Lumyn</h1>
+            <p className={styles.heroSubtitle}>Forward-thinking tech company crafting digital experiences</p>
+            <p className={styles.lastUpdated}>Empowering businesses with innovative technology</p>
+          </div>
+        </section>
+
+        <section className={styles.contentSection}>
+          <div className={styles.container}>
+            {sections.map((section, index) => (
+              <section
+                key={section.id}
+                id={section.id}
+                ref={(el) => {
+                  sectionRefs.current[section.id] = el
+                }}
+                className={`${styles.sectionCard} ${visibleSections.has(section.id) ? styles.visible : ""}`}
+                style={{
+                  animationDelay: `${index * 0.1}s`,
+                }}
+              >
+                <h2 className={styles.sectionTitle}>{section.title}</h2>
+                <div className={styles.sectionContent}>{section.content}</div>
+              </section>
+            ))}
+            <div className={styles.ctaSection}>
+              <Link href="/contact" className={styles.ctaButton}>
+                Contact Us Today
+              </Link>
+            </div>
+          </div>
+        </section>
+      </div>
+    </>
   )
 }

@@ -1,5 +1,5 @@
 {
-  "name": "kenya-student-association",
+  "name": "lumyn",
   "private": true,
   "scripts": {
     "build": "next build",
