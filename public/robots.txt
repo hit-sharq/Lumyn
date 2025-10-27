@@ -1,0 +1,10 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://kesa-umn.vercel.app
+
+# Sitemaps
+Sitemap: https://kesa-umn.vercel.app/sitemap.xml
+Sitemap: https://kesa-umn.vercel.app/dynamic-sitemap.xml

@@ -1,0 +1,4 @@
+- [x] Add detail card rendering for selectedRegularEvent in app/events/page.tsx
+- [x] Update CSS in app/events/events.module.css to make eventsGrid card sizes consistent with stapleGrid
+- [x] Add date and time details to staple detail card for consistency
+- [x] Test the "Read More" functionality for upcoming/past events

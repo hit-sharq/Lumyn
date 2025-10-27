@@ -1,0 +1,468 @@
+.membershipPage {
+  width: 100%;
+}
+
+/* Vibrant hero with geometric pattern overlay */
+.hero {
+  background: linear-gradient(135deg, #d32f2f 0%, #c62828 50%, #b71c1c 100%);
+  padding: 140px 20px 100px 20px;
+  text-align: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.heroPattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 35px,
+      rgba(255, 255, 255, 0.05) 35px,
+      rgba(255, 255, 255, 0.05) 70px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 35px,
+      rgba(255, 255, 255, 0.03) 35px,
+      rgba(255, 255, 255, 0.03) 70px
+    );
+  pointer-events: none;
+}
+
+.heroContent {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  padding: 8px 24px;
+  border-radius: 50px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 24px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  animation: fadeInDown 0.8s ease-out;
+}
+
+.heroTitle {
+  font-size: 4rem;
+  font-weight: 900;
+  margin: 0 0 24px 0;
+  animation: fadeInUp 0.8s ease-out 0.2s backwards;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  letter-spacing: -1px;
+}
+
+.heroSubtitle {
+  font-size: 1.375rem;
+  margin: 0;
+  opacity: 0.95;
+  line-height: 1.6;
+  animation: fadeInUp 0.8s ease-out 0.4s backwards;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Modern benefits section with numbered cards */
+.benefitsSection {
+  padding: 120px 20px;
+  background: #ffffff;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.benefitsIntro {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.sectionTitle {
+  font-size: 3rem;
+  font-weight: 900;
+  margin: 0 0 16px 0;
+  color: #1a1a1a;
+  letter-spacing: -1px;
+}
+
+.sectionSubtitle {
+  font-size: 1.25rem;
+  color: #666;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.benefitsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+}
+
+.benefitCard {
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  padding: 48px 32px;
+  border-radius: 20px;
+  border: 2px solid #e9ecef;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.benefitCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #d32f2f, #c62828);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+.benefitCard:hover::before {
+  transform: scaleX(1);
+}
+
+.benefitCard:hover {
+  transform: translateY(-8px);
+  border-color: #d32f2f;
+  box-shadow: 0 20px 40px rgba(211, 47, 47, 0.15);
+}
+
+.benefitNumber {
+  font-size: 3rem;
+  font-weight: 900;
+  color: #d32f2f;
+  margin-bottom: 24px;
+  opacity: 0.2;
+  line-height: 1;
+}
+
+.benefitTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 16px 0;
+  color: #1a1a1a;
+}
+
+.benefitText {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #666;
+  margin: 0;
+}
+
+/* Modern form section with card-based layout */
+.formSection {
+  padding: 120px 20px;
+  background: linear-gradient(to bottom, #f8f9fa, #ffffff);
+}
+
+.formHeader {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.formTitle {
+  font-size: 3rem;
+  font-weight: 900;
+  margin: 0 0 16px 0;
+  color: #1a1a1a;
+  letter-spacing: -1px;
+}
+
+.formSubtitle {
+  font-size: 1.25rem;
+  color: #666;
+  margin: 0;
+}
+
+.successMessage {
+  padding: 48px;
+  background: linear-gradient(135deg, #d4edda, #c3e6cb);
+  border: 2px solid #28a745;
+  border-radius: 24px;
+  margin-bottom: 48px;
+  text-align: center;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.successIcon {
+  width: 64px;
+  height: 64px;
+  background: #28a745;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 900;
+  margin: 0 auto 24px auto;
+}
+
+.successMessage h3 {
+  font-size: 2rem;
+  color: #155724;
+  margin: 0 0 12px 0;
+  font-weight: 800;
+}
+
+.successMessage p {
+  color: #155724;
+  margin: 0;
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+
+.errorMessage {
+  padding: 24px 32px;
+  background: #f8d7da;
+  border: 2px solid #dc3545;
+  border-radius: 16px;
+  margin-bottom: 32px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.errorMessage p {
+  color: #721c24;
+  margin: 0;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Sleek form cards with icon headers */
+.formCard {
+  background: white;
+  padding: 0;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 2px solid #e9ecef;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.formCard:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  border-color: #d32f2f;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 32px 40px 24px 40px;
+  background: linear-gradient(135deg, #f8f9fa, #ffffff);
+  border-bottom: 2px solid #e9ecef;
+}
+
+.cardIcon {
+  font-size: 2rem;
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, #d32f2f, #c62828);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cardTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  padding: 32px 40px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.formCard .formGroup:only-child {
+  padding: 32px 40px;
+}
+
+.label {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #1a1a1a;
+  letter-spacing: 0.3px;
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  padding: 14px 18px;
+  font-size: 1rem;
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  background: #f8f9fa;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  outline: none;
+  border-color: #d32f2f;
+  background: white;
+  box-shadow: 0 0 0 4px rgba(211, 47, 47, 0.1);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 140px;
+  line-height: 1.6;
+}
+
+.submitBtn {
+  width: 100%;
+  padding: 20px;
+  background: linear-gradient(135deg, #d32f2f, #c62828);
+  color: white;
+  border: none;
+  border-radius: 16px;
+  font-size: 1.125rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 24px rgba(211, 47, 47, 0.3);
+  letter-spacing: 0.5px;
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.submitBtn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(211, 47, 47, 0.4);
+  background: linear-gradient(135deg, #c62828, #b71c1c);
+}
+
+.submitBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.disclaimer {
+  font-size: 0.9375rem;
+  color: #666;
+  text-align: center;
+  margin: 24px 0 0 0;
+  line-height: 1.6;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: 2.5rem;
+  }
+
+  .sectionTitle,
+  .formTitle {
+    font-size: 2rem;
+  }
+
+  .formCard {
+    padding: 0;
+  }
+
+  .cardHeader {
+    padding: 24px 24px 20px 24px;
+  }
+
+  .formRow {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 24px;
+  }
+
+  .formCard .formGroup:only-child {
+    padding: 24px;
+  }
+
+  .benefitsGrid {
+    grid-template-columns: 1fr;
+  }
+}

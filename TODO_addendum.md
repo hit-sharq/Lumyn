@@ -1,0 +1,8 @@
+- [x] Create app/sitemap.ts to generate dynamic sitemap
+- [x] Include all static routes: /, /about, /blog, /contact, /events, /gallery, /membership, /news, /newsletter, /privacy, /sponsorship, /terms
+- [x] Include dynamic routes: /blog/[id], /news/[id], /events/[id], /gallery/[id] by fetching from DB
+- [x] Use lastModified from updatedAt or publishedAt
+- [x] Test the sitemap by running dev server and visiting /sitemap.xml
+- [x] Create public/robots.txt for crawlers
+- [x] Update middleware to allow public access to /robots.txt
+- [x] Fix build errors: Add dynamic export to /api/search, remove no-store from about page fetch
