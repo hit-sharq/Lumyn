@@ -206,10 +206,13 @@ export default function EventsManager() {
                 className={styles.select}
               >
                 <option value="">Select category</option>
-                <option value="cultural">Cultural</option>
-                <option value="social">Social</option>
-                <option value="networking">Networking</option>
-                <option value="academic">Academic</option>
+                <option value="technology">Technology</option>
+                <option value="business">Business</option>
+                <option value="education">Education</option>
+                <option value="healthcare">Healthcare</option>
+                <option value="finance">Finance</option>
+                <option value="entertainment">Entertainment</option>
+                <option value="other">Other</option>
               </select>
             </div>
           </div>

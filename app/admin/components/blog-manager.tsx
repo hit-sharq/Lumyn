@@ -205,12 +205,13 @@ export default function BlogManager() {
                 className={styles.input}
               >
                 <option value="">Select a category</option>
-                <option value="Academic">Academic</option>
-                <option value="Lifestyle">Lifestyle</option>
-                <option value="Events">Events</option>
-                <option value="Culture">Culture</option>
-                <option value="Community">Community</option>
-                <option value="General">General</option>
+                <option value="technology">Technology</option>
+                <option value="business">Business</option>
+                <option value="education">Education</option>
+                <option value="healthcare">Healthcare</option>
+                <option value="finance">Finance</option>
+                <option value="entertainment">Entertainment</option>
+                <option value="other">Other</option>
               </select>
             </div>
           </div>

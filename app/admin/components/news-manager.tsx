@@ -191,9 +191,13 @@ export default function NewsManager() {
                 className={styles.select}
               >
                 <option value="">Select category</option>
-                <option value="events">Events</option>
-                <option value="achievements">Achievements</option>
-                <option value="community">Community</option>
+                <option value="technology">Technology</option>
+                <option value="business">Business</option>
+                <option value="education">Education</option>
+                <option value="healthcare">Healthcare</option>
+                <option value="finance">Finance</option>
+                <option value="entertainment">Entertainment</option>
+                <option value="other">Other</option>
               </select>
             </div>
           </div>

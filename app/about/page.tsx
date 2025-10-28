@@ -70,10 +70,21 @@ export default function AboutPage() {
       id: "introduction",
       title: "About Lumyn",
       content: (
-        <p className={styles.text}>
-          Lumyn is a forward-thinking tech company that designs and develops modern, high-performance digital experiences.
-          We blend creativity, strategy, and engineering to help brands shine online — from sleek websites to intelligent web applications.
-        </p>
+        <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
+          <div style={{ flex: 1 }}>
+            <p className={styles.text}>
+              Lumyn is a forward-thinking tech company that designs and develops modern, high-performance digital experiences.
+              We blend creativity, strategy, and engineering to help brands shine online — from sleek websites to intelligent web applications.
+            </p>
+          </div>
+          <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+            <img
+              src="https://media.giphy.com/media/qgQUggAC3Pfv687qPC/giphy.gif"
+              alt="Coding Animation"
+              style={{ width: '200px', height: '200px', borderRadius: '12px', objectFit: 'cover' }}
+            />
+          </div>
+        </div>
       ),
     },
     {
@@ -134,67 +145,63 @@ export default function AboutPage() {
           ) : leaders.length > 0 ? (
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-              gap: '32px',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
+              gap: '24px',
               marginTop: '24px'
             }}>
               {leaders.map((leader) => (
                 <div key={leader.id} style={{
                   background: 'white',
-                  borderRadius: '16px',
-                  padding: '24px',
-                  boxShadow: '0 4px 20px rgba(5, 31, 32, 0.1)',
-                  border: '1px solid #e8f4f8',
-                  transition: 'all 0.3s ease',
-                  textAlign: 'center'
+                  borderRadius: '12px',
+                  overflow: 'hidden',
+                  boxShadow: '0 2px 15px rgba(0, 0, 0, 0.08)',
+                  transition: 'all 0.3s ease'
                 }}>
-                  <div style={{
-                    position: 'relative',
-                    width: '120px',
-                    height: '120px',
-                    margin: '0 auto 16px',
-                    borderRadius: '50%',
-                    overflow: 'hidden',
-                    border: '4px solid #8eb69b'
-                  }}>
-                    {leader.imageUrl ? (
-                      <Image
-                        src={leader.imageUrl}
-                        alt={leader.name}
-                        fill
-                        style={{ objectFit: 'cover' }}
-                      />
-                    ) : (
+                  <div
+                    style={{
+                      height: '200px',
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center top',
+                      backgroundColor: leader.imageUrl ? 'transparent' : '#f5f5f5',
+                      backgroundImage: leader.imageUrl ? `url(${leader.imageUrl})` : 'none'
+                    }}
+                  >
+                    {!leader.imageUrl && (
                       <div style={{
                         width: '100%',
                         height: '100%',
-                        background: 'linear-gradient(135deg, #8eb69b, #235347)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        fontSize: '3rem'
+                        fontSize: '3rem',
+                        background: 'linear-gradient(135deg, #8eb69b, #235347)',
+                        color: 'white'
                       }}>
-                        <span>👤</span>
+                        👤
                       </div>
                     )}
                   </div>
-                  <div style={{ textAlign: 'center' }}>
+                  <div style={{
+                    padding: '16px'
+                  }}>
                     <h3 style={{
-                      fontSize: '1.25rem',
+                      fontSize: '1.125rem',
                       fontWeight: '700',
-                      color: '#051f20',
-                      margin: '0 0 8px 0'
+                      margin: '0 0 8px 0',
+                      color: '#051f20'
                     }}>{leader.name}</h3>
                     <p style={{
-                      fontSize: '1rem',
-                      fontWeight: '600',
                       color: '#8eb69b',
-                      margin: '0 0 12px 0'
-                    }}>{leader.position}</p>
+                      fontWeight: 600,
+                      marginBottom: '8px',
+                      fontSize: '0.95rem'
+                    }}>
+                      {leader.position}
+                    </p>
                     <p style={{
                       fontSize: '0.875rem',
                       color: '#666',
-                      lineHeight: '1.6',
+                      lineHeight: '1.5',
                       margin: '0'
                     }}>{leader.role}</p>
                   </div>

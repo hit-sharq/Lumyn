@@ -19,6 +19,9 @@ export default function Footer() {
               <Link href="/about" className={styles.footerLink}>
                 About Us
               </Link>
+              <Link href="/projects" className={styles.footerLink}>
+                Projects
+              </Link>
               <Link href="/events" className={styles.footerLink}>
                 Events
               </Link>

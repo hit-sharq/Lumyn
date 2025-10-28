@@ -10,8 +10,9 @@ import GalleryManager from "./components/gallery-manager"
 import MembersManager from "./components/members-manager"
 import ContactsManager from "./components/contacts-manager"
 import LeadershipManager from "./components/leadership-manager"
+import ProjectsManager from "./components/projects-manager"
 
-type Tab = "news" | "blog" | "events" | "gallery" | "members" | "contacts" | "leadership"
+type Tab = "news" | "blog" | "events" | "gallery" | "members" | "contacts" | "leadership" | "projects"
 
 export default function AdminPage() {
   const [activeTab, setActiveTab] = useState<Tab>("news")
@@ -82,6 +83,12 @@ export default function AdminPage() {
             Members
           </button>
           <button
+            className={`${styles.navBtn} ${activeTab === "projects" ? styles.navBtnActive : ""}`}
+            onClick={() => setActiveTab("projects")}
+          >
+            Projects
+          </button>
+          <button
             className={`${styles.navBtn} ${activeTab === "leadership" ? styles.navBtnActive : ""}`}
             onClick={() => setActiveTab("leadership")}
           >
@@ -149,6 +156,7 @@ export default function AdminPage() {
         {activeTab === "events" && <EventsManager />}
         {activeTab === "gallery" && <GalleryManager />}
         {activeTab === "members" && <MembersManager />}
+        {activeTab === "projects" && <ProjectsManager />}
         {activeTab === "leadership" && <LeadershipManager />}
         {activeTab === "contacts" && <ContactsManager />}
       </div>

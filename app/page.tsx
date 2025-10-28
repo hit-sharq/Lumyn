@@ -99,12 +99,12 @@ export default function HomePage() {
           </p>
           <div className={styles.statsGrid}>
             <div className={styles.statCard}>
-              <h3 className={styles.statNumber}>{loading ? "..." : stats.members}</h3>
-              <p className={styles.statLabel}>Projects Completed</p>
+              <h3 className={styles.statNumber}>{loading ? "..." : stats.news}</h3>
+              <p className={styles.statLabel}>News Articles</p>
             </div>
             <div className={styles.statCard}>
               <h3 className={styles.statNumber}>{loading ? "..." : stats.events}</h3>
-              <p className={styles.statLabel}>Happy Clients</p>
+              <p className={styles.statLabel}>Events Hosted</p>
             </div>
             <div className={styles.statCard}>
               <h3 className={styles.statNumber}>{loading ? "..." : `${stats.yearsActive}+`}</h3>
@@ -179,14 +179,14 @@ export default function HomePage() {
 function EventCard({ event }: { event?: Event }) {
   if (!event) {
     return (
-      <div className={styles.eventCard}>
-        <div className={styles.eventDate}>
-          <span className={styles.eventDay}>--</span>
-          <span className={styles.eventMonth}>---</span>
+      <div className={styles.newsCard}>
+        <div className={styles.newsImagePlaceholder}>
+          <span>📅</span>
         </div>
-        <div className={styles.eventContent}>
-          <h3 className={styles.eventTitle}>No upcoming events</h3>
-          <p className={styles.eventDescription}>Check back soon for upcoming events</p>
+        <div className={styles.newsContent}>
+          <h3 className={styles.newsTitle}>No upcoming events</h3>
+          <p className={styles.newsExcerpt}>Check back soon for upcoming events</p>
+          <button className={styles.readMore} onClick={() => window.location.href = '/events'}>Read More →</button>
         </div>
       </div>
     )
@@ -195,21 +195,23 @@ function EventCard({ event }: { event?: Event }) {
   const eventDate = new Date(event.date)
   const day = eventDate.getDate()
   const month = eventDate.toLocaleString("en-US", { month: "short" }).toUpperCase()
-  const truncatedDescription = event.description.length > 100 ? event.description.substring(0, 100) + "..." : event.description
+  const truncatedDescription = event.description.length > 80 ? event.description.substring(0, 80) + "..." : event.description
 
   return (
-    <Link href={`/events`} className={styles.eventCard}>
-      <div className={styles.eventDate}>
-        <span className={styles.eventDay}>{day}</span>
-        <span className={styles.eventMonth}>{month}</span>
+    <div className={styles.newsCard}>
+      <div className={styles.newsImage}>
+        <div className={styles.eventDateBadge}>
+          <span className={styles.eventDay}>{day}</span>
+          <span className={styles.eventMonth}>{month}</span>
+        </div>
+        <Image src={event.image || "/placeholder.svg"} alt={event.title} fill style={{ objectFit: "cover" }} />
       </div>
-      <div className={styles.eventContent}>
-        <h3 className={styles.eventTitle}>{event.title}</h3>
-        <p className={styles.eventDescription}>{truncatedDescription}</p>
-        <p className={styles.eventLocation}>📍 {event.location}</p>
-        <span className={styles.readMore}>Read More →</span>
+      <div className={styles.newsContent}>
+        <h3 className={styles.newsTitle}>{event.title}</h3>
+        <p className={styles.newsExcerpt}>{truncatedDescription}</p>
+        <button className={styles.readMore} onClick={() => window.location.href = `/events?id=${event.id}`}>Read More →</button>
       </div>
-    </Link>
+    </div>
   )
 }
 

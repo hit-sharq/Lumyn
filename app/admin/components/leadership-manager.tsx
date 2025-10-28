@@ -270,6 +270,7 @@ export default function LeadershipManager() {
                 style={{
                   backgroundImage: leader.imageUrl ? `url(${leader.imageUrl})` : "none",
                   backgroundColor: leader.imageUrl ? "transparent" : "#f0f0f0",
+                  backgroundPosition: 'center top',
                 }}
               >
                 {!leader.imageUrl && (
