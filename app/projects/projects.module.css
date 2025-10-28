@@ -488,6 +488,162 @@
   to { transform: translateX(0); opacity: 1; }
 }
 
+/* Modal Styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modalContent {
+  background: white;
+  border-radius: 16px;
+  max-width: 800px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.modalTitle {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #051f20;
+  margin: 0;
+}
+
+.modalClose {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+}
+
+.modalClose:hover {
+  background: #f5f5f5;
+}
+
+.modalBody {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+}
+
+.modalImage {
+  position: relative;
+  height: 300px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.modalDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modalMeta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.modalCategory {
+  background: #8eb69b;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.featuredBadge {
+  background: #d32f2f;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.modalDescription {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+.modalTech {
+  margin-top: 16px;
+}
+
+.modalTech h4 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #051f20;
+  margin: 0 0 12px 0;
+}
+
+.modalTechTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.modalTechTag {
+  background: #f0f8f0;
+  color: #8eb69b;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.modalLinks {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.liveLink,
+.githubLink {
+  color: #8eb69b;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+  padding: 0.75rem 1.5rem;
+  border: 2px solid #8eb69b;
+  border-radius: 25px;
+  text-align: center;
+}
+
+.liveLink:hover,
+.githubLink:hover {
+  color: #051f20;
+  border-color: #051f20;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .heroTitle {
@@ -541,5 +697,18 @@
 
   .ctaTitle {
     font-size: 2rem;
+  }
+
+  .modalContent {
+    max-width: 95vw;
+    margin: 20px;
+  }
+
+  .modalHeader {
+    padding: 16px;
+  }
+
+  .modalBody {
+    padding: 16px;
   }
 }

@@ -24,6 +24,7 @@ export default function ProjectsPage() {
   const [filter, setFilter] = useState<string>("all")
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [initialSelectedId, setInitialSelectedId] = useState<string | null>(null)
+  const [showDetailModal, setShowDetailModal] = useState(false)
 
 
   useEffect(() => {
@@ -216,7 +217,10 @@ export default function ProjectsPage() {
                       </div>
                       <button
                         className={styles.readMoreBtn}
-                        onClick={() => setSelectedProject(project)}
+                        onClick={() => {
+                          setSelectedProject(project)
+                          setShowDetailModal(true)
+                        }}
                       >
                         Read More →
                       </button>
@@ -249,47 +253,60 @@ export default function ProjectsPage() {
           </div>
         </section>
 
-        {/* Project Detail Card */}
-        {selectedProject && (
-          <div className={styles.detailCard}>
-            <button className={styles.detailClose} onClick={() => setSelectedProject(null)}>×</button>
-            <div className={styles.detailImageWrapper}>
-              <Image
-                src={selectedProject.image || "/placeholder.svg"}
-                alt={selectedProject.title}
-                fill
-                className={styles.detailImage}
-              />
-            </div>
-            <div className={styles.detailBody}>
-              <h3 className={styles.detailTitle}>{selectedProject.title}</h3>
-              <p className={styles.detailDescription}>{selectedProject.description}</p>
-              <div className={styles.detailDetails}>
-                <div className={styles.detailDetail}>
-                  <span className={styles.detailIcon}>🏷️</span>
-                  <span>{selectedProject.category.replace("-", " ").replace(/\b\w/g, l => l.toUpperCase())}</span>
-                </div>
-                {selectedProject.liveUrl && (
-                  <div className={styles.detailDetail}>
-                    <span className={styles.detailIcon}>🌐</span>
-                    <a href={selectedProject.liveUrl} target="_blank" rel="noopener noreferrer">Live Demo</a>
-                  </div>
-                )}
-                {selectedProject.githubUrl && (
-                  <div className={styles.detailDetail}>
-                    <span className={styles.detailIcon}>💻</span>
-                    <a href={selectedProject.githubUrl} target="_blank" rel="noopener noreferrer">GitHub</a>
-                  </div>
-                )}
+        {/* Project Detail Modal */}
+        {showDetailModal && selectedProject && (
+          <div className={styles.modal} onClick={() => setShowDetailModal(false)}>
+            <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+              <div className={styles.modalHeader}>
+                <h2 className={styles.modalTitle}>{selectedProject.title}</h2>
+                <button
+                  className={styles.modalClose}
+                  onClick={() => setShowDetailModal(false)}
+                >
+                  ×
+                </button>
               </div>
-              <div className={styles.detailTech}>
-                <h4>Technologies:</h4>
-                <div className={styles.detailTechTags}>
-                  {selectedProject.technologies.map((tech) => (
-                    <span key={tech} className={styles.detailTechTag}>
-                      {tech}
+              <div className={styles.modalBody}>
+                <div className={styles.modalImage}>
+                  <Image
+                    src={selectedProject.image || "/placeholder.svg"}
+                    alt={selectedProject.title}
+                    fill
+                    style={{ objectFit: "cover" }}
+                  />
+                </div>
+                <div className={styles.modalDetails}>
+                  <div className={styles.modalMeta}>
+                    <span className={styles.modalCategory}>
+                      {selectedProject.category.replace("-", " ").replace(/\b\w/g, l => l.toUpperCase())}
                     </span>
-                  ))}
+                    {selectedProject.featured && (
+                      <span className={styles.featuredBadge}>Featured</span>
+                    )}
+                  </div>
+                  <p className={styles.modalDescription}>{selectedProject.description}</p>
+                  <div className={styles.modalTech}>
+                    <h4>Technologies:</h4>
+                    <div className={styles.modalTechTags}>
+                      {selectedProject.technologies.map((tech) => (
+                        <span key={tech} className={styles.modalTechTag}>
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <div className={styles.modalLinks}>
+                    {selectedProject.liveUrl && (
+                      <a href={selectedProject.liveUrl} target="_blank" rel="noopener noreferrer" className={styles.liveLink}>
+                        View Live →
+                      </a>
+                    )}
+                    {selectedProject.githubUrl && (
+                      <a href={selectedProject.githubUrl} target="_blank" rel="noopener noreferrer" className={styles.githubLink}>
+                        GitHub →
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
