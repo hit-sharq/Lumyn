@@ -139,3 +139,25 @@ model Project {
   @@index([category])
   @@index([featured])
 }
+model Career {
+  id                 String   @id @default(cuid())
+  title              String
+  company            String
+  description        String
+  requirements       String?
+  location           String?
+  type               String   @default("full-time")
+  salary             String?
+  applicationDeadline DateTime?
+  applicationUrl     String?
+  contactEmail       String?
+  featured           Boolean  @default(false)
+  image              String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@index([type])
+  @@index([featured])
+  @@index([applicationDeadline])
+}
+

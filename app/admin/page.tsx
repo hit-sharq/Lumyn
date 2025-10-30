@@ -11,8 +11,9 @@ import MembersManager from "./components/members-manager"
 import ContactsManager from "./components/contacts-manager"
 import LeadershipManager from "./components/leadership-manager"
 import ProjectsManager from "./components/projects-manager"
+import CareersManager from "./components/careers-manager"
 
-type Tab = "news" | "blog" | "events" | "gallery" | "members" | "contacts" | "leadership" | "projects"
+type Tab = "news" | "blog" | "events" | "gallery" | "members" | "contacts" | "leadership" | "projects" | "careers"
 
 export default function AdminPage() {
   const [activeTab, setActiveTab] = useState<Tab>("news")
@@ -100,6 +101,12 @@ export default function AdminPage() {
           >
             Contact Messages
           </button>
+          <button
+            className={`${styles.navBtn} ${activeTab === "careers" ? styles.navBtnActive : ""}`}
+            onClick={() => setActiveTab("careers")}
+          >
+            Careers
+          </button>
           <div className={styles.navSection}>
             <h3 className={styles.navSectionTitle}>GDPR</h3>
             <button
@@ -159,6 +166,7 @@ export default function AdminPage() {
         {activeTab === "projects" && <ProjectsManager />}
         {activeTab === "leadership" && <LeadershipManager />}
         {activeTab === "contacts" && <ContactsManager />}
+        {activeTab === "careers" && <CareersManager />}
       </div>
     </div>
   )

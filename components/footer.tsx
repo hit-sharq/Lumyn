@@ -52,6 +52,9 @@ export default function Footer() {
               <Link href="/newsletter" className={styles.footerLink}>
                 Newsletter
               </Link>
+              <Link href={"/careers"} className={styles.footerLink}>
+                Careers
+              </Link>
             </nav>
           </div>
 
