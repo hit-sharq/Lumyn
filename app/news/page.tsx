@@ -197,8 +197,9 @@ export default function NewsPage() {
           )}
 
           {selectedItem && (
-            <div className={styles.detailCard}>
-              <button className={styles.detailClose} onClick={() => setSelectedItem(null)}>×</button>
+            <div className={styles.modalOverlay} onClick={() => setSelectedItem(null)}>
+              <div className={styles.detailCard} onClick={(e) => e.stopPropagation()}>
+                <button className={styles.detailClose} onClick={() => setSelectedItem(null)}>×</button>
               <div className={styles.detailImageWrapper}>
                 <Image
                   src={selectedItem.image || "/placeholder.svg?height=300&width=500&query=news"}
@@ -227,6 +228,7 @@ export default function NewsPage() {
                 <Link href={selectedItem.type === "blog" ? `/blog/${selectedItem.id}` : `/news/${selectedItem.id}`} className={styles.detailReadFullBtn}>
                   Read Full Article →
                 </Link>
+              </div>
               </div>
             </div>
           )}

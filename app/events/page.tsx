@@ -122,8 +122,9 @@ export default function EventsPage() {
                   ))}
                 </div>
                 {selectedStapleEvent && (
-                  <div className={styles.stapleDetailCard}>
-                    <button className={styles.detailClose} onClick={() => setSelectedStapleEvent(null)}>×</button>
+                  <div className={styles.modalOverlay} onClick={() => setSelectedStapleEvent(null)}>
+                    <div className={styles.stapleDetailCard} onClick={(e) => e.stopPropagation()}>
+                      <button className={styles.detailClose} onClick={() => setSelectedStapleEvent(null)}>×</button>
                     <div className={styles.detailImageWrapper}>
                       <Image
                         src={selectedStapleEvent.image || "/placeholder.svg?height=300&width=500&query=event"}
@@ -163,6 +164,7 @@ export default function EventsPage() {
                           Register Now
                         </a>
                       )}
+                    </div>
                     </div>
                   </div>
                 )}

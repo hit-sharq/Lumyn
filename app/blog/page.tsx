@@ -121,8 +121,9 @@ export default function BlogPage() {
           )}
 
           {selectedPost && (
-            <div className={styles.detailCard}>
-              <button className={styles.detailClose} onClick={() => setSelectedPost(null)}>×</button>
+            <div className={styles.modalOverlay} onClick={() => setSelectedPost(null)}>
+              <div className={styles.detailCard} onClick={(e) => e.stopPropagation()}>
+                <button className={styles.detailClose} onClick={() => setSelectedPost(null)}>×</button>
               <div className={styles.detailImageWrapper}>
                 <Image
                   src={selectedPost.image || "/placeholder.svg?height=300&width=500&query=blog"}
@@ -151,6 +152,7 @@ export default function BlogPage() {
                 <Link href={`/blog/${selectedPost.id}`} className={styles.detailReadFullBtn}>
                   Read Full Article →
                 </Link>
+              </div>
               </div>
             </div>
           )}
