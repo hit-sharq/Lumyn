@@ -21,8 +21,8 @@ const sponsorshipTiers: SponsorshipTier[] = [
     color: "#051F20",
     benefits: [
       "Recognition on Lumyn's social media platforms",
-      "A personalized thank-you email from the Lumyn board",
-      "Invitation to attend one of our general meetings or events",
+      "A personalized thank-you email from the Lumyn team",
+      "Invitation to attend one of our tech events or webinars",
     ],
   },
   {
@@ -32,8 +32,8 @@ const sponsorshipTiers: SponsorshipTier[] = [
     color: "#0B2B26",
     benefits: [
       "All benefits from the Supporter level",
-      "Logo or name featured on event flyers and promotional materials",
-      "Verbal recognition at one of our major events",
+      "Logo or name featured on project showcases and promotional materials",
+      "Verbal recognition at one of our major tech events",
     ],
   },
   {
@@ -45,7 +45,7 @@ const sponsorshipTiers: SponsorshipTier[] = [
       "All benefits from the Advocate level",
       "Logo or name featured on Lumyn's website and newsletters",
       "Opportunity to showcase your business or organization at a Lumyn event",
-      "Special recognition at both Fall and Spring Kickoff events",
+      "Special recognition at our annual tech conferences",
     ],
   },
   {
@@ -57,7 +57,7 @@ const sponsorshipTiers: SponsorshipTier[] = [
       "Open contributions of any amount",
       "Discussion of aligned sponsorship opportunities",
       "In-kind donations, services, or monetary contributions",
-      "Support to help Lumyn grow and thrive",
+      "Support to help Lumyn innovate and grow",
     ],
   },
 ]
@@ -88,24 +88,24 @@ export default function SponsorshipPage() {
   return (
     <>
       <Head>
-        <title>Sponsorship Opportunities | Lumyn - University of Minnesota</title>
+        <title>Sponsorship Opportunities | Lumyn - Tech Company</title>
         <meta
           name="description"
-          content="Partner with Lumyn, the Kenyan Student Association at the University of Minnesota. Support our mission and gain recognition through various sponsorship levels."
+          content="Partner with Lumyn, a forward-thinking tech company. Support our digital solutions and gain recognition through various sponsorship levels."
         />
-        <meta name="keywords" content="Lumyn, Kenyan Student Association, sponsorship, partner, support, University of Minnesota, student organization" />
-        <meta property="og:title" content="Sponsorship Opportunities | Lumyn - University of Minnesota" />
+        <meta name="keywords" content="Lumyn, tech company, sponsorship, partner, support, digital solutions, web development" />
+        <meta property="og:title" content="Sponsorship Opportunities | Lumyn - Tech Company" />
         <meta
           property="og:description"
-          content="Partner with Lumyn, the Kenyan Student Association at the University of Minnesota. Support our mission and gain recognition through various sponsorship levels."
+          content="Partner with Lumyn, a forward-thinking tech company. Support our digital solutions and gain recognition through various sponsorship levels."
         />
         <meta property="og:url" content="https://lumyn.vercel.app/sponsorship" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Sponsorship Opportunities | Lumyn - University of Minnesota" />
+        <meta name="twitter:title" content="Sponsorship Opportunities | Lumyn - Tech Company" />
         <meta
           name="twitter:description"
-          content="Partner with Lumyn, the Kenyan Student Association at the University of Minnesota. Support our mission and gain recognition through various sponsorship levels."
+          content="Partner with Lumyn, a forward-thinking tech company. Support our digital solutions and gain recognition through various sponsorship levels."
         />
         <link rel="canonical" href="https://lumyn.vercel.app/sponsorship" />
       </Head>
@@ -115,10 +115,10 @@ export default function SponsorshipPage() {
           <div className={styles.heroContent}>
             <h1 className={styles.heroTitle}>Partner With Lumyn</h1>
             <p className={styles.heroSubtitle}>
-              Support our mission of fostering inclusivity, academic excellence, and leadership development
+              Support our mission of creating innovative digital solutions and empowering businesses
             </p>
             <p className={styles.heroDescription}>
-              Your sponsorship will make a significant impact on the lives of students at the University of Minnesota
+              Your sponsorship will help us build cutting-edge technology and drive digital transformation
             </p>
           </div>
         </section>
@@ -171,9 +171,9 @@ export default function SponsorshipPage() {
           <div className={styles.stepsGrid}>
             <div className={styles.stepCard}>
               <div className={styles.stepNumber}>1</div>
-              <h3 className={styles.stepTitle}>Complete the Form</h3>
+              <h3 className={styles.stepTitle}>Contact Us</h3>
               <p className={styles.stepDescription}>
-                Fill out our sponsorship application form with your organization details and preferred sponsorship level
+                Reach out to discuss your sponsorship interests and preferred level
               </p>
             </div>
 
@@ -181,7 +181,7 @@ export default function SponsorshipPage() {
               <div className={styles.stepNumber}>2</div>
               <h3 className={styles.stepTitle}>Send Contribution</h3>
               <p className={styles.stepDescription}>
-                Financial contributions can be sent via CashApp ($kesaumn) or mailed to our address
+                Financial contributions can be sent via CashApp ($lumynumn) or other payment methods
               </p>
             </div>
 
@@ -195,14 +195,9 @@ export default function SponsorshipPage() {
           </div>
 
           <div className={styles.ctaContainer}>
-            <a
-              href="https://docs.google.com/forms/d/e/1FAIpQLSdnkGYfBO2rlcPkhxdKAOpVZjEEXryrgmWhVxuq7Ajvhget0w/viewform"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.primaryButton}
-            >
-              Apply for Sponsorship
-            </a>
+            <Link href="/contact" className={styles.primaryButton}>
+              Contact Us for Sponsorship
+            </Link>
           </div>
         </div>
       </section>
@@ -214,50 +209,36 @@ export default function SponsorshipPage() {
 
           <div className={styles.contactGrid}>
             <div className={styles.contactCard}>
-              <h3 className={styles.contactTitle}>Mailing Address</h3>
-              <p className={styles.contactText}>
-                Lumyn - Kenyan Student Association
-                <br />
-                University of Minnesota
-                <br />
-                326 SE 17th Ave, 446
-                <br />
-                Minneapolis, MN 55414
-              </p>
-            </div>
-
-            <div className={styles.contactCard}>
               <h3 className={styles.contactTitle}>Contact Information</h3>
               <p className={styles.contactText}>
-                <strong>President:</strong> Rachael Omoke
+                <strong>Email:</strong>
                 <br />
-                <a href="mailto:omoke005@umn.edu" className={styles.contactLink}>
-                  omoke005@umn.edu
+                <a href="mailto:lumyntechnologies@gmail.com" className={styles.contactLink}>
+                  lumyntechnologies@gmail.com
                 </a>
               </p>
               <p className={styles.contactText}>
-                <strong>General Inquiries:</strong>
-                <br />
-                <a href="mailto:lumyn@umn.edu" className={styles.contactLink}>
-                  lumyn@umn.edu
-                </a>
+                <strong>Location:</strong> Remote & On-site Services
+              </p>
+              <p className={styles.contactText}>
+                <strong>Response Time:</strong> Within 24 hours
               </p>
             </div>
 
             <div className={styles.contactCard}>
               <h3 className={styles.contactTitle}>Payment Options</h3>
               <p className={styles.contactText}>
-                <strong>CashApp:</strong> $lumynumn
+                <strong>Important:</strong> Payments are made after discussions with founders and Lumyn leaders. Please do not make any payments until you have spoken with us.
               </p>
               <p className={styles.contactText}>
                 <strong>Instagram:</strong>{" "}
                 <a
-                  href="https://www.instagram.com/lumynumn"
+                  href="https://www.instagram.com/j_lee087/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.contactLink}
                 >
-                  @lumynumn
+                  @j_lee087
                 </a>
               </p>
             </div>
@@ -270,19 +251,11 @@ export default function SponsorshipPage() {
         <div className={styles.container}>
           <h2 className={styles.ctaTitle}>Ready to Make an Impact?</h2>
           <p className={styles.ctaDescription}>
-            Join us in supporting the next generation of Kenyan leaders at the University of Minnesota
+            Join us in driving innovation and supporting cutting-edge digital solutions
           </p>
           <div className={styles.ctaButtons}>
-            <a
-              href="https://docs.google.com/forms/d/e/1FAIpQLSdnkGYfBO2rlcPkhxdKAOpVZjEEXryrgmWhVxuq7Ajvhget0w/viewform"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.primaryButton}
-            >
+            <Link href="/contact" className={styles.primaryButton}>
               Become a Sponsor
-            </a>
-            <Link href="/contact" className={styles.secondaryButton}>
-              Contact Us
             </Link>
           </div>
         </div>
