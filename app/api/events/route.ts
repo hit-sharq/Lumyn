@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { prisma } from "@/lib/db/prisma"
+import { prisma } from "@/lib/prisma"
 import logger from "@/lib/logger"
 import { z } from "zod"
 import DOMPurify from "isomorphic-dompurify"

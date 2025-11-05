@@ -16,6 +16,7 @@ const isPublicRoute = createRouteMatcher([
   "/api/blog(.*)",
   "/api/events(.*)",
   "/api/gallery(.*)",
+  "/api/leadership(.*)",
   "/api/contact",
   "/api/membership(.*)", // Allow all membership API routes to be public for form submissions
   "/api/newsletter",
