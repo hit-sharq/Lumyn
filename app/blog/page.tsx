@@ -40,32 +40,11 @@ export default function BlogPage() {
 
   return (
     <>
-      <Head>
-        <title>KESA Blog | Kenyan Student Association - University of Minnesota</title>
-        <meta
-          name="description"
-          content="Read stories, insights, and experiences from the Kenyan Student Association community at the University of Minnesota."
-        />
-        <meta name="keywords" content="KESA, Kenyan Student Association, blog, stories, insights, community, University of Minnesota" />
-        <meta property="og:title" content="KESA Blog | Kenyan Student Association - University of Minnesota" />
-        <meta
-          property="og:description"
-          content="Read stories, insights, and experiences from the Kenyan Student Association community at the University of Minnesota."
-        />
-        <meta property="og:url" content="https://kesa-umn.vercel.app/blog" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="KESA Blog | Kenyan Student Association - University of Minnesota" />
-        <meta
-          name="twitter:description"
-          content="Read stories, insights, and experiences from the Kenyan Student Association community at the University of Minnesota."
-        />
-        <link rel="canonical" href="https://kesa-umn.vercel.app/blog" />
-      </Head>
+
       <div className={styles.blogPage}>
         <section className={styles.hero}>
           <div className={styles.heroContent}>
-            <h1 className={styles.heroTitle}>KESA Blog</h1>
+            <h1 className={styles.heroTitle}>Lumyn Blog</h1>
             <p className={styles.heroSubtitle}>Stories, insights, and experiences from our community</p>
           </div>
         </section>

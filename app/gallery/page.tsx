@@ -41,28 +41,7 @@ export default function GalleryPage() {
 
   return (
     <>
-      <Head>
-        <title>KESA Gallery | Kenyan Student Association - University of Minnesota</title>
-        <meta
-          name="description"
-          content="Explore our photo gallery capturing moments and memories from the Kenyan Student Association community at the University of Minnesota."
-        />
-        <meta name="keywords" content="KESA, Kenyan Student Association, gallery, photos, events, community, University of Minnesota" />
-        <meta property="og:title" content="KESA Gallery | Kenyan Student Association - University of Minnesota" />
-        <meta
-          property="og:description"
-          content="Explore our photo gallery capturing moments and memories from the Kenyan Student Association community at the University of Minnesota."
-        />
-        <meta property="og:url" content="https://kesa-umn.vercel.app/gallery" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="KESA Gallery | Kenyan Student Association - University of Minnesota" />
-        <meta
-          name="twitter:description"
-          content="Explore our photo gallery capturing moments and memories from the Kenyan Student Association community at the University of Minnesota."
-        />
-        <link rel="canonical" href="https://kesa-umn.vercel.app/gallery" />
-      </Head>
+
       <div className={styles.galleryPage}>
         <section className={styles.hero}>
           <div className={styles.heroContent}>

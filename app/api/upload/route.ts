@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
     const result = await new Promise((resolve, reject) => {
       cloudinary.uploader.upload_stream(
         {
-          folder: 'kesa-uploads',
+          folder: 'lumyn-uploads',
           resource_type: 'image',
         },
         (error, result) => {

@@ -49,33 +49,12 @@ export default function EventsPage() {
 
   return (
     <>
-      <Head>
-        <title>KESA Events | Kenyan Student Association - University of Minnesota</title>
-        <meta
-          name="description"
-          content="Join KESA for cultural celebrations, networking, and community building events at the University of Minnesota."
-        />
-        <meta name="keywords" content="KESA, Kenyan Student Association, events, University of Minnesota, cultural celebrations, networking" />
-        <meta property="og:title" content="KESA Events | Kenyan Student Association - University of Minnesota" />
-        <meta
-          property="og:description"
-          content="Join KESA for cultural celebrations, networking, and community building events at the University of Minnesota."
-        />
-        <meta property="og:url" content="https://kesa-umn.vercel.app/events" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="KESA Events | Kenyan Student Association - University of Minnesota" />
-        <meta
-          name="twitter:description"
-          content="Join KESA for cultural celebrations, networking, and community building events at the University of Minnesota."
-        />
-        <link rel="canonical" href="https://kesa-umn.vercel.app/events" />
-      </Head>
+
       <div className={styles.eventsPage}>
         <section className={styles.hero}>
           <div className={styles.heroContent}>
-            <h1 className={styles.heroTitle}>KESA Events</h1>
-            <p className={styles.heroSubtitle}>Join us for cultural celebrations, networking, and community building</p>
+            <h1 className={styles.heroTitle}>Lumyn Events</h1>
+            <p className={styles.heroSubtitle}>Join us for tech conferences, workshops, and innovation showcases</p>
           </div>
         </section>
 

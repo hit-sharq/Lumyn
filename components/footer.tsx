@@ -65,7 +65,7 @@ export default function Footer() {
                 L
               </a>
               <a
-                href="https://www.instagram.com/kesa.umn?igsh=MW0yYWJsdTY1b3N6eQ=="
+                href="https://www.instagram.com/j_lee087/"
                 className={styles.socialLink}
                 aria-label="Instagram"
               >

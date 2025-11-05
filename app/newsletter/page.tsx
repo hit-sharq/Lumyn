@@ -39,28 +39,7 @@ export default function NewsletterPage() {
 
   return (
     <>
-      <Head>
-        <title>Subscribe to Lumyn Newsletter | Kenyan Student Association - University of Minnesota</title>
-        <meta
-          name="description"
-          content="Stay connected with Lumyn, the Kenyan Student Association at the University of Minnesota. Subscribe to our newsletter for updates on events, news, and community activities."
-        />
-        <meta name="keywords" content="Lumyn, Kenyan Student Association, newsletter, subscribe, events, news, community, University of Minnesota" />
-        <meta property="og:title" content="Subscribe to Lumyn Newsletter | Kenyan Student Association - University of Minnesota" />
-        <meta
-          property="og:description"
-          content="Stay connected with Lumyn, the Kenyan Student Association at the University of Minnesota. Subscribe to our newsletter for updates on events, news, and community activities."
-        />
-        <meta property="og:url" content="https://lumyn.vercel.app/newsletter" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Subscribe to Lumyn Newsletter | Kenyan Student Association - University of Minnesota" />
-        <meta
-          name="twitter:description"
-          content="Stay connected with Lumyn, the Kenyan Student Association at the University of Minnesota. Subscribe to our newsletter for updates on events, news, and community activities."
-        />
-        <link rel="canonical" href="https://lumyn.vercel.app/newsletter" />
-      </Head>
+
       <div className={styles.container}>
         <div className={styles.content}>
           <h1 className={styles.title}>Stay Connected with Lumyn</h1>
@@ -71,9 +50,9 @@ export default function NewsletterPage() {
         <div className={styles.benefits}>
           <h2 className={styles.benefitsTitle}>What You'll Get:</h2>
           <ul className={styles.benefitsList}>
-            <li>Weekly updates on upcoming events and activities</li>
+            <li>Weekly updates on upcoming tech events and activities</li>
             <li>Exclusive member-only content and opportunities</li>
-            <li>Cultural celebration announcements</li>
+            <li>Tech conference and workshop announcements</li>
             <li>Community news and achievements</li>
             <li>Networking and professional development opportunities</li>
           </ul>
@@ -100,7 +79,7 @@ export default function NewsletterPage() {
         </form>
 
         <p className={styles.privacy}>
-          We respect your privacy. Your email will only be used for KESA updates. You can unsubscribe at any time.
+          We respect your privacy. Your email will only be used for Lumyn updates. You can unsubscribe at any time.
         </p>
       </div>
     </div>

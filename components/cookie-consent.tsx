@@ -17,7 +17,7 @@ export default function CookieConsentBanner() {
       location="bottom"
       buttonText="Accept"
       declineButtonText="Decline"
-      cookieName="kesa-cookie-consent"
+      cookieName="lumyn-cookie-consent"
       style={{ background: "#2B373B" }}
       buttonStyle={{ color: "#4e503b", fontSize: "13px" }}
       declineButtonStyle={{ fontSize: "13px" }}

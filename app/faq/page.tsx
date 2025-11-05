@@ -36,7 +36,7 @@ export default function FAQPage() {
 
   const sections: Section[] = [
     {
-      id: "about-kesa",
+      id: "about-lumyn",
       title: "About Lumyn",
       content: (
         <>
@@ -205,26 +205,7 @@ export default function FAQPage() {
 
   return (
     <>
-      <Head>
-        <title>FAQ | Lumyn - Modern Digital Solutions</title>
-        <meta
-          name="description"
-          content="Frequently asked questions about Lumyn digital solutions company. Learn about our services, process, and how we can help your business."
-        />
-        <meta name="keywords" content="Lumyn, digital solutions, FAQ, frequently asked questions, web development, tech company" />
-        <meta property="og:title" content="FAQ | Lumyn - Modern Digital Solutions" />
-        <meta
-          property="og:description"
-          content="Frequently asked questions about Lumyn digital solutions company."
-        />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="FAQ | Lumyn - Modern Digital Solutions" />
-        <meta
-          name="twitter:description"
-          content="Frequently asked questions about Lumyn digital solutions company."
-        />
-      </Head>
+
       <div className={styles.faqPage}>
         <section className={styles.hero}>
           <div className={styles.heroContent}>
