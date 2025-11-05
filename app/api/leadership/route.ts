@@ -19,19 +19,19 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url)
     const limit = searchParams.get('limit') ? parseInt(searchParams.get('limit')!) : undefined
 
-    console.log("[v0] Fetching leadership team from database")
+    console.log("Fetching leadership team from database")
     const leaders = await prisma.leadershipTeam.findMany({
       orderBy: { order: "asc" },
       take: limit,
     })
-    console.log("[v0] Found leaders:", leaders.length)
+    console.log("Found leaders:", leaders.length)
     return NextResponse.json(leaders, {
       headers: {
         'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
       },
     })
   } catch (error) {
-    console.error("[v0] Error fetching leadership team:", error)
+    console.error("Error fetching leadership team:", error)
     return NextResponse.json([])
   }
 }
@@ -51,7 +51,7 @@ export async function POST(request: Request) {
 
     const validatedData = validationResult.data
 
-    console.log("[v0] Creating new leader:", validatedData.name)
+    console.log("Creating new leader:", validatedData.name)
     const leader = await prisma.leadershipTeam.create({
       data: {
         name: validatedData.name.trim(),
@@ -64,7 +64,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json(leader)
   } catch (error) {
-    console.error("[v0] Error creating leader:", error)
+    console.error("Error creating leader:", error)
     return NextResponse.json({ error: "Failed to create leader" }, { status: 500 })
   }
 }
@@ -84,7 +84,7 @@ export async function PUT(request: Request) {
 
     const validatedData = validationResult.data
 
-    console.log("[v0] Updating leader:", validatedData.id)
+    console.log("Updating leader:", validatedData.id)
     const leader = await prisma.leadershipTeam.update({
       where: { id: validatedData.id },
       data: {
@@ -98,7 +98,7 @@ export async function PUT(request: Request) {
 
     return NextResponse.json(leader)
   } catch (error) {
-    console.error("[v0] Error updating leader:", error)
+    console.error("Error updating leader:", error)
     return NextResponse.json({ error: "Failed to update leader" }, { status: 500 })
   }
 }
@@ -112,14 +112,14 @@ export async function DELETE(request: Request) {
       return NextResponse.json({ error: "Leader ID is required" }, { status: 400 })
     }
 
-    console.log("[v0] Deleting leader:", id)
+    console.log("Deleting leader:", id)
     await prisma.leadershipTeam.delete({
       where: { id },
     })
 
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error("[v0] Error deleting leader:", error)
+    console.error("Error deleting leader:", error)
     return NextResponse.json({ error: "Failed to delete leader" }, { status: 500 })
   }
 }
