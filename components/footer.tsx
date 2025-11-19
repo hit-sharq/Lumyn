@@ -31,6 +31,9 @@ export default function Footer() {
               <Link href="/gallery" className={styles.footerLink}>
                 Gallery
               </Link>
+              <Link href="/partners" className={styles.footerLink}>
+                Partners
+              </Link>
               <Link href="/faq" className={styles.footerLink}>
                 FAQ
               </Link>

@@ -1,11 +1,22 @@
-# Project Styling Update: Admin Projects Manager Card Layout
+# TODO: Add Partners Page with Admin Management
 
-## Tasks
-- [x] Update `app/admin/components/manager.module.css` to add card-based grid styles similar to news/blog cards
-- [x] Modify `app/admin/components/projects-manager.tsx` to render projects in a responsive grid of cards with images
-- [x] Test the updated layout for responsiveness and functionality
+## Database and Schema
+- [ ] Add Partner model to prisma/schema.prisma
+- [ ] Run Prisma migration to update database
 
-## Details
-- Change from horizontal list to responsive grid layout
-- Each card includes: project image, category badge, title, description excerpt, technologies tags, featured badge, edit/delete buttons
-- Use similar styling to news/blog cards for consistency
+## API Routes
+- [ ] Create app/api/partners/route.ts for GET/POST operations
+- [ ] Create app/api/partners/[id]/route.ts for PUT/DELETE operations
+
+## Admin Components
+- [ ] Create app/admin/components/partners-manager.tsx (similar to leadership-manager.tsx)
+- [ ] Update app/admin/page.tsx to add "Partners" tab and import PartnersManager
+
+## Public Page
+- [ ] Create app/partners/page.tsx for public-facing partners display
+- [ ] Create app/partners/partners.module.css for styling
+
+## Testing and Verification
+- [ ] Test admin adding/editing/deleting partners
+- [ ] Test public page displays partners correctly
+- [ ] Ensure images upload properly via /api/upload
