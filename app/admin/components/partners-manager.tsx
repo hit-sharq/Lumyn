@@ -76,17 +76,22 @@ export default function PartnersManager() {
         const formDataUpload = new FormData()
         formDataUpload.append("file", selectedFile)
 
-        const uploadResponse = await fetch("/api/upload", {
-          method: "POST",
-          body: formDataUpload,
-        })
+        try {
+          const uploadResponse = await fetch("/api/upload", {
+            method: "POST",
+            body: formDataUpload,
+          })
 
-        if (uploadResponse.ok) {
-          const uploadData = await uploadResponse.json()
-          logoUrl = uploadData.url
-        } else {
-          alert("Logo upload failed. Please try again.")
-          return
+          if (uploadResponse.ok) {
+            const uploadData = await uploadResponse.json()
+            logoUrl = uploadData.url
+          } else {
+            console.warn("Logo upload failed, proceeding without logo")
+            // Proceed without logo
+          }
+        } catch (error) {
+          console.warn("Logo upload error, proceeding without logo:", error)
+          // Proceed without logo
         }
       }
 

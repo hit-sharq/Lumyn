@@ -46,6 +46,7 @@ export async function POST(request: NextRequest) {
         {
           folder: 'lumyn-uploads',
           resource_type: 'image',
+          timeout: 60000, // 60 seconds timeout
         },
         (error, result) => {
           if (error) reject(error)
