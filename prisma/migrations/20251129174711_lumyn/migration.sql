@@ -115,6 +115,60 @@ CREATE TABLE "LeadershipTeam" (
     CONSTRAINT "LeadershipTeam_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "Project" (
+    "id" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
+    "image" TEXT NOT NULL,
+    "category" TEXT NOT NULL,
+    "technologies" TEXT[],
+    "liveUrl" TEXT,
+    "githubUrl" TEXT,
+    "featured" BOOLEAN NOT NULL DEFAULT false,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Project_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Career" (
+    "id" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
+    "company" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
+    "requirements" TEXT,
+    "location" TEXT,
+    "type" TEXT NOT NULL DEFAULT 'full-time',
+    "salary" TEXT,
+    "applicationDeadline" TIMESTAMP(3),
+    "applicationUrl" TEXT,
+    "contactEmail" TEXT,
+    "featured" BOOLEAN NOT NULL DEFAULT false,
+    "image" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Career_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Partner" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "description" TEXT,
+    "logoUrl" TEXT,
+    "website" TEXT,
+    "category" TEXT NOT NULL DEFAULT 'general',
+    "featured" BOOLEAN NOT NULL DEFAULT false,
+    "order" INTEGER NOT NULL DEFAULT 0,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Partner_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE INDEX "News_category_idx" ON "News"("category");
 
@@ -165,3 +219,27 @@ CREATE INDEX "Newsletter_createdAt_idx" ON "Newsletter"("createdAt");
 
 -- CreateIndex
 CREATE INDEX "LeadershipTeam_order_idx" ON "LeadershipTeam"("order");
+
+-- CreateIndex
+CREATE INDEX "Project_category_idx" ON "Project"("category");
+
+-- CreateIndex
+CREATE INDEX "Project_featured_idx" ON "Project"("featured");
+
+-- CreateIndex
+CREATE INDEX "Career_type_idx" ON "Career"("type");
+
+-- CreateIndex
+CREATE INDEX "Career_featured_idx" ON "Career"("featured");
+
+-- CreateIndex
+CREATE INDEX "Career_applicationDeadline_idx" ON "Career"("applicationDeadline");
+
+-- CreateIndex
+CREATE INDEX "Partner_category_idx" ON "Partner"("category");
+
+-- CreateIndex
+CREATE INDEX "Partner_featured_idx" ON "Partner"("featured");
+
+-- CreateIndex
+CREATE INDEX "Partner_order_idx" ON "Partner"("order");
