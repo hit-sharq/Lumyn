@@ -316,10 +316,12 @@ export default function MembershipPage() {
                       className={styles.select}
                     >
                       <option value="">Select budget range</option>
-                      <option value="under-5k">Under $5,000</option>
-                      <option value="5k-15k">$5,000 - $15,000</option>
-                      <option value="15k-30k">$15,000 - $30,000</option>
-                      <option value="30k-50k">$30,000 - $50,000</option>
+                      <option value="115-230">$115 - $230</option>
+                      <option value="230-500">$230 - $500</option>
+                      <option value="500-2k">$500 - $2,000</option>
+                      <option value="2k-8k">$2,000 - $8,000</option>
+                      <option value="8k-20k">$8,000 - $20,000</option>
+                      <option value="20k-50k">$20,000 - $50,000</option>
                       <option value="50k-100k">$50,000 - $100,000</option>
                       <option value="over-100k">Over $100,000</option>
                     </select>
