@@ -48,6 +48,16 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
 export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params
+
+    // Check if event exists before deleting
+    const existingEvent = await prisma.event.findUnique({
+      where: { id },
+    })
+
+    if (!existingEvent) {
+      return NextResponse.json({ error: "Event not found" }, { status: 404 })
+    }
+
     await prisma.event.delete({
       where: { id },
     })
