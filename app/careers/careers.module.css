@@ -159,9 +159,77 @@
   font-weight: 600;
 }
 
-.featuredLinks {
+
+
+.featuredActions {
   display: flex;
   gap: 1rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.featuredWhatsAppBtn,
+.featuredCallBtn {
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  font-size: 0.9rem;
+  flex: 1;
+  min-width: 100px;
+}
+
+.featuredWhatsAppBtn {
+  background: #25d366;
+  color: white;
+}
+
+.featuredWhatsAppBtn:hover {
+  background: #1fb855;
+}
+
+.featuredCallBtn {
+  background: #007bff;
+  color: white;
+}
+
+.featuredCallBtn:hover {
+  background: #0056b3;
+}
+
+.featuredApplyBtn,
+.featuredShareBtn {
+  flex: 1;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.featuredApplyBtn {
+  background: #8eb69b;
+  color: white;
+}
+
+.featuredApplyBtn:hover {
+  background: #051f20;
+}
+
+.featuredShareBtn {
+  background: transparent;
+  color: #8eb69b;
+  border: 2px solid #8eb69b;
+}
+
+.featuredShareBtn:hover {
+  background: #8eb69b;
+  color: white;
 }
 
 /* Careers Section */
@@ -254,6 +322,7 @@
   margin: 0 0 16px 0;
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -287,20 +356,87 @@
   color: #051f20;
 }
 
-.readMoreBtn {
-  width: 100%;
-  padding: 0.75rem 1.5rem;
+
+
+.careerActions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.whatsAppBtn,
+.callBtn,
+.applyBtn {
+  padding: 0.5rem 0.75rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  font-size: 0.8rem;
+  flex: 1;
+  min-width: 80px;
+}
+
+.whatsAppBtn {
+  background: #25d366;
+  color: white;
+}
+
+.whatsAppBtn:hover {
+  background: #1fb855;
+}
+
+.callBtn {
+  background: #007bff;
+  color: white;
+}
+
+.callBtn:hover {
+  background: #0056b3;
+}
+
+.applyBtn {
   background: #8eb69b;
   color: white;
+}
+
+.applyBtn:hover {
+  background: #051f20;
+}
+
+.readMoreBtn,
+.shareBtn {
+  flex: 1;
+  padding: 0.75rem 1rem;
   border: none;
   border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.readMoreBtn {
+  background: #8eb69b;
+  color: white;
 }
 
 .readMoreBtn:hover {
   background: #051f20;
+}
+
+.shareBtn {
+  background: transparent;
+  color: #8eb69b;
+  border: 2px solid #8eb69b;
+}
+
+.shareBtn:hover {
+  background: #8eb69b;
+  color: white;
 }
 
 /* Modal Styles */
@@ -586,7 +722,176 @@
     font-size: 1.5rem;
   }
 
+
   .ctaTitle {
     font-size: 2rem;
   }
 }
+
+/* Enhanced Action Buttons for Job Applications */
+.featuredActions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.featuredWhatsAppBtn,
+.featuredCallBtn {
+  background-color: #25d366;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s;
+  flex: 1;
+  min-width: 120px;
+}
+
+.featuredCallBtn {
+  background-color: #8eb69b;
+}
+
+.featuredWhatsAppBtn:hover {
+  background-color: #1fb855;
+  transform: translateY(-2px);
+}
+
+.featuredCallBtn:hover {
+  background-color: #7a9b8a;
+  transform: translateY(-2px);
+}
+
+.featuredShareBtn {
+  background-color: transparent;
+  color: #8eb69b;
+  border: 2px solid #8eb69b;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s;
+  min-width: 80px;
+}
+
+.featuredShareBtn:hover {
+  background-color: #8eb69b;
+  color: white;
+}
+
+/* Career Actions */
+.careerActions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+.whatsAppBtn,
+.callBtn {
+  background-color: #25d366;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.3s;
+  flex: 1;
+  min-width: 90px;
+}
+
+.callBtn {
+  background-color: #8eb69b;
+}
+
+.whatsAppBtn:hover {
+  background-color: #1fb855;
+  transform: translateY(-1px);
+}
+
+.callBtn:hover {
+  background-color: #7a9b8a;
+  transform: translateY(-1px);
+}
+
+.shareBtn {
+  background-color: transparent;
+  color: #8eb69b;
+  border: 2px solid #8eb69b;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.3s;
+  min-width: 60px;
+}
+
+.shareBtn:hover {
+  background-color: #8eb69b;
+  color: white;
+}
+
+
+/* Modal Actions */
+.modalActions {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.informalActions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.whatsappBtn,
+.phoneBtn,
+.emailBtn {
+  background-color: #25d366;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s;
+  flex: 1;
+  min-width: 100px;
+  text-align: center;
+}
+
+.phoneBtn {
+  background-color: #8eb69b;
+}
+
+.emailBtn {
+  background-color: #6c757d;
+}
+
+.whatsappBtn:hover {
+  background-color: #1fb855;
+  transform: translateY(-2px);
+}
+
+.phoneBtn:hover {
+  background-color: #7a9b8a;
+  transform: translateY(-2px);
+}
+
+.emailBtn:hover {
+  background-color: #5a6268;
+  transform: translateY(-2px);
+}
+
+
+

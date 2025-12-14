@@ -1,0 +1,445 @@
+/* Job Application Page Styles */
+
+.applicationPage {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+/* Loading States */
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+}
+
+.loadingSpinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #e9ecef;
+  border-top: 4px solid #8eb69b;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Error State */
+.error {
+  text-align: center;
+  padding: 60px 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.error h2 {
+  color: #dc3545;
+  margin-bottom: 20px;
+}
+
+.backButton {
+  background-color: #8eb69b;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+  transition: background-color 0.3s;
+}
+
+.backButton:hover {
+  background-color: #7a9b8a;
+}
+
+/* Success Page */
+.successPage {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #8eb69b 0%, #163832 100%);
+  padding: 40px 20px;
+}
+
+.successContent {
+  background: white;
+  border-radius: 12px;
+  padding: 60px 40px;
+  text-align: center;
+  max-width: 500px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.successIcon {
+  font-size: 64px;
+  margin-bottom: 20px;
+}
+
+.successContent h1 {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 28px;
+}
+
+.successContent p {
+  color: #666;
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.successActions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.primaryButton {
+  background-color: #8eb69b;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.3s;
+}
+
+.primaryButton:hover {
+  background-color: #7a9b8a;
+}
+
+.secondaryButton {
+  background-color: transparent;
+  color: #8eb69b;
+  border: 2px solid #8eb69b;
+  padding: 10px 22px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s;
+}
+
+.secondaryButton:hover {
+  background-color: #8eb69b;
+  color: white;
+}
+
+/* Progress Header */
+.progressHeader {
+  background: linear-gradient(135deg, #8eb69b 0%, #163832 100%);
+  color: white;
+  padding: 40px 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.progressContent {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.jobInfo {
+  text-align: center;
+}
+
+.jobTitle {
+  font-size: 32px;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.jobCompany {
+  font-size: 18px;
+  opacity: 0.9;
+}
+
+.progressSteps {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.progressStep {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+}
+
+.progressStep.activeStep {
+  opacity: 1;
+}
+
+.progressStep.completedStep {
+  opacity: 0.8;
+}
+
+.stepNumber {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.progressStep.activeStep .stepNumber {
+  background-color: white;
+  color: #8eb69b;
+}
+
+.stepInfo {
+  text-align: left;
+}
+
+.stepTitle {
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.stepDescription {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+/* Form Content */
+.formContent {
+  padding: 60px 0;
+}
+
+.applicationForm {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.formStep {
+  background: white;
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  margin-bottom: 30px;
+}
+
+.stepHeading {
+  color: #333;
+  font-size: 28px;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.stepSubheading {
+  color: #666;
+  margin-bottom: 30px;
+  font-size: 16px;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.formGroup {
+  margin-bottom: 25px;
+}
+
+.formLabel {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #333;
+  font-size: 14px;
+}
+
+.formInput,
+.formTextarea,
+.formSelect {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e9ecef;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  font-family: inherit;
+}
+
+.formInput:focus,
+.formTextarea:focus,
+.formSelect:focus {
+  outline: none;
+  border-color: #8eb69b;
+  box-shadow: 0 0 0 3px rgba(142, 182, 155, 0.1);
+}
+
+.formTextarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.errorInput {
+  border-color: #dc3545;
+}
+
+.errorMessage {
+  color: #dc3545;
+  font-size: 14px;
+  margin-top: 5px;
+  display: block;
+}
+
+/* Review Section */
+.reviewSection {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.reviewCard {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 25px;
+  border-left: 4px solid #8eb69b;
+}
+
+.reviewCard h3 {
+  color: #333;
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.reviewGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 10px;
+}
+
+.reviewContent p {
+  margin: 0;
+  line-height: 1.6;
+  color: #555;
+}
+
+/* Form Navigation */
+.formNavigation {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 40px;
+  padding: 0 20px;
+}
+
+.submitButton {
+  background: linear-gradient(135deg, #8eb69b 0%, #163832 100%);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s;
+  min-width: 180px;
+}
+
+.submitButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(142, 182, 155, 0.3);
+}
+
+.submitButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .progressSteps {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .progressStep {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+  
+  .stepInfo {
+    text-align: center;
+  }
+  
+  .formStep {
+    padding: 30px 20px;
+  }
+  
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .formNavigation {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .successActions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .successContent {
+    padding: 40px 30px;
+  }
+  
+  .jobTitle {
+    font-size: 24px;
+  }
+  
+  .jobCompany {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 15px;
+  }
+  
+  .formStep {
+    padding: 20px 15px;
+  }
+  
+  .successContent {
+    padding: 30px 20px;
+  }
+  
+  .stepHeading {
+    font-size: 24px;
+  }
+}
+
