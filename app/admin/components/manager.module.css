@@ -646,30 +646,154 @@ de.manager {
 
 @media (max-width: 768px) {
   .manager {
-    padding: 24px;
-  }
-
-  .formRow {
-    grid-template-columns: 1fr;
+    padding: 20px 16px;
+    border-radius: 12px;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .header {
     flex-direction: column;
     align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 24px;
   }
 
+  .title {
+    font-size: 1.5rem;
+    margin: 0;
+  }
+
+  .addBtn {
+    padding: 12px 24px;
+    font-size: 0.95rem;
+    align-self: stretch;
+    justify-content: center;
+  }
+
+  /* Form Mobile Optimizations */
+  .form {
+    gap: 20px;
+  }
+
+  .formRow {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .formGroup {
+    width: 100%;
+  }
+
+  .label {
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+    font-weight: 700;
+  }
+
+  .input,
+  .select,
+  .textarea {
+    padding: 14px 16px;
+    font-size: 1rem;
+    border-radius: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 48px; /* Better touch targets */
+  }
+
+  .textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+
+  .formActions {
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .saveBtn,
+  .cancelBtn {
+    padding: 16px 24px;
+    font-size: 1rem;
+    min-height: 52px;
+    width: 100%;
+    border-radius: 12px;
+  }
+
+  /* Search and Table Mobile */
   .searchInput {
     min-width: 100%;
+    padding: 14px 20px;
+    font-size: 1rem;
+    min-height: 48px;
   }
 
+  .tableWrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 -16px;
+    padding: 0 16px;
+  }
+
+  .table {
+    min-width: 600px; /* Ensure table doesn't get too cramped */
+  }
+
+  .table th,
+  .table td {
+    padding: 12px 8px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+
+  /* Grid/List Mobile */
   .gridList {
     grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .gridCard {
+    height: auto;
+    min-height: 280px;
+  }
+
+  .gridContent {
+    padding: 20px;
   }
 
   .gridActions {
     flex-direction: column;
+    gap: 8px;
+    padding: 16px 20px;
   }
 
+  .editBtn,
+  .deleteBtn {
+    padding: 12px 16px;
+    min-height: 44px;
+    font-size: 0.95rem;
+  }
+
+  /* Modal Mobile */
+  .modal {
+    padding: 16px;
+  }
+
+  .modalContent {
+    padding: 24px 20px;
+    max-width: 100%;
+    border-radius: 12px;
+  }
+
+  .modalTitle {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+
+  /* Detail Card Mobile */
   .detailCard {
     width: 90vw;
     left: 5vw;
@@ -677,5 +801,66 @@ de.manager {
     max-height: 80vh;
     overflow-y: auto;
     box-sizing: border-box;
+    border-radius: 12px 12px 0 0;
+  }
+
+  .detailBody {
+    padding: 20px;
+  }
+
+  .detailTitle {
+    font-size: 1.5rem;
+  }
+
+  .detailActions {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .detailEditBtn,
+  .detailDeleteBtn {
+    padding: 14px 20px;
+    min-height: 48px;
+    font-size: 1rem;
+  }
+
+  /* Loading and Empty States */
+  .loading,
+  .empty {
+    padding: 40px 20px;
+    font-size: 1rem;
+  }
+}
+
+/* Extra Small Mobile Devices */
+@media (max-width: 480px) {
+  .manager {
+    padding: 16px 12px;
+  }
+
+  .title {
+    font-size: 1.25rem;
+  }
+
+  .input,
+  .select,
+  .textarea {
+    padding: 12px 14px;
+    font-size: 0.95rem;
+  }
+
+  .saveBtn,
+  .cancelBtn {
+    padding: 14px 20px;
+    font-size: 0.95rem;
+  }
+
+  .modalContent {
+    padding: 20px 16px;
+  }
+
+  .detailCard {
+    width: 95vw;
+    left: 2.5vw;
   }
 }
