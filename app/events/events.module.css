@@ -347,8 +347,17 @@
   transition: background 0.3s ease;
 }
 
+
 .detailRegisterBtn:hover {
   background: #b71c1c;
+}
+
+.shareSection {
+  margin: 20px 0;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  text-align: center;
 }
 
 @keyframes slideInFromRight {

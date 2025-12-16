@@ -1,0 +1,232 @@
+.shareContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.shareButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: #f3f4f6;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  color: #374151;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.shareButton:hover {
+  background: #e5e7eb;
+  border-color: #9ca3af;
+  transform: translateY(-1px);
+}
+
+.shareIcon {
+  font-size: 1rem;
+}
+
+/* Minimal variant */
+.minimal .shareButton {
+  padding: 0.375rem;
+  background: transparent;
+  border: none;
+  border-radius: 0.375rem;
+}
+
+.minimal .shareButton:hover {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: transparent;
+}
+
+/* Full variant */
+.full {
+  width: 100%;
+}
+
+.fullShareOptions {
+  padding: 1.5rem;
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+.shareTitle {
+  margin: 0 0 1rem 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #111827;
+  text-align: center;
+}
+
+.shareGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.75rem;
+}
+
+.shareOption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 0.75rem;
+  background: white;
+  border: 2px solid #f3f4f6;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  color: #374151;
+}
+
+.shareOption:hover {
+  border-color: var(--option-color, #3b82f6);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.optionIcon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.optionLabel {
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* Dropdown styles for default/minimal variants */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  min-width: 280px;
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  border: 1px solid #e5e7eb;
+  z-index: 1001;
+  animation: slideDown 0.2s ease-out;
+}
+
+.dropdownTitle {
+  margin: 0;
+  padding: 1rem 1rem 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827;
+  text-align: center;
+}
+
+.dropdownOptions {
+  padding: 0.5rem;
+}
+
+.dropdownOption {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem;
+  background: transparent;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  text-align: left;
+  color: #374151;
+  font-size: 0.875rem;
+}
+
+.dropdownOption:hover {
+  background: #f9fafb;
+}
+
+.dropdownOption .optionIcon {
+  font-size: 1.25rem;
+  line-height: 1;
+  width: 1.25rem;
+  text-align: center;
+}
+
+.dropdownOption .optionLabel {
+  font-weight: 500;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 640px) {
+  .shareGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .dropdown {
+    left: 1rem;
+    right: 1rem;
+    min-width: auto;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .shareButton {
+    background: #374151;
+    border-color: #4b5563;
+    color: #f9fafb;
+  }
+  
+  .shareButton:hover {
+    background: #4b5563;
+    border-color: #6b7280;
+  }
+  
+  .fullShareOptions {
+    background: #1f2937;
+    border-color: #374151;
+  }
+  
+  .shareTitle,
+  .dropdownTitle {
+    color: #f9fafb;
+  }
+  
+  .shareOption {
+    background: #1f2937;
+    border-color: #374151;
+    color: #f9fafb;
+  }
+  
+  .dropdown {
+    background: #1f2937;
+    border-color: #374151;
+  }
+  
+  .dropdownOption:hover {
+    background: #374151;
+  }
+}

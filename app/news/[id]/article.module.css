@@ -141,9 +141,16 @@
   transition: all 0.3s ease;
 }
 
+
 .backBtn:hover {
   background: #003080;
   transform: translateX(-4px);
+}
+
+.shareSection {
+  padding: 40px 60px;
+  border-top: 1px solid #e0e0e0;
+  background: #f8f9fa;
 }
 
 @media (max-width: 768px) {

@@ -1,9 +1,11 @@
 "use client"
 
+
 import { useEffect, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
 import Image from "next/image"
 import styles from "./article.module.css"
+import ShareButton from "@/components/ShareButton"
 
 interface NewsItem {
   id: string
@@ -79,8 +81,18 @@ export default function NewsArticlePage() {
           />
         </div>
 
+
         <div className={styles.content}>
           <div className={styles.contentInner} dangerouslySetInnerHTML={{ __html: article.content }} />
+        </div>
+
+        <div className={styles.shareSection}>
+          <ShareButton 
+            title={article.title}
+            text={`Read this news article: ${article.title} by ${article.author}`}
+            variant="full"
+            showLabels={true}
+          />
         </div>
 
         <div className={styles.backButton}>

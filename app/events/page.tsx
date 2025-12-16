@@ -1,9 +1,11 @@
 "use client"
 
+
 import { useEffect, useState } from "react"
 import Head from "next/head"
 import Image from "next/image"
 import styles from "./events.module.css"
+import ShareButton from "@/components/ShareButton"
 
 interface Event {
   id: string
@@ -128,10 +130,18 @@ export default function EventsPage() {
                           <span className={styles.detailIcon}>📍</span>
                           <span>{selectedStapleEvent.location}</span>
                         </div>
+
                         <div className={styles.detailDetail}>
                           <span className={styles.detailIcon}>🏷️</span>
                           <span>{selectedStapleEvent.category}</span>
                         </div>
+                      </div>
+                      <div className={styles.shareSection}>
+                        <ShareButton 
+                          title={selectedStapleEvent.title}
+                          text={`Join us for ${selectedStapleEvent.title} at ${selectedStapleEvent.location} on ${new Date(selectedStapleEvent.date).toLocaleDateString()}`}
+                          variant="minimal"
+                        />
                       </div>
                       {selectedStapleEvent.registrationLink && (
                         <a
@@ -249,10 +259,18 @@ export default function EventsPage() {
                   <span className={styles.detailIcon}>📍</span>
                   <span>{selectedRegularEvent.location}</span>
                 </div>
+
                 <div className={styles.modalDetail}>
                   <span className={styles.detailIcon}>🏷️</span>
                   <span>{selectedRegularEvent.category}</span>
                 </div>
+              </div>
+              <div className={styles.shareSection}>
+                <ShareButton 
+                  title={selectedRegularEvent.title}
+                  text={`Join us for ${selectedRegularEvent.title} at ${selectedRegularEvent.location} on ${new Date(selectedRegularEvent.date).toLocaleDateString()}`}
+                  variant="minimal"
+                />
               </div>
               {selectedRegularEvent.registrationLink && filter === "upcoming" && (
                 <a
