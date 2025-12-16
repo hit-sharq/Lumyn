@@ -28,13 +28,27 @@ export default function NewsManager() {
     fetchItems()
   }, [])
 
+
   const fetchItems = async () => {
     try {
       const response = await fetch("/api/news")
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      
       const data = await response.json()
-      setItems(data)
+      
+      // Ensure data is an array before setting it
+      if (Array.isArray(data)) {
+        setItems(data)
+      } else {
+        console.error("API returned non-array data:", data)
+        setItems([])
+      }
     } catch (error) {
       console.error("Error fetching news:", error)
+      setItems([]) // Set to empty array on error
     } finally {
       setLoading(false)
     }
