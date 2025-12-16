@@ -4,9 +4,9 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  background: rgba(0, 32, 96, 0.95);
+  background: rgba(74, 74, 74, 0.95);
   backdrop-filter: blur(10px);
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 20px rgba(74, 74, 74, 0.1);
 }
 
 .container {
@@ -34,14 +34,14 @@
 .logoText {
   font-size: 2rem;
   font-weight: 800;
-  color: white;
+  color: #ffffe3;
   letter-spacing: 2px;
 }
 
 .logoSubtext {
   font-size: 0.875rem;
   font-weight: 700;
-  color: #ffd700;
+  color: #6d8196;
   text-transform: uppercase;
 }
 
@@ -52,7 +52,7 @@
 }
 
 .navLink {
-  color: white;
+  color: #ffffe3;
   text-decoration: none;
   font-weight: 600;
   font-size: 1rem;
@@ -67,12 +67,12 @@
   left: 0;
   width: 0;
   height: 2px;
-  background: #ffd700;
+  background: #6d8196;
   transition: width 0.3s ease;
 }
 
 .navLink:hover {
-  color: #ffd700;
+  color: #6d8196;
 }
 
 .navLink:hover::after {
@@ -81,18 +81,19 @@
 
 .joinBtn {
   padding: 12px 28px;
-  background: linear-gradient(135deg, #d32f2f, #b71c1c);
-  color: white;
+  background: #6d8196;
+  color: #ffffe3;
   text-decoration: none;
   font-weight: 700;
   border-radius: 50px;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(211, 47, 47, 0.3);
+  box-shadow: 0 4px 15px rgba(109, 129, 150, 0.3);
 }
 
 .joinBtn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(211, 47, 47, 0.5);
+  box-shadow: 0 6px 20px rgba(109, 129, 150, 0.5);
+  background: #5a6a7d;
 }
 
 .menuToggle {
@@ -108,7 +109,7 @@
   display: block;
   width: 28px;
   height: 2px;
-  background: white;
+  background: #ffffe3;
   position: relative;
   transition: all 0.3s ease;
 }
@@ -121,7 +122,7 @@
   position: absolute;
   width: 28px;
   height: 2px;
-  background: white;
+  background: #ffffe3;
   transition: all 0.3s ease;
 }
 
@@ -156,8 +157,8 @@
 .signInBtn {
   padding: 10px 24px;
   background: transparent;
-  color: white;
-  border: 2px solid white;
+  color: #ffffe3;
+  border: 2px solid #ffffe3;
   border-radius: 50px;
   font-weight: 600;
   cursor: pointer;
@@ -165,8 +166,8 @@
 }
 
 .signInBtn:hover {
-  background: white;
-  color: #002060;
+  background: #ffffe3;
+  color: #4a4a4a;
 }
 
 @media (max-width: 968px) {
@@ -179,7 +180,7 @@
     top: 80px;
     left: 0;
     right: 0;
-    background: rgba(0, 32, 96, 0.98);
+    background: rgba(74, 74, 74, 0.98);
     flex-direction: column;
     padding: 40px 20px;
     gap: 24px;

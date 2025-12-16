@@ -26,7 +26,7 @@
 .heroOverlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(0, 32, 96, 0.7), rgba(0, 0, 0, 0.8));
+  background: linear-gradient(to bottom, rgba(74, 74, 74, 0.7), rgba(74, 74, 74, 0.9));
   z-index: 2;
 }
 
@@ -34,7 +34,7 @@
   position: relative;
   z-index: 3;
   text-align: center;
-  color: white;
+  color: #ffffe3;
   padding: 0 20px;
   max-width: 900px;
   animation: fadeInUp 1s ease-out;
@@ -56,15 +56,16 @@
   font-weight: 800;
   margin: 0 0 16px 0;
   line-height: 1.1;
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+  text-shadow: 2px 2px 8px rgba(74, 74, 74, 0.5);
+  color: #ffffe3;
 }
 
 .heroSubtitle {
   font-size: 1.75rem;
   font-weight: 600;
   margin: 0 0 24px 0;
-  color: #ffd700;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+  color: #6d8196;
+  text-shadow: 1px 1px 4px rgba(74, 74, 74, 0.5);
 }
 
 .heroDescription {
@@ -74,34 +75,35 @@
   max-width: 700px;
   margin-left: auto;
   margin-right: auto;
+  color: #ffffe3;
 }
 
 .joinButton {
   display: inline-block;
   padding: 18px 48px;
-  background: linear-gradient(135deg, #d32f2f, #b71c1c);
-  color: white;
+  background: #6d8196;
+  color: #ffffe3;
   text-decoration: none;
   font-size: 1.125rem;
   font-weight: 700;
   border-radius: 50px;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(211, 47, 47, 0.4);
+  box-shadow: 0 4px 15px rgba(109, 129, 150, 0.4);
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
 .joinButton:hover {
   transform: translateY(-3px);
-  box-shadow: 0 6px 25px rgba(211, 47, 47, 0.6);
-  background: linear-gradient(135deg, #e53935, #c62828);
+  box-shadow: 0 6px 25px rgba(109, 129, 150, 0.6);
+  background: #5a6a7d;
 }
 
 /* About Section */
 .aboutSection {
   padding: 100px 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: #6d8196;
+  color: #ffffe3;
 }
 
 .container {
@@ -114,7 +116,7 @@
   font-weight: 800;
   text-align: center;
   margin: 0 0 24px 0;
-  color: #002060;
+  color: #4a4a4a;
 }
 
 .aboutText {
@@ -123,7 +125,7 @@
   text-align: center;
   max-width: 800px;
   margin: 0 auto 60px auto;
-  color: #333;
+  color: #4a4a4a;
 }
 
 .statsGrid {
@@ -136,28 +138,28 @@
 .statCard {
   text-align: center;
   padding: 40px;
-  background: white;
+  background: #ffffe3;
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(74, 74, 74, 0.08);
   min-width: 200px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .statCard:hover {
   transform: translateY(-8px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 30px rgba(74, 74, 74, 0.15);
 }
 
 .statNumber {
   font-size: 3.5rem;
   font-weight: 800;
-  color: #d32f2f;
+  color: #6d8196;
   margin: 0 0 8px 0;
 }
 
 .statLabel {
   font-size: 1rem;
-  color: #666;
+  color: #4a4a4a;
   margin: 0;
   font-weight: 600;
 }
@@ -165,13 +167,13 @@
 /* Events Section */
 .eventsSection {
   padding: 100px 20px;
-  background: rgb(158, 149, 149);
+  background: #cbcbcb;
 }
 
 /* News Section */
 .newsSection {
   padding: 100px 20px;
-  background: #f5f5f5;
+  background: #ffffe3;
 }
 
 .newsGrid {
@@ -181,10 +183,10 @@
 }
 
 .newsCard {
-  background: white;
+  background: #ffffe3;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(74, 74, 74, 0.08);
   transition: all 0.3s ease;
   width: 300px;
   height: 300px;
@@ -194,7 +196,7 @@
 
 .newsCard:hover {
   transform: translateY(-8px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 30px rgba(74, 74, 74, 0.15);
 }
 
 .newsImage {
@@ -207,12 +209,12 @@
   position: absolute;
   top: 12px;
   right: 12px;
-  background: #d32f2f;
-  color: white;
+  background: #6d8196;
+  color: #ffffe3;
   padding: 8px 12px;
   border-radius: 12px;
   text-align: center;
-  box-shadow: 0 4px 15px rgba(211, 47, 47, 0.3);
+  box-shadow: 0 4px 15px rgba(109, 129, 150, 0.3);
   z-index: 2;
 }
 
@@ -234,11 +236,12 @@
 .newsImagePlaceholder {
   width: 100%;
   height: 150px;
-  background: linear-gradient(135deg, #002060, #003080);
+  background: #6d8196;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 3rem;
+  color: #ffffe3;
 }
 
 .newsContent {
@@ -252,7 +255,7 @@
   font-size: 1rem;
   font-weight: 700;
   margin: 0 0 8px 0;
-  color: #002060;
+  color: #4a4a4a;
   line-height: 1.4;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -263,7 +266,7 @@
 
 .newsExcerpt {
   font-size: 0.75rem;
-  color: #666;
+  color: #4a4a4a;
   margin: 0 0 8px 0;
   line-height: 1.5;
   flex: 1;
@@ -273,7 +276,7 @@
 .ctaSection {
   position: relative;
   padding: 100px 20px;
-  color: white;
+  color: #ffffe3;
   text-align: center;
   overflow: hidden;
 }
@@ -291,7 +294,7 @@
 .ctaOverlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(0, 32, 96, 0.7), rgba(0, 0, 0, 0.8));
+  background: linear-gradient(to bottom, rgba(74, 74, 74, 0.7), rgba(74, 74, 74, 0.9));
   z-index: 2;
 }
 
@@ -318,22 +321,22 @@
 .ctaButton {
   display: inline-block;
   padding: 18px 48px;
-  background: #d32f2f;
-  color: white;
+  background: #6d8196;
+  color: #ffffe3;
   text-decoration: none;
   font-size: 1.125rem;
   font-weight: 700;
   border-radius: 50px;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(211, 47, 47, 0.4);
+  box-shadow: 0 4px 15px rgba(109, 129, 150, 0.4);
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
 .ctaButton:hover {
   transform: translateY(-3px);
-  box-shadow: 0 6px 25px rgba(211, 47, 47, 0.6);
-  background: #e53935;
+  box-shadow: 0 6px 25px rgba(109, 129, 150, 0.6);
+  background: #5a6a7d;
 }
 
 /* Responsive Design */
