@@ -3,112 +3,151 @@
   display: inline-block;
 }
 
+/* Modern button design with better hover states */
 .shareButton {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  background: #f3f4f6;
-  border: 1px solid #d1d5db;
-  border-radius: 0.5rem;
-  color: #374151;
+  padding: 0.625rem 1.125rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  border-radius: 0.625rem;
+  color: white;
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
 }
 
 .shareButton:hover {
-  background: #e5e7eb;
-  border-color: #9ca3af;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
 }
 
-.shareIcon {
-  font-size: 1rem;
+.shareButton:active {
+  transform: translateY(0);
 }
 
-/* Minimal variant */
+.shareButton svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Cleaner minimal variant */
 .minimal .shareButton {
-  padding: 0.375rem;
-  background: transparent;
-  border: none;
-  border-radius: 0.375rem;
+  padding: 0.5rem;
+  background: rgba(102, 126, 234, 0.1);
+  color: #667eea;
+  box-shadow: none;
 }
 
 .minimal .shareButton:hover {
-  background: rgba(59, 130, 246, 0.1);
-  border-color: transparent;
+  background: rgba(102, 126, 234, 0.2);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
 }
 
-/* Full variant */
+/* Modern full variant with card design */
 .full {
   width: 100%;
 }
 
 .fullShareOptions {
-  padding: 1.5rem;
+  padding: 2rem;
   background: white;
-  border-radius: 0.75rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .shareTitle {
-  margin: 0 0 1rem 0;
+  margin: 0 0 1.5rem 0;
   font-size: 1.125rem;
-  font-weight: 600;
-  color: #111827;
+  font-weight: 700;
+  color: #1f2937;
   text-align: center;
+  letter-spacing: -0.01em;
 }
 
+/* Improved grid layout for share options */
 .shareGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 1rem;
 }
 
+/* Modern share option buttons with hover effects */
 .shareOption {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
-  padding: 1rem 0.75rem;
-  background: white;
-  border: 2px solid #f3f4f6;
-  border-radius: 0.5rem;
+  justify-content: center;
+  gap: 0.625rem;
+  padding: 1.25rem 0.75rem;
+  background: #f9fafb;
+  border: 2px solid transparent;
+  border-radius: 0.75rem;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   text-decoration: none;
   color: #374151;
+  min-height: 100px;
 }
 
 .shareOption:hover {
-  border-color: var(--option-color, #3b82f6);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: white;
+  border-color: var(--option-color);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.shareOption:active {
+  transform: translateY(-1px);
 }
 
 .optionIcon {
-  font-size: 1.5rem;
-  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.625rem;
+  background: white;
+  color: var(--option-color);
+  transition: all 0.3s ease;
+}
+
+.shareOption:hover .optionIcon {
+  background: var(--option-color);
+  color: white;
+  transform: scale(1.1);
+}
+
+.optionIcon svg {
+  width: 20px;
+  height: 20px;
 }
 
 .optionLabel {
-  font-size: 0.75rem;
-  font-weight: 500;
+  font-size: 0.8125rem;
+  font-weight: 600;
   text-align: center;
+  color: #4b5563;
+  letter-spacing: -0.01em;
 }
 
-/* Dropdown styles for default/minimal variants */
+/* Modern dropdown with smooth animation */
 .overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
   z-index: 1000;
+  animation: fadeIn 0.2s ease-out;
 }
 
 .dropdown {
@@ -117,116 +156,177 @@
   right: 0;
   min-width: 280px;
   background: white;
-  border-radius: 0.75rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   z-index: 1001;
-  animation: slideDown 0.2s ease-out;
+  animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
 }
 
 .dropdownTitle {
   margin: 0;
-  padding: 1rem 1rem 0.5rem;
+  padding: 1.25rem 1.25rem 0.75rem;
   font-size: 1rem;
-  font-weight: 600;
-  color: #111827;
+  font-weight: 700;
+  color: #1f2937;
   text-align: center;
+  letter-spacing: -0.01em;
+  background: linear-gradient(180deg, #f9fafb 0%, white 100%);
 }
 
 .dropdownOptions {
-  padding: 0.5rem;
+  padding: 0.75rem;
 }
 
+/* Cleaner dropdown option design */
 .dropdownOption {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 1rem;
   width: 100%;
-  padding: 0.75rem;
+  padding: 0.875rem 1rem;
   background: transparent;
   border: none;
-  border-radius: 0.5rem;
+  border-radius: 0.625rem;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
   text-align: left;
   color: #374151;
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
 }
 
 .dropdownOption:hover {
-  background: #f9fafb;
+  background: #f3f4f6;
 }
 
 .dropdownOption .optionIcon {
-  font-size: 1.25rem;
-  line-height: 1;
-  width: 1.25rem;
-  text-align: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  background: #f9fafb;
+  border-radius: 0.5rem;
+}
+
+.dropdownOption:hover .optionIcon {
+  background: var(--option-color);
+  color: white;
 }
 
 .dropdownOption .optionLabel {
-  font-weight: 500;
+  font-size: 0.9375rem;
+  color: #1f2937;
+}
+
+/* Smooth animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideDown {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-10px) scale(0.95);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
 /* Responsive design */
 @media (max-width: 640px) {
   .shareGrid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
-  
+
   .dropdown {
-    left: 1rem;
-    right: 1rem;
-    min-width: auto;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    min-width: 300px;
+  }
+
+  .fullShareOptions {
+    padding: 1.5rem;
   }
 }
 
-/* Dark mode support */
+@media (max-width: 400px) {
+  .shareGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Modern dark mode support */
 @media (prefers-color-scheme: dark) {
   .shareButton {
-    background: #374151;
-    border-color: #4b5563;
-    color: #f9fafb;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   }
-  
-  .shareButton:hover {
-    background: #4b5563;
-    border-color: #6b7280;
+
+  .minimal .shareButton {
+    background: rgba(102, 126, 234, 0.15);
+    color: #818cf8;
   }
-  
+
+  .minimal .shareButton:hover {
+    background: rgba(102, 126, 234, 0.25);
+  }
+
   .fullShareOptions {
     background: #1f2937;
     border-color: #374151;
   }
-  
+
   .shareTitle,
   .dropdownTitle {
     color: #f9fafb;
   }
-  
+
   .shareOption {
-    background: #1f2937;
-    border-color: #374151;
+    background: #111827;
     color: #f9fafb;
   }
-  
+
+  .shareOption:hover {
+    background: #1f2937;
+  }
+
+  .optionIcon {
+    background: #1f2937;
+  }
+
+  .shareOption:hover .optionIcon {
+    background: var(--option-color);
+  }
+
+  .optionLabel {
+    color: #d1d5db;
+  }
+
   .dropdown {
     background: #1f2937;
     border-color: #374151;
   }
-  
+
+  .dropdownTitle {
+    background: linear-gradient(180deg, #111827 0%, #1f2937 100%);
+  }
+
   .dropdownOption:hover {
-    background: #374151;
+    background: #111827;
+  }
+
+  .dropdownOption .optionIcon {
+    background: #111827;
+  }
+
+  .dropdownOption .optionLabel {
+    color: #f3f4f6;
   }
 }
