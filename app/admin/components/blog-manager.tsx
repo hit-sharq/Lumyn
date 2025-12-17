@@ -1,9 +1,11 @@
 "use client"
 
 import type React from "react"
-
 import { useState, useEffect } from "react"
 import styles from "./manager.module.css"
+import ToastNotification from "@/components/toast-notification"
+
+
 
 interface BlogPost {
   id: string
@@ -14,7 +16,15 @@ interface BlogPost {
   author: string
   category: string
   tags: string[]
+  isPublished: boolean
+  featured: boolean
   createdAt: string
+}
+
+interface Toast {
+  message: string
+  type: "success" | "error" | "info" | "warning"
+  id: number
 }
 
 export default function BlogManager() {
@@ -25,6 +35,16 @@ export default function BlogManager() {
   const [loading, setLoading] = useState(true)
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [previewUrl, setPreviewUrl] = useState<string>("")
+  const [toasts, setToasts] = useState<Toast[]>([])
+
+  const showToast = (message: string, type: Toast["type"]) => {
+    const id = Date.now()
+    setToasts((prev) => [...prev, { message, type, id }])
+  }
+
+  const removeToast = (id: number) => {
+    setToasts((prev) => prev.filter((toast) => toast.id !== id))
+  }
 
   useEffect(() => {
     fetchItems()
@@ -33,10 +53,15 @@ export default function BlogManager() {
   const fetchItems = async () => {
     try {
       const response = await fetch("/api/blog")
+      if (!response.ok) {
+        const error = await response.json()
+        throw new Error(error.message || "Failed to fetch blog posts")
+      }
       const data = await response.json()
       setItems(data)
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error fetching blog posts:", error)
+      showToast(error.message || "Failed to load blog posts", "error")
     } finally {
       setLoading(false)
     }
@@ -55,7 +80,7 @@ export default function BlogManager() {
     e.preventDefault()
     try {
       if (!currentItem.category || currentItem.category.trim() === "") {
-        alert("Category is required")
+        showToast("Category is required", "warning")
         return
       }
 
@@ -63,20 +88,20 @@ export default function BlogManager() {
 
       if (selectedFile) {
         const formDataUpload = new FormData()
-        formDataUpload.append('file', selectedFile)
+        formDataUpload.append("file", selectedFile)
 
-        const uploadResponse = await fetch('/api/upload', {
-          method: 'POST',
+        const uploadResponse = await fetch("/api/upload", {
+          method: "POST",
           body: formDataUpload,
         })
 
-        if (uploadResponse.ok) {
-          const uploadData = await uploadResponse.json()
-          image = uploadData.url
-        } else {
-          console.error('Image upload failed')
+        if (!uploadResponse.ok) {
+          showToast("Image upload failed", "error")
           return
         }
+
+        const uploadData = await uploadResponse.json()
+        image = uploadData.url
       }
 
       const tags = tagsInput
@@ -86,22 +111,36 @@ export default function BlogManager() {
       const url = currentItem.id ? `/api/blog/${currentItem.id}` : "/api/blog"
       const method = currentItem.id ? "PUT" : "POST"
 
+
+
       const response = await fetch(url, {
         method,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...currentItem, tags, image, category: currentItem.category }),
+        body: JSON.stringify({ 
+          ...currentItem, 
+          tags, 
+          image, 
+          category: currentItem.category,
+          isPublished: currentItem.isPublished !== false, // Default to true
+          featured: currentItem.featured || false, // Default to false
+        }),
       })
 
-      if (response.ok) {
-        fetchItems()
-        setIsEditing(false)
-        setCurrentItem({})
-        setTagsInput("")
-        setSelectedFile(null)
-        setPreviewUrl("")
+      if (!response.ok) {
+        const error = await response.json()
+        throw new Error(error.message || "Failed to save blog post")
       }
-    } catch (error) {
+
+      await fetchItems()
+      setIsEditing(false)
+      setCurrentItem({})
+      setTagsInput("")
+      setSelectedFile(null)
+      setPreviewUrl("")
+      showToast(currentItem.id ? "Blog post updated successfully" : "Blog post created successfully", "success")
+    } catch (error: any) {
       console.error("Error saving blog post:", error)
+      showToast(error.message || "Failed to save blog post", "error")
     }
   }
 
@@ -110,25 +149,39 @@ export default function BlogManager() {
 
     try {
       const response = await fetch(`/api/blog/${id}`, { method: "DELETE" })
-      if (response.ok) {
-        fetchItems()
+
+      if (!response.ok) {
+        const error = await response.json()
+        throw new Error(error.message || "Failed to delete blog post")
       }
-    } catch (error) {
+
+      await fetchItems()
+      showToast("Blog post deleted successfully", "success")
+    } catch (error: any) {
       console.error("Error deleting blog post:", error)
+      showToast(error.message || "Failed to delete blog post", "error")
     }
   }
 
+
+
   const handleEdit = (item: BlogPost) => {
-    setCurrentItem(item)
+    setCurrentItem({
+      ...item
+    })
     setTagsInput(item.tags?.join(", ") || "")
     setPreviewUrl(item.image || "")
     setSelectedFile(null)
     setIsEditing(true)
   }
 
+
   const handleCancel = () => {
     setIsEditing(false)
-    setCurrentItem({})
+    setCurrentItem({
+      isPublished: true, // Default to published
+      featured: false    // Default to not featured
+    })
     setTagsInput("")
     setSelectedFile(null)
     setPreviewUrl("")
@@ -139,156 +192,202 @@ export default function BlogManager() {
   }
 
   return (
-    <div className={styles.manager}>
-      <div className={styles.header}>
-        <h1 className={styles.title}>Blog Management</h1>
-        {!isEditing && (
-          <button onClick={() => setIsEditing(true)} className={styles.addBtn}>
-            Add Blog Post
-          </button>
-        )}
-      </div>
+    <>
+      {toasts.map((toast) => (
+        <ToastNotification
+          key={toast.id}
+          message={toast.message}
+          type={toast.type}
+          onClose={() => removeToast(toast.id)}
+        />
+      ))}
 
-      {isEditing ? (
-        <form onSubmit={handleSubmit} className={styles.form}>
-          <div className={styles.formGroup}>
-            <label className={styles.label}>Title *</label>
-            <input
-              type="text"
-              value={currentItem.title || ""}
-              onChange={(e) => setCurrentItem({ ...currentItem, title: e.target.value })}
-              required
-              className={styles.input}
-            />
-          </div>
+      <div className={styles.manager}>
+        <div className={styles.header}>
+          <h1 className={styles.title}>Blog Management</h1>
+          {!isEditing && (
+            <button onClick={() => setIsEditing(true)} className={styles.addBtn}>
+              Add Blog Post
+            </button>
+          )}
+        </div>
 
-          <div className={styles.formGroup}>
-            <label className={styles.label}>Excerpt *</label>
-            <textarea
-              value={currentItem.excerpt || ""}
-              onChange={(e) => setCurrentItem({ ...currentItem, excerpt: e.target.value })}
-              required
-              className={styles.textarea}
-              rows={3}
-            />
-          </div>
-
-          <div className={styles.formGroup}>
-            <label className={styles.label}>Content *</label>
-            <textarea
-              value={currentItem.content || ""}
-              onChange={(e) => setCurrentItem({ ...currentItem, content: e.target.value })}
-              required
-              className={styles.textarea}
-              rows={8}
-            />
-          </div>
-
-          <div className={styles.formRow}>
+        {isEditing ? (
+          <form onSubmit={handleSubmit} className={styles.form}>
             <div className={styles.formGroup}>
-              <label className={styles.label}>Author *</label>
+              <label className={styles.label}>Title *</label>
               <input
                 type="text"
-                value={currentItem.author || ""}
-                onChange={(e) => setCurrentItem({ ...currentItem, author: e.target.value })}
+                value={currentItem.title || ""}
+                onChange={(e) => setCurrentItem({ ...currentItem, title: e.target.value })}
                 required
                 className={styles.input}
               />
             </div>
 
             <div className={styles.formGroup}>
-              <label className={styles.label}>Category *</label>
-              <select
-                value={currentItem.category || ""}
-                onChange={(e) => setCurrentItem({ ...currentItem, category: e.target.value })}
+              <label className={styles.label}>Excerpt *</label>
+              <textarea
+                value={currentItem.excerpt || ""}
+                onChange={(e) => setCurrentItem({ ...currentItem, excerpt: e.target.value })}
                 required
-                className={styles.input}
-              >
-                <option value="">Select a category</option>
-                <option value="technology">Technology</option>
-                <option value="business">Business</option>
-                <option value="education">Education</option>
-                <option value="healthcare">Healthcare</option>
-                <option value="finance">Finance</option>
-                <option value="entertainment">Entertainment</option>
-                <option value="other">Other</option>
-              </select>
+                className={styles.textarea}
+                rows={3}
+              />
             </div>
-          </div>
 
-          <div className={styles.formGroup}>
-            <label className={styles.label}>Tags (comma-separated)</label>
-            <input
-              type="text"
-              value={tagsInput}
-              onChange={(e) => setTagsInput(e.target.value)}
-              className={styles.input}
-              placeholder="culture, community, events"
-            />
-          </div>
+            <div className={styles.formGroup}>
+              <label className={styles.label}>Content *</label>
+              <textarea
+                value={currentItem.content || ""}
+                onChange={(e) => setCurrentItem({ ...currentItem, content: e.target.value })}
+                required
+                className={styles.textarea}
+                rows={8}
+              />
+            </div>
 
-          <div className={styles.formGroup}>
-            <label className={styles.label}>Image (optional)</label>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleFileChange}
-              className={styles.input}
-            />
-            {previewUrl && (
-              <div style={{ marginTop: '10px' }}>
-                <img src={previewUrl} alt="Preview" style={{ maxWidth: '200px', maxHeight: '200px' }} />
+            <div className={styles.formRow}>
+              <div className={styles.formGroup}>
+                <label className={styles.label}>Author *</label>
+                <input
+                  type="text"
+                  value={currentItem.author || ""}
+                  onChange={(e) => setCurrentItem({ ...currentItem, author: e.target.value })}
+                  required
+                  className={styles.input}
+                />
               </div>
-            )}
-          </div>
 
-          <div className={styles.formActions}>
-            <button type="submit" className={styles.saveBtn}>
-              {currentItem.id ? "Update" : "Create"}
-            </button>
-            <button type="button" onClick={handleCancel} className={styles.cancelBtn}>
-              Cancel
-            </button>
-          </div>
-        </form>
-      ) : (
-        <div className={styles.list}>
-          {items.length === 0 ? (
-            <p className={styles.empty}>No blog posts yet. Click "Add Blog Post" to create one.</p>
-          ) : (
-            items.map((item) => (
-              <div key={item.id} className={styles.card}>
-                <div className={styles.cardContent}>
-                  <h3 className={styles.cardTitle}>{item.title}</h3>
-                  <p className={styles.cardExcerpt}>{item.excerpt}</p>
-                  <div className={styles.cardMeta}>
-                    <span className={styles.cardCategory}>{item.category}</span>
-                    {item.tags && item.tags.length > 0 && (
-                      <div className={styles.tags}>
-                        {item.tags.map((tag) => (
-                          <span key={tag} className={styles.tag}>
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                    <span className={styles.cardAuthor}>By {item.author}</span>
-                    <span className={styles.cardDate}>{new Date(item.createdAt).toLocaleDateString()}</span>
+              <div className={styles.formGroup}>
+                <label className={styles.label}>Category *</label>
+                <select
+                  value={currentItem.category || ""}
+                  onChange={(e) => setCurrentItem({ ...currentItem, category: e.target.value })}
+                  required
+                  className={styles.input}
+                >
+                  <option value="">Select a category</option>
+                  <option value="technology">Technology</option>
+                  <option value="business">Business</option>
+                  <option value="education">Education</option>
+                  <option value="healthcare">Healthcare</option>
+                  <option value="finance">Finance</option>
+                  <option value="entertainment">Entertainment</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+
+
+
+            <div className={styles.formGroup}>
+              <label className={styles.label}>Tags (comma-separated)</label>
+              <input
+                type="text"
+                value={tagsInput}
+                onChange={(e) => setTagsInput(e.target.value)}
+                className={styles.input}
+                placeholder="culture, community, events"
+              />
+            </div>
+
+            <div className={styles.formGroup}>
+              <label className={styles.label}>Image (optional)</label>
+              <input type="file" accept="image/*" onChange={handleFileChange} className={styles.input} />
+              {previewUrl && (
+                <div style={{ marginTop: "10px" }}>
+                  <img
+                    src={previewUrl || "/placeholder.svg"}
+                    alt="Preview"
+                    style={{ maxWidth: "200px", maxHeight: "200px" }}
+                  />
+                </div>
+              )}
+            </div>
+
+            <div className={styles.formGroup}>
+              <label className={styles.label}>
+                <input
+                  type="checkbox"
+                  checked={currentItem.isPublished !== false}
+                  onChange={(e) => setCurrentItem({ ...currentItem, isPublished: e.target.checked })}
+                  className={styles.checkbox}
+                />
+                Publish immediately
+              </label>
+            </div>
+
+            <div className={styles.formGroup}>
+              <label className={styles.label}>
+                <input
+                  type="checkbox"
+                  checked={currentItem.featured || false}
+                  onChange={(e) => setCurrentItem({ ...currentItem, featured: e.target.checked })}
+                  className={styles.checkbox}
+                />
+                Mark as Featured Post
+              </label>
+            </div>
+
+            <div className={styles.formActions}>
+              <button type="submit" className={styles.saveBtn}>
+                {currentItem.id ? "Update" : "Create"}
+              </button>
+              <button type="button" onClick={handleCancel} className={styles.cancelBtn}>
+                Cancel
+              </button>
+            </div>
+          </form>
+        ) : (
+          <div className={styles.list}>
+            {items.length === 0 ? (
+              <p className={styles.empty}>No blog posts yet. Click "Add Blog Post" to create one.</p>
+            ) : (
+              items.map((item) => (
+                <div key={item.id} className={styles.card}>
+                  <div className={styles.cardContent}>
+                    <h3 className={styles.cardTitle}>{item.title}</h3>
+                    <p className={styles.cardExcerpt}>{item.excerpt}</p>
+
+                    <div className={styles.cardMeta}>
+                      <span className={styles.cardCategory}>{item.category}</span>
+                      {item.featured && (
+                        <span className={styles.featured}>Featured</span>
+                      )}
+                      {!item.isPublished && (
+                        <span className={styles.draft}>Draft</span>
+                      )}
+                      {item.tags && item.tags.length > 0 && (
+                        <div className={styles.tags}>
+                          {item.tags.map((tag) => (
+                            <span key={tag} className={styles.tag}>
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                      <span className={styles.cardAuthor}>By {item.author}</span>
+
+                      <span className={styles.cardDate}>
+                        {new Date(item.createdAt).toLocaleDateString()}
+                      </span>
+                    </div>
+                  </div>
+                  <div className={styles.cardActions}>
+                    <button onClick={() => handleEdit(item)} className={styles.editBtn}>
+                      Edit
+                    </button>
+                    <button onClick={() => handleDelete(item.id)} className={styles.deleteBtn}>
+                      Delete
+                    </button>
                   </div>
                 </div>
-                <div className={styles.cardActions}>
-                  <button onClick={() => handleEdit(item)} className={styles.editBtn}>
-                    Edit
-                  </button>
-                  <button onClick={() => handleDelete(item.id)} className={styles.deleteBtn}>
-                    Delete
-                  </button>
-                </div>
-              </div>
-            ))
-          )}
-        </div>
-      )}
-    </div>
+              ))
+            )}
+          </div>
+        )}
+      </div>
+    </>
   )
 }

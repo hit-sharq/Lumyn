@@ -41,7 +41,7 @@
 
 .blogSection {
   padding: 80px 20px;
-  background: white;
+  background: #f5f5f5;
 }
 
 .container {
@@ -73,7 +73,7 @@
 .emptyState {
   text-align: center;
   padding: 80px 20px;
-  background: #f5f5f5;
+  background: white;
   border-radius: 16px;
 }
 
@@ -89,47 +89,57 @@
   margin: 0;
 }
 
+
+
+/* Updated grid to match events layout */
 .blogGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 32px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 24px;
 }
 
-.featuredPost {
-  grid-column: 1 / -1;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  background: #f8f9fa;
-  border-radius: 16px;
-  overflow: hidden;
-  padding: 40px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+/* Featured badge styling */
+.featuredBadge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 6px 12px;
+  background: rgba(255, 193, 7, 0.95);
+  color: #002060;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  backdrop-filter: blur(4px);
 }
 
+
+
+
+/* Updated card styling to match events exactly */
 .blogCard {
-  background: #f8f9fa;
-  border-radius: 16px;
+  background: white;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
+  position: relative;
+  min-height: 450px;
 }
 
 .blogCard:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  transform: translateY(-4px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
 }
 
+
+
+/* Image wrapper to match events style with 150px height */
 .blogImageWrapper {
   position: relative;
-  height: 280px;
+  height: 150px;
   overflow: hidden;
-  border-radius: 12px;
-}
-
-.featuredPost .blogImageWrapper {
-  height: 100%;
-  min-height: 400px;
 }
 
 .blogImage {
@@ -141,156 +151,213 @@
   transform: scale(1.05);
 }
 
+
+
+
+
+
+/* Category badge styling to match events */
+.blogCategory {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 6px 12px;
+  background: rgba(211, 47, 47, 0.95);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  backdrop-filter: blur(4px);
+}
+
+/* Featured badge styling */
+.featuredBadge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 6px 12px;
+  background: rgba(255, 193, 7, 0.95);
+  color: #002060;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  backdrop-filter: blur(4px);
+}
+
+
+
+
+
+/* Content padding to match events */
 .blogContent {
-  padding: 24px;
+  padding: 20px;
 }
 
-.featuredPost .blogContent {
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
 
-.blogMeta {
-  display: flex;
-  gap: 16px;
-  align-items: center;
-  margin-bottom: 16px;
-  font-size: 0.875rem;
-}
 
-.blogAuthor {
-  font-weight: 700;
-  color: #d32f2f;
-}
-
-.blogDate {
-  color: #999;
-}
-
+/* Title styling to match events */
 .blogTitle {
-  font-size: 1.75rem;
+  font-size: 1.25rem;
   font-weight: 700;
-  margin: 0 0 16px 0;
+  margin: 0 0 8px 0;
   color: #002060;
   line-height: 1.3;
 }
 
-.featuredPost .blogTitle {
-  font-size: 2.5rem;
-}
 
-.blogExcerpt {
-  font-size: 1rem;
-  line-height: 1.7;
+/* Description styling to match events with 3-line clamp */
+.blogDescription {
+  font-size: 0.9rem;
+  line-height: 1.5;
   color: #666;
-  margin: 0 0 20px 0;
+  margin: 0 0 16px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-clamp: 3;
 }
 
-.tags {
+/* Blog meta section */
+.blogMeta {
   display: flex;
+  flex-direction: column;
   gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
+  margin: 0 0 16px 0;
+  font-size: 0.8rem;
+  color: #666;
 }
 
-.tag {
-  padding: 6px 14px;
-  background: white;
-  color: #002060;
-  font-size: 0.8125rem;
+.blogAuthor {
   font-weight: 600;
-  border-radius: 20px;
-  border: 1px solid #e0e0e0;
+  color: #002060;
 }
 
-.readMoreBtn {
-  display: inline-block;
+.blogDate {
+  color: #888;
+}
+
+/* Blog tags section */
+.blogTags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.blogTag {
+  padding: 3px 8px;
+  background: rgba(211, 47, 47, 0.1);
   color: #d32f2f;
-  font-weight: 700;
+  font-size: 0.7rem;
+  font-weight: 600;
+  border-radius: 8px;
+  text-transform: lowercase;
+}
+
+/* Read More button to match events style */
+.blogReadMore {
+  color: #d32f2f;
   text-decoration: none;
-  transition: all 0.3s ease;
-  font-size: 1rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
 }
 
-.readMoreBtn:hover {
+.blogReadMore:hover {
   color: #b71c1c;
-  transform: translateX(4px);
 }
 
-.detailCard {
+/* Modal overlay to match events */
+.modalOverlay {
   position: fixed;
   top: 0;
+  left: 0;
   right: 0;
-  width: 500px;
-  height: 100vh;
-  background: white;
-  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
-  z-index: 1000;
-  overflow-y: auto;
-  animation: slideInFromRight 0.4s ease;
-}
-
-.detailClose {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background: rgba(255, 255, 255, 0.9);
-  border: none;
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+
+/* Modal content to match events centered modal */
+.modalContent {
+  background: white;
+  border-radius: 12px;
+  max-width: 700px;
+  width: 90%;
+  max-height: 90vh;
+  overflow: hidden;
+  position: relative;
+  animation: slideIn 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.modalClose {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 24px;
   cursor: pointer;
   color: #666;
   z-index: 1;
-  transition: background 0.3s ease;
 }
 
-.detailClose:hover {
-  background: white;
-}
-
-.detailImageWrapper {
+.modalImageWrapper {
   position: relative;
   height: 250px;
+  border-radius: 12px 12px 0 0;
   overflow: hidden;
 }
 
-.detailImage {
+.modalImage {
   object-fit: cover;
 }
 
-.detailBody {
+
+.modalBody {
   padding: 24px;
+  flex: 1;
+  overflow-y: auto;
+  max-height: calc(90vh - 250px); /* Full height minus image */
 }
 
-.detailTitle {
+.modalTitle {
   font-size: 1.75rem;
-  font-weight: 700;
+  font-weight: 800;
   color: #002060;
   margin: 0 0 16px 0;
 }
 
-.detailDescription {
+.modalDescription {
   font-size: 1rem;
   line-height: 1.6;
   color: #333;
   margin: 0 0 20px 0;
 }
 
-.detailDetails {
+.modalDetails {
   display: flex;
   flex-direction: column;
   gap: 12px;
   margin-bottom: 24px;
 }
 
-.detailDetail {
+.modalDetail {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -302,51 +369,47 @@
   font-size: 1.125rem;
 }
 
-.detailReadFullBtn {
+.viewFullArticle {
   display: inline-block;
-  color: #d32f2f;
-  font-weight: 600;
+  background: #d32f2f;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 6px;
   text-decoration: none;
-  transition: color 0.3s ease;
+  font-weight: 600;
+  transition: background 0.3s ease;
 }
 
-.detailReadFullBtn:hover {
-  color: #b71c1c;
+.viewFullArticle:hover {
+  background: #b71c1c;
 }
 
-@keyframes slideInFromRight {
-  from { transform: translateX(100%); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-@media (max-width: 968px) {
+@keyframes slideIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
   .heroTitle {
     font-size: 2.5rem;
   }
 
   .blogGrid {
     grid-template-columns: 1fr;
-  }
-
-  .featuredPost {
-    grid-template-columns: 1fr;
-    padding: 24px;
-  }
-
-  .featuredPost .blogImageWrapper {
-    min-height: 300px;
-  }
-
-  .featuredPost .blogTitle {
-    font-size: 2rem;
-  }
-
-  .detailCard {
-    width: 90vw;
-    left: 5vw;
-    top: 60px;
-    max-height: 80vh;
-    overflow-y: auto;
-    box-sizing: border-box;
   }
 }

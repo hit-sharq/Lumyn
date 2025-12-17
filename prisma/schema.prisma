@@ -23,6 +23,7 @@ model News {
   @@index([publishedAt])
 }
 
+
 model Blog {
   id          String   @id @default(cuid())
   title       String
@@ -31,12 +32,17 @@ model Blog {
   category    String
   image       String
   author      String
+  tags        String[]
+  isPublished Boolean  @default(true)
+  featured    Boolean  @default(false)
   publishedAt DateTime @default(now())
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   @@index([category])
   @@index([publishedAt])
+  @@index([isPublished])
+  @@index([featured])
 }
 
 model Event {

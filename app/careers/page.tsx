@@ -178,11 +178,9 @@ function CareersPageContent() {
                   <article key={career.id} className={styles.careerCard}>
                     <div className={styles.careerImageWrapper}>
                       <Image
-                        src={career.image || "/placeholder.svg"}
+                        src={career.image || "/placeholder.svg?height=300&width=400&query=career"}
                         alt={career.title}
                         fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        style={{ objectFit: "cover" }}
                         className={styles.careerImage}
                       />
                       <span className={styles.careerCategory}>{career.type.replace("-", " ")}</span>
@@ -215,11 +213,9 @@ function CareersPageContent() {
                   </button>
                   <div className={styles.detailImageWrapper}>
                     <Image
-                      src={selectedCareer.image || "/placeholder.svg"}
+                      src={selectedCareer.image || "/placeholder.svg?height=300&width=500&query=career"}
                       alt={selectedCareer.title}
                       fill
-                      sizes="500px"
-                      style={{ objectFit: "cover" }}
                       className={styles.detailImage}
                     />
                   </div>

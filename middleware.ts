@@ -38,6 +38,7 @@ function isPublicApiRoute(request: Request): boolean {
     ].some(route => pathname.startsWith(route))
   }
 
+
   // Public POST routes for form submissions
   if (method === 'POST') {
     return [
@@ -45,7 +46,31 @@ function isPublicApiRoute(request: Request): boolean {
       '/api/membership',
       '/api/newsletter',
       '/api/job-applications',
-      '/api/upload'
+      '/api/upload',
+      '/api/blog',
+      '/api/news',
+      '/api/events',
+      '/api/gallery'
+    ].some(route => pathname.startsWith(route))
+  }
+
+  // Public PUT routes for admin updates
+  if (method === 'PUT') {
+    return [
+      '/api/blog',
+      '/api/news',
+      '/api/events',
+      '/api/gallery'
+    ].some(route => pathname.startsWith(route))
+  }
+
+  // Public DELETE routes for admin deletions
+  if (method === 'DELETE') {
+    return [
+      '/api/blog',
+      '/api/news',
+      '/api/events',
+      '/api/gallery'
     ].some(route => pathname.startsWith(route))
   }
 
