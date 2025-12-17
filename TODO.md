@@ -6,7 +6,6 @@ Replace `isomorphic-dompurify` with `sanitize-html` to resolve ESM/CommonJS comp
 ## Steps Completed
 - [x] Analyzed the codebase and identified the issue
 - [x] Created implementation plan
-
 ## Steps Remaining
 - [x] Add `sanitize-html` to dependencies
 - [x] Update `/app/api/blog/route.ts`

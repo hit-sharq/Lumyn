@@ -1,5 +1,6 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server"
 
+// Public routes that don't require authentication
 const isPublicRoute = createRouteMatcher([
   "/",
   "/about",
@@ -12,19 +13,44 @@ const isPublicRoute = createRouteMatcher([
   "/newsletter",
   "/privacy",
   "/terms",
-  "/api/news(.*)",
-  "/api/blog(.*)",
-  "/api/events(.*)",
-  "/api/gallery(.*)",
-  "/api/leadership(.*)",
-  "/api/contact",
-  "/api/membership(.*)", // Allow all membership API routes to be public for form submissions
-  "/api/newsletter",
-  "/api/stats",
-  "/api/partners(.*)",
   "/sign-in(.*)",
   "/sign-up(.*)",
 ])
+
+// Public API routes - these allow unauthenticated access for specific operations
+function isPublicApiRoute(request: Request): boolean {
+  const url = new URL(request.url)
+  const pathname = url.pathname
+  const method = request.method
+
+  // Public GET routes for content display
+  if (method === 'GET') {
+    return [
+      '/api/news',
+      '/api/blog',
+      '/api/events',
+      '/api/gallery',
+      '/api/leadership',
+      '/api/partners',
+      '/api/projects',
+      '/api/stats',
+      '/api/search'
+    ].some(route => pathname.startsWith(route))
+  }
+
+  // Public POST routes for form submissions
+  if (method === 'POST') {
+    return [
+      '/api/contact',
+      '/api/membership',
+      '/api/newsletter',
+      '/api/job-applications',
+      '/api/upload'
+    ].some(route => pathname.startsWith(route))
+  }
+
+  return false
+}
 
 // Simple in-memory rate limiter
 const rateLimitMap = new Map()
@@ -58,13 +84,26 @@ function rateLimit(request: Request) {
   return true
 }
 
+
 export default clerkMiddleware(async (auth, request) => {
+  // Apply rate limiting
   if (!rateLimit(request)) {
     return new Response("Too many requests", { status: 429 })
   }
 
-  if (!isPublicRoute(request)) {
-    await auth.protect()
+  // Check if route is public
+  const url = new URL(request.url)
+  
+  // Check for API routes with method-based access control
+  if (url.pathname.startsWith('/api/')) {
+    if (!isPublicApiRoute(request)) {
+      await auth.protect()
+    }
+  } else {
+    // Check for regular pages
+    if (!isPublicRoute(request)) {
+      await auth.protect()
+    }
   }
 })
 
