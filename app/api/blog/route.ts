@@ -1,7 +1,8 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/db/prisma"
 import { z } from "zod"
-import DOMPurify from "isomorphic-dompurify"
+
+import sanitizeHtml from "sanitize-html"
 
 const createBlogSchema = z.object({
   title: z.string().min(1).max(200),
@@ -49,8 +50,9 @@ export async function POST(request: NextRequest) {
 
     const validatedData = validationResult.data
 
+
     // Sanitize content
-    const sanitizedContent = DOMPurify.sanitize(validatedData.content)
+    const sanitizedContent = sanitizeHtml(validatedData.content)
 
     const post = await prisma.blog.create({
       data: {

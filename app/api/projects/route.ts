@@ -2,7 +2,8 @@ import { type NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/db/prisma"
 import logger from "@/lib/logger"
 import { z } from "zod"
-import DOMPurify from "isomorphic-dompurify"
+
+import sanitizeHtml from "sanitize-html"
 
 const createProjectSchema = z.object({
   title: z.string().min(1).max(200),
@@ -51,8 +52,9 @@ export async function POST(request: NextRequest) {
 
     const validatedData = validationResult.data
 
+
     // Sanitize description
-    const sanitizedDescription = DOMPurify.sanitize(validatedData.description)
+    const sanitizedDescription = sanitizeHtml(validatedData.description)
 
     const project = await prisma.project.create({
       data: {

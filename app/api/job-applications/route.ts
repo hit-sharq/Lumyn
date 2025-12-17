@@ -3,7 +3,8 @@ import { NextResponse } from "next/server"
 import { PrismaClient } from "@prisma/client"
 import nodemailer from "nodemailer"
 import { z } from "zod"
-import DOMPurify from "isomorphic-dompurify"
+
+import sanitizeHtml from "sanitize-html"
 
 const prisma = new PrismaClient()
 
@@ -40,10 +41,11 @@ export async function POST(request: Request) {
 
     const validatedData = validationResult.data
 
+
     // Sanitize text inputs
-    const sanitizedCoverLetter = DOMPurify.sanitize(validatedData.coverLetter)
-    const sanitizedExperience = DOMPurify.sanitize(validatedData.experience)
-    const sanitizedAdditionalInfo = DOMPurify.sanitize(validatedData.additionalInfo || "")
+    const sanitizedCoverLetter = sanitizeHtml(validatedData.coverLetter)
+    const sanitizedExperience = sanitizeHtml(validatedData.experience)
+    const sanitizedAdditionalInfo = sanitizeHtml(validatedData.additionalInfo || "")
     // Save to database
     const jobApplication = await prisma.jobApplication.create({
       data: {

@@ -1,7 +1,8 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/db/prisma"
 import { z } from "zod"
-import DOMPurify from "isomorphic-dompurify"
+
+import sanitizeHtml from "sanitize-html"
 
 const createGallerySchema = z.object({
   title: z.string().min(1).max(200),
@@ -45,9 +46,10 @@ export async function POST(request: NextRequest) {
 
     const validatedData = validationResult.data
 
+
     // Sanitize description
     const sanitizedDescription = validatedData.description
-      ? DOMPurify.sanitize(validatedData.description)
+      ? sanitizeHtml(validatedData.description)
       : null
 
     const item = await prisma.galleryImage.create({
