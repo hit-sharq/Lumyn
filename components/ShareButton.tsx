@@ -9,6 +9,7 @@ interface ShareButtonProps {
   title: string
   url?: string
   text?: string
+  image?: string
   className?: string
   variant?: "default" | "minimal" | "full"
   showLabels?: boolean
@@ -115,6 +116,7 @@ export default function ShareButton({
   title,
   url,
   text,
+  image,
   className = "",
   variant = "default",
   showLabels = true,
@@ -126,6 +128,7 @@ export default function ShareButton({
   const shareText = text || title
   const encodedUrl = encodeURIComponent(shareUrl)
   const encodedText = encodeURIComponent(`${shareText} - ${shareUrl}`)
+  const imageUrl = image ? encodeURIComponent(image) : null
 
   const copyToClipboard = async () => {
     try {
@@ -161,13 +164,13 @@ export default function ShareButton({
     {
       name: "Twitter",
       icon: <TwitterIcon />,
-      action: () => window.open(`https://twitter.com/intent/tweet?text=${encodedText}`, "_blank"),
+      action: () => window.open(`https://twitter.com/intent/tweet?text=${encodedText}${imageUrl ? ` ${imageUrl}` : ""}`, "_blank"),
       color: "#000000",
     },
     {
       name: "LinkedIn",
       icon: <LinkedInIcon />,
-      action: () => window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`, "_blank"),
+      action: () => window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}${imageUrl ? `&image=${imageUrl}` : ""}`, "_blank"),
       color: "#0A66C2",
     },
     {

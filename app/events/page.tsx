@@ -266,9 +266,10 @@ export default function EventsPage() {
                 </div>
               </div>
               <div className={styles.shareSection}>
-                <ShareButton 
+                <ShareButton
                   title={selectedRegularEvent.title}
                   text={`Join us for ${selectedRegularEvent.title} at ${selectedRegularEvent.location} on ${new Date(selectedRegularEvent.date).toLocaleDateString()}`}
+                  image={selectedRegularEvent.image}
                   variant="minimal"
                 />
               </div>

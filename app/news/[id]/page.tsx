@@ -87,9 +87,10 @@ export default function NewsArticlePage() {
         </div>
 
         <div className={styles.shareSection}>
-          <ShareButton 
+          <ShareButton
             title={article.title}
             text={`Read this news article: ${article.title} by ${article.author}`}
+            image={article.image}
             variant="full"
             showLabels={true}
           />
