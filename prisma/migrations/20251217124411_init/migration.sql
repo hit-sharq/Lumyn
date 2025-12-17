@@ -23,6 +23,9 @@ CREATE TABLE "Blog" (
     "category" TEXT NOT NULL,
     "image" TEXT NOT NULL,
     "author" TEXT NOT NULL,
+    "tags" TEXT[],
+    "isPublished" BOOLEAN NOT NULL DEFAULT true,
+    "featured" BOOLEAN NOT NULL DEFAULT false,
     "publishedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -147,6 +150,9 @@ CREATE TABLE "Career" (
     "contactEmail" TEXT,
     "featured" BOOLEAN NOT NULL DEFAULT false,
     "image" TEXT,
+    "jobType" TEXT NOT NULL DEFAULT 'formal',
+    "whatsappNumber" TEXT,
+    "phoneNumber" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -169,6 +175,31 @@ CREATE TABLE "Partner" (
     CONSTRAINT "Partner_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "JobApplication" (
+    "id" TEXT NOT NULL,
+    "jobId" TEXT NOT NULL,
+    "jobTitle" TEXT NOT NULL,
+    "jobCompany" TEXT NOT NULL,
+    "firstName" TEXT NOT NULL,
+    "lastName" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "phone" TEXT NOT NULL,
+    "linkedIn" TEXT,
+    "portfolio" TEXT,
+    "coverLetter" TEXT NOT NULL,
+    "experience" TEXT NOT NULL,
+    "availability" TEXT NOT NULL,
+    "salaryExpectation" TEXT,
+    "additionalInfo" TEXT,
+    "resumeUrl" TEXT,
+    "status" TEXT NOT NULL DEFAULT 'pending',
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "JobApplication_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE INDEX "News_category_idx" ON "News"("category");
 
@@ -180,6 +211,12 @@ CREATE INDEX "Blog_category_idx" ON "Blog"("category");
 
 -- CreateIndex
 CREATE INDEX "Blog_publishedAt_idx" ON "Blog"("publishedAt");
+
+-- CreateIndex
+CREATE INDEX "Blog_isPublished_idx" ON "Blog"("isPublished");
+
+-- CreateIndex
+CREATE INDEX "Blog_featured_idx" ON "Blog"("featured");
 
 -- CreateIndex
 CREATE INDEX "Event_date_idx" ON "Event"("date");
@@ -236,6 +273,9 @@ CREATE INDEX "Career_featured_idx" ON "Career"("featured");
 CREATE INDEX "Career_applicationDeadline_idx" ON "Career"("applicationDeadline");
 
 -- CreateIndex
+CREATE INDEX "Career_jobType_idx" ON "Career"("jobType");
+
+-- CreateIndex
 CREATE INDEX "Partner_category_idx" ON "Partner"("category");
 
 -- CreateIndex
@@ -243,3 +283,15 @@ CREATE INDEX "Partner_featured_idx" ON "Partner"("featured");
 
 -- CreateIndex
 CREATE INDEX "Partner_order_idx" ON "Partner"("order");
+
+-- CreateIndex
+CREATE INDEX "JobApplication_jobId_idx" ON "JobApplication"("jobId");
+
+-- CreateIndex
+CREATE INDEX "JobApplication_status_idx" ON "JobApplication"("status");
+
+-- CreateIndex
+CREATE INDEX "JobApplication_createdAt_idx" ON "JobApplication"("createdAt");
+
+-- CreateIndex
+CREATE INDEX "JobApplication_email_idx" ON "JobApplication"("email");
