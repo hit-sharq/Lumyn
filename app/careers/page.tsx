@@ -1,10 +1,12 @@
 "use client"
 
+
 import { useEffect, useState } from "react"
 import Head from "next/head"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { ToastProvider, useToast } from "@/components/toast"
+import ShareButton from "@/components/ShareButton"
 import styles from "./careers.module.css"
 
 interface Career {
@@ -81,6 +83,7 @@ function CareersPageContent() {
       title: "Opening WhatsApp",
       message: "Redirecting you to WhatsApp to contact about this job.",
     })
+
   }
 
   const handlePhoneCall = (career: Career) => {
@@ -92,36 +95,6 @@ function CareersPageContent() {
       title: "Initiating Call",
       message: `Calling ${phoneNumber} for the ${career.title} position.`,
     })
-  }
-
-  const handleShare = async (career: Career) => {
-    const shareData = {
-      title: `${career.title} at ${career.company}`,
-      text: `Check out this job opportunity: ${career.title} at ${career.company}`,
-      url: `${window.location.origin}/careers/apply/${career.id}`,
-    }
-
-    try {
-      if (navigator.share && navigator.canShare(shareData)) {
-        await navigator.share(shareData)
-        showToast({
-          type: "success",
-          title: "Shared Successfully",
-          message: "Job opportunity shared successfully!",
-        })
-      } else {
-        if (navigator.clipboard) {
-          await navigator.clipboard.writeText(shareData.url)
-          showToast({
-            type: "success",
-            title: "Link Copied",
-            message: "Job link copied to clipboard!",
-          })
-        }
-      }
-    } catch (error) {
-      console.error("Error sharing:", error)
-    }
   }
 
   return (
@@ -286,9 +259,15 @@ function CareersPageContent() {
                           </button>
                         </>
                       )}
-                      <button className={styles.detailShareBtn} onClick={() => handleShare(selectedCareer)}>
-                        Share 🔗
-                      </button>
+
+                      <ShareButton
+                        title={`${selectedCareer.title} at ${selectedCareer.company}`}
+                        text={`Check out this job opportunity: ${selectedCareer.title} at ${selectedCareer.company}`}
+                        url={`${typeof window !== 'undefined' ? window.location.origin : ''}/careers/apply/${selectedCareer.id}`}
+                        image={selectedCareer.image}
+                        variant="default"
+                        showLabels={true}
+                      />
                     </div>
                   </div>
                 </div>

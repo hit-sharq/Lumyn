@@ -1,11 +1,14 @@
 "use client"
 
+
 import { useEffect, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
 import Head from "next/head"
 import Image from "next/image"
+import ShareButton from "@/components/ShareButton"
 
 import styles from "../apply.module.css"
+
 
 interface Career {
   id: string
@@ -20,6 +23,7 @@ interface Career {
   applicationLink?: string
   contactEmail?: string
   featured: boolean
+  image?: string
   createdAt: string
 }
 
@@ -191,6 +195,7 @@ export default function JobApplicationPage() {
     )
   }
 
+
   if (submitted) {
     return (
       <div className={styles.successPage}>
@@ -199,6 +204,20 @@ export default function JobApplicationPage() {
           <h1>Application Submitted Successfully!</h1>
           <p>Thank you for your interest in the <strong>{career.title}</strong> position at <strong>{career.company}</strong>.</p>
           <p>We've received your application and will review it carefully. You'll hear from us soon.</p>
+          
+          <div className={styles.shareSection}>
+            <h3>Share this opportunity</h3>
+            <p>Know someone who might be interested? Share this job posting:</p>
+            <ShareButton
+              title={`${career.title} at ${career.company}`}
+              text={`Check out this job opportunity: ${career.title} at ${career.company}`}
+              url={`${typeof window !== 'undefined' ? window.location.origin : ''}/careers/apply/${career.id}`}
+              image={career.image}
+              variant="default"
+              showLabels={true}
+            />
+          </div>
+          
           <div className={styles.successActions}>
             <button onClick={() => router.push("/careers")} className={styles.primaryButton}>
               Browse More Opportunities
