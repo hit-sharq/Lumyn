@@ -99,6 +99,7 @@ function CareersPageContent() {
 
   return (
     <>
+
       <Head>
         <title>Careers | Lumyn - Join Our Team</title>
         <meta
@@ -111,6 +112,15 @@ function CareersPageContent() {
           property="og:description"
           content="Explore career opportunities at Lumyn. Join our team and work on innovative digital solutions."
         />
+        <meta property="og:image" content="/placeholder.svg" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Lumyn" />
+        
+        {/* Twitter Card Meta Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Careers | Lumyn - Join Our Team" />
+        <meta name="twitter:description" content="Explore career opportunities at Lumyn. Join our team and work on innovative digital solutions." />
+        <meta name="twitter:image" content="/placeholder.svg" />
       </Head>
 
       <div className={styles.careersPage}>
