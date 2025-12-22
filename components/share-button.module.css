@@ -3,35 +3,42 @@
   display: inline-block;
 }
 
-/* Modern button design with better hover states */
+/* Modern, clean single button design */
 .shareButton {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.625rem 1.125rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border: none;
-  border-radius: 0.625rem;
-  color: white;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  color: #374151;
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+  transition: all 0.2s ease;
 }
 
 .shareButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-}
-
-.shareButton:active {
-  transform: translateY(0);
+  background: #e5e7eb;
+  border-color: #d1d5db;
 }
 
 .shareButton svg {
   width: 18px;
   height: 18px;
+}
+
+/* Success state when link is copied */
+.shareButton.copied {
+  background: #10b981;
+  border-color: #059669;
+  color: white;
+}
+
+.shareButton.copied:hover {
+  background: #059669;
+  border-color: #047857;
 }
 
 /* Cleaner minimal variant */
@@ -137,85 +144,101 @@
   letter-spacing: -0.01em;
 }
 
-/* Modern dropdown with smooth animation */
+/* Clean overlay for tooltip */
 .overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(4px);
+  background: transparent;
   z-index: 1000;
-  animation: fadeIn 0.2s ease-out;
 }
 
-.dropdown {
+/* Modern tooltip design with 4 options */
+.tooltip {
   position: absolute;
   top: calc(100% + 0.5rem);
   right: 0;
-  min-width: 280px;
-  background: white;
-  border-radius: 1rem;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  z-index: 1001;
-  animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow: hidden;
-}
-
-.dropdownTitle {
-  margin: 0;
-  padding: 1.25rem 1.25rem 0.75rem;
-  font-size: 1rem;
-  font-weight: 700;
-  color: #1f2937;
-  text-align: center;
-  letter-spacing: -0.01em;
-  background: linear-gradient(180deg, #f9fafb 0%, white 100%);
-}
-
-.dropdownOptions {
-  padding: 0.75rem;
-}
-
-/* Cleaner dropdown option design */
-.dropdownOption {
   display: flex;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+  border: 1px solid #e5e7eb;
+  z-index: 1001;
+  animation: slideIn 0.2s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Compact tooltip option buttons */
+.tooltipOption {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  width: 100%;
-  padding: 0.875rem 1rem;
-  background: transparent;
-  border: none;
-  border-radius: 0.625rem;
+  justify-content: center;
+  gap: 0.375rem;
+  padding: 0.75rem;
+  background: #f9fafb;
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
   cursor: pointer;
   transition: all 0.2s ease;
-  text-align: left;
-  color: #374151;
-  font-size: 0.9375rem;
-  font-weight: 500;
+  min-width: 64px;
+  color: #6b7280;
 }
 
-.dropdownOption:hover {
+.tooltipOption:hover {
   background: #f3f4f6;
+  border-color: #e5e7eb;
+  color: #111827;
 }
 
-.dropdownOption .optionIcon {
-  width: 2.25rem;
-  height: 2.25rem;
-  background: #f9fafb;
-  border-radius: 0.5rem;
+.tooltipOption svg {
+  width: 20px;
+  height: 20px;
 }
 
-.dropdownOption:hover .optionIcon {
-  background: var(--option-color);
-  color: white;
+.tooltipOption span {
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
 }
 
-.dropdownOption .optionLabel {
-  font-size: 0.9375rem;
-  color: #1f2937;
+/* Platform-specific hover colors */
+.tooltipOption:nth-child(1):hover {
+  /* Copy Link */
+  border-color: #6366f1;
+  color: #6366f1;
+}
+
+.tooltipOption:nth-child(2):hover {
+  /* X/Twitter */
+  border-color: #000000;
+  color: #000000;
+}
+
+.tooltipOption:nth-child(3):hover {
+  /* LinkedIn */
+  border-color: #0a66c2;
+  color: #0a66c2;
+}
+
+.tooltipOption:nth-child(4):hover {
+  /* WhatsApp */
+  border-color: #25d366;
+  color: #25d366;
 }
 
 /* Smooth animations */
@@ -255,6 +278,12 @@
   .fullShareOptions {
     padding: 1.5rem;
   }
+
+  .tooltip {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
 }
 
 @media (max-width: 400px) {
@@ -263,10 +292,27 @@
   }
 }
 
-/* Modern dark mode support */
+/* Dark mode support */
 @media (prefers-color-scheme: dark) {
   .shareButton {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #374151;
+    border-color: #4b5563;
+    color: #f3f4f6;
+  }
+
+  .shareButton:hover {
+    background: #4b5563;
+    border-color: #6b7280;
+  }
+
+  .shareButton.copied {
+    background: #059669;
+    border-color: #047857;
+  }
+
+  .shareButton.copied:hover {
+    background: #047857;
+    border-color: #065f46;
   }
 
   .minimal .shareButton {
@@ -328,5 +374,21 @@
 
   .dropdownOption .optionLabel {
     color: #f3f4f6;
+  }
+
+  .tooltip {
+    background: #1f2937;
+    border-color: #374151;
+  }
+
+  .tooltipOption {
+    background: #111827;
+    color: #9ca3af;
+  }
+
+  .tooltipOption:hover {
+    background: #374151;
+    border-color: #4b5563;
+    color: #f9fafb;
   }
 }

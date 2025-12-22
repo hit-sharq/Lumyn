@@ -1,14 +1,13 @@
 "use client"
 
+import type React from "react"
 
 import { useEffect, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
 import Head from "next/head"
-import Image from "next/image"
 import ShareButton from "@/components/ShareButton"
 
 import styles from "../apply.module.css"
-
 
 interface Career {
   id: string
@@ -95,11 +94,11 @@ export default function JobApplicationPage() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
-    setFormData(prev => ({ ...prev, [name]: value }))
-    
+    setFormData((prev) => ({ ...prev, [name]: value }))
+
     // Clear error when user starts typing
     if (errors[name]) {
-      setErrors(prev => ({ ...prev, [name]: "" }))
+      setErrors((prev) => ({ ...prev, [name]: "" }))
     }
   }
 
@@ -130,21 +129,21 @@ export default function JobApplicationPage() {
 
   const nextStep = () => {
     if (validateStep(currentStep)) {
-      setCurrentStep(prev => prev + 1)
+      setCurrentStep((prev) => prev + 1)
     }
   }
 
   const prevStep = () => {
-    setCurrentStep(prev => prev - 1)
+    setCurrentStep((prev) => prev - 1)
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
+
     if (!validateStep(currentStep)) return
 
     setSubmitting(true)
-    
+
     try {
       const response = await fetch("/api/job-applications", {
         method: "POST",
@@ -195,29 +194,29 @@ export default function JobApplicationPage() {
     )
   }
 
-
   if (submitted) {
     return (
       <div className={styles.successPage}>
         <div className={styles.successContent}>
           <div className={styles.successIcon}>✅</div>
           <h1>Application Submitted Successfully!</h1>
-          <p>Thank you for your interest in the <strong>{career.title}</strong> position at <strong>{career.company}</strong>.</p>
+          <p>
+            Thank you for your interest in the <strong>{career.title}</strong> position at{" "}
+            <strong>{career.company}</strong>.
+          </p>
           <p>We've received your application and will review it carefully. You'll hear from us soon.</p>
-          
+
           <div className={styles.shareSection}>
             <h3>Share this opportunity</h3>
             <p>Know someone who might be interested? Share this job posting:</p>
             <ShareButton
               title={`${career.title} at ${career.company}`}
               text={`Check out this job opportunity: ${career.title} at ${career.company}`}
-              url={`${typeof window !== 'undefined' ? window.location.origin : ''}/careers/apply/${career.id}`}
+              url={`${typeof window !== "undefined" ? window.location.origin : ""}/careers/apply/${career.id}`}
               image={career.image}
-              variant="default"
-              showLabels={true}
             />
           </div>
-          
+
           <div className={styles.successActions}>
             <button onClick={() => router.push("/careers")} className={styles.primaryButton}>
               Browse More Opportunities
@@ -237,9 +236,8 @@ export default function JobApplicationPage() {
     { number: 3, title: "Review & Submit", description: "Final review of your application" },
   ]
 
+  const currentUrl = typeof window !== "undefined" ? window.location.href : ""
 
-  const currentUrl = typeof window !== 'undefined' ? window.location.href : ''
-  
   return (
     <>
       <Head>
@@ -248,19 +246,25 @@ export default function JobApplicationPage() {
           name="description"
           content={`Apply for the ${career.title} position at ${career.company}. Join our team and shape the future of digital solutions.`}
         />
-        
+
         {/* Open Graph Meta Tags for Social Media Sharing */}
         <meta property="og:title" content={`${career.title} at ${career.company}`} />
-        <meta property="og:description" content={`Apply for the ${career.title} position at ${career.company}. ${career.description.substring(0, 150)}...`} />
+        <meta
+          property="og:description"
+          content={`Apply for the ${career.title} position at ${career.company}. ${career.description.substring(0, 150)}...`}
+        />
         <meta property="og:image" content={career.image || "/placeholder.svg"} />
         <meta property="og:url" content={currentUrl} />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Lumyn" />
-        
+
         {/* Twitter Card Meta Tags */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={`${career.title} at ${career.company}`} />
-        <meta name="twitter:description" content={`Apply for the ${career.title} position at ${career.company}. ${career.description.substring(0, 150)}...`} />
+        <meta
+          name="twitter:description"
+          content={`Apply for the ${career.title} position at ${career.company}. ${career.description.substring(0, 150)}...`}
+        />
         <meta name="twitter:image" content={career.image || "/placeholder.svg"} />
       </Head>
 
@@ -271,9 +275,11 @@ export default function JobApplicationPage() {
             <div className={styles.progressContent}>
               <div className={styles.jobInfo}>
                 <h1 className={styles.jobTitle}>Apply for {career.title}</h1>
-                <p className={styles.jobCompany}>{career.company} • {career.location}</p>
+                <p className={styles.jobCompany}>
+                  {career.company} • {career.location}
+                </p>
               </div>
-              
+
               <div className={styles.progressSteps}>
                 {steps.map((step) => (
                   <div
@@ -303,7 +309,7 @@ export default function JobApplicationPage() {
                 <div className={styles.formStep}>
                   <h2 className={styles.stepHeading}>Personal Information</h2>
                   <p className={styles.stepSubheading}>Please provide your basic contact information.</p>
-                  
+
                   <div className={styles.formGrid}>
                     <div className={styles.formGroup}>
                       <label htmlFor="firstName" className={styles.formLabel}>
@@ -407,7 +413,7 @@ export default function JobApplicationPage() {
                 <div className={styles.formStep}>
                   <h2 className={styles.stepHeading}>Professional Background</h2>
                   <p className={styles.stepSubheading}>Tell us about your experience and why you're a great fit.</p>
-                  
+
                   <div className={styles.formGroup}>
                     <label htmlFor="coverLetter" className={styles.formLabel}>
                       Cover Letter *
@@ -515,25 +521,52 @@ export default function JobApplicationPage() {
                 <div className={styles.formStep}>
                   <h2 className={styles.stepHeading}>Review Your Application</h2>
                   <p className={styles.stepSubheading}>Please review your information before submitting.</p>
-                  
+
                   <div className={styles.reviewSection}>
                     <div className={styles.reviewCard}>
                       <h3>Personal Information</h3>
                       <div className={styles.reviewGrid}>
-                        <div><strong>Name:</strong> {formData.firstName} {formData.lastName}</div>
-                        <div><strong>Email:</strong> {formData.email}</div>
-                        <div><strong>Phone:</strong> {formData.phone}</div>
-                        {formData.linkedIn && <div><strong>LinkedIn:</strong> {formData.linkedIn}</div>}
-                        {formData.portfolio && <div><strong>Portfolio:</strong> {formData.portfolio}</div>}
+                        <div>
+                          <strong>Name:</strong> {formData.firstName} {formData.lastName}
+                        </div>
+                        <div>
+                          <strong>Email:</strong> {formData.email}
+                        </div>
+                        <div>
+                          <strong>Phone:</strong> {formData.phone}
+                        </div>
+                        {formData.linkedIn && (
+                          <div>
+                            <strong>LinkedIn:</strong> {formData.linkedIn}
+                          </div>
+                        )}
+                        {formData.portfolio && (
+                          <div>
+                            <strong>Portfolio:</strong> {formData.portfolio}
+                          </div>
+                        )}
                       </div>
                     </div>
 
                     <div className={styles.reviewCard}>
                       <h3>Professional Information</h3>
                       <div className={styles.reviewContent}>
-                        <div><strong>Availability:</strong> {formData.availability}</div>
-                        {formData.salaryExpectation && <div><strong>Salary Expectation:</strong> {formData.salaryExpectation}</div>}
-                        {formData.resumeUrl && <div><strong>Resume:</strong> <a href={formData.resumeUrl} target="_blank" rel="noopener noreferrer">View Resume</a></div>}
+                        <div>
+                          <strong>Availability:</strong> {formData.availability}
+                        </div>
+                        {formData.salaryExpectation && (
+                          <div>
+                            <strong>Salary Expectation:</strong> {formData.salaryExpectation}
+                          </div>
+                        )}
+                        {formData.resumeUrl && (
+                          <div>
+                            <strong>Resume:</strong>{" "}
+                            <a href={formData.resumeUrl} target="_blank" rel="noopener noreferrer">
+                              View Resume
+                            </a>
+                          </div>
+                        )}
                       </div>
                     </div>
 
@@ -570,17 +603,13 @@ export default function JobApplicationPage() {
                     Previous
                   </button>
                 )}
-                
+
                 {currentStep < 3 ? (
                   <button type="button" onClick={nextStep} className={styles.primaryButton}>
                     Next Step
                   </button>
                 ) : (
-                  <button 
-                    type="submit" 
-                    disabled={submitting}
-                    className={styles.submitButton}
-                  >
+                  <button type="submit" disabled={submitting} className={styles.submitButton}>
                     {submitting ? "Submitting..." : "Submit Application"}
                   </button>
                 )}

@@ -11,8 +11,6 @@ interface ShareButtonProps {
   text?: string
   image?: string
   className?: string
-  variant?: "default" | "minimal" | "full"
-  showLabels?: boolean
 }
 
 interface ShareOption {
@@ -112,170 +110,30 @@ const EmailIcon = () => (
   </svg>
 )
 
-export default function ShareButton({
-  title,
-  url,
-  text,
-  image,
-  className = "",
-  variant = "default",
-  showLabels = true,
-}: ShareButtonProps) {
-  const [isOpen, setIsOpen] = useState(false)
-  const [copySuccess, setCopySuccess] = useState(false)
+export default function ShareButton({ title, url, text, image, className = "" }: ShareButtonProps) {
+  const [copied, setCopied] = useState(false)
 
   const shareUrl = url || (typeof window !== "undefined" ? window.location.href : "")
-  const shareText = text || title
-  const encodedUrl = encodeURIComponent(shareUrl)
-  const encodedText = encodeURIComponent(`${shareText} - ${shareUrl}`)
-  const imageUrl = image ? encodeURIComponent(image) : null
 
-  const copyToClipboard = async () => {
+  const handleShare = async () => {
     try {
       await navigator.clipboard.writeText(shareUrl)
-      setCopySuccess(true)
-      setTimeout(() => setCopySuccess(false), 2000)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
     } catch (err) {
       console.error("Failed to copy: ", err)
-      const textArea = document.createElement("textarea")
-      textArea.value = shareUrl
-      document.body.appendChild(textArea)
-      textArea.select()
-      document.execCommand("copy")
-      document.body.removeChild(textArea)
-      setCopySuccess(true)
-      setTimeout(() => setCopySuccess(false), 2000)
     }
-  }
-
-  const shareOptions: ShareOption[] = [
-    {
-      name: "Copy Link",
-      icon: copySuccess ? <CheckIcon /> : <LinkIcon />,
-      action: copyToClipboard,
-      color: "#6366f1",
-    },
-    {
-      name: "WhatsApp",
-      icon: <WhatsAppIcon />,
-      action: () => window.open(`https://wa.me/?text=${encodedText}`, "_blank"),
-      color: "#25D366",
-    },
-    {
-      name: "Twitter",
-      icon: <TwitterIcon />,
-      action: () => window.open(`https://twitter.com/intent/tweet?text=${encodedText}${imageUrl ? ` ${imageUrl}` : ""}`, "_blank"),
-      color: "#000000",
-    },
-    {
-      name: "LinkedIn",
-      icon: <LinkedInIcon />,
-      action: () => window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}${imageUrl ? `&image=${imageUrl}` : ""}`, "_blank"),
-      color: "#0A66C2",
-    },
-    {
-      name: "Facebook",
-      icon: <FacebookIcon />,
-      action: () => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`, "_blank"),
-      color: "#1877F2",
-    },
-    {
-      name: "Email",
-      icon: <EmailIcon />,
-      action: () => window.open(`mailto:?subject=${encodeURIComponent(title)}&body=${encodedText}`, "_blank"),
-      color: "#EA4335",
-    },
-  ]
-
-  const nativeShare = async () => {
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: title,
-          text: shareText,
-          url: shareUrl,
-        })
-      } catch (err) {
-        if ((err as Error).name !== "AbortError") {
-          setIsOpen(!isOpen)
-        }
-      }
-    } else {
-      setIsOpen(!isOpen)
-    }
-  }
-
-  const getVariantStyles = () => {
-    switch (variant) {
-      case "minimal":
-        return styles.minimal
-      case "full":
-        return styles.full
-      default:
-        return styles.default
-    }
-  }
-
-  function getContentType(): string {
-    if (title.toLowerCase().includes("event")) return "event"
-    if (title.toLowerCase().includes("news") || title.toLowerCase().includes("article")) return "article"
-    if (title.toLowerCase().includes("blog") || title.toLowerCase().includes("post")) return "post"
-    return "content"
   }
 
   return (
-    <div className={`${styles.shareContainer} ${getVariantStyles()} ${className}`}>
-      {variant === "full" ? (
-        <div className={styles.fullShareOptions}>
-          <h4 className={styles.shareTitle}>Share this {getContentType()}</h4>
-          <div className={styles.shareGrid}>
-            {shareOptions.map((option) => (
-              <button
-                key={option.name}
-                className={styles.shareOption}
-                onClick={option.action}
-                style={{ "--option-color": option.color } as React.CSSProperties}
-                title={option.name}
-              >
-                <span className={styles.optionIcon}>{option.icon}</span>
-                {showLabels && <span className={styles.optionLabel}>{option.name}</span>}
-              </button>
-            ))}
-          </div>
-        </div>
-      ) : (
-        <>
-          <button className={styles.shareButton} onClick={nativeShare} title="Share" aria-label="Share">
-            <ShareIcon />
-            {variant === "default" && showLabels && <span>Share</span>}
-          </button>
-
-          {isOpen && (
-            <>
-              <div className={styles.overlay} onClick={() => setIsOpen(false)} />
-              <div className={styles.dropdown}>
-                <h4 className={styles.dropdownTitle}>Share this {getContentType()}</h4>
-                <div className={styles.dropdownOptions}>
-                  {shareOptions.map((option) => (
-                    <button
-                      key={option.name}
-                      className={styles.dropdownOption}
-                      onClick={() => {
-                        option.action()
-                        setIsOpen(false)
-                      }}
-                      style={{ "--option-color": option.color } as React.CSSProperties}
-                    >
-                      <span className={styles.optionIcon}>{option.icon}</span>
-                      {showLabels && <span className={styles.optionLabel}>{option.name}</span>}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </>
-          )}
-        </>
-      )}
-    </div>
+    <button
+      className={`${styles.shareButton} ${copied ? styles.copied : ""} ${className}`}
+      onClick={handleShare}
+      title={copied ? "Link copied!" : "Copy link"}
+      aria-label={copied ? "Link copied" : "Share - Copy link"}
+    >
+      {copied ? <CheckIcon /> : <ShareIcon />}
+      <span>{copied ? "Copied!" : "Share"}</span>
+    </button>
   )
 }

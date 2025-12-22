@@ -1,6 +1,5 @@
 "use client"
 
-
 import { useEffect, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
 import Image from "next/image"
@@ -80,17 +79,15 @@ export default function BlogPostPage() {
           />
         </div>
 
-
         <div className={styles.content}>
           <div className={styles.contentInner} dangerouslySetInnerHTML={{ __html: post.content }} />
         </div>
 
         <div className={styles.shareSection}>
-          <ShareButton 
+          <ShareButton
             title={post.title}
             text={`Check out this blog post: ${post.title} by ${post.author}`}
-            variant="full"
-            showLabels={true}
+            image={post.image}
           />
         </div>
 
