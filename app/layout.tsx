@@ -1,5 +1,6 @@
 import React from "react"
 import type { Metadata } from "next"
+import Script from "next/script"
 import { ClerkProvider } from "@clerk/nextjs"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
@@ -23,6 +24,13 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
+        <head>
+          <Script 
+            async 
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6640250879995161"
+            crossOrigin="anonymous"
+          />
+        </head>
         <body>
           <Header />
           <main style={{ marginTop: "80px" }}>{children}</main>
