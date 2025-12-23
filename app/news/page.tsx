@@ -26,6 +26,7 @@ export default function NewsPage() {
   const [items, setItems] = useState<NewsItem[]>([])
   const [loading, setLoading] = useState(true)
   const [selectedCategory, setSelectedCategory] = useState("All")
+  const [selectedItem, setSelectedItem] = useState<NewsItem | null>(null)
 
   useEffect(() => {
     fetchAllContent()
@@ -89,6 +90,10 @@ export default function NewsPage() {
   }
 
   const handleItemClick = (item: NewsItem) => {
+    setSelectedItem(item)
+  }
+
+  const handleViewFull = (item: NewsItem) => {
     if (item.source === "news") {
       router.push(`/news/${item.id}`)
     } else {
@@ -188,9 +193,15 @@ export default function NewsPage() {
                       {truncateContent(item.excerpt || item.content)}
                     </p>
                     
-                    <span className={styles.readMoreBtn}>
+                    <button 
+                      className={styles.readMoreBtn}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        handleItemClick(item)
+                      }}
+                    >
                       {item.source === "blog" ? "Read Blog Post" : "Read More"} →
-                    </span>
+                    </button>
                   </div>
                 </article>
               ))}
@@ -198,6 +209,49 @@ export default function NewsPage() {
           )}
         </div>
       </div>
+
+      {selectedItem && (
+        <div className={styles.modalOverlay} onClick={() => setSelectedItem(null)}>
+          <div className={styles.detailCard} onClick={(e) => e.stopPropagation()}>
+            <button className={styles.detailClose} onClick={() => setSelectedItem(null)}>
+              ×
+            </button>
+            <div className={styles.detailImageWrapper}>
+              <Image
+                src={selectedItem.image || "/placeholder.svg?height=300&width=500&query=article"}
+                alt={selectedItem.title}
+                fill
+                className={styles.detailImage}
+              />
+            </div>
+            <div className={styles.detailBody}>
+              <h3 className={styles.detailTitle}>{selectedItem.title}</h3>
+              <div className={styles.detailMeta}>
+                <span className={styles.detailBadge}>{selectedItem.author}</span>
+                <span className={styles.detailBadge}>{formatDate(selectedItem.publishedAt)}</span>
+                <span 
+                  className={styles.detailBadge}
+                  style={{ backgroundColor: getCategoryBadgeColor(selectedItem) }}
+                >
+                  {selectedItem.source === "blog" ? "Blog" : selectedItem.category}
+                </span>
+              </div>
+              <div className={styles.detailDescription}>
+                <div dangerouslySetInnerHTML={{ __html: selectedItem.content }} />
+              </div>
+              <button
+                className={styles.viewFullBtn}
+                onClick={() => {
+                  setSelectedItem(null)
+                  handleViewFull(selectedItem)
+                }}
+              >
+                View Full Article →
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

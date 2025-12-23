@@ -275,8 +275,6 @@ function CareersPageContent() {
                         text={`Check out this job opportunity: ${selectedCareer.title} at ${selectedCareer.company}`}
                         url={`${typeof window !== 'undefined' ? window.location.origin : ''}/careers/apply/${selectedCareer.id}`}
                         image={selectedCareer.image}
-                        variant="default"
-                        showLabels={true}
                       />
                     </div>
                   </div>
