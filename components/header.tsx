@@ -49,7 +49,7 @@ export default function Header() {
               Admin
             </Link>
           )}
-          <Link href="/membership" className={styles.joinBtn} onClick={() => setIsMenuOpen(false)}>
+          <Link href="/get-started" className={styles.joinBtn} onClick={() => setIsMenuOpen(false)}>
             Start Project
           </Link>
           <div className={styles.authButtons}>

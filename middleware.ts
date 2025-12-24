@@ -9,7 +9,7 @@ const isPublicRoute = createRouteMatcher([
   "/blog(.*)",
   "/gallery",
   "/contact",
-  "/membership",
+  "/get-started",
   "/newsletter",
   "/privacy",
   "/terms",
@@ -43,7 +43,7 @@ function isPublicApiRoute(request: Request): boolean {
   if (method === 'POST') {
     return [
       '/api/contact',
-      '/api/membership',
+      '/api/project-inquiry',
       '/api/newsletter',
       '/api/job-applications',
       '/api/upload',

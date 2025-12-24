@@ -1,10 +1,9 @@
 import { NextResponse } from "next/server"
-import { prisma } from "@/lib/db/prisma"
 import logger from "@/lib/logger"
 import { z } from "zod"
-import nodemailer from "nodemailer" // Added for email notifications with detailed project inquiry data
+import nodemailer from "nodemailer"
 
-const membershipSchema = z.object({
+const projectInquirySchema = z.object({
   firstName: z.string().min(1, "First name is required").max(50, "First name too long"),
   lastName: z.string().min(1, "Last name is required").max(50, "Last name too long"),
   email: z.string().email("Invalid email address"),
@@ -19,8 +18,8 @@ const membershipSchema = z.object({
   timeline: z.enum(["asap", "1-month", "2-3-months", "3-6-months", "6-months-plus", "flexible"], {
     errorMap: () => ({ message: "Please select a valid timeline" }),
   }),
-  requirements: z.string().min(10, "Please provide project requirements").max(2000, "Requirements too long"),
-  goals: z.string().min(10, "Please describe your project goals").max(1000, "Goals description too long"),
+  requirements: z.string().min(10, "Please provide project requirements").max(2000, "Requirements too long").transform(val => val?.trim() || ""),
+  goals: z.string().min(10, "Please describe your project goals").max(1000, "Goals description too long").transform(val => val?.trim() || ""),
   references: z.string().max(1000, "References too long").optional(),
 })
 
@@ -28,28 +27,33 @@ export async function POST(request: Request) {
   try {
     const body = await request.json()
 
-    const validation = membershipSchema.safeParse(body)
+    // Validate input first
+    const validation = projectInquirySchema.safeParse(body)
     if (!validation.success) {
       const errors = validation.error.format()
-      logger.error("Validation failed for membership submission:", errors)
-      return NextResponse.json({ success: false, errors }, { status: 400 })
+      logger.error("Validation failed for project inquiry:", errors)
+      return NextResponse.json({ 
+        success: false, 
+        errors,
+        type: "validation_error"
+      }, { status: 400 })
     }
 
     const { firstName, lastName, email, phone, company, projectType, budget, timeline, requirements, goals, references } = validation.data
 
-    const membership = await prisma.member.create({
-      data: {
-        firstName,
-        lastName,
-        email,
-        phone,
-        year: projectType, // Map projectType to year field in DB
-        major: company, // Map company to major field in DB
-        interests: `Budget: ${budget} | Timeline: ${timeline} | Goals: ${goals} | Requirements: ${requirements}${references ? ` | References: ${references}` : ""}`, // Combine project details
-      },
-    })
+    // Map budget values to display-friendly format
+    const budgetDisplayMap: Record<string, string> = {
+      "under-5k": "Under 50,000 KSH",
+      "5k-15k": "50,000 - 150,000 KSH",
+      "15k-30k": "150,000 - 300,000 KSH", 
+      "30k-50k": "300,000 - 500,000 KSH",
+      "50k-100k": "500,000 - 1,000,000 KSH",
+      "over-100k": "Over 1,000,000 KSH"
+    }
 
-    // Send email notification with detailed form data
+    const budgetDisplay = budgetDisplayMap[budget] || budget
+
+    // Send email notification with project inquiry details
     try {
       const transporter = nodemailer.createTransport({
         host: process.env.SMTP_HOST,
@@ -63,7 +67,7 @@ export async function POST(request: Request) {
 
       await transporter.sendMail({
         from: `"Lumyn Technologies" <${process.env.SMTP_USER}>`,
-        replyTo: email, // Set reply-to to the sender's email
+        replyTo: email,
         to: process.env.ADMIN_EMAIL || process.env.SMTP_USER,
         subject: `New Project Inquiry: ${firstName} ${lastName} - ${company}`,
         html: `
@@ -85,7 +89,7 @@ export async function POST(request: Request) {
                 <h3 style="color: #8eb69b; margin-bottom: 15px;">Project Details</h3>
                 <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin-bottom: 10px;">
                   <p style="margin: 5px 0;"><strong>Project Type:</strong> ${projectType}</p>
-                  <p style="margin: 5px 0;"><strong>Budget Range:</strong> ${budget}</p>
+                  <p style="margin: 5px 0;"><strong>Budget Range:</strong> ${budgetDisplay}</p>
                   <p style="margin: 5px 0;"><strong>Timeline:</strong> ${timeline}</p>
                 </div>
               </div>
@@ -121,24 +125,35 @@ export async function POST(request: Request) {
       })
     } catch (emailError) {
       logger.error("Error sending project inquiry email:", emailError)
-      // Don't fail the request if email fails
+      // Continue even if email fails - still want to let user know their inquiry was received
     }
 
-    return NextResponse.json({ success: true, data: membership }, { status: 201 })
+    return NextResponse.json({ 
+      success: true, 
+      message: "Project inquiry submitted successfully! We'll review your requirements and get back to you within 2-3 business days with a detailed proposal."
+    }, { status: 201 })
   } catch (error) {
-    logger.error("[v0] Error creating membership:", error)
-    return NextResponse.json({ success: false, error: "Failed to create membership" }, { status: 500 })
+    logger.error("[v0] Error processing project inquiry:", error)
+    
+    // Provide specific error messages
+    let errorMessage = "Failed to submit project inquiry. Please try again later."
+    let errorType = "unknown_error"
+    
+    if (error instanceof Error) {
+      if (error.message.includes("database") || error.message.includes("connection")) {
+        errorMessage = "Email service temporarily unavailable, but we still received your inquiry. We'll contact you soon."
+        errorType = "email_error"
+      } else if (error.message.includes("validation")) {
+        errorMessage = "Please check your input and try again."
+        errorType = "validation_error"
+      }
+    }
+    
+    return NextResponse.json({ 
+      success: false, 
+      error: errorMessage,
+      type: errorType
+    }, { status: 500 })
   }
 }
 
-export async function GET() {
-  try {
-    const memberships = await prisma.member.findMany({
-      orderBy: { createdAt: "desc" },
-    })
-    return NextResponse.json(memberships)
-  } catch (error) {
-    logger.error("[v0] Error fetching memberships:", error)
-    return NextResponse.json({ error: "Failed to fetch memberships" }, { status: 500 })
-  }
-}

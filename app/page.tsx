@@ -83,7 +83,7 @@ export default function HomePage() {
           <p className={styles.heroDescription}>
             Transforming businesses with innovative web development, cutting-edge technology, and exceptional digital experiences
           </p>
-          <Link href="/membership" className={styles.joinButton}>
+          <Link href="/get-started" className={styles.joinButton}>
             Start Your Project
           </Link>
         </div>
@@ -167,7 +167,7 @@ export default function HomePage() {
           <p className={styles.ctaText}>
             Let's discuss your project and bring your digital vision to life. Get started with a free consultation!
           </p>
-          <Link href="/membership" className={styles.ctaButton}>
+          <Link href="/get-started" className={styles.ctaButton}>
             Start Your Project
           </Link>
         </div>

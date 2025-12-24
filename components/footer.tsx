@@ -40,8 +40,8 @@ export default function Footer() {
           <div className={styles.footerSection}>
             <h4 className={styles.footerHeading}>Get Involved</h4>
             <nav className={styles.footerLinks}>
-              <Link href="/membership" className={styles.footerLink}>
-                Join Lumyn
+              <Link href="/get-started" className={styles.footerLink}>
+                Start Project
               </Link>
               <Link href="/sponsorship" className={styles.footerLink}>
                 Sponsorship

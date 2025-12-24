@@ -247,7 +247,7 @@ export default function ProjectsPage() {
             <p className={styles.ctaText}>
               Let's discuss your vision and bring it to life with our expert team.
             </p>
-            <Link href="/membership" className={styles.ctaButton}>
+            <Link href="/get-started" className={styles.ctaButton}>
               Start Your Project
             </Link>
           </div>
