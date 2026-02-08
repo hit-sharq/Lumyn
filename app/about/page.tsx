@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import Head from "next/head"
 import Link from "next/link"
 import Image from "next/image"
-import styles from "../privacy/privacy.module.css"
+import styles from "./about.module.css"
 import type { JSX } from "react/jsx-runtime"
 
 interface Section {
