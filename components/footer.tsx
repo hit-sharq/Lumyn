@@ -1,3 +1,4 @@
+
 import Link from "next/link"
 import styles from "./footer.module.css"
 
@@ -14,10 +15,10 @@ export default function Footer() {
           </div>
 
           <div className={styles.footerSection}>
-            <h4 className={styles.footerHeading}>Quick Links</h4>
+            <h4 className={styles.footerHeading}>Company</h4>
             <nav className={styles.footerLinks}>
               <Link href="/about" className={styles.footerLink}>
-                About Us
+                About
               </Link>
               <Link href="/projects" className={styles.footerLink}>
                 Projects
@@ -26,34 +27,31 @@ export default function Footer() {
                 Events
               </Link>
               <Link href="/news" className={styles.footerLink}>
-                News & Blog
+                News
               </Link>
+              <Link href="/careers" className={styles.footerLink}>
+                Careers
+              </Link>
+            </nav>
+          </div>
+
+          <div className={styles.footerSection}>
+            <h4 className={styles.footerHeading}>Resources</h4>
+            <nav className={styles.footerLinks}>
               <Link href="/gallery" className={styles.footerLink}>
                 Gallery
               </Link>
               <Link href="/partners" className={styles.footerLink}>
                 Partners
               </Link>
-            </nav>
-          </div>
-
-          <div className={styles.footerSection}>
-            <h4 className={styles.footerHeading}>Get Involved</h4>
-            <nav className={styles.footerLinks}>
-              <Link href="/get-started" className={styles.footerLink}>
-                Start Project
+              <Link href="/newsletter" className={styles.footerLink}>
+                Newsletter
               </Link>
               <Link href="/sponsorship" className={styles.footerLink}>
                 Sponsorship
               </Link>
               <Link href="/contact" className={styles.footerLink}>
-                Contact Us
-              </Link>
-              <Link href="/newsletter" className={styles.footerLink}>
-                Newsletter
-              </Link>
-              <Link href={"/careers"} className={styles.footerLink}>
-                Careers
+                Contact
               </Link>
             </nav>
           </div>
@@ -61,27 +59,27 @@ export default function Footer() {
           <div className={styles.footerSection}>
             <h4 className={styles.footerHeading}>Connect</h4>
             <div className={styles.socialLinks}>
-              <a href="#" className={styles.socialLink} aria-label="Facebook">
-                L
+              <a href="#" className={styles.socialLink} aria-label="LinkedIn">
+                in
               </a>
               <a
                 href="https://www.instagram.com/j_lee087/"
                 className={styles.socialLink}
                 aria-label="Instagram"
               >
-                Y
+                ig
               </a>
               <a href="#" className={styles.socialLink} aria-label="Twitter">
-                M
+                x
               </a>
             </div>
             <div className={styles.legalLinks}>
               <Link href="/privacy" className={styles.legalLink}>
-                Privacy Policy
+                Privacy
               </Link>
-              <span className={styles.separator}>•</span>
+              <span className={styles.separator}>·</span>
               <Link href="/terms" className={styles.legalLink}>
-                Terms & Conditions
+                Terms
               </Link>
             </div>
           </div>
@@ -91,8 +89,13 @@ export default function Footer() {
           <p className={styles.copyright}>
             © {new Date().getFullYear()} Lumyn. All rights reserved.
           </p>
+          <div className={styles.footerBadge}>
+            <span className={styles.footerBadgeDot}></span>
+            Available for projects
+          </div>
         </div>
       </div>
     </footer>
   )
 }
+

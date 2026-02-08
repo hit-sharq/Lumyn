@@ -4,45 +4,46 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  background: rgba(74, 74, 74, 0.95);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 2px 20px rgba(74, 74, 74, 0.1);
+  background: rgba(255, 255, 227, 0.95);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 1px 0 rgba(74, 74, 74, 0.08);
 }
 
 .container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 32px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 80px;
+  height: 72px;
 }
 
 .logo {
   display: flex;
   align-items: baseline;
-  gap: 8px;
+  gap: 6px;
   text-decoration: none;
-  transition: transform 0.3s ease;
+  transition: transform 0.2s ease;
 }
 
 .logo:hover {
-  transform: scale(1.05);
+  transform: scale(1.02);
 }
 
 .logoText {
-  font-size: 2rem;
+  font-size: 1.75rem;
   font-weight: 800;
-  color: #ffffe3;
-  letter-spacing: 2px;
+  color: #4a4a4a;
+  letter-spacing: -0.5px;
 }
 
 .logoSubtext {
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   font-weight: 700;
   color: #6d8196;
   text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 .nav {
@@ -51,65 +52,21 @@
   gap: 32px;
 }
 
-.navLink {
-  color: #ffffe3;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 1rem;
-  transition: color 0.3s ease;
-  position: relative;
-}
-
-.navLink::after {
-  content: "";
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: #6d8196;
-  transition: width 0.3s ease;
-}
-
-.navLink:hover {
-  color: #6d8196;
-}
-
-.navLink:hover::after {
-  width: 100%;
-}
-
-.joinBtn {
-  padding: 12px 28px;
-  background: #6d8196;
-  color: #ffffe3;
-  text-decoration: none;
-  font-weight: 700;
-  border-radius: 50px;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(109, 129, 150, 0.3);
-}
-
-.joinBtn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(109, 129, 150, 0.5);
-  background: #5a6a7d;
-}
-
 .menuToggle {
   display: none;
   background: none;
   border: none;
   cursor: pointer;
   padding: 8px;
+  color: #4a4a4a;
 }
 
 .menuIcon,
 .menuIconOpen {
   display: block;
-  width: 28px;
+  width: 24px;
   height: 2px;
-  background: #ffffe3;
+  background: #4a4a4a;
   position: relative;
   transition: all 0.3s ease;
 }
@@ -120,18 +77,18 @@
 .menuIconOpen::after {
   content: "";
   position: absolute;
-  width: 28px;
+  width: 24px;
   height: 2px;
-  background: #ffffe3;
+  background: #4a4a4a;
   transition: all 0.3s ease;
 }
 
 .menuIcon::before {
-  top: -8px;
+  top: -7px;
 }
 
 .menuIcon::after {
-  top: 8px;
+  top: 7px;
 }
 
 .menuIconOpen {
@@ -151,43 +108,55 @@
 .authButtons {
   display: flex;
   align-items: center;
-  margin-left: 16px;
+  gap: 12px;
 }
 
 .signInBtn {
-  padding: 10px 24px;
+  padding: 10px 20px;
   background: transparent;
-  color: #ffffe3;
-  border: 2px solid #ffffe3;
-  border-radius: 50px;
+  color: #4a4a4a;
+  border: 1.5px solid #4a4a4a;
+  border-radius: 4px;
   font-weight: 600;
+  font-size: 0.9rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .signInBtn:hover {
-  background: #ffffe3;
-  color: #4a4a4a;
+  background: #4a4a4a;
+  color: #ffffe3;
 }
 
-@media (max-width: 968px) {
+.userButton {
+  width: 40px !important;
+  height: 40px !important;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 20px;
+    height: 64px;
+  }
+
   .menuToggle {
     display: block;
   }
 
   .nav {
     position: fixed;
-    top: 80px;
+    top: 64px;
     left: 0;
     right: 0;
-    background: rgba(74, 74, 74, 0.98);
+    background: rgba(255, 255, 227, 0.98);
     flex-direction: column;
-    padding: 40px 20px;
+    padding: 32px 20px;
     gap: 24px;
     transform: translateY(-100%);
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
   }
 
   .navOpen {
@@ -196,12 +165,11 @@
     visibility: visible;
   }
 
-  .navLink::after {
-    display: none;
-  }
-
   .authButtons {
     margin-left: 0;
-    margin-top: 16px;
+    margin-top: 8px;
+    width: 100%;
+    justify-content: center;
   }
 }
+

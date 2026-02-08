@@ -26,32 +26,6 @@ export default function Header() {
         </button>
 
         <nav className={`${styles.nav} ${isMenuOpen ? styles.navOpen : ""}`}>
-          <Link href="/" className={styles.navLink} onClick={() => setIsMenuOpen(false)}>
-            Home
-          </Link>
-          <Link href="/about" className={styles.navLink} onClick={() => setIsMenuOpen(false)}>
-            About
-          </Link>
-          <Link href="/events" className={styles.navLink} onClick={() => setIsMenuOpen(false)}>
-            Events
-          </Link>
-          <Link href="/news" className={styles.navLink} onClick={() => setIsMenuOpen(false)}>
-            News
-          </Link>
-          <Link href="/gallery" className={styles.navLink} onClick={() => setIsMenuOpen(false)}>
-            Gallery
-          </Link>
-          <Link href="/contact" className={styles.navLink} onClick={() => setIsMenuOpen(false)}>
-            Contact
-          </Link>
-          {isAdmin && (
-            <Link href="/admin" className={styles.navLink} onClick={() => setIsMenuOpen(false)}>
-              Admin
-            </Link>
-          )}
-          <Link href="/get-started" className={styles.joinBtn} onClick={() => setIsMenuOpen(false)}>
-            Start Project
-          </Link>
           <div className={styles.authButtons}>
             {isSignedIn ? (
               <UserButton afterSignOutUrl="/" />
