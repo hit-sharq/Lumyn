@@ -117,11 +117,11 @@ export default function HomePage() {
               <p className={styles.statLabel}>Events</p>
             </div>
             <div className={styles.statCard}>
-              <h3 className={styles.statNumber}>10+</h3>
+              <h3 className={styles.statNumber}>1+</h3>
               <p className={styles.statLabel}>Years</p>
             </div>
             <div className={styles.statCard}>
-              <h3 className={styles.statNumber}>500+</h3>
+              <h3 className={styles.statNumber}>5+</h3>
               <p className={styles.statLabel}>Projects</p>
             </div>
           </div>
