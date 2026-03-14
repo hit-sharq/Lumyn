@@ -8,7 +8,8 @@
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:studio": "prisma studio",
-    "start": "next start -p 5000 -H 0.0.0.0"
+    "start": "next start -p 5000 -H 0.0.0.0",
+    "seed:studio": "tsx scripts/seed-studio-templates.ts"
   },
   "dependencies": {
     "@clerk/nextjs": "latest",

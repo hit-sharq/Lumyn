@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
     const { userId } = await auth()
     if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
 
-    const { searchParams } = new URL(request.url)
+    const { searchParams } = request.nextUrl
     const orderTrackingId = searchParams.get("orderTrackingId")
     const merchantReference = searchParams.get("ref")
 

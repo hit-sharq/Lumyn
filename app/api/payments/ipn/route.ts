@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic';
 
 export async function GET(request: NextRequest) {
   try {
-    const { searchParams } = new URL(request.url)
+    const { searchParams } = request.nextUrl
     const orderTrackingId = searchParams.get("OrderTrackingId") || searchParams.get("orderTrackingId")
     const merchantReference = searchParams.get("OrderMerchantReference") || searchParams.get("merchantReference")
 
