@@ -13,8 +13,10 @@ import LeadershipManager from "./components/leadership-manager"
 import ProjectsManager from "./components/projects-manager"
 import CareersManager from "./components/careers-manager"
 import PartnersManager from "./components/partners-manager"
+import StudioManager from "./components/studio-manager"
+import MarketManager from "./components/market-manager"
 
-type Tab = "news" | "blog" | "events" | "gallery" | "members" | "contacts" | "leadership" | "projects" | "careers" | "partners"
+type Tab = "news" | "blog" | "events" | "gallery" | "members" | "contacts" | "leadership" | "projects" | "careers" | "partners" | "studio" | "market"
 
 export default function AdminPage() {
   const [activeTab, setActiveTab] = useState<Tab>("news")
@@ -115,6 +117,21 @@ export default function AdminPage() {
             Partners
           </button>
           <div className={styles.navSection}>
+            <h3 className={styles.navSectionTitle}>MODULES</h3>
+          </div>
+          <button
+            className={`${styles.navBtn} ${activeTab === "studio" ? styles.navBtnActive : ""}`}
+            onClick={() => setActiveTab("studio")}
+          >
+            Lumyn Studio
+          </button>
+          <button
+            className={`${styles.navBtn} ${activeTab === "market" ? styles.navBtnActive : ""}`}
+            onClick={() => setActiveTab("market")}
+          >
+            Lumyn Market
+          </button>
+          <div className={styles.navSection}>
             <h3 className={styles.navSectionTitle}>GDPR</h3>
             <button
               className={styles.navBtn}
@@ -175,6 +192,8 @@ export default function AdminPage() {
         {activeTab === "contacts" && <ContactsManager />}
         {activeTab === "careers" && <CareersManager />}
         {activeTab === "partners" && <PartnersManager />}
+        {activeTab === "studio" && <StudioManager />}
+        {activeTab === "market" && <MarketManager />}
       </div>
     </div>
   )

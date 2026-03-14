@@ -6,6 +6,12 @@ import { SignInButton, UserButton, useUser } from "@clerk/nextjs"
 import styles from "./header.module.css"
 import SearchComponent from "./search"
 
+const NAV_LINKS = [
+  { href: "/studio", label: "Studio", color: "#6d8196" },
+  { href: "/launch", label: "Launch", color: "#2d6a9f" },
+  { href: "/market", label: "Market", color: "#c0622a" },
+]
+
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const { user, isSignedIn } = useUser()
@@ -26,6 +32,23 @@ export default function Header() {
         </button>
 
         <nav className={`${styles.nav} ${isMenuOpen ? styles.navOpen : ""}`}>
+          <div className={styles.navLinks}>
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={styles.navLink}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {link.label}
+              </Link>
+            ))}
+            {isAdmin && (
+              <Link href="/admin" className={styles.navLinkAdmin} onClick={() => setIsMenuOpen(false)}>
+                Admin
+              </Link>
+            )}
+          </div>
           <div className={styles.authButtons}>
             {isSignedIn ? (
               <UserButton afterSignOutUrl="/" />

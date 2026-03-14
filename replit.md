@@ -34,6 +34,28 @@ The app runs via the "Start application" workflow on port 5000 (`npm run dev`).
 | `SMTP_SECURE` | `true` or `false` |
 | `ADMIN_EMAIL` | Email address to receive contact/inquiry forms |
 
+## Revenue Modules
+
+### Lumyn Studio (`/studio`)
+- Template marketplace — browse, download, and purchase portfolio templates
+- Admin manages templates via `/admin` → "Lumyn Studio" tab
+- API: `/api/studio/templates`, `/api/studio/purchases`, `/api/studio/reviews`
+- DB models: `StudioTemplate`, `StudioPurchase`, `StudioReview`
+
+### Lumyn Launch (`/launch`)
+- Portfolio website builder — pick template, customize, publish with shareable URL
+- Published portfolios live at `/portfolio/[username]`
+- User dashboard at `/launch/dashboard`
+- API: `/api/launch/portfolios`, `/api/launch/portfolios/[id]`, `/api/launch/portfolios/[id]/projects`
+- DB models: `LaunchPortfolio`, `LaunchProject`
+
+### Lumyn Market (`/market`)
+- Digital products marketplace — creators sell, buyers download
+- Creator dashboard at `/market/dashboard`
+- Admin manages products via `/admin` → "Lumyn Market" tab
+- API: `/api/market/products`, `/api/market/purchases`, `/api/market/creator`
+- DB models: `MarketCreatorProfile`, `MarketProduct`, `MarketPurchase`
+
 ## Key Directories
 - `app/` — Next.js App Router pages and API routes
 - `components/` — Reusable React components

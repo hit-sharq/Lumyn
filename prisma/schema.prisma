@@ -207,7 +207,7 @@ model JobApplication {
   salaryExpectation String?
   additionalInfo    String?
   resumeUrl         String?
-  status            String   @default("pending") // pending, reviewed, interviewed, offered, rejected
+  status            String   @default("pending")
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 
@@ -215,5 +215,162 @@ model JobApplication {
   @@index([status])
   @@index([createdAt])
   @@index([email])
+}
+
+// ─── Lumyn Studio ────────────────────────────────────────────────────────────
+
+model StudioTemplate {
+  id            String   @id @default(cuid())
+  title         String
+  description   String
+  category      String
+  previewImage  String
+  previewImages String[]
+  tags          String[]
+  isFree        Boolean  @default(false)
+  price         Float    @default(0)
+  downloadUrl   String?
+  featured      Boolean  @default(false)
+  isPublished   Boolean  @default(true)
+  downloadCount Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  purchases     StudioPurchase[]
+  reviews       StudioReview[]
+
+  @@index([category])
+  @@index([isFree])
+  @@index([featured])
+  @@index([isPublished])
+}
+
+model StudioPurchase {
+  id         String         @id @default(cuid())
+  userId     String
+  userEmail  String
+  templateId String
+  template   StudioTemplate @relation(fields: [templateId], references: [id], onDelete: Cascade)
+  amount     Float          @default(0)
+  createdAt  DateTime       @default(now())
+
+  @@unique([userId, templateId])
+  @@index([userId])
+  @@index([templateId])
+  @@index([createdAt])
+}
+
+model StudioReview {
+  id         String         @id @default(cuid())
+  userId     String
+  userEmail  String
+  userName   String
+  templateId String
+  template   StudioTemplate @relation(fields: [templateId], references: [id], onDelete: Cascade)
+  rating     Int
+  comment    String?
+  createdAt  DateTime       @default(now())
+
+  @@unique([userId, templateId])
+  @@index([templateId])
+  @@index([userId])
+}
+
+// ─── Lumyn Launch ────────────────────────────────────────────────────────────
+
+model LaunchPortfolio {
+  id          String   @id @default(cuid())
+  userId      String
+  userEmail   String
+  username    String   @unique
+  displayName String
+  templateId  String
+  isPublished Boolean  @default(false)
+  about       String?
+  title       String?
+  avatarUrl   String?
+  skills      String[]
+  socialLinks Json?
+  projects    LaunchProject[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId])
+  @@index([username])
+  @@index([isPublished])
+}
+
+model LaunchProject {
+  id          String          @id @default(cuid())
+  portfolioId String
+  portfolio   LaunchPortfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  title       String
+  description String
+  imageUrl    String?
+  liveUrl     String?
+  githubUrl   String?
+  tags        String[]
+  order       Int             @default(0)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  @@index([portfolioId])
+}
+
+// ─── Lumyn Market ────────────────────────────────────────────────────────────
+
+model MarketCreatorProfile {
+  id          String          @id @default(cuid())
+  userId      String          @unique
+  userEmail   String
+  displayName String
+  bio         String?
+  avatarUrl   String?
+  website     String?
+  twitter     String?
+  isVerified  Boolean         @default(false)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  products    MarketProduct[]
+
+  @@index([userId])
+}
+
+model MarketProduct {
+  id          String               @id @default(cuid())
+  creatorId   String
+  creator     MarketCreatorProfile @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  title       String
+  description String
+  category    String
+  price       Float
+  fileUrl     String?
+  previewImage String?
+  tags        String[]
+  isFeatured  Boolean              @default(false)
+  isPublished Boolean              @default(true)
+  salesCount  Int                  @default(0)
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
+  purchases   MarketPurchase[]
+
+  @@index([creatorId])
+  @@index([category])
+  @@index([isFeatured])
+  @@index([isPublished])
+}
+
+model MarketPurchase {
+  id        String        @id @default(cuid())
+  userId    String
+  userEmail String
+  productId String
+  product   MarketProduct @relation(fields: [productId], references: [id], onDelete: Cascade)
+  amount    Float
+  createdAt DateTime      @default(now())
+
+  @@unique([userId, productId])
+  @@index([userId])
+  @@index([productId])
+  @@index([createdAt])
 }
 

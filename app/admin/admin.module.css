@@ -177,3 +177,134 @@
     padding: 24px;
   }
 }
+
+.createBtn {
+  padding: 10px 20px;
+  background: #4a4a4a;
+  color: #ffffe3;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.createBtn:hover {
+  background: #2d2d2d;
+}
+
+.saveBtn {
+  padding: 10px 20px;
+  background: #4a4a4a;
+  color: #ffffe3;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.saveBtn:hover {
+  background: #2d2d2d;
+}
+
+.cancelBtn {
+  padding: 10px 20px;
+  background: rgba(74, 74, 74, 0.08);
+  color: #4a4a4a;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.editBtn {
+  padding: 8px 14px;
+  background: rgba(74, 74, 74, 0.08);
+  color: #4a4a4a;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.editBtn:hover {
+  background: rgba(74, 74, 74, 0.16);
+}
+
+.deleteBtn {
+  padding: 8px 14px;
+  background: rgba(231, 76, 60, 0.08);
+  color: #e74c3c;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.deleteBtn:hover {
+  background: rgba(231, 76, 60, 0.16);
+}
+
+.inputLabel {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #4a4a4a;
+  margin-bottom: 6px;
+}
+
+.input {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1.5px solid rgba(74, 74, 74, 0.2);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: #4a4a4a;
+  background: #fff;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.input:focus {
+  border-color: #4a4a4a;
+}
+
+.textarea {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1.5px solid rgba(74, 74, 74, 0.2);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: #4a4a4a;
+  background: #fff;
+  outline: none;
+  min-height: 80px;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.navSection {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 227, 0.1);
+}
+
+.navSectionTitle {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 227, 0.4);
+  padding: 0 20px;
+  margin-bottom: 8px;
+}
