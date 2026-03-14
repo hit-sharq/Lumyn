@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
 import { Sparkles, Loader2 } from 'lucide-react';
-import { toast } from '@/components/ui/use-toast';
+import { useToast } from '@/components/ui/use-toast';
 
 interface Template {
   id: string;
@@ -27,6 +27,8 @@ export function AIGeneratorModal({ onTemplateGenerated, refreshTemplates }: AIGe
   const [prompt, setPrompt] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const { toast } = useToast();
+
   const generateTemplate = async () => {
     if (!prompt.trim()) return;
 
@@ -42,26 +44,30 @@ export function AIGeneratorModal({ onTemplateGenerated, refreshTemplates }: AIGe
       
       if (data.success) {
         onTemplateGenerated(data.template);
-        toast({
-          title: "AI Magic ✨",
-          description: data.message,
-        });
+        toast(
+          <div>
+            <div className="font-semibold">AI Magic ✨</div>
+            <div>{data.message}</div>
+          </div>
+        );
         refreshTemplates();
         setPrompt('');
         setOpen(false);
       } else {
-        toast({
-          title: "Oops",
-          description: data.error || "Generation failed",
-          variant: "destructive",
-        });
+        toast(
+          <div>
+            <div className="font-semibold text-red-600">Oops</div>
+            <div>{data.error || "Generation failed"}</div>
+          </div>
+        );
       }
     } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to generate template",
-        variant: "destructive",
-      });
+      toast(
+        <div>
+          <div className="font-semibold text-red-600">Error</div>
+          <div>Failed to generate template</div>
+        </div>
+      );
     } finally {
       setLoading(false);
     }
@@ -70,7 +76,7 @@ export function AIGeneratorModal({ onTemplateGenerated, refreshTemplates }: AIGe
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white shadow-lg">
+        <Button className="bg-linear-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white shadow-lg">
           <Sparkles className="w-4 h-4 mr-2" />
           Generate with AI
         </Button>

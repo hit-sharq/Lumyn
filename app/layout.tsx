@@ -6,10 +6,11 @@ import Header from "@/components/header"
 import Footer from "@/components/footer"
 import CookieConsentBanner from "@/components/cookie-consent"
 import "./globals.css"
-import { Geist } from "next/font/google";
+import { GeistSans } from 'geist/font/sans';
 import { cn } from "@/lib/utils";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+// GeistSans is already an object, no need to call it as a function
+const geist = GeistSans;
 
 export const metadata: Metadata = {
   title: 'Lumyn Technologies',
