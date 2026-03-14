@@ -69,21 +69,40 @@ export default function MarketProductPage() {
     setPurchasing(true)
     setMessage("")
     try {
-      const res = await fetch("/api/market/purchases", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ productId: id }),
-      })
-      if (res.ok) {
-        setHasPurchased(true)
-        setMessage("Purchase successful! You can now download this product.")
-        if (product?.fileUrl) window.open(product.fileUrl, "_blank")
+      if (!product) return
+
+      if (product.price === 0) {
+        const res = await fetch("/api/market/purchases", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ productId: id }),
+        })
+        if (res.ok) {
+          setHasPurchased(true)
+          setMessage("Download unlocked!")
+          if (product.fileUrl) window.open(product.fileUrl, "_blank")
+        } else {
+          const err = await res.json()
+          setMessage(err.error || "Failed. Please try again.")
+        }
       } else {
-        const err = await res.json()
-        setMessage(err.error || "Purchase failed. Please try again.")
+        const res = await fetch("/api/payments", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            type: "market_product",
+            itemId: id,
+            amount: product.price,
+            currency: "KES",
+            description: `Lumyn Market — ${product.title}`,
+          }),
+        })
+        const data = await res.json()
+        if (!res.ok) throw new Error(data.error)
+        window.location.href = data.redirect_url
       }
-    } catch {
-      setMessage("Something went wrong.")
+    } catch (err: any) {
+      setMessage(err.message || "Something went wrong.")
     } finally {
       setPurchasing(false)
     }

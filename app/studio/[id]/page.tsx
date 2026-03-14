@@ -64,21 +64,39 @@ export default function TemplateDetailPage() {
   const handleDownload = async () => {
     if (!isSignedIn) return
     setPurchasing(true)
+    setMessage("")
     try {
-      const res = await fetch("/api/studio/purchases", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ templateId: id }),
-      })
-      if (res.ok) {
-        setHasPurchased(true)
-        setMessage("Template unlocked! Download link is now available.")
-        if (template?.downloadUrl) {
-          window.open(template.downloadUrl, "_blank")
+      if (!template) return
+
+      if (template.isFree) {
+        const res = await fetch("/api/studio/purchases", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ templateId: id }),
+        })
+        if (res.ok) {
+          setHasPurchased(true)
+          setMessage("Template unlocked! Download link is now available.")
+          if (template.downloadUrl) window.open(template.downloadUrl, "_blank")
         }
+      } else {
+        const res = await fetch("/api/payments", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            type: "studio_template",
+            itemId: id,
+            amount: template.price,
+            currency: "KES",
+            description: `Lumyn Studio — ${template.title}`,
+          }),
+        })
+        const data = await res.json()
+        if (!res.ok) throw new Error(data.error)
+        window.location.href = data.redirect_url
       }
-    } catch {
-      setMessage("Something went wrong. Please try again.")
+    } catch (err: any) {
+      setMessage(err.message || "Something went wrong. Please try again.")
     } finally {
       setPurchasing(false)
     }

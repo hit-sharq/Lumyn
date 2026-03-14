@@ -70,6 +70,14 @@
   transition: width 0.2s ease;
 }
 
+.productDot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
 .footerLink:hover {
   color: #6d8196;
 }

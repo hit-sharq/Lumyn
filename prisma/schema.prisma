@@ -374,3 +374,59 @@ model MarketPurchase {
   @@index([createdAt])
 }
 
+
+// ─── Payments ────────────────────────────────────────────────────────────────
+
+model PaymentOrder {
+  id                String   @id @default(cuid())
+  merchantReference String   @unique
+  orderTrackingId   String
+  userId            String
+  userEmail         String
+  type              String
+  itemId            String
+  amount            Float
+  currency          String   @default("KES")
+  status            String   @default("PENDING")
+  paymentMethod     String?
+  confirmationCode  String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@index([userId])
+  @@index([orderTrackingId])
+  @@index([status])
+}
+
+// ─── Lumyn Hire (Paid Job Board) ─────────────────────────────────────────────
+
+model PaidJobPost {
+  id               String   @id @default(cuid())
+  userId           String
+  userEmail        String
+  companyName      String
+  companyLogo      String?
+  companyWebsite   String?
+  jobTitle         String
+  jobDescription   String
+  location         String   @default("Remote")
+  jobType          String   @default("Full-time")
+  salary           String?
+  applicationUrl   String?
+  applicationEmail String?
+  category         String   @default("Technology")
+  tags             String[]
+  plan             String   @default("basic")
+  amount           Float
+  isPaid           Boolean  @default(false)
+  isPublished      Boolean  @default(false)
+  isFeatured       Boolean  @default(false)
+  expiresAt        DateTime?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@index([userId])
+  @@index([isPublished])
+  @@index([isFeatured])
+  @@index([category])
+}

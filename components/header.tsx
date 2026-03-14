@@ -10,6 +10,7 @@ const NAV_LINKS = [
   { href: "/studio", label: "Studio", color: "#6d8196" },
   { href: "/launch", label: "Launch", color: "#2d6a9f" },
   { href: "/market", label: "Market", color: "#c0622a" },
+  { href: "/hire", label: "Hire", color: "#1a5c3a" },
 ]
 
 export default function Header() {
