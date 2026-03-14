@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
 
     const merchantReference = randomUUID()
     const appUrl = process.env.NEXT_PUBLIC_APP_URL ||
-      (process.env.REPLIT_DEV_DOMAIN ? `https://${process.env.REPLIT_DEV_DOMAIN}` : "http://localhost:5000")
+      (process.env.REPLIT_DEV_DOMAIN ? `https://${process.env.REPLIT_DEV_DOMAIN}` : "http://localhost:3000")
 
     const callbackUrl = `${appUrl}/payment/callback?type=${type}&itemId=${itemId}&ref=${merchantReference}`
 

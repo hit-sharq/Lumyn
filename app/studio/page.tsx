@@ -1,11 +1,9 @@
-'use client';
-
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { AIGeneratorModal } from './components/AIGeneratorModal';
+import { StudioClient } from './studio-client';
 
 interface Template {
   id: string;
@@ -23,7 +21,7 @@ export default async function StudioPage() {
   let templates: Template[] = [];
 
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/studio`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/studio/templates`, {
       cache: 'no-store',
     });
     templates = await res.json();
@@ -31,39 +29,18 @@ export default async function StudioPage() {
     console.error('Failed to fetch templates:', error);
   }
 
-  const [newTemplates, setNewTemplates] = useState<Template[]>([]);
-  const [refreshKey, setRefreshKey] = useState(0);
-
-  const handleTemplateGenerated = (template: Template) => {
-    setNewTemplates(prev => [template, ...prev]);
-  };
-
-  const refreshTemplates = () => {
-    setRefreshKey(prev => prev + 1);
-    window.location.reload(); // Simple refresh
-  };
-
   return (
     <main className="container mx-auto py-12 px-4">
       <div className="text-center mb-12">
-        <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent mb-6">
+        <h1 className="text-5xl font-bold bg-linear-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent mb-6">
           Lumyn Studio
         </h1>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
           Download professional templates or generate custom ones with AI. Perfect for portfolios, landing pages, and more.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-          <AIGeneratorModal 
-            onTemplateGenerated={handleTemplateGenerated}
-            refreshTemplates={refreshTemplates}
-          />
-          <Link href="/studio/dashboard">
-            <Button size="lg" variant="outline" className="border-2">
-              My Templates
-            </Button>
-          </Link>
-        </div>
       </div>
+
+      <StudioClient initialTemplates={templates} />
 
       {/* Featured Templates */}
       {templates.filter(t => t.featured).length > 0 && (
@@ -81,12 +58,9 @@ export default async function StudioPage() {
       <section>
         <div className="flex justify-between items-center mb-8">
           <h2 className="text-3xl font-bold">All Templates ({templates.length})</h2>
-          <div className="flex gap-2">
-            <Badge variant="secondary">AI Generated ({newTemplates.length})</Badge>
-          </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {[...newTemplates, ...templates].map((template) => (
+          {templates.map((template) => (
             <TemplateCard key={template.id} template={template} />
           ))}
         </div>
