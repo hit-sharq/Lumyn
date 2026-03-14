@@ -6,7 +6,10 @@ import Header from "@/components/header"
 import Footer from "@/components/footer"
 import CookieConsentBanner from "@/components/cookie-consent"
 import "./globals.css"
+import { Geist } from "next/font/google";
+import { cn } from "@/lib/utils";
 
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
   title: 'Lumyn Technologies',
@@ -23,7 +26,7 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en">
+      <html lang="en" className={cn("font-sans", geist.variable)}>
         <head>
           <Script 
             async 

@@ -110,22 +110,55 @@ function rateLimit(request: Request) {
 }
 
 
+async function requireSubscription(auth: any, requiredPlan: string) {
+  const { userId } = await auth()
+  if (!userId) throw new Error("Unauthorized")
+
+  const sub = await prisma.subscription.findFirst({
+    where: {
+      userId,
+      plan: requiredPlan,
+      status: "active",
+      currentPeriodEnd: { gt: new Date() }
+    }
+  })
+
+  if (!sub) {
+    return Response.json({ error: `Active ${requiredPlan.replace('_', ' ')} subscription required` }, { status: 403 })
+  }
+}
+
 export default clerkMiddleware(async (auth, request) => {
   // Apply rate limiting
   if (!rateLimit(request)) {
     return new Response("Too many requests", { status: 429 })
   }
 
-  // Check if route is public
   const url = new URL(request.url)
   
-  // Check for API routes with method-based access control
+  // Pro route protection
+  if (url.pathname.startsWith('/market/dashboard') || url.pathname.startsWith('/studio')) {
+    try {
+      await requireSubscription(auth, 'creator_pro')
+    } catch (error: any) {
+      return error
+    }
+  }
+
+  if (url.pathname.startsWith('/hire') || url.pathname === '/admin') {
+    try {
+      await requireSubscription(auth, 'job_unlimited')
+    } catch (error: any) {
+      return error
+    }
+  }
+  
+  // Existing auth logic
   if (url.pathname.startsWith('/api/')) {
     if (!isPublicApiRoute(request)) {
       await auth.protect()
     }
   } else {
-    // Check for regular pages
     if (!isPublicRoute(request)) {
       await auth.protect()
     }
