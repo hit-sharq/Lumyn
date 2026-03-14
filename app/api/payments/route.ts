@@ -46,6 +46,11 @@ export async function POST(request: NextRequest) {
       billing_address: { email_address: email, first_name: firstName, last_name: lastName },
     })
 
+    // Calculate commission (20%)
+    const commissionRate = type === 'job_post' ? 1.0 : 0.2
+    const commission = parseFloat(amount) * commissionRate
+    const netPayout = parseFloat(amount) * (1 - commissionRate)
+
     await prisma.paymentOrder.create({
       data: {
         merchantReference,
@@ -55,6 +60,8 @@ export async function POST(request: NextRequest) {
         type,
         itemId,
         amount: parseFloat(amount),
+        platformCommission: commission,
+        netPayout,
         currency,
         status: "PENDING",
       },

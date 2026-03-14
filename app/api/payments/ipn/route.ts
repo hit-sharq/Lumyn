@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
     })
 
     if (isPaid) {
-      await fulfillOrder(order.type, order.itemId, order.userId, order.userEmail, order.amount)
+      await fulfillOrder(order.type, order.itemId, order.userId, order.userEmail, order.netPayout || order.amount)
     }
 
     return NextResponse.json({ orderNotificationType: "IPNCHANGE", orderTrackingId, orderMerchantReference: merchantReference, status: 200 })

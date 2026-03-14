@@ -387,14 +387,37 @@ model PaymentOrder {
   itemId            String
   amount            Float
   currency          String   @default("KES")
+  platformCommission Float   @default(0)
+  netPayout         Float   @default(0)
   status            String   @default("PENDING")
   paymentMethod     String?
   confirmationCode  String?
+  subscriptions     Subscription[]
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 
   @@index([userId])
   @@index([orderTrackingId])
+  @@index([status])
+}
+
+// ─── Subscriptions ──────────────────────────────────────────────────────────
+
+model Subscription {
+  id         String   @id @default(cuid())
+  userId     String
+  plan       String   // "creator_pro", "job_unlimited"
+  status     String   @default("active") // active, cancelled, expired
+  currentPeriodStart DateTime
+  currentPeriodEnd   DateTime?
+  nextBillingDate    DateTime?
+  paymentOrderId     String?
+  paymentOrder       PaymentOrder? @relation(fields: [paymentOrderId], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([userId, plan])
+  @@index([userId])
   @@index([status])
 }
 
@@ -430,3 +453,4 @@ model PaidJobPost {
   @@index([isFeatured])
   @@index([category])
 }
+
