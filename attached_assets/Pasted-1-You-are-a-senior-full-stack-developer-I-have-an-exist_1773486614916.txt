@@ -1,0 +1,84 @@
+1
+You are a senior full-stack developer.
+
+I have an existing website for my company **Lumyn Technologies**. The system is already working and I DO NOT want any existing pages, features, database structures, or functionality modified or broken.
+
+Your task is to ADD a new modular feature called **Lumyn Studio**.
+
+Lumyn Studio is a **portfolio templates marketplace and portfolio builder** that allows users to browse, purchase, download, and customize portfolio website templates.
+
+IMPORTANT RULES
+
+* Do NOT modify or remove any existing system logic.
+* Build this as a separate modular component.
+* If database changes are required, create NEW tables instead of altering existing ones.
+* Follow the current design style of the website.
+* Add a new navigation item called **Lumyn Studio**.
+
+FEATURES TO BUILD
+
+1. TEMPLATE MARKETPLACE
+   Users should be able to:
+
+* Browse portfolio templates
+* Filter templates by categories (Developer, Designer, Freelancer, Photographer, Agency, Student)
+* View template preview images
+* View template details page
+* Download free templates
+* Purchase premium templates
+
+2. ADMIN TEMPLATE MANAGEMENT
+   Admin should be able to:
+
+* Upload new templates
+* Upload template ZIP files
+* Upload preview screenshots
+* Set template title, description, tags, category, and price
+* Edit or delete templates
+* Mark templates as free or premium
+
+3. USER ACCOUNTS
+   Users should have:
+
+* A dashboard
+* Purchased templates section
+* Download history
+* Profile settings
+
+4. PAYMENTS
+   Add a simple payment system so users can buy premium templates and unlock downloads.
+
+5. TEMPLATE CATEGORIES
+   Create categories including:
+
+* Developer Portfolio
+* Designer Portfolio
+* Freelancer Portfolio
+* Photographer Portfolio
+* Student Portfolio
+* Agency Portfolio
+
+6. OPTIONAL FEATURES (if easy to implement)
+
+* Template ratings and reviews
+* Featured templates section
+* Search functionality
+* “Trending templates” section
+
+7. FILE MANAGEMENT
+   Templates should be stored securely and only downloadable by users who purchased them.
+
+8. STRUCTURE
+   Create clean modular folders such as:
+
+/lumyn-studio
+/templates
+/controllers
+/models
+/views
+/assets
+
+GOAL
+The goal is to turn Lumyn Technologies' website into a platform that generates revenue by selling portfolio templates and providing a portfolio building experience.
+
+The feature must integrate smoothly into the existing system without breaking anything.
