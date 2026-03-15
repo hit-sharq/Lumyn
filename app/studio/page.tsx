@@ -17,6 +17,8 @@ interface Template {
   featured: boolean;
 }
 
+export const dynamic = 'force-dynamic';
+
 export default async function StudioPage() {
   let templates: Template[] = [];
 
