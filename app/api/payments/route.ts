@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { auth, currentUser } from "@clerk/nextjs/server"
 import { submitOrder, registerIPN } from "@/lib/pesapal"
-import { prisma } from "@/lib/db/prisma"
+import { prisma } from "@/lib/prisma"
 import { randomUUID } from "crypto"
 
 export async function POST(request: NextRequest) {
@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
 
     const merchantReference = randomUUID()
     const appUrl = process.env.NEXT_PUBLIC_APP_URL ||
-      (process.env.REPLIT_DEV_DOMAIN ? `https://${process.env.REPLIT_DEV_DOMAIN}` : "http://localhost:3000")
+      (process.env.REPLIT_DEV_DOMAIN ? `https://${process.env.REPLIT_DEV_DOMAIN}` : "http://localhost:5000")
 
     const callbackUrl = `${appUrl}/payment/callback?type=${type}&itemId=${itemId}&ref=${merchantReference}`
 

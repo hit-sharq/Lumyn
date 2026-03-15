@@ -12,6 +12,7 @@
     "seed:studio": "tsx scripts/seed-studio-templates.ts"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.78.0",
     "@clerk/nextjs": "latest",
     "@hookform/resolvers": "^3.10.0",
     "@prisma/client": "^6.16.3",

@@ -1,84 +1,79 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { getTransactionStatus } from "@/lib/pesapal"
-import { prisma } from "@/lib/db/prisma"
+import { auth, currentUser } from "@clerk/nextjs/server"
+import { submitOrder, registerIPN } from "@/lib/pesapal"
+import { prisma } from "@/lib/prisma"
+import { randomUUID } from "crypto"
 
-export const dynamic = 'force-dynamic';
-
-export async function GET(request: NextRequest) {
+export async function POST(request: NextRequest) {
   try {
-    const { searchParams } = request.nextUrl
-    const orderTrackingId = searchParams.get("OrderTrackingId") || searchParams.get("orderTrackingId")
-    const merchantReference = searchParams.get("OrderMerchantReference") || searchParams.get("merchantReference")
+    const { userId } = await auth()
+    if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
 
-    if (!orderTrackingId) {
-      return NextResponse.json({ error: "Missing OrderTrackingId" }, { status: 400 })
+    const user = await currentUser()
+    const email = user?.emailAddresses[0]?.emailAddress || ""
+    const firstName = user?.firstName || "Customer"
+    const lastName = user?.lastName || ""
+
+    const body = await request.json()
+    const { type, itemId, amount, currency = "KES", description } = body
+
+    if (!type || !itemId || !amount) {
+      return NextResponse.json({ error: "Missing required fields: type, itemId, amount" }, { status: 400 })
     }
 
-    const status = await getTransactionStatus(orderTrackingId)
+    if (!process.env.PESAPAL_CONSUMER_KEY || !process.env.PESAPAL_CONSUMER_SECRET) {
+      return NextResponse.json({ error: "Payment gateway not configured" }, { status: 503 })
+    }
 
-    const order = await prisma.paymentOrder.findFirst({
-      where: { orderTrackingId },
+    const merchantReference = randomUUID()
+    const appUrl = process.env.NEXT_PUBLIC_APP_URL ||
+      (process.env.REPLIT_DEV_DOMAIN ? `https://${process.env.REPLIT_DEV_DOMAIN}` : "http://localhost:3000")
+
+    const callbackUrl = `${appUrl}/payment/callback?type=${type}&itemId=${itemId}&ref=${merchantReference}`
+
+    let ipnId = process.env.PESAPAL_IPN_ID || ""
+    if (!ipnId) {
+      try { ipnId = await registerIPN() } catch { ipnId = "" }
+    }
+
+    const result = await submitOrder({
+      id: merchantReference,
+      currency,
+      amount: parseFloat(amount),
+      description: description || `Lumyn payment for ${type}`,
+      callback_url: callbackUrl,
+      notification_id: ipnId,
+      billing_address: { email_address: email, first_name: firstName, last_name: lastName },
     })
 
-    if (!order) {
-      return NextResponse.json({ orderNotificationType: "IPNCHANGE", orderTrackingId, orderMerchantReference: merchantReference, status: 200 })
-    }
+    // Calculate commission (20%)
+    const commissionRate = type === 'job_post' ? 1.0 : 0.2
+    const commission = parseFloat(amount) * commissionRate
+    const netPayout = parseFloat(amount) * (1 - commissionRate)
 
-    const isPaid = status.payment_status_description === "Completed" || status.status_code === 1
-
-    await prisma.paymentOrder.update({
-      where: { id: order.id },
+    await prisma.paymentOrder.create({
       data: {
-        status: isPaid ? "COMPLETED" : status.payment_status_description,
-        paymentMethod: status.payment_method,
-        confirmationCode: status.confirmation_code,
+        merchantReference,
+        orderTrackingId: result.order_tracking_id,
+        userId,
+        userEmail: email,
+        type,
+        itemId,
+        amount: parseFloat(amount),
+        platformCommission: commission,
+        netPayout,
+        currency,
+        status: "PENDING",
       },
     })
 
-    if (isPaid) {
-      await fulfillOrder(order.type, order.itemId, order.userId, order.userEmail, order.netPayout || order.amount)
-    }
-
-    return NextResponse.json({ orderNotificationType: "IPNCHANGE", orderTrackingId, orderMerchantReference: merchantReference, status: 200 })
-  } catch (error) {
-    console.error("IPN error:", error)
-    return NextResponse.json({ error: "IPN processing failed" }, { status: 500 })
-  }
-}
-
-async function fulfillOrder(type: string, itemId: string, userId: string, userEmail: string, amount: number) {
-  try {
-    if (type === "studio_template") {
-      await prisma.studioPurchase.upsert({
-        where: { userId_templateId: { userId, templateId: itemId } },
-        create: { userId, userEmail, templateId: itemId, amount },
-        update: { amount },
-      })
-      await prisma.studioTemplate.update({
-        where: { id: itemId },
-        data: { downloadCount: { increment: 1 } },
-      })
-    }
-
-    if (type === "market_product") {
-      await prisma.marketPurchase.upsert({
-        where: { userId_productId: { userId, productId: itemId } },
-        create: { userId, userEmail, productId: itemId, amount },
-        update: { amount },
-      })
-      await prisma.marketProduct.update({
-        where: { id: itemId },
-        data: { salesCount: { increment: 1 } },
-      })
-    }
-
-    if (type === "job_post") {
-      await prisma.paidJobPost.update({
-        where: { id: itemId },
-        data: { isPaid: true, isPublished: true },
-      })
-    }
-  } catch (error) {
-    console.error("Order fulfillment error:", error)
+    return NextResponse.json({
+      redirect_url: result.redirect_url,
+      order_tracking_id: result.order_tracking_id,
+      merchant_reference: merchantReference,
+    })
+  } catch (error: any) {
+    console.error("Payment initiation error:", error)
+    return NextResponse.json({ error: error.message || "Payment initiation failed" }, { status: 500 })
   }
 }

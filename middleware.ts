@@ -1,4 +1,5 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server"
+import { prisma } from "@/lib/prisma"
 
 // Public routes that don't require authentication
 const isPublicRoute = createRouteMatcher([
