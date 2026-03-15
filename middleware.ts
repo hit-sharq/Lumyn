@@ -1,140 +1,71 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server"
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 
 // Public routes that don't require authentication
-const isPublicRoute = createRouteMatcher([
-  "/",
-  "/about",
-  "/events(.*)",
-  "/news(.*)",
-  "/blog(.*)",
-  "/gallery",
-  "/contact",
-  "/get-started",
-  "/newsletter",
-  "/privacy",
-  "/terms",
-  "/sign-in(.*)",
-  "/sign-up(.*)",
-])
+const PUBLIC_ROUTES = [
+  '/',
+  '/about',
+  '/events',
+  '/news',
+  '/blog',
+  '/gallery',
+  '/contact',
+  '/get-started',
+  '/newsletter',
+  '/privacy',
+  '/terms',
+  '/sign-in',
+  '/sign-up',
+  '/faq',
+  '/sponsorship',
+  '/projects',
+];
 
-// Public API routes - these allow unauthenticated access for specific operations
-function isPublicApiRoute(request: Request): boolean {
-  const url = new URL(request.url)
-  const pathname = url.pathname
-  const method = request.method
+// Public API routes
+const PUBLIC_API_ROUTES = [
+  '/api/news',
+  '/api/blog',
+  '/api/events',
+  '/api/gallery',
+  '/api/leadership',
+  '/api/partners',
+  '/api/projects',
+  '/api/stats',
+  '/api/search',
+  '/api/contact',
+  '/api/project-inquiry',
+  '/api/newsletter',
+  '/api/upload',
+  '/api/studio/templates',
+];
 
-  // Public GET routes for content display
-  if (method === 'GET') {
-    return [
-      '/api/news',
-      '/api/blog',
-      '/api/events',
-      '/api/gallery',
-      '/api/leadership',
-      '/api/partners',
-      '/api/projects',
-      '/api/stats',
-      '/api/search'
-    ].some(route => pathname.startsWith(route))
+export function middleware(request: NextRequest) {
+  const pathname = request.nextUrl.pathname;
+
+  // Allow all public routes
+  const isPublic = PUBLIC_ROUTES.some(route => 
+    pathname === route || pathname.startsWith(route + '/')
+  );
+
+  if (isPublic) {
+    return NextResponse.next();
   }
 
+  // Allow all public API routes
+  const isPublicApi = PUBLIC_API_ROUTES.some(route =>
+    pathname === route || pathname.startsWith(route + '/')
+  );
 
-  // Public POST routes for form submissions
-  if (method === 'POST') {
-    return [
-      '/api/contact',
-      '/api/project-inquiry',
-      '/api/newsletter',
-      '/api/job-applications',
-      '/api/upload',
-      '/api/blog',
-      '/api/news',
-      '/api/events',
-      '/api/gallery'
-    ].some(route => pathname.startsWith(route))
+  if (isPublicApi) {
+    return NextResponse.next();
   }
 
-  // Public PUT routes for admin updates
-  if (method === 'PUT') {
-    return [
-      '/api/blog',
-      '/api/news',
-      '/api/events',
-      '/api/gallery'
-    ].some(route => pathname.startsWith(route))
-  }
-
-  // Public DELETE routes for admin deletions
-  if (method === 'DELETE') {
-    return [
-      '/api/blog',
-      '/api/news',
-      '/api/events',
-      '/api/gallery'
-    ].some(route => pathname.startsWith(route))
-  }
-
-  return false
+  // For protected routes, just pass through - Clerk will handle auth at the page/API level
+  return NextResponse.next();
 }
-
-// Simple in-memory rate limiter
-const rateLimitMap = new Map()
-
-const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000 // 15 minutes
-const MAX_REQUESTS_PER_WINDOW = 100
-
-function rateLimit(request: Request) {
-  const ip = request.headers.get("x-forwarded-for") || request.headers.get("remote-address") || "unknown"
-  const now = Date.now()
-
-  if (!rateLimitMap.has(ip)) {
-    rateLimitMap.set(ip, { count: 1, startTime: now })
-    return true
-  }
-
-  const rateData = rateLimitMap.get(ip)
-
-  if (now - rateData.startTime > RATE_LIMIT_WINDOW_MS) {
-    // Reset window
-    rateLimitMap.set(ip, { count: 1, startTime: now })
-    return true
-  }
-
-  if (rateData.count >= MAX_REQUESTS_PER_WINDOW) {
-    return false
-  }
-
-  rateData.count++
-  rateLimitMap.set(ip, rateData)
-  return true
-}
-
-
-export default clerkMiddleware(async (auth, request) => {
-  // Apply rate limiting
-  if (!rateLimit(request)) {
-    return new Response("Too many requests", { status: 429 })
-  }
-
-  const url = new URL(request.url)
-  
-  // Auth logic for protected routes
-  if (url.pathname.startsWith('/api/')) {
-    if (!isPublicApiRoute(request)) {
-      await auth.protect()
-    }
-  } else {
-    if (!isPublicRoute(request)) {
-      await auth.protect()
-    }
-  }
-})
 
 export const config = {
   matcher: [
-    // Skip Next.js internals and all static files
-    "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
-    // Always run for API routes
-    "/(api|trpc)(.*)",
+    '/((?!_next/static|_next/image|favicon.ico).*)',
   ],
-}
+};

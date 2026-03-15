@@ -17,19 +17,10 @@ interface Template {
   featured: boolean;
 }
 
-export const dynamic = 'force-dynamic';
+// Use static generation, fetch happens client-side
+export const revalidate = 3600; // revalidate every hour
 
-export default async function StudioPage() {
-  let templates: Template[] = [];
-
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/studio/templates`, {
-      cache: 'no-store',
-    });
-    templates = await res.json();
-  } catch (error) {
-    console.error('Failed to fetch templates:', error);
-  }
+export default function StudioPage() {
 
   return (
     <main className="container mx-auto py-12 px-4">
@@ -42,31 +33,7 @@ export default async function StudioPage() {
         </p>
       </div>
 
-      <StudioClient initialTemplates={templates} />
-
-      {/* Featured Templates */}
-      {templates.filter(t => t.featured).length > 0 && (
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold mb-8 text-center">⭐ Featured Templates</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {templates.filter(t => t.featured).map((template) => (
-              <TemplateCard key={template.id} template={template} />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* All Templates */}
-      <section>
-        <div className="flex justify-between items-center mb-8">
-          <h2 className="text-3xl font-bold">All Templates ({templates.length})</h2>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {templates.map((template) => (
-            <TemplateCard key={template.id} template={template} />
-          ))}
-        </div>
-      </section>
+      <StudioClient />
     </main>
   );
 }

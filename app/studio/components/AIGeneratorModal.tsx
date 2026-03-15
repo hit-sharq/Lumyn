@@ -13,8 +13,10 @@ interface Template {
   description: string;
   previewImage: string;
   category: string;
+  tags: string[];
   price: number;
   isFree: boolean;
+  featured: boolean;
 }
 
 interface AIGeneratorModalProps {
