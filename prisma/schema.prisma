@@ -220,26 +220,27 @@ model JobApplication {
 // ─── Lumyn Studio ────────────────────────────────────────────────────────────
 
 model StudioTemplate {
-  id            String   @id @default(cuid())
-  title         String
-  description   String
-  category      String
-  previewImage  String
-  previewImages String[]
-  tags          String[]
-  isFree        Boolean  @default(false)
-  price         Float    @default(0)
-  downloadUrl   String?
-  featured      Boolean  @default(false)
-  isPublished   Boolean  @default(true)
-  downloadCount Int      @default(0)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  purchases     StudioPurchase[]
-  reviews       StudioReview[]
+  id             String   @id @default(cuid())
+  title          String
+  description    String
+  category       String
+  previewImage   String
+  previewImages  String[]
+  tags           String[]
+  htmlContent    String?
+  cssContent     String?
+  jsContent      String?
+  zipUrl         String?
+  downloadUrl    String?
+  featured       Boolean  @default(false)
+  isPublished    Boolean  @default(true)
+  downloadCount  Int      @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  purchases      StudioPurchase[]
+  reviews        StudioReview[]
 
-  @@index([category])
-  @@index([isFree])
+@@index([category])
   @@index([featured])
   @@index([isPublished])
 }

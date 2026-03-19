@@ -166,7 +166,7 @@ export default function TemplateDetailPage() {
               <p className={styles.detailCategory}>{template.category}</p>
               <h1 className={styles.detailTitle}>{template.title}</h1>
               <p className={`${styles.detailPrice} ${template.isFree ? styles.detailPriceFree : ""}`}>
-                {template.isFree ? "Free" : `$${template.price.toFixed(2)}`}
+                Paid Download
               </p>
               <p className={styles.detailDesc}>{template.description}</p>
 
@@ -190,7 +190,7 @@ export default function TemplateDetailPage() {
                 )
               ) : (
                 <button className={styles.detailBtn} onClick={handleDownload} disabled={purchasing}>
-                  {purchasing ? "Processing..." : template.isFree ? "Download Free" : `Buy for $${template.price.toFixed(2)}`}
+                  {purchasing ? "Processing..." : "Buy Now"}
                 </button>
               )}
 
