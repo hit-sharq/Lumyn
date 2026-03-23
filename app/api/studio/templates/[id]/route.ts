@@ -48,6 +48,24 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
   }
 }
 
+export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) {
+  try {
+    const { userId } = await auth()
+    if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    const adminIds = process.env.NEXT_PUBLIC_ADMIN_IDS?.split(",") || []
+    if (!adminIds.includes(userId)) return NextResponse.json({ error: "Forbidden" }, { status: 403 })
+
+    const body = await request.json()
+    const template = await prisma.studioTemplate.update({
+      where: { id: params.id },
+      data: body,
+    })
+    return NextResponse.json(template)
+  } catch (error) {
+    return NextResponse.json({ error: "Failed to update template" }, { status: 500 })
+  }
+}
+
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     const { userId } = await auth()

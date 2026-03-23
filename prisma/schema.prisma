@@ -227,6 +227,8 @@ model StudioTemplate {
   previewImage   String
   previewImages  String[]
   tags           String[]
+  isFree         Boolean  @default(false)
+  price          Float    @default(0)
   htmlContent    String?
   cssContent     String?
   jsContent      String?
@@ -240,7 +242,7 @@ model StudioTemplate {
   purchases      StudioPurchase[]
   reviews        StudioReview[]
 
-@@index([category])
+  @@index([category])
   @@index([featured])
   @@index([isPublished])
 }

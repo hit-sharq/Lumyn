@@ -3,6 +3,10 @@ import { prisma } from "@/lib/db/prisma"
 import { auth } from "@clerk/nextjs/server"
 
 export async function GET(request: NextRequest) {
+  if (!process.env.DATABASE_URL) {
+    return NextResponse.json([])
+  }
+
   try {
     const { searchParams } = new URL(request.url)
     const category = searchParams.get("category")
