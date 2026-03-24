@@ -251,7 +251,7 @@ function BuilderContent() {
                       className={styles.input}
                       value={data.username}
                       onChange={e => update("username", e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, "-"))}
-                      placeholder="jane-doe"
+                      placeholder="Joshua Mwendwa"
                     />
                   </div>
                 </div>
