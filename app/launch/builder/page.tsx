@@ -1,10 +1,10 @@
 "use client"
 
 import { useEffect, useState, Suspense } from "react"
-import { useSearchParams, useRouter } from "next/navigation"
-import { useUser } from "@clerk/nextjs"
+import { useSearchParams } from "next/navigation"
+import { useUser, SignInButton } from "@clerk/nextjs"
 import Link from "next/link"
-import styles from "../launch.module.css"
+import styles from "./builder.module.css"
 
 interface Project {
   id?: string
@@ -30,39 +30,43 @@ interface PortfolioData {
   projects: Project[]
 }
 
+const TABS = [
+  { id: "about",    label: "About",    icon: "👤" },
+  { id: "skills",   label: "Skills",   icon: "⚡" },
+  { id: "projects", label: "Projects", icon: "🗂️" },
+  { id: "social",   label: "Social",   icon: "🔗" },
+  { id: "publish",  label: "Publish",  icon: "🚀" },
+] as const
+
+type TabId = typeof TABS[number]["id"]
+
 const SOCIAL_FIELDS = [
-  { key: "github", label: "GitHub URL" },
-  { key: "linkedin", label: "LinkedIn URL" },
-  { key: "twitter", label: "Twitter URL" },
-  { key: "website", label: "Personal Website" },
+  { key: "github",   label: "GitHub",   placeholder: "https://github.com/yourname" },
+  { key: "linkedin", label: "LinkedIn", placeholder: "https://linkedin.com/in/yourname" },
+  { key: "twitter",  label: "Twitter / X", placeholder: "https://twitter.com/yourhandle" },
+  { key: "website",  label: "Personal Website", placeholder: "https://yoursite.com" },
 ]
 
 function BuilderContent() {
   const searchParams = useSearchParams()
-  const router = useRouter()
   const { user, isSignedIn, isLoaded } = useUser()
   const templateId = searchParams.get("template") || "minimal-dev"
-  const editId = searchParams.get("edit")
+  const editId     = searchParams.get("edit")
 
-  const [activeTab, setActiveTab] = useState<"about" | "skills" | "projects" | "social" | "publish">("about")
-  const [saving, setSaving] = useState(false)
+  const [activeTab, setActiveTab] = useState<TabId>("about")
+  const [saving, setSaving]       = useState(false)
   const [publishing, setPublishing] = useState(false)
-  const [message, setMessage] = useState("")
+  const [message, setMessage]     = useState<{ text: string; ok: boolean } | null>(null)
   const [skillInput, setSkillInput] = useState("")
-  const [newProject, setNewProject] = useState<Project>({ title: "", description: "", imageUrl: "", liveUrl: "", githubUrl: "", tags: "" })
   const [addingProject, setAddingProject] = useState(false)
+  const [newProject, setNewProject] = useState<Project>({
+    title: "", description: "", imageUrl: "", liveUrl: "", githubUrl: "", tags: "",
+  })
 
   const [data, setData] = useState<PortfolioData>({
-    username: "",
-    displayName: user?.fullName || "",
-    title: "",
-    about: "",
-    skills: [],
-    socialLinks: {},
-    avatarUrl: "",
-    templateId,
-    isPublished: false,
-    projects: [],
+    username: "", displayName: "", title: "", about: "",
+    skills: [], socialLinks: {}, avatarUrl: "", templateId,
+    isPublished: false, projects: [],
   })
 
   useEffect(() => {
@@ -71,44 +75,45 @@ function BuilderContent() {
     }
   }, [user])
 
-  useEffect(() => {
-    if (editId) loadPortfolio(editId)
-  }, [editId])
+  useEffect(() => { if (editId) loadPortfolio(editId) }, [editId])
 
   const loadPortfolio = async (id: string) => {
     try {
       const res = await fetch(`/api/launch/portfolios/${id}`)
-      const p = await res.json()
+      const p   = await res.json()
       setData({
-        id: p.id,
-        username: p.username,
-        displayName: p.displayName,
-        title: p.title || "",
-        about: p.about || "",
-        skills: p.skills || [],
-        socialLinks: (p.socialLinks as any) || {},
-        avatarUrl: p.avatarUrl || "",
-        templateId: p.templateId,
-        isPublished: p.isPublished,
+        id: p.id, username: p.username, displayName: p.displayName,
+        title: p.title || "", about: p.about || "", skills: p.skills || [],
+        socialLinks: (p.socialLinks as any) || {}, avatarUrl: p.avatarUrl || "",
+        templateId: p.templateId, isPublished: p.isPublished,
         projects: (p.projects || []).map((pr: any) => ({ ...pr, tags: pr.tags.join(", ") })),
       })
     } catch {}
   }
 
-  if (!isLoaded) return null
-  if (!isSignedIn) {
+  if (!isLoaded || !isSignedIn) {
     return (
-      <div className={styles.noAccess}>
-        <h2 className={styles.noAccessTitle}>Sign in to build your portfolio</h2>
-        <p className={styles.noAccessText}>Create a free account to get started.</p>
-        <Link href="/launch" style={{ color: "#2d6a9f", textDecoration: "none", fontWeight: 600 }}>
-          ← Back to Launch
-        </Link>
+      <div className={styles.page} style={{ height: "calc(100vh - 64px)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div className={styles.noAccess}>
+          <div className={styles.noAccessIcon}>{!isLoaded ? "⏳" : "🔒"}</div>
+          <h2 className={styles.noAccessTitle}>
+            {!isLoaded ? "Loading…" : "Sign in to build your portfolio"}
+          </h2>
+          {isLoaded && (
+            <>
+              <p className={styles.noAccessText}>Create a free account to get started in minutes.</p>
+              <SignInButton mode="modal">
+                <button className={styles.noAccessBtn}>Sign In to Continue →</button>
+              </SignInButton>
+            </>
+          )}
+        </div>
       </div>
     )
   }
 
-  const update = (field: keyof PortfolioData, value: any) => setData(d => ({ ...d, [field]: value }))
+  const update = (field: keyof PortfolioData, value: any) =>
+    setData(d => ({ ...d, [field]: value }))
 
   const addSkill = () => {
     const s = skillInput.trim()
@@ -118,7 +123,8 @@ function BuilderContent() {
     }
   }
 
-  const removeSkill = (skill: string) => update("skills", data.skills.filter(s => s !== skill))
+  const removeSkill = (skill: string) =>
+    update("skills", data.skills.filter(s => s !== skill))
 
   const addProject = () => {
     if (!newProject.title) return
@@ -127,296 +133,405 @@ function BuilderContent() {
     setAddingProject(false)
   }
 
-  const removeProject = (i: number) => update("projects", data.projects.filter((_, idx) => idx !== i))
+  const removeProject = (i: number) =>
+    update("projects", data.projects.filter((_, idx) => idx !== i))
+
+  const flash = (text: string, ok = true) => {
+    setMessage({ text, ok })
+    setTimeout(() => setMessage(null), 3500)
+  }
 
   const save = async () => {
     if (!data.username || !data.displayName) {
-      setMessage("Please fill in your username and display name.")
+      flash("Please fill in your username and display name.", false)
       return
     }
     setSaving(true)
-    setMessage("")
     try {
-      let res, portfolio
-      if (data.id) {
-        res = await fetch(`/api/launch/portfolios/${data.id}`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        })
-      } else {
-        res = await fetch("/api/launch/portfolios", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        })
-      }
-      portfolio = await res.json()
-      if (!res.ok) {
-        setMessage(portfolio.error || "Failed to save portfolio.")
-        return
-      }
+      const res = data.id
+        ? await fetch(`/api/launch/portfolios/${data.id}`, {
+            method: "PUT", headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          })
+        : await fetch("/api/launch/portfolios", {
+            method: "POST", headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          })
+      const portfolio = await res.json()
+      if (!res.ok) { flash(portfolio.error || "Failed to save.", false); return }
       update("id", portfolio.id)
-      setMessage("Portfolio saved!")
-    } catch {
-      setMessage("Something went wrong.")
-    } finally {
-      setSaving(false)
-    }
+      flash("Saved successfully!")
+    } catch { flash("Something went wrong.", false) }
+    finally { setSaving(false) }
   }
 
-  const publish = async () => {
-    if (!data.id) {
-      await save()
-      if (!data.id) return
-    }
+  const togglePublish = async () => {
+    if (!data.id) { await save(); if (!data.id) return }
     setPublishing(true)
     try {
       const res = await fetch(`/api/launch/portfolios/${data.id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        method: "PUT", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...data, isPublished: !data.isPublished }),
       })
       const updated = await res.json()
       update("isPublished", updated.isPublished)
-      setMessage(updated.isPublished ? "🎉 Portfolio is now live!" : "Portfolio unpublished.")
-    } finally {
-      setPublishing(false)
-    }
+      flash(updated.isPublished ? "Portfolio is now live! 🎉" : "Portfolio unpublished.")
+    } finally { setPublishing(false) }
   }
 
-  const PreviewContent = () => (
-    <div style={{ fontFamily: "system-ui, sans-serif", padding: 40, background: "#fff", minHeight: "100%" }}>
-      <div style={{ textAlign: "center", marginBottom: 48 }}>
-        {data.avatarUrl ? (
-          <img src={data.avatarUrl} alt="" style={{ width: 96, height: 96, borderRadius: "50%", objectFit: "cover" }} />
-        ) : (
-          <div style={{ width: 96, height: 96, borderRadius: "50%", background: "#1a3a5c", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 32, color: "#ffffe3", margin: "0 auto" }}>
-            {data.displayName.charAt(0) || "?"}
-          </div>
-        )}
-        <h1 style={{ fontSize: 28, fontWeight: 800, color: "#1a1a1a", margin: "16px 0 8px" }}>{data.displayName || "Your Name"}</h1>
-        {data.title && <p style={{ color: "#666", fontSize: 16 }}>{data.title}</p>}
-        {data.username && <p style={{ color: "#999", fontSize: 13 }}>@{data.username}</p>}
-      </div>
-      {data.about && (
-        <div style={{ marginBottom: 40 }}>
-          <h2 style={{ fontSize: 18, fontWeight: 700, color: "#1a1a1a", marginBottom: 12 }}>About</h2>
-          <p style={{ color: "#555", lineHeight: 1.7 }}>{data.about}</p>
-        </div>
-      )}
-      {data.skills.length > 0 && (
-        <div style={{ marginBottom: 40 }}>
-          <h2 style={{ fontSize: 18, fontWeight: 700, color: "#1a1a1a", marginBottom: 12 }}>Skills</h2>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-            {data.skills.map(s => (
-              <span key={s} style={{ background: "#f0f4ff", color: "#1a3a5c", padding: "4px 14px", borderRadius: 100, fontSize: 13, fontWeight: 500 }}>{s}</span>
-            ))}
-          </div>
-        </div>
-      )}
-      {data.projects.length > 0 && (
-        <div>
-          <h2 style={{ fontSize: 18, fontWeight: 700, color: "#1a1a1a", marginBottom: 16 }}>Projects</h2>
-          <div style={{ display: "grid", gap: 16, gridTemplateColumns: "repeat(auto-fill,minmax(220px,1fr))" }}>
-            {data.projects.map((p, i) => (
-              <div key={i} style={{ background: "#f8f8f8", borderRadius: 12, padding: 16 }}>
-                <h3 style={{ fontWeight: 700, color: "#1a1a1a", marginBottom: 6 }}>{p.title}</h3>
-                <p style={{ color: "#666", fontSize: 13, lineHeight: 1.5 }}>{p.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  )
-
   return (
-    <div className={styles.builderLayout}>
-      <div className={styles.builderPanel}>
-        <h2 className={styles.builderPanelTitle}>Portfolio Builder</h2>
-        <div className={styles.builderTabs}>
-          {(["about", "skills", "projects", "social", "publish"] as const).map(tab => (
-            <button
-              key={tab}
-              className={`${styles.builderTab} ${activeTab === tab ? styles.builderTabActive : ""}`}
-              onClick={() => setActiveTab(tab)}
-            >
-              {tab.charAt(0).toUpperCase() + tab.slice(1)}
-            </button>
-          ))}
+    <div className={styles.page}>
+      {/* ── Top bar ── */}
+      <div className={styles.topBar}>
+        <div className={styles.topBarLeft}>
+          <Link href="/launch" className={styles.backLink}>← Launch</Link>
+          <div className={styles.topBarSep} />
+          <span className={styles.topBarTitle}>
+            {data.displayName || "New Portfolio"}
+          </span>
+        </div>
+        <div className={styles.topBarRight}>
+          <div className={`${styles.statusDot} ${data.isPublished ? styles.statusDotPublished : ""}`} />
+          <span className={styles.statusLabel}>{data.isPublished ? "Live" : "Draft"}</span>
+          <button className={styles.saveBtn} onClick={save} disabled={saving}>
+            {saving ? "Saving…" : "Save"}
+          </button>
+          <button
+            className={data.isPublished ? styles.unpublishBtn : styles.publishBtn}
+            onClick={togglePublish}
+            disabled={publishing}
+          >
+            {publishing ? "…" : data.isPublished ? "Unpublish" : "Publish →"}
+          </button>
+        </div>
+      </div>
+
+      {/* ── Split ── */}
+      <div className={styles.split}>
+        {/* ── Editor ── */}
+        <div className={styles.editor}>
+          <div className={styles.tabs}>
+            {TABS.map(t => (
+              <button
+                key={t.id}
+                className={`${styles.tab} ${activeTab === t.id ? styles.tabActive : ""}`}
+                onClick={() => setActiveTab(t.id)}
+              >
+                <span className={styles.tabIcon}>{t.icon}</span>
+                {t.label}
+              </button>
+            ))}
+          </div>
+
+          <div className={styles.form}>
+            {message && (
+              <div className={`${styles.toast} ${message.ok ? styles.toastSuccess : styles.toastError}`}>
+                {message.ok ? "✓" : "✕"} {message.text}
+              </div>
+            )}
+
+            {/* ── About tab ── */}
+            {activeTab === "about" && (
+              <>
+                <div className={styles.inputRow}>
+                  <div className={styles.fieldGroup}>
+                    <label className={styles.label}>Display Name *</label>
+                    <input
+                      className={styles.input}
+                      value={data.displayName}
+                      onChange={e => update("displayName", e.target.value)}
+                      placeholder="Jane Doe"
+                    />
+                  </div>
+                  <div className={styles.fieldGroup}>
+                    <label className={styles.label}>
+                      Username * <span className={styles.hint}>letters, numbers, dashes</span>
+                    </label>
+                    <input
+                      className={styles.input}
+                      value={data.username}
+                      onChange={e => update("username", e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, "-"))}
+                      placeholder="jane-doe"
+                    />
+                  </div>
+                </div>
+
+                {data.username && (
+                  <div className={styles.urlPreview}>
+                    <span className={styles.urlPreviewBase}>/creators/</span>
+                    <span className={styles.urlPreviewSlug}>{data.username}</span>
+                  </div>
+                )}
+
+                <div className={styles.fieldGroup} style={{ marginTop: 20 }}>
+                  <label className={styles.label}>Professional Title</label>
+                  <input
+                    className={styles.input}
+                    value={data.title}
+                    onChange={e => update("title", e.target.value)}
+                    placeholder="Full-Stack Developer · Nairobi"
+                  />
+                </div>
+
+                <div className={styles.fieldGroup}>
+                  <label className={styles.label}>Profile Photo URL</label>
+                  <input
+                    className={styles.input}
+                    value={data.avatarUrl}
+                    onChange={e => update("avatarUrl", e.target.value)}
+                    placeholder="https://..."
+                  />
+                </div>
+
+                <div className={styles.fieldGroup}>
+                  <label className={styles.label}>About Me</label>
+                  <textarea
+                    className={styles.textarea}
+                    value={data.about}
+                    onChange={e => update("about", e.target.value)}
+                    placeholder="Tell the world who you are, what you do, and what drives you…"
+                    rows={5}
+                  />
+                </div>
+              </>
+            )}
+
+            {/* ── Skills tab ── */}
+            {activeTab === "skills" && (
+              <>
+                <div className={styles.skillsWrap}>
+                  {data.skills.length === 0 && (
+                    <span style={{ fontSize: "0.82rem", color: "#9ca3af" }}>No skills added yet</span>
+                  )}
+                  {data.skills.map(s => (
+                    <div key={s} className={styles.skillChip}>
+                      {s}
+                      <button className={styles.skillChipRemove} onClick={() => removeSkill(s)}>×</button>
+                    </div>
+                  ))}
+                </div>
+                <div className={styles.skillInputRow}>
+                  <input
+                    className={styles.input}
+                    style={{ flex: 1 }}
+                    value={skillInput}
+                    onChange={e => setSkillInput(e.target.value)}
+                    onKeyDown={e => e.key === "Enter" && (e.preventDefault(), addSkill())}
+                    placeholder="e.g. React, Figma, Python…"
+                  />
+                  <button className={styles.addChipBtn} onClick={addSkill}>Add</button>
+                </div>
+                <p style={{ fontSize: "0.77rem", color: "#9ca3af", marginTop: 10 }}>
+                  Press Enter or click Add after each skill
+                </p>
+              </>
+            )}
+
+            {/* ── Projects tab ── */}
+            {activeTab === "projects" && (
+              <>
+                {data.projects.map((p, i) => (
+                  <div key={i} className={styles.projectCard}>
+                    <div className={styles.projectCardInfo}>
+                      <div className={styles.projectCardTitle}>{p.title}</div>
+                      {p.description && (
+                        <div className={styles.projectCardDesc}>{p.description}</div>
+                      )}
+                    </div>
+                    <button className={styles.removeBtn} onClick={() => removeProject(i)}>Remove</button>
+                  </div>
+                ))}
+
+                {addingProject ? (
+                  <div className={styles.addProjectBox}>
+                    <div className={styles.fieldGroup}>
+                      <label className={styles.label}>Project Title *</label>
+                      <input className={styles.input} value={newProject.title} onChange={e => setNewProject(p => ({ ...p, title: e.target.value }))} placeholder="My Awesome App" />
+                    </div>
+                    <div className={styles.fieldGroup}>
+                      <label className={styles.label}>Description</label>
+                      <textarea className={styles.textarea} style={{ minHeight: 72 }} value={newProject.description} onChange={e => setNewProject(p => ({ ...p, description: e.target.value }))} placeholder="What does this project do?" />
+                    </div>
+                    <div className={styles.inputRow}>
+                      <div className={styles.fieldGroup}>
+                        <label className={styles.label}>Live URL</label>
+                        <input className={styles.input} value={newProject.liveUrl} onChange={e => setNewProject(p => ({ ...p, liveUrl: e.target.value }))} placeholder="https://..." />
+                      </div>
+                      <div className={styles.fieldGroup}>
+                        <label className={styles.label}>GitHub URL</label>
+                        <input className={styles.input} value={newProject.githubUrl} onChange={e => setNewProject(p => ({ ...p, githubUrl: e.target.value }))} placeholder="https://github.com/..." />
+                      </div>
+                    </div>
+                    <div className={styles.addProjectActions}>
+                      <button className={styles.addProjSave} onClick={addProject}>Add Project</button>
+                      <button className={styles.addProjCancel} onClick={() => setAddingProject(false)}>Cancel</button>
+                    </div>
+                  </div>
+                ) : (
+                  <button className={styles.addBtn} onClick={() => setAddingProject(true)}>
+                    + Add Project
+                  </button>
+                )}
+              </>
+            )}
+
+            {/* ── Social tab ── */}
+            {activeTab === "social" && (
+              <>
+                {SOCIAL_FIELDS.map(f => (
+                  <div key={f.key} className={styles.fieldGroup}>
+                    <label className={styles.label}>{f.label}</label>
+                    <input
+                      className={styles.input}
+                      value={(data.socialLinks as any)[f.key] || ""}
+                      onChange={e => update("socialLinks", { ...data.socialLinks, [f.key]: e.target.value })}
+                      placeholder={f.placeholder}
+                    />
+                  </div>
+                ))}
+              </>
+            )}
+
+            {/* ── Publish tab ── */}
+            {activeTab === "publish" && (
+              <>
+                {data.username && (
+                  <div className={styles.publishBox}>
+                    <div className={styles.publishBoxTitle}>Your portfolio URL</div>
+                    <div className={styles.publishBoxUrl}>
+                      /creators/{data.username}
+                    </div>
+                  </div>
+                )}
+
+                {data.isPublished ? (
+                  <>
+                    <div className={styles.publishStatusLive}>
+                      <div className={styles.liveDot} />
+                      Your portfolio is live and public
+                    </div>
+                    {data.username && (
+                      <a
+                        href={`/creators/${data.username}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className={styles.viewLiveBtn}
+                      >
+                        View Live Portfolio ↗
+                      </a>
+                    )}
+                  </>
+                ) : (
+                  <p className={styles.publishStatus}>
+                    Your portfolio is in <strong>draft</strong> mode. Only you can see it. Hit Publish to make it live for anyone with your link.
+                  </p>
+                )}
+
+                <button
+                  className={data.isPublished ? styles.unpublishBtn : styles.publishBtn}
+                  onClick={togglePublish}
+                  disabled={publishing}
+                  style={{ width: "100%", padding: "13px" }}
+                >
+                  {publishing ? "…" : data.isPublished ? "Unpublish Portfolio" : "Publish Portfolio →"}
+                </button>
+              </>
+            )}
+          </div>
         </div>
 
-        {activeTab === "about" && (
-          <div>
-            <div className={styles.formGroup}>
-              <label className={styles.formLabel}>Username *</label>
-              <input className={styles.formInput} value={data.username} onChange={e => update("username", e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, "-"))} placeholder="john-doe" />
+        {/* ── Live Preview ── */}
+        <div className={styles.preview}>
+          <div className={styles.previewTopBar}>
+            <div className={styles.previewDots}>
+              <div className={styles.previewDot} style={{ background: "#ff5f57" }} />
+              <div className={styles.previewDot} style={{ background: "#febc2e" }} />
+              <div className={styles.previewDot} style={{ background: "#28c840" }} />
             </div>
-            <div className={styles.formGroup}>
-              <label className={styles.formLabel}>Display Name *</label>
-              <input className={styles.formInput} value={data.displayName} onChange={e => update("displayName", e.target.value)} placeholder="John Doe" />
-            </div>
-            <div className={styles.formGroup}>
-              <label className={styles.formLabel}>Professional Title</label>
-              <input className={styles.formInput} value={data.title} onChange={e => update("title", e.target.value)} placeholder="Full-Stack Developer" />
-            </div>
-            <div className={styles.formGroup}>
-              <label className={styles.formLabel}>Avatar URL</label>
-              <input className={styles.formInput} value={data.avatarUrl} onChange={e => update("avatarUrl", e.target.value)} placeholder="https://..." />
-            </div>
-            <div className={styles.formGroup}>
-              <label className={styles.formLabel}>About Me</label>
-              <textarea className={styles.formTextarea} value={data.about} onChange={e => update("about", e.target.value)} placeholder="Tell your story..." />
+            <div className={styles.previewAddressBar}>
+              {data.username ? `lumyn.dev/creators/${data.username}` : "your-portfolio-url"}
             </div>
           </div>
-        )}
 
-        {activeTab === "skills" && (
-          <div>
-            <div className={styles.skillChips}>
-              {data.skills.map(s => (
-                <div key={s} className={styles.skillChip}>
-                  {s}
-                  <button className={styles.skillChipRemove} onClick={() => removeSkill(s)}>×</button>
-                </div>
-              ))}
-            </div>
-            <div style={{ display: "flex", gap: 8 }}>
-              <input
-                className={styles.formInput}
-                value={skillInput}
-                onChange={e => setSkillInput(e.target.value)}
-                onKeyDown={e => e.key === "Enter" && addSkill()}
-                placeholder="Add a skill..."
-                style={{ flex: 1 }}
-              />
-              <button className={styles.addBtn} onClick={addSkill}>Add</button>
-            </div>
-            <p style={{ fontSize: "0.8rem", color: "#6d8196", marginTop: 12 }}>Press Enter or click Add to add a skill</p>
-          </div>
-        )}
-
-        {activeTab === "projects" && (
-          <div>
-            {data.projects.map((p, i) => (
-              <div key={i} className={styles.projectItem}>
-                <div className={styles.projectItemHeader}>
-                  <span className={styles.projectItemTitle}>{p.title}</span>
-                  <button className={styles.removeBtn} onClick={() => removeProject(i)}>Remove</button>
-                </div>
-                <p style={{ fontSize: "0.85rem", color: "#6d8196" }}>{p.description}</p>
-              </div>
-            ))}
-
-            {addingProject ? (
-              <div style={{ background: "rgba(74,74,74,0.04)", borderRadius: 10, padding: 16, border: "1px solid rgba(74,74,74,0.1)" }}>
-                <div className={styles.formGroup}>
-                  <label className={styles.formLabel}>Project Title</label>
-                  <input className={styles.formInput} value={newProject.title} onChange={e => setNewProject(p => ({ ...p, title: e.target.value }))} />
-                </div>
-                <div className={styles.formGroup}>
-                  <label className={styles.formLabel}>Description</label>
-                  <textarea className={styles.formTextarea} style={{ minHeight: 70 }} value={newProject.description} onChange={e => setNewProject(p => ({ ...p, description: e.target.value }))} />
-                </div>
-                <div className={styles.formGroup}>
-                  <label className={styles.formLabel}>Live URL</label>
-                  <input className={styles.formInput} value={newProject.liveUrl} onChange={e => setNewProject(p => ({ ...p, liveUrl: e.target.value }))} placeholder="https://..." />
-                </div>
-                <div className={styles.formGroup}>
-                  <label className={styles.formLabel}>GitHub URL</label>
-                  <input className={styles.formInput} value={newProject.githubUrl} onChange={e => setNewProject(p => ({ ...p, githubUrl: e.target.value }))} placeholder="https://github.com/..." />
-                </div>
-                <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
-                  <button className={styles.saveBtn} style={{ marginTop: 0 }} onClick={addProject}>Add Project</button>
-                  <button className={styles.saveBtn} style={{ marginTop: 0, background: "rgba(74,74,74,0.08)", color: "#4a4a4a" }} onClick={() => setAddingProject(false)}>Cancel</button>
+          <div className={styles.previewFrame}>
+            {!data.displayName ? (
+              <div className={styles.previewEmpty}>
+                <div className={styles.previewEmptyIcon}>✏️</div>
+                <div className={styles.previewEmptyText}>
+                  Start filling in your info to see a live preview
                 </div>
               </div>
             ) : (
-              <button className={styles.addBtn} onClick={() => setAddingProject(true)}>+ Add Project</button>
-            )}
-          </div>
-        )}
+              <div className={styles.portfolioPreview}>
+                <div className={styles.portfolioHero}>
+                  {data.avatarUrl ? (
+                    <img src={data.avatarUrl} alt="" className={styles.portfolioAvatar} />
+                  ) : (
+                    <div className={styles.portfolioAvatarPlaceholder}>
+                      {data.displayName.charAt(0).toUpperCase()}
+                    </div>
+                  )}
+                  <div className={styles.portfolioName}>{data.displayName}</div>
+                  {data.title && <div className={styles.portfolioTitle}>{data.title}</div>}
+                  {data.username && (
+                    <div className={styles.portfolioUsername}>@{data.username}</div>
+                  )}
+                </div>
 
-        {activeTab === "social" && (
-          <div>
-            {SOCIAL_FIELDS.map(f => (
-              <div key={f.key} className={styles.formGroup}>
-                <label className={styles.formLabel}>{f.label}</label>
-                <input
-                  className={styles.formInput}
-                  value={(data.socialLinks as any)[f.key] || ""}
-                  onChange={e => update("socialLinks", { ...data.socialLinks, [f.key]: e.target.value })}
-                  placeholder="https://..."
-                />
+                <div className={styles.portfolioBody}>
+                  {data.about && (
+                    <div className={styles.portfolioSection}>
+                      <div className={styles.portfolioSectionTitle}>About</div>
+                      <div className={styles.portfolioBio}>{data.about}</div>
+                    </div>
+                  )}
+
+                  {data.skills.length > 0 && (
+                    <div className={styles.portfolioSection}>
+                      <div className={styles.portfolioSectionTitle}>Skills</div>
+                      <div className={styles.portfolioSkills}>
+                        {data.skills.map(s => (
+                          <span key={s} className={styles.portfolioSkill}>{s}</span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {data.projects.length > 0 && (
+                    <div className={styles.portfolioSection}>
+                      <div className={styles.portfolioSectionTitle}>Projects</div>
+                      <div className={styles.portfolioProjects}>
+                        {data.projects.map((p, i) => (
+                          <div key={i} className={styles.portfolioProject}>
+                            <div className={styles.portfolioProjectTitle}>{p.title}</div>
+                            {p.description && (
+                              <div className={styles.portfolioProjectDesc}>{p.description}</div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {Object.values(data.socialLinks).some(Boolean) && (
+                    <div className={styles.portfolioSection}>
+                      <div className={styles.portfolioSectionTitle}>Links</div>
+                      <div className={styles.portfolioSocials}>
+                        {SOCIAL_FIELDS.map(f => {
+                          const val = (data.socialLinks as any)[f.key]
+                          return val ? (
+                            <a key={f.key} href={val} className={styles.portfolioSocialLink} target="_blank" rel="noreferrer">
+                              {f.label}
+                            </a>
+                          ) : null
+                        })}
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
-            ))}
-          </div>
-        )}
-
-        {activeTab === "publish" && (
-          <div>
-            {data.username && (
-              <div style={{ background: "rgba(45,106,159,0.08)", borderRadius: 10, padding: 16, marginBottom: 24 }}>
-                <p style={{ fontSize: "0.85rem", color: "#2d6a9f", fontWeight: 600, marginBottom: 4 }}>Your portfolio URL</p>
-                <p style={{ fontSize: "0.9rem", color: "#4a4a4a" }}>/portfolio/{data.username}</p>
-              </div>
-            )}
-            <p style={{ color: "#6d8196", fontSize: "0.9rem", marginBottom: 20, lineHeight: 1.6 }}>
-              {data.isPublished
-                ? "Your portfolio is currently live. Anyone with the link can view it."
-                : "Your portfolio is in draft mode. Publish it to make it visible to others."}
-            </p>
-            {data.isPublished && data.username && (
-              <a
-                href={`/portfolio/${data.username}`}
-                target="_blank"
-                rel="noreferrer"
-                className={styles.saveBtn}
-                style={{ display: "block", textAlign: "center", textDecoration: "none", marginBottom: 8 }}
-              >
-                View Live Portfolio ↗
-              </a>
             )}
           </div>
-        )}
-
-        {message && (
-          <p style={{ color: message.includes("wrong") || message.includes("Failed") ? "#e74c3c" : "#2ecc71", fontSize: "0.85rem", fontWeight: 600, margin: "12px 0 0" }}>
-            {message}
-          </p>
-        )}
-
-        <button className={styles.saveBtn} onClick={save} disabled={saving}>
-          {saving ? "Saving..." : "Save Portfolio"}
-        </button>
-
-        <button
-          className={data.isPublished ? styles.unpublishBtn : styles.publishBtn}
-          onClick={publish}
-          disabled={publishing}
-        >
-          {publishing ? "..." : data.isPublished ? "Unpublish" : "Publish Portfolio"}
-        </button>
-
-        <div style={{ marginTop: 16, textAlign: "center" }}>
-          <Link href="/launch/dashboard" style={{ color: "#6d8196", fontSize: "0.85rem", textDecoration: "none" }}>
-            ← My Portfolios
-          </Link>
-        </div>
-      </div>
-
-      <div className={styles.builderPreview}>
-        <div className={styles.previewBar}>
-          <div className={styles.previewBarDot} style={{ background: "#ff5f57" }} />
-          <div className={styles.previewBarDot} style={{ background: "#febc2e" }} />
-          <div className={styles.previewBarDot} style={{ background: "#28c840" }} />
-          <div className={styles.previewBarUrl}>
-            {data.username ? `/portfolio/${data.username}` : "your-portfolio-url"}
-          </div>
-        </div>
-        <div className={styles.previewContent}>
-          <PreviewContent />
         </div>
       </div>
     </div>
