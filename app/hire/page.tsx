@@ -120,15 +120,31 @@ export default function HirePage() {
     <div className={styles.page}>
       <div className={styles.hero}>
         <div className={styles.heroInner}>
-          <span className={styles.tag}>Lumyn Hire</span>
-          <h1 className={styles.heroTitle}>Find Kenya's Best Tech Talent</h1>
+          <span className={styles.heroBadge}>Lumyn Hire</span>
+          <h1 className={styles.heroTitle}>
+            Find Kenya's Best <span>Tech Talent</span>
+          </h1>
           <p className={styles.heroSub}>
-            Connect with thousands of skilled developers, designers, and digital professionals.
+            Connect with skilled developers, designers, and digital professionals.
             Post a job in minutes, get applications within 24 hours.
           </p>
           <div className={styles.heroBtns}>
-            <button className={styles.ctaBtn} onClick={() => setView("post")}>Post a Job</button>
+            <button className={styles.ctaBtn} onClick={() => setView("post")}>Post a Job →</button>
             <button className={`${styles.ctaOutline} ${view === "board" ? styles.active : ""}`} onClick={() => setView("board")}>Browse Jobs</button>
+          </div>
+          <div className={styles.heroStats}>
+            <div className={styles.heroStat}>
+              <span className={styles.heroStatNum}>KES 500</span>
+              <span className={styles.heroStatLabel}>Starting From</span>
+            </div>
+            <div className={styles.heroStat}>
+              <span className={styles.heroStatNum}>30 days</span>
+              <span className={styles.heroStatLabel}>Min Listing</span>
+            </div>
+            <div className={styles.heroStat}>
+              <span className={styles.heroStatNum}>24 hrs</span>
+              <span className={styles.heroStatLabel}>First Applications</span>
+            </div>
           </div>
         </div>
       </div>

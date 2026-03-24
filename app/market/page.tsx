@@ -51,27 +51,43 @@ export default function MarketPage() {
   return (
     <div className={styles.page}>
       <section className={styles.hero}>
-        <p className={styles.heroEyebrow}>Lumyn Market</p>
-        <h1 className={styles.heroTitle}>
-          Digital Products <span>Marketplace</span>
-        </h1>
-        <p className={styles.heroSubtitle}>
-          Discover and purchase premium digital products from talented creators.
-          Templates, UI kits, eBooks, courses, and more.
-        </p>
-        <div className={styles.heroActions}>
-          <Link href="#products" className={styles.heroBtnPrimary}>
-            Browse Products
-          </Link>
-          {isSignedIn ? (
-            <Link href="/market/dashboard" className={styles.heroBtnSecondary}>
-              Sell Your Products
+        <div className={styles.heroInner}>
+          <p className={styles.heroEyebrow}>Lumyn Market</p>
+          <h1 className={styles.heroTitle}>
+            Digital Products <span>Marketplace</span>
+          </h1>
+          <p className={styles.heroSubtitle}>
+            Discover and buy premium digital products from talented creators.
+            Templates, UI kits, eBooks, courses, and more.
+          </p>
+          <div className={styles.heroActions}>
+            <Link href="#products" className={styles.heroBtnPrimary}>
+              Browse Products →
             </Link>
-          ) : (
-            <SignInButton mode="modal">
-              <button className={styles.heroBtnSecondary}>Become a Creator</button>
-            </SignInButton>
-          )}
+            {isSignedIn ? (
+              <Link href="/market/dashboard" className={styles.heroBtnSecondary}>
+                Sell Your Products
+              </Link>
+            ) : (
+              <SignInButton mode="modal">
+                <button className={styles.heroBtnSecondary}>Become a Creator</button>
+              </SignInButton>
+            )}
+          </div>
+          <div className={styles.heroStats}>
+            <div className={styles.heroStat}>
+              <span className={styles.heroStatNum}>20%</span>
+              <span className={styles.heroStatLabel}>Commission Only</span>
+            </div>
+            <div className={styles.heroStat}>
+              <span className={styles.heroStatNum}>KES</span>
+              <span className={styles.heroStatLabel}>Local Currency</span>
+            </div>
+            <div className={styles.heroStat}>
+              <span className={styles.heroStatNum}>Instant</span>
+              <span className={styles.heroStatLabel}>Downloads</span>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -100,7 +116,7 @@ export default function MarketPage() {
                 {products.length} item{products.length !== 1 ? "s" : ""}
               </span>
             </h2>
-            <Link href="/market/dashboard" style={{ color: "#6d8196", fontSize: "0.9rem", textDecoration: "none" }}>
+            <Link href="/market/dashboard" className={styles.sectionLink}>
               My Purchases →
             </Link>
           </div>
@@ -116,18 +132,10 @@ export default function MarketPage() {
               <p>Be the first to list a product in this category!</p>
               <Link
                 href="/market/dashboard"
-                style={{
-                  marginTop: 24,
-                  display: "inline-block",
-                  padding: "12px 32px",
-                  background: "#7b3f00",
-                  color: "#ffffe3",
-                  borderRadius: 8,
-                  textDecoration: "none",
-                  fontWeight: 600,
-                }}
+                className={styles.heroBtnPrimary}
+                style={{ marginTop: 24, display: "inline-block", textDecoration: "none" }}
               >
-                Start Selling
+                Start Selling →
               </Link>
             </div>
           ) : (
