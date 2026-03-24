@@ -240,7 +240,7 @@ function BuilderContent() {
                       className={styles.input}
                       value={data.displayName}
                       onChange={e => update("displayName", e.target.value)}
-                      placeholder="Jane Doe"
+                      placeholder="Joshua Mwendwa"
                     />
                   </div>
                   <div className={styles.fieldGroup}>
