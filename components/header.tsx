@@ -54,11 +54,11 @@ export default function Header() {
               Admin
             </Link>
           )}
+          <Link href="/services" className={styles.navLink} onClick={() => setIsMobileMenuOpen(false)}>
+            Services
+          </Link>
           <Link href="/projects" className={styles.navLink} onClick={() => setIsMobileMenuOpen(false)}>
             Projects
-          </Link>
-          <Link href="/blog" className={styles.navLink} onClick={() => setIsMobileMenuOpen(false)}>
-            Blog
           </Link>
           <Link href="/contact" className={styles.navLink} onClick={() => setIsMobileMenuOpen(false)}>
             Contact
