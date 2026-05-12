@@ -4,9 +4,16 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  background: rgba(255, 255, 227, 0.95);
-  backdrop-filter: blur(20px);
-  box-shadow: 0 1px 0 rgba(74, 74, 74, 0.08);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  background: rgba(10, 10, 10, 0.7);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid rgba(255, 255, 227, 0.08);
+}
+
+.header-scrolled {
+  background: rgba(10, 10, 10, 0.9);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
 }
 
 .container {
@@ -16,7 +23,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 72px;
+  height: 80px;
 }
 
 .logo {
@@ -24,67 +31,99 @@
   align-items: baseline;
   gap: 6px;
   text-decoration: none;
-  transition: transform 0.2s ease;
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .logo:hover {
   transform: scale(1.02);
 }
 
+.logo::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #6d8196 0%, #ffffe3 100%);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.logo:hover::after {
+  transform: scaleX(1);
+}
+
 .logoText {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 800;
-  color: #4a4a4a;
-  letter-spacing: -0.5px;
+  color: #ffffe3;
+  letter-spacing: -0.03em;
+  line-height: 1;
 }
 
 .logoSubtext {
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   font-weight: 700;
-  color: #6d8196;
+  color: rgba(255, 255, 227, 0.5);
   text-transform: uppercase;
   letter-spacing: 2px;
+  line-height: 1;
 }
 
 .nav {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 24px;
 }
-
-
-
-
 
 .navLink {
   font-size: 0.9rem;
-  font-weight: 600;
-  color: #4a4a4a;
+  font-weight: 500;
+  color: rgba(255, 255, 227, 0.7);
   text-decoration: none;
-  padding: 6px 14px;
+  padding: 8px 14px;
   border-radius: 8px;
-  transition: all 0.2s;
-  letter-spacing: 0.2px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  letter-spacing: 0.02em;
+}
+
+.navLink::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  background: radial-gradient(circle at center, rgba(255, 255, 227, 0.1) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.navLink:hover::before {
+  opacity: 1;
 }
 
 .navLink:hover {
-  background: rgba(74, 74, 74, 0.08);
+  color: #ffffe3;
 }
 
 .navLinkAdmin {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  color: #6d8196;
+  color: rgba(109, 129, 150, 0.9);
   text-decoration: none;
   padding: 6px 12px;
-  border-radius: 8px;
-  border: 1.5px solid rgba(74, 74, 74, 0.2);
-  transition: all 0.2s;
+  border-radius: 6px;
+  border: 1px solid rgba(109, 129, 150, 0.3);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .navLinkAdmin:hover {
-  border-color: #4a4a4a;
-  color: #4a4a4a;
+  background: rgba(109, 129, 150, 0.2);
+  border-color: rgba(109, 129, 150, 0.5);
+  color: #ffffe3;
 }
 
 .authButtons {
@@ -96,18 +135,34 @@
 .signInBtn {
   padding: 10px 20px;
   background: transparent;
-  color: #4a4a4a;
-  border: 1.5px solid #4a4a4a;
-  border-radius: 4px;
-  font-weight: 600;
-  font-size: 0.9rem;
+  color: rgba(255, 255, 227, 0.9);
+  border: 1px solid rgba(255, 255, 227, 0.2);
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.85rem;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.signInBtn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 227, 0.05);
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.signInBtn:hover::before {
+  transform: translateY(0);
 }
 
 .signInBtn:hover {
-  background: #4a4a4a;
-  color: #ffffe3;
+  background: rgba(255, 255, 227, 0.08);
+  border-color: rgba(255, 255, 227, 0.3);
+  transform: translateY(-1px);
 }
 
 .userButton {
@@ -115,39 +170,69 @@
   height: 40px !important;
 }
 
+/* Mobile Menu Toggle */
+.menuToggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.menuToggle span {
+  width: 24px;
+  height: 2px;
+  background: #ffffe3;
+  border-radius: 2px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 @media (max-width: 768px) {
   .container {
     padding: 0 20px;
-    height: 64px;
+    height: 72px;
   }
 
   .menuToggle {
-    display: block;
+    display: flex;
   }
 
   .nav {
     position: fixed;
-    top: 64px;
+    top: 72px;
     left: 0;
     right: 0;
-    background: rgba(255, 255, 227, 0.98);
+    background: rgba(10, 10, 10, 0.98);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
     flex-direction: column;
     padding: 32px 20px;
-    gap: 24px;
+    gap: 16px;
     transform: translateY(-100%);
     opacity: 0;
     visibility: hidden;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    border-bottom: 1px solid rgba(255, 255, 227, 0.1);
   }
 
-
+  .nav.open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
 
   .authButtons {
     margin-left: 0;
     margin-top: 8px;
     width: 100%;
     justify-content: center;
+  }
+
+  .navLink {
+    width: 100%;
+    text-align: center;
+    padding: 14px;
+    font-size: 1rem;
   }
 }
 

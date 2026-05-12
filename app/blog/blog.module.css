@@ -1,508 +1,412 @@
+/* ===== LUMYN PREMIUM BLOG PAGE ===== */
+
 .blogPage {
   width: 100%;
+  overflow-x: hidden;
+  background: var(--background);
 }
 
+/* ===== HERO SECTION ===== */
 .hero {
-  background: linear-gradient(135deg, #191818, #c2b5b5);
-  padding: 120px 20px 80px 20px;
+  position: relative;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 140px 24px 100px;
   text-align: center;
-  color: white;
+  overflow: hidden;
+  background: var(--background);
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 40%, rgba(109, 129, 150, 0.08) 0%, transparent 50%),
+              radial-gradient(circle at 70% 60%, rgba(255, 255, 227, 0.05) 0%, transparent 50%);
+  z-index: 0;
+}
+
+.heroGif {
+  position: absolute;
+  top: 50%;
+  right: 10%;
+  transform: translateY(-50%);
+  width: 160px;
+  height: 160px;
+  border-radius: 12px;
+  object-fit: cover;
+  z-index: 1;
+  opacity: 0.15;
+  filter: blur(2px);
 }
 
 .heroContent {
+  position: relative;
+  z-index: 2;
   max-width: 800px;
-  margin: 0 auto;
 }
 
 .heroTitle {
-  font-size: 3.5rem;
+  font-size: clamp(2.5rem, 7vw, 4.5rem);
   font-weight: 800;
   margin: 0 0 20px 0;
-  animation: fadeInUp 0.8s ease-out;
+  background: linear-gradient(135deg, #6d8196, #ffffe3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
 }
 
 .heroSubtitle {
-  font-size: 1.25rem;
+  font-size: clamp(1rem, 1.75vw, 1.25rem);
+  font-weight: 500;
   margin: 0;
-  opacity: 0.95;
-  animation: fadeInUp 0.8s ease-out 0.2s backwards;
+  color: var(--muted-foreground);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
+/* ===== BLOG SECTION ===== */
 .blogSection {
-  padding: 80px 20px;
-  background: #f5f5f5;
+  padding: 120px 24px;
+  background: var(--background);
 }
 
-.container {
-  max-width: 1200px;
+.blogGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 32px;
+  max-width: 1100px;
   margin: 0 auto;
 }
 
-.loading {
-  text-align: center;
-  padding: 80px 20px;
-}
-
-.spinner {
-  width: 50px;
-  height: 50px;
-  border: 4px solid #e0e0e0;
-  border-top-color: #d32f2f;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin: 0 auto 20px auto;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.emptyState {
-  text-align: center;
-  padding: 80px 20px;
-  background: white;
-  border-radius: 16px;
-}
-
-.emptyState h3 {
-  font-size: 1.75rem;
-  color: #002060;
-  margin: 0 0 12px 0;
-}
-
-.emptyState p {
-  font-size: 1.125rem;
-  color: #666;
-  margin: 0;
-}
-
-
-
-/* Updated grid to match events layout */
-.blogGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 24px;
-}
-
-/* Featured badge styling */
-.featuredBadge {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  padding: 6px 12px;
-  background: rgba(255, 193, 7, 0.95);
-  color: #002060;
-  font-size: 0.75rem;
-  font-weight: 700;
-  border-radius: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  backdrop-filter: blur(4px);
-}
-
-
-
-
-/* Updated card styling to match events exactly */
+/* ===== BLOG CARD ===== */
 .blogCard {
-  background: white;
-  border-radius: 12px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
-  min-height: 450px;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
 }
 
 .blogCard:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  transform: translateY(-8px);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.12),
+              0 0 50px rgba(109, 129, 150, 0.08) inset;
+  border-color: rgba(109, 129, 150, 0.24);
 }
 
-
-
-/* Image wrapper to match events style with 150px height */
 .blogImageWrapper {
   position: relative;
-  height: 150px;
+  width: 100%;
+  height: 200px;
   overflow: hidden;
+  background: var(--muted);
 }
 
 .blogImage {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .blogCard:hover .blogImage {
-  transform: scale(1.05);
+  transform: scale(1.08);
 }
 
-
-
-
-
-
-/* Category badge styling to match events */
 .blogCategory {
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: 16px;
+  right: 16px;
+  background: var(--primary);
+  color: var(--primary-foreground);
   padding: 6px 12px;
-  background: rgba(211, 47, 47, 0.95);
-  color: white;
-  font-size: 0.75rem;
+  border-radius: 8px;
+  font-size: 0.7rem;
   font-weight: 700;
-  border-radius: 12px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  backdrop-filter: blur(4px);
+  letter-spacing: 0.05em;
+  backdrop-filter: blur(10px);
 }
 
-/* Featured badge styling */
 .featuredBadge {
   position: absolute;
-  top: 12px;
-  left: 12px;
+  top: 16px;
+  left: 16px;
+  background: linear-gradient(135deg, #ffffe3, #cbcbcb);
+  color: #0a0a0a;
   padding: 6px 12px;
-  background: rgba(255, 193, 7, 0.95);
-  color: #002060;
-  font-size: 0.75rem;
+  border-radius: 8px;
+  font-size: 0.7rem;
   font-weight: 700;
-  border-radius: 12px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  backdrop-filter: blur(4px);
+  letter-spacing: 0.05em;
+  backdrop-filter: blur(10px);
 }
 
-
-
-
-
-/* Content padding to match events */
 .blogContent {
-  padding: 20px;
-}
-
-
-
-/* Title styling to match events */
-.blogTitle {
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin: 0 0 8px 0;
-  color: #002060;
-  line-height: 1.3;
-}
-
-
-/* Description styling to match events with 3-line clamp */
-.blogDescription {
-  font-size: 0.9rem;
-  line-height: 1.5;
-  color: #666;
-  margin: 0 0 16px 0;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  line-clamp: 3;
-}
-
-/* Blog meta section */
-.blogMeta {
+  padding: 24px;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin: 0 0 16px 0;
+}
+
+.blogMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 12px;
   font-size: 0.8rem;
-  color: #666;
+  color: var(--muted-foreground);
 }
 
 .blogAuthor {
   font-weight: 600;
-  color: #002060;
+  color: var(--primary);
 }
 
 .blogDate {
-  color: #888;
+  color: var(--muted-foreground);
+  opacity: 0.7;
 }
 
-/* Blog tags section */
+.blogTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  color: var(--foreground);
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.blogDescription {
+  font-size: 0.9375rem;
+  color: var(--muted-foreground);
+  line-height: 1.6;
+  margin: 0 0 20px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
+}
+
 .blogTags {
   display: flex;
   gap: 6px;
   flex-wrap: wrap;
+  margin-bottom: 16px;
 }
 
 .blogTag {
-  padding: 3px 8px;
-  background: rgba(211, 47, 47, 0.1);
-  color: #d32f2f;
-  font-size: 0.7rem;
+  padding: 4px 10px;
+  background: rgba(109, 129, 150, 0.1);
+  color: var(--primary);
+  font-size: 0.75rem;
   font-weight: 600;
-  border-radius: 8px;
+  border-radius: 6px;
   text-transform: lowercase;
 }
 
-/* Read More button to match events style */
 .blogReadMore {
-  color: #d32f2f;
-  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--primary);
   font-weight: 600;
-  font-size: 0.9rem;
-  transition: color 0.3s ease;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
   background: none;
   border: none;
   padding: 0;
   cursor: pointer;
+  margin-top: auto;
+}
+
+.blogReadMore::after {
+  content: '→';
+  transition: transform 0.2s ease;
 }
 
 .blogReadMore:hover {
-  color: #b71c1c;
+  gap: 10px;
 }
 
-/* Modal overlay to match events */
+.blogReadMore:hover::after {
+  transform: translateX(4px);
+}
+
+/* ===== MODAL ===== */
 .modalOverlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(10, 10, 10, 0.9);
+  backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  padding: 20px;
   animation: fadeIn 0.3s ease;
 }
 
-
-/* Modal content to match events centered modal */
 .modalContent {
-  background: white;
-  border-radius: 12px;
-  max-width: 700px;
-  width: 90%;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  max-width: 800px;
+  width: 100%;
   max-height: 90vh;
-  overflow: hidden;
-  position: relative;
-  animation: slideIn 0.3s ease;
-  display: flex;
-  flex-direction: column;
+  overflow-y: auto;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+  animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .modalClose {
   position: absolute;
-  top: 16px;
-  right: 16px;
-  background: none;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 227, 0.08);
   border: none;
-  font-size: 24px;
+  font-size: 20px;
   cursor: pointer;
-  color: #666;
-  z-index: 1;
+  color: var(--muted-foreground);
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.modalImageWrapper {
-  position: relative;
-  height: 250px;
-  border-radius: 12px 12px 0 0;
-  overflow: hidden;
+.modalClose:hover {
+  background: rgba(255, 255, 227, 0.12);
+  color: var(--foreground);
 }
 
-.modalImage {
-  object-fit: cover;
-}
-
-
-.modalBody {
-  padding: 24px;
-  flex: 1;
-  overflow-y: auto;
-  max-height: calc(90vh - 250px); /* Full height minus image */
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 32px;
+  border-bottom: 1px solid var(--border);
 }
 
 .modalTitle {
   font-size: 1.75rem;
   font-weight: 800;
-  color: #002060;
-  margin: 0 0 16px 0;
+  color: var(--foreground);
+  margin: 0;
+  line-height: 1.2;
 }
 
-.modalDescription {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #333;
-  margin: 0 0 20px 0;
+.modalBody {
+  padding: 32px;
 }
 
-.modalDetails {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+.modalImageWrapper {
+  position: relative;
+  height: 300px;
+  border-radius: 16px;
+  overflow: hidden;
   margin-bottom: 24px;
 }
 
-.modalDetail {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.9rem;
-  color: #666;
-}
-
-.detailIcon {
-  font-size: 1.125rem;
-}
-
-.viewFullArticle {
-  display: inline-block;
-  background: #d32f2f;
-  color: white;
-  padding: 12px 24px;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: background 0.3s ease;
-}
-
-.viewFullArticle:hover {
-  background: #b71c1c;
-}
-
-/* Sidebar-style modal (like events staple) */
-.blogDetailCard {
-  background: white;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  width: 500px;
-  position: fixed;
-  top: 0;
-  right: 0;
-  height: 100vh;
-  z-index: 1000;
-  overflow-y: auto;
-  animation: slideInFromRight 0.4s ease;
-}
-
-.detailClose {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background: rgba(255, 255, 255, 0.9);
-  border: none;
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  cursor: pointer;
-  color: #666;
-  z-index: 1;
-  transition: background 0.3s ease;
-}
-
-.detailClose:hover {
-  background: white;
-}
-
-.detailImageWrapper {
-  position: relative;
-  height: 200px;
-  overflow: hidden;
-}
-
-.detailImage {
+.modalImage {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
-.detailBody {
-  padding: 20px;
+.modalDescription {
+  font-size: 1.0625rem;
+  line-height: 1.8;
+  color: var(--muted-foreground);
+  margin-bottom: 24px;
 }
 
-.detailTitle {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #002060;
-  margin: 0 0 12px 0;
-}
-
-.detailDescription {
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: #333;
-  margin: 0 0 16px 0;
-}
-
-.detailDetails {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 20px;
-}
-
-.detailDetail {
-  display: flex;
+.viewFullArticle {
+  display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.9rem;
-  color: #666;
+  padding: 12px 24px;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 10px;
+  transition: all 0.3s ease;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+.viewFullArticle:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(109, 129, 150, 0.3);
 }
 
-@keyframes slideIn {
-  from {
-    transform: scale(0.9);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-@keyframes slideInFromRight {
-  from {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
+/* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
-  .heroTitle {
-    font-size: 2.5rem;
+  .hero {
+    padding: 120px 20px 80px;
+    min-height: auto;
+  }
+
+  .heroGif {
+    display: none;
+  }
+
+  .blogSection {
+    padding: 100px 20px 80px;
   }
 
   .blogGrid {
     grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .blogCard {
+    min-height: 400px;
+  }
+
+  .sectionTitle {
+    font-size: 2rem;
+  }
+
+  .modalContent {
+    max-width: 95vw;
+    margin: 16px;
+  }
+
+  .modalHeader,
+  .modalBody {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroTitle {
+    font-size: 2.5rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1rem;
   }
 }

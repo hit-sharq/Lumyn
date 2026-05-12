@@ -1,0 +1,27 @@
+.section {
+  width: 100%;
+  position: relative;
+}
+
+/* Subtle gradient overlay for depth when needed */
+.section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(255, 255, 227, 0.02) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.section:hover::before {
+  opacity: 1;
+}
