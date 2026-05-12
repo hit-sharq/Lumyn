@@ -1,0 +1,456 @@
+/* ===== TERMINAL CARD COMPONENT ===== */
+
+/* Main Window */
+.terminalWindow {
+  background: rgba(10, 10, 10, 0.95);
+  border: 1px solid rgba(109, 129, 150, 0.2);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 
+    0 0 0 1px rgba(0, 0, 0, 0.4),
+    0 24px 80px rgba(0, 0, 0, 0.5),
+    0 0 120px rgba(109, 129, 150, 0.08) inset,
+    0 4px 20px rgba(0, 0, 0, 0.3);
+  position: relative;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.terminalWindow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    var(--primary) 15%, 
+    #ffffe3 50%, 
+    var(--primary) 85%, 
+    transparent 100%);
+  opacity: 0.6;
+  z-index: 1;
+}
+
+.terminalWindow:hover {
+  transform: translateY(-4px);
+  border-color: rgba(109, 129, 150, 0.35);
+  box-shadow: 
+    0 0 0 1px rgba(0, 0, 0, 0.4),
+    0 32px 100px rgba(0, 0, 0, 0.6),
+    0 0 140px rgba(109, 129, 150, 0.12) inset,
+    0 6px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Header Bar */
+.terminalHeader {
+  background: linear-gradient(180deg, 
+    rgba(30, 30, 30, 0.95) 0%, 
+    rgba(15, 15, 15, 0.95) 100%);
+  border-bottom: 1px solid rgba(109, 129, 150, 0.15);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 2;
+}
+
+.terminalButtons {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.terminalButton {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  cursor: default;
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.terminalButton.red {
+  background: radial-gradient(circle at 30% 30%, #ff7b6e, #ff5f56);
+  box-shadow: 0 0 8px rgba(255, 95, 86, 0.4);
+}
+
+.terminalButton.yellow {
+  background: radial-gradient(circle at 30% 30%, #ffd93d, #ffbd2e);
+  box-shadow: 0 0 8px rgba(255, 189, 46, 0.4);
+}
+
+.terminalButton.green {
+  background: radial-gradient(circle at 30% 30%, #34c759, #27ca40);
+  box-shadow: 0 0 8px rgba(39, 202, 64, 0.4);
+}
+
+.terminalButton:hover {
+  transform: scale(1.2);
+}
+
+.terminalTitle {
+  flex: 1;
+  text-align: center;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: rgba(255, 255, 227, 0.4);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.terminalStatus {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 12px var(--primary);
+  animation: statusPulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes statusPulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 12px var(--primary);
+  }
+  50% {
+    opacity: 0.5;
+    box-shadow: 0 0 6px var(--primary);
+  }
+}
+
+/* Terminal Body */
+.terminalBody {
+  padding: 28px 32px;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+  min-height: 200px;
+  position: relative;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(109, 129, 150, 0.03) 0%, transparent 50%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.5) 100%);
+}
+
+/* Prompts */
+.terminalPrompt {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+.promptSymbol {
+  color: var(--primary);
+  margin-right: 12px;
+  font-weight: 700;
+  font-size: 1rem;
+  text-shadow: 0 0 10px rgba(109, 129, 150, 0.5);
+}
+
+.promptPath {
+  color: rgba(255, 255, 227, 0.6);
+  font-size: 0.875rem;
+}
+
+.promptCursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.2em;
+  background: var(--primary);
+  margin-left: 3px;
+  animation: blink 1s step-end infinite;
+  box-shadow: 0 0 6px var(--primary);
+  vertical-align: text-bottom;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* Typing effect */
+.typingContainer {
+  margin-top: 8px;
+}
+
+.typingText {
+  display: inline;
+  color: rgba(255, 255, 227, 0.9);
+  font-size: 0.9375rem;
+  line-height: 1.8;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 20px rgba(255, 255, 227, 0.1);
+}
+
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  background: var(--primary);
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: blink 1s step-end infinite;
+  box-shadow: 0 0 8px var(--primary);
+}
+
+.typingText strong {
+  color: var(--foreground);
+  font-weight: 700;
+}
+
+.typingText .highlight {
+  color: var(--primary);
+  position: relative;
+  display: inline;
+}
+
+.typingText .highlight::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--primary);
+  opacity: 0.6;
+}
+
+/* Terminal List */
+.terminalList {
+  list-style: none;
+  padding: 12px 0;
+  margin: 16px 0;
+}
+
+.terminalListItem {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: var(--muted-foreground);
+}
+
+.terminalListItem::before {
+  content: '>';
+  color: var(--primary);
+  font-weight: 700;
+  margin-right: 12px;
+  flex-shrink: 0;
+  text-shadow: 0 0 8px rgba(109, 129, 150, 0.5);
+}
+
+.listPrefix {
+  color: var(--primary);
+  margin-right: 10px;
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+
+/* Code Block */
+.terminalCode {
+  display: block;
+  margin: 20px 0;
+  padding: 18px 22px;
+  background: rgba(0, 0, 0, 0.5);
+  border-left: 2px solid var(--primary);
+  border-radius: 0 8px 8px 0;
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 227, 0.75);
+  overflow-x: auto;
+  position: relative;
+}
+
+.terminalCode::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--primary), transparent);
+  opacity: 0.5;
+}
+
+.codeComment {
+  color: rgba(109, 129, 150, 0.5);
+  font-style: italic;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.codeKeyword {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.codeString {
+  color: #a5d6a7;
+  font-weight: 400;
+}
+
+.codeFunction {
+  color: #82aaff;
+  font-weight: 500;
+}
+
+/* Hover effects for terminal elements */
+.terminalWindow:hover .terminalButton.red {
+  box-shadow: 0 0 12px rgba(255, 95, 86, 0.6);
+}
+
+.terminalWindow:hover .terminalButton.yellow {
+  box-shadow: 0 0 12px rgba(255, 189, 46, 0.6);
+}
+
+.terminalWindow:hover .terminalButton.green {
+  box-shadow: 0 0 12px rgba(39, 202, 64, 0.6);
+}
+
+/* Glow effect on active typing */
+.terminalWindow.typing::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    var(--primary) 50%, 
+    transparent 100%);
+  animation: terminalGlow 2s ease-in-out infinite;
+  opacity: 0.6;
+}
+
+@keyframes terminalGlow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+
+/* Minimal terminal variant */
+.terminalWindow.minimal {
+  background: transparent;
+  border: 1px solid rgba(109, 129, 150, 0.15);
+  box-shadow: none;
+}
+
+.terminalWindow.minimal .terminalHeader {
+  background: transparent;
+  border-bottom: 1px solid rgba(109, 129, 150, 0.1);
+}
+
+.terminalWindow.minimal .terminalBody {
+  background: transparent;
+  padding: 20px 24px;
+}
+
+.terminalWindow.minimal::before {
+  display: none;
+}
+
+/* Small variant */
+.terminalWindow.small {
+  border-radius: 8px;
+}
+
+.terminalWindow.small .terminalHeader {
+  padding: 10px 16px;
+}
+
+.terminalWindow.small .terminalButtons {
+  gap: 6px;
+}
+
+.terminalWindow.small .terminalButton {
+  width: 10px;
+  height: 10px;
+}
+
+.terminalWindow.small .terminalBody {
+  padding: 20px;
+  min-height: 160px;
+}
+
+/* Dark mode adjustments (already dark, but for completeness) */
+@media (prefers-color-scheme: light) {
+  .terminalWindow {
+    background: rgba(255, 255, 255, 0.98);
+    border-color: rgba(109, 129, 150, 0.2);
+  }
+  
+  .terminalHeader {
+    background: linear-gradient(180deg, rgba(245, 245, 245, 0.95) 0%, rgba(235, 235, 235, 0.95) 100%);
+  }
+  
+  .terminalBody {
+    background: rgba(250, 250, 250, 0.5);
+  }
+
+  .terminalPrompt,
+  .terminalCode,
+  .terminalListItem,
+  .terminalCode .codeComment {
+    color: rgba(0, 0, 0, 0.7);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .terminalHeader {
+    padding: 12px 16px;
+  }
+
+  .terminalButtons {
+    gap: 6px;
+  }
+
+  .terminalButton {
+    width: 10px;
+    height: 10px;
+  }
+
+  .terminalTitle {
+    font-size: 0.75rem;
+  }
+
+  .terminalBody {
+    padding: 24px 20px;
+    min-height: 180px;
+  }
+
+  .terminalPrompt {
+    font-size: 0.875rem;
+  }
+
+  .typingText {
+    font-size: 0.875rem;
+  }
+
+  .terminalCode {
+    font-size: 0.75rem;
+    padding: 14px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .terminalWindow {
+    border-radius: 8px;
+  }
+
+  .terminalBody {
+    padding: 20px 16px;
+  }
+
+  .terminalPrompt {
+    flex-wrap: wrap;
+  }
+}

@@ -50,17 +50,17 @@ export default function Header() {
 
         <nav className={`${styles.nav} ${isMobileMenuOpen ? styles.open : ""}`}>
           {isAdmin && (
-            <Link href="/admin" className={styles.navLinkAdmin}>
+            <Link href="/admin" className={styles.navLinkAdmin} onClick={() => setIsMobileMenuOpen(false)}>
               Admin
             </Link>
           )}
-          <Link href="/projects" className={styles.navLink}>
+          <Link href="/projects" className={styles.navLink} onClick={() => setIsMobileMenuOpen(false)}>
             Projects
           </Link>
-          <Link href="/blog" className={styles.navLink}>
+          <Link href="/blog" className={styles.navLink} onClick={() => setIsMobileMenuOpen(false)}>
             Blog
           </Link>
-          <Link href="/contact" className={styles.navLink}>
+          <Link href="/contact" className={styles.navLink} onClick={() => setIsMobileMenuOpen(false)}>
             Contact
           </Link>
           <div className={styles.authButtons}>
