@@ -50,12 +50,21 @@ export default function AdminPage() {
 
   return (
     <div className={styles.adminPage}>
-      <div className={styles.sidebar}>
-        <div className={styles.sidebarHeader}>
-          <h2 className={styles.sidebarTitle}>Lumyn Admin</h2>
-          <p className={styles.adminName}>{user.fullName || user.emailAddresses[0].emailAddress}</p>
-        </div>
-        <nav className={styles.nav}>
+<div className={styles.sidebar}>
+         <div className={styles.sidebarHeader}>
+           <h2 className={styles.sidebarTitle}>Lumyn Admin</h2>
+           <p className={styles.adminName}>{user.fullName || user.emailAddresses[0].emailAddress}</p>
+           <button
+             className={styles.logoutBtn}
+             onClick={async () => {
+               await fetch("/api/auth/logout", { method: "POST" })
+               window.location.href = "/"
+             }}
+           >
+             Sign Out
+           </button>
+         </div>
+         <nav className={styles.nav}>
           <button
             className={`${styles.navBtn} ${activeTab === "news" ? styles.navBtnActive : ""}`}
             onClick={() => setActiveTab("news")}

@@ -1,8 +1,10 @@
-de.manager {
-  background: white;
+.manager {
+  background: rgba(20, 20, 20, 0.85);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 227, 0.08);
   border-radius: 16px;
   padding: 40px;
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
 }
 
 .header {
@@ -18,13 +20,13 @@ de.manager {
   font-size: 2rem;
   font-weight: 800;
   margin: 0;
-  color: #002060;
+  color: #ffffe3;
 }
 
 .addBtn {
   padding: 12px 28px;
-  background: linear-gradient(135deg, #d32f2f, #b71c1c);
-  color: white;
+  background: linear-gradient(135deg, #6d8196, #4a5a6a);
+  color: #0a0a0a;
   border: none;
   border-radius: 50px;
   font-weight: 700;
@@ -35,21 +37,21 @@ de.manager {
 
 .addBtn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(211, 47, 47, 0.3);
+  box-shadow: 0 4px 15px rgba(109, 129, 150, 0.4);
 }
 
 .loading {
   text-align: center;
   padding: 60px 20px;
   font-size: 1.125rem;
-  color: #666;
+  color: rgba(255, 255, 227, 0.6);
 }
 
 .empty {
   text-align: center;
   padding: 60px 20px;
   font-size: 1.125rem;
-  color: #999;
+  color: rgba(255, 255, 227, 0.4);
 }
 
 /* Form Styles */
@@ -74,7 +76,7 @@ de.manager {
   font-size: 0.95rem;
   font-weight: 600;
   margin-bottom: 8px;
-  color: #333;
+  color: rgba(255, 255, 227, 0.8);
 }
 
 .input,
@@ -82,18 +84,20 @@ de.manager {
 .textarea {
   padding: 12px 16px;
   font-size: 1rem;
-  border: 2px solid #e0e0e0;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 227, 0.15);
   border-radius: 8px;
   transition: all 0.3s ease;
   font-family: inherit;
+  color: #ffffe3;
 }
 
 .input:focus,
 .select:focus,
 .textarea:focus {
   outline: none;
-  border-color: #002060;
-  box-shadow: 0 0 0 3px rgba(0, 32, 96, 0.1);
+  border-color: rgba(255, 255, 227, 0.3);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .checkbox {
@@ -113,8 +117,8 @@ de.manager {
 
 .saveBtn {
   padding: 14px 32px;
-  background: #002060;
-  color: white;
+  background: linear-gradient(135deg, #6d8196, #4a5a6a);
+  color: #0a0a0a;
   border: none;
   border-radius: 50px;
   font-weight: 700;
@@ -124,15 +128,15 @@ de.manager {
 }
 
 .saveBtn:hover {
-  background: #003080;
   transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(109, 129, 150, 0.4);
 }
 
 .cancelBtn {
   padding: 14px 32px;
-  background: #f5f5f5;
-  color: #333;
-  border: 2px solid #e0e0e0;
+  background: rgba(255, 255, 227, 0.05);
+  color: rgba(255, 255, 227, 0.7);
+  border: 1px solid rgba(255, 255, 227, 0.15);
   border-radius: 50px;
   font-weight: 700;
   cursor: pointer;
@@ -140,249 +144,89 @@ de.manager {
 }
 
 .cancelBtn:hover {
-  background: #e0e0e0;
+  background: rgba(255, 255, 227, 0.1);
+  color: #ffffe3;
 }
 
-/* Grid List for Projects */
-.gridList {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 24px;
+/* List Styles */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.gridCard {
-  background: white;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+.card {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 227, 0.08);
+  border-radius: 12px;
+  padding: 20px;
   transition: all 0.3s ease;
-  height: 320px;
-  display: flex;
-  flex-direction: column;
-  will-change: transform, box-shadow;
 }
 
-.gridCard:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+.card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 227, 0.15);
 }
 
-.gridImageWrapper {
-  position: relative;
-  height: 180px;
-  overflow: hidden;
-}
-
-.gridImage {
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.gridCard:hover .gridImage {
-  transform: scale(1.05);
-}
-
-.gridCategory {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  padding: 8px 16px;
-  background: #d32f2f;
-  color: white;
-  font-size: 0.875rem;
-  font-weight: 700;
-  border-radius: 20px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.gridContent {
-  padding: 24px;
+.cardContent {
   flex: 1;
-  display: flex;
-  flex-direction: column;
 }
 
-.gridTitle {
-  font-size: 1.25rem;
+.cardTitle {
+  font-size: 1.125rem;
   font-weight: 700;
+  color: #ffffe3;
   margin: 0 0 8px 0;
-  color: #002060;
-  display: flex;
-  align-items: center;
-  gap: 12px;
 }
 
-.gridExcerpt {
-  font-size: 0.95rem;
-  color: #666;
+.cardExcerpt {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 227, 0.6);
   margin: 0 0 12px 0;
-  line-height: 1.5;
-  flex: 1;
 }
 
-.gridMeta {
+.cardMeta {
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
-  font-size: 0.875rem;
-  color: #999;
-  margin-bottom: 16px;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 227, 0.5);
 }
 
-.gridDate {
-  color: #999;
-}
-
-.technologies {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 16px;
-}
-
-.tag {
+.cardCategory {
   padding: 4px 12px;
-  background: #f0f8f0;
-  color: #8eb69b;
+  background: rgba(109, 129, 150, 0.2);
+  color: #6d8196;
   border-radius: 12px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  border: 1px solid #e0e0e0;
-}
-
-.featuredBadge {
-  padding: 2px 8px;
-  background: linear-gradient(135deg, #ff6b35, #f7931e);
-  color: white;
-  border-radius: 8px;
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.readMoreBtn {
-  display: inline-block;
-  color: #8eb69b;
-  font-weight: 700;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  margin-bottom: 16px;
-}
-
-.readMoreBtn:hover {
-  color: #051f20;
-  transform: translateX(4px);
-}
-
-.gridActions {
-  display: flex;
-  gap: 12px;
-  margin-top: auto;
-}
-
-.editBtn,
-.deleteBtn {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  will-change: background-color, color;
-  flex: 1;
-}
-
-.editBtn {
-  background: #002060;
-  color: white;
-}
-
-.editBtn:hover {
-  background: #003080;
-}
-
-.deleteBtn {
-  background: #f5f5f5;
-  color: #d32f2f;
-}
-
-.deleteBtn:hover {
-  background: #d32f2f;
-  color: white;
-}
-
-/* Grid List for Gallery */
-.gridList {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 24px;
-}
-
-.gridCard {
-  background: white;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-  will-change: transform, box-shadow;
-}
-
-.gridCard:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
-}
-
-.gridImage {
-  height: 200px;
-  background-size: cover;
-  background-position: center;
-  background-color: #f5f5f5;
-}
-
-.gridContent {
-  padding: 16px;
-}
-
-.gridTitle {
-  font-size: 1.125rem;
-  font-weight: 700;
-  margin: 0 0 8px 0;
-  color: #002060;
-}
-
-.gridCategory {
-  padding: 4px 12px;
-  background: #f5f5f5;
-  color: #666;
-  border-radius: 12px;
-  font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
 }
 
-.gridActions {
+.cardActions {
   display: flex;
   gap: 8px;
-  padding: 12px 16px;
-  border-top: 1px solid #f5f5f5;
+  margin-left: 16px;
 }
 
 /* Table Styles */
 .searchInput {
   padding: 12px 20px;
-  border: 2px solid #e0e0e0;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 227, 0.15);
   border-radius: 50px;
   font-size: 1rem;
   min-width: 300px;
+  color: #ffffe3;
   transition: all 0.3s ease;
 }
 
 .searchInput:focus {
   outline: none;
-  border-color: #002060;
-  box-shadow: 0 0 0 3px rgba(0, 32, 96, 0.1);
+  border-color: rgba(255, 255, 227, 0.3);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .tableWrapper {
@@ -395,32 +239,32 @@ de.manager {
 }
 
 .table thead {
-  background: #f8f9fa;
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .table th {
   padding: 16px;
   text-align: left;
   font-weight: 700;
-  color: #002060;
-  border-bottom: 2px solid #e0e0e0;
+  color: #6d8196;
+  border-bottom: 1px solid rgba(255, 255, 227, 0.08);
 }
 
 .table td {
   padding: 16px;
-  border-bottom: 1px solid #f5f5f5;
-  color: #333;
+  border-bottom: 1px solid rgba(255, 227, 0.05);
+  color: rgba(255, 255, 227, 0.8);
 }
 
 .table tbody tr:hover {
-  background: #f8f9fa;
+  background: rgba(255, 255, 255, 0.03);
 }
 
 /* Modal Styles */
 .modal {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -429,7 +273,8 @@ de.manager {
 }
 
 .modalContent {
-  background: white;
+  background: rgba(20, 20, 20, 0.95);
+  border: 1px solid rgba(255, 255, 227, 0.08);
   border-radius: 16px;
   padding: 40px;
   max-width: 700px;
@@ -446,28 +291,29 @@ de.manager {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #f5f5f5;
-  border: none;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 227, 0.15);
   font-size: 1.5rem;
   cursor: pointer;
   transition: all 0.3s ease;
+  color: rgba(255, 255, 227, 0.7);
 }
 
 .modalClose:hover {
-  background: #d32f2f;
-  color: white;
+  background: linear-gradient(135deg, #6d8196, #4a5a6a);
+  color: #0a0a0a;
 }
 
 .modalTitle {
   font-size: 1.75rem;
   font-weight: 800;
   margin: 0 0 24px 0;
-  color: #002060;
+  color: #ffffe3;
 }
 
 .modalMeta {
   padding: 20px;
-  background: #f8f9fa;
+  background: rgba(255, 255, 255, 0.03);
   border-radius: 12px;
   margin-bottom: 24px;
 }
@@ -475,7 +321,7 @@ de.manager {
 .modalMeta p {
   margin: 0 0 8px 0;
   font-size: 0.95rem;
-  color: #666;
+  color: rgba(255, 255, 227, 0.6);
 }
 
 .modalMeta p:last-child {
@@ -483,165 +329,14 @@ de.manager {
 }
 
 .modalMeta strong {
-  color: #002060;
+  color: #6d8196;
   font-weight: 700;
 }
 
 .modalBody {
   font-size: 1.125rem;
   line-height: 1.7;
-  color: #333;
-}
-
-/* Detail Card Styles */
-.detailCard {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 500px;
-  height: 100vh;
-  background: white;
-  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
-  z-index: 1000;
-  overflow-y: auto;
-  animation: slideInFromRight 0.4s ease;
-}
-
-.detailClose {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background: rgba(255, 255, 255, 0.9);
-  border: none;
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  cursor: pointer;
-  color: #666;
-  z-index: 1;
-  transition: background 0.3s ease;
-}
-
-.detailClose:hover {
-  background: white;
-}
-
-.detailImageWrapper {
-  position: relative;
-  height: 250px;
-  overflow: hidden;
-}
-
-.detailImage {
-  object-fit: cover;
-}
-
-.detailBody {
-  padding: 24px;
-}
-
-.detailTitle {
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: #002060;
-  margin: 0 0 16px 0;
-}
-
-.detailDescription {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #333;
-  margin: 0 0 20px 0;
-}
-
-.detailDetails {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-bottom: 24px;
-}
-
-.detailDetail {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.9rem;
-  color: #666;
-}
-
-.detailIcon {
-  font-size: 1.125rem;
-}
-
-.detailTech {
-  margin-bottom: 24px;
-}
-
-.detailTech h4 {
-  font-size: 1.125rem;
-  font-weight: 700;
-  color: #002060;
-  margin: 0 0 12px 0;
-}
-
-.detailTechTags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.detailTechTag {
-  padding: 6px 12px;
-  background: #f0f8f0;
-  color: #8eb69b;
-  border-radius: 12px;
-  font-size: 0.875rem;
-  font-weight: 600;
-  border: 1px solid #e0e0e0;
-}
-
-.detailActions {
-  display: flex;
-  gap: 12px;
-}
-
-.detailEditBtn,
-.detailDeleteBtn {
-  padding: 12px 24px;
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  flex: 1;
-}
-
-.detailEditBtn {
-  background: #002060;
-  color: white;
-}
-
-.detailEditBtn:hover {
-  background: #003080;
-}
-
-.detailDeleteBtn {
-  background: #f5f5f5;
-  color: #d32f2f;
-}
-
-.detailDeleteBtn:hover {
-  background: #d32f2f;
-  color: white;
-}
-
-@keyframes slideInFromRight {
-  from { transform: translateX(100%); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
+  color: rgba(255, 255, 227, 0.8);
 }
 
 @media (max-width: 768px) {
@@ -672,7 +367,6 @@ de.manager {
     justify-content: center;
   }
 
-  /* Form Mobile Optimizations */
   .form {
     gap: 20px;
   }
@@ -682,14 +376,9 @@ de.manager {
     gap: 20px;
   }
 
-  .formGroup {
-    width: 100%;
-  }
-
   .label {
     font-size: 0.9rem;
     margin-bottom: 6px;
-    font-weight: 700;
   }
 
   .input,
@@ -700,12 +389,7 @@ de.manager {
     border-radius: 10px;
     width: 100%;
     box-sizing: border-box;
-    min-height: 48px; /* Better touch targets */
-  }
-
-  .textarea {
-    min-height: 100px;
-    resize: vertical;
+    min-height: 48px;
   }
 
   .formActions {
@@ -723,7 +407,6 @@ de.manager {
     border-radius: 12px;
   }
 
-  /* Search and Table Mobile */
   .searchInput {
     min-width: 100%;
     padding: 14px 20px;
@@ -739,7 +422,7 @@ de.manager {
   }
 
   .table {
-    min-width: 600px; /* Ensure table doesn't get too cramped */
+    min-width: 600px;
   }
 
   .table th,
@@ -749,35 +432,6 @@ de.manager {
     white-space: nowrap;
   }
 
-  /* Grid/List Mobile */
-  .gridList {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  .gridCard {
-    height: auto;
-    min-height: 280px;
-  }
-
-  .gridContent {
-    padding: 20px;
-  }
-
-  .gridActions {
-    flex-direction: column;
-    gap: 8px;
-    padding: 16px 20px;
-  }
-
-  .editBtn,
-  .deleteBtn {
-    padding: 12px 16px;
-    min-height: 44px;
-    font-size: 0.95rem;
-  }
-
-  /* Modal Mobile */
   .modal {
     padding: 16px;
   }
@@ -792,47 +446,8 @@ de.manager {
     font-size: 1.5rem;
     margin-bottom: 20px;
   }
-
-  /* Detail Card Mobile */
-  .detailCard {
-    width: 90vw;
-    left: 5vw;
-    top: 60px;
-    max-height: 80vh;
-    overflow-y: auto;
-    box-sizing: border-box;
-    border-radius: 12px 12px 0 0;
-  }
-
-  .detailBody {
-    padding: 20px;
-  }
-
-  .detailTitle {
-    font-size: 1.5rem;
-  }
-
-  .detailActions {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .detailEditBtn,
-  .detailDeleteBtn {
-    padding: 14px 20px;
-    min-height: 48px;
-    font-size: 1rem;
-  }
-
-  /* Loading and Empty States */
-  .loading,
-  .empty {
-    padding: 40px 20px;
-    font-size: 1rem;
-  }
 }
 
-/* Extra Small Mobile Devices */
 @media (max-width: 480px) {
   .manager {
     padding: 16px 12px;
@@ -857,10 +472,5 @@ de.manager {
 
   .modalContent {
     padding: 20px 16px;
-  }
-
-  .detailCard {
-    width: 95vw;
-    left: 2.5vw;
   }
 }
