@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import Image from "next/image"
-import styles from "../admin.module.css"
+import styles from "./manager.module.css"
 
 const CATEGORIES = ["Developer", "Designer", "Freelancer", "Photographer", "Student", "Agency"]
 
@@ -95,68 +95,68 @@ export default function StudioManager() {
     fetchTemplates()
   }
 
-  if (loading) return <p style={{ color: "#6d8196" }}>Loading templates...</p>
+  if (loading) return <div className={styles.loading}>Loading templates...</div>
 
   return (
     <div>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
-        <h2 style={{ fontWeight: 700, color: "#4a4a4a", fontSize: "1.2rem" }}>
-          Studio Templates ({templates.length})
-        </h2>
-        <button className={styles.createBtn} onClick={openNew}>+ Add Template</button>
+      <div className={styles.header}>
+        <h1 className={styles.title}>Studio Templates ({templates.length})</h1>
+        {!showForm && <button className={styles.addBtn} onClick={openNew}>+ Add Template</button>}
       </div>
 
       {message && <p style={{ color: "#2ecc71", marginBottom: 16, fontWeight: 600 }}>{message}</p>}
 
       {showForm && (
-        <div style={{ background: "#ffffe3", border: "1px solid rgba(74,74,74,0.1)", borderRadius: 12, padding: 24, marginBottom: 32 }}>
-          <h3 style={{ fontWeight: 700, marginBottom: 20, color: "#4a4a4a" }}>
+        <div className={styles.form} style={{ maxWidth: "800px" }}>
+          <h3 style={{ fontWeight: 700, marginBottom: 20, color: "#ffffe3" }}>
             {editItem ? "Edit Template" : "New Template"}
           </h3>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-            <div>
-              <label className={styles.inputLabel}>Title *</label>
+          <div className={styles.formRow}>
+            <div className={styles.formGroup}>
+              <label className={styles.label}>Title *</label>
               <input className={styles.input} value={form.title} onChange={e => setForm(f => ({ ...f, title: e.target.value }))} />
             </div>
-            <div>
-              <label className={styles.inputLabel}>Category *</label>
-              <select className={styles.input} value={form.category} onChange={e => setForm(f => ({ ...f, category: e.target.value }))}>
-                {CATEGORIES.map(c => <option key={c}>{c}</option>)}
+            <div className={styles.formGroup}>
+              <label className={styles.label}>Category *</label>
+              <select className={styles.select} value={form.category} onChange={e => setForm(f => ({ ...f, category: e.target.value }))}>
+                {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
               </select>
             </div>
-            <div style={{ gridColumn: "1/-1" }}>
-              <label className={styles.inputLabel}>Description *</label>
-              <textarea className={styles.textarea} value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} />
-            </div>
-            <div style={{ gridColumn: "1/-1" }}>
-              <label className={styles.inputLabel}>Preview Image URL *</label>
-              <input className={styles.input} value={form.previewImage} onChange={e => setForm(f => ({ ...f, previewImage: e.target.value }))} placeholder="https://..." />
-            </div>
-            <div style={{ gridColumn: "1/-1" }}>
-              <label className={styles.inputLabel}>Download URL (ZIP file or link)</label>
-              <input className={styles.input} value={form.downloadUrl} onChange={e => setForm(f => ({ ...f, downloadUrl: e.target.value }))} placeholder="https://..." />
-            </div>
-            <div>
-              <label className={styles.inputLabel}>Tags (comma separated)</label>
+          </div>
+          <div className={styles.formGroup}>
+            <label className={styles.label}>Description *</label>
+            <textarea className={styles.textarea} value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} />
+          </div>
+          <div className={styles.formGroup}>
+            <label className={styles.label}>Preview Image URL *</label>
+            <input className={styles.input} value={form.previewImage} onChange={e => setForm(f => ({ ...f, previewImage: e.target.value }))} placeholder="https://..." />
+          </div>
+          <div className={styles.formGroup}>
+            <label className={styles.label}>Download URL (ZIP file or link)</label>
+            <input className={styles.input} value={form.downloadUrl} onChange={e => setForm(f => ({ ...f, downloadUrl: e.target.value }))} placeholder="https://..." />
+          </div>
+          <div className={styles.formRow}>
+            <div className={styles.formGroup}>
+              <label className={styles.label}>Tags (comma separated)</label>
               <input className={styles.input} value={form.tags} onChange={e => setForm(f => ({ ...f, tags: e.target.value }))} placeholder="react, tailwind, dark mode" />
             </div>
-            <div>
-              <label className={styles.inputLabel}>Price (USD)</label>
+            <div className={styles.formGroup}>
+              <label className={styles.label}>Price (USD)</label>
               <input className={styles.input} type="number" min="0" step="0.01" value={form.price} onChange={e => setForm(f => ({ ...f, price: e.target.value }))} disabled={form.isFree} />
             </div>
-            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-              <label style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer" }}>
-                <input type="checkbox" checked={form.isFree} onChange={e => setForm(f => ({ ...f, isFree: e.target.checked, price: e.target.checked ? "0" : f.price }))} />
-                <span style={{ fontSize: "0.9rem", color: "#4a4a4a" }}>Free Template</span>
-              </label>
-              <label style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer", marginLeft: 16 }}>
-                <input type="checkbox" checked={form.featured} onChange={e => setForm(f => ({ ...f, featured: e.target.checked }))} />
-                <span style={{ fontSize: "0.9rem", color: "#4a4a4a" }}>Featured</span>
-              </label>
-            </div>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 24, marginTop: 8 }}>
+            <label className={styles.label} style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer", marginBottom: 0 }}>
+              <input type="checkbox" checked={form.isFree} onChange={e => setForm(f => ({ ...f, isFree: e.target.checked, price: e.target.checked ? "0" : f.price }))} />
+              Free Template
+            </label>
+            <label className={styles.label} style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer", marginBottom: 0 }}>
+              <input type="checkbox" checked={form.featured} onChange={e => setForm(f => ({ ...f, featured: e.target.checked }))} />
+              Featured
+            </label>
           </div>
           {message && <p style={{ color: "#e74c3c", marginTop: 12, fontSize: "0.9rem" }}>{message}</p>}
-          <div style={{ display: "flex", gap: 12, marginTop: 20 }}>
+          <div className={styles.formActions}>
             <button className={styles.saveBtn} onClick={submit} disabled={saving}>
               {saving ? "Saving..." : editItem ? "Update" : "Create Template"}
             </button>
@@ -166,25 +166,22 @@ export default function StudioManager() {
       )}
 
       {templates.length === 0 ? (
-        <p style={{ color: "#6d8196", textAlign: "center", padding: "40px 0" }}>No templates yet. Add your first one!</p>
+        <p className={styles.empty}>No templates yet. Add your first one!</p>
       ) : (
-        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+        <div className={styles.list}>
           {templates.map(t => (
-            <div key={t.id} style={{
-              background: "#fff", borderRadius: 10, padding: "16px 20px",
-              border: "1px solid rgba(74,74,74,0.08)", display: "flex", alignItems: "center", gap: 16
-            }}>
-              <div style={{ width: 80, height: 56, borderRadius: 6, overflow: "hidden", position: "relative", flexShrink: 0, background: "#f0f0e8" }}>
+            <div key={t.id} className={styles.card}>
+              <div style={{ width: 80, height: 56, borderRadius: 6, overflow: "hidden", flexShrink: 0, background: "rgba(255,255,227,0.05)" }}>
                 {t.previewImage && <Image src={t.previewImage} alt={t.title} fill style={{ objectFit: "cover" }} />}
               </div>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontWeight: 700, color: "#4a4a4a", marginBottom: 4 }}>{t.title}</div>
-                <div style={{ fontSize: "0.85rem", color: "#6d8196" }}>
+              <div className={styles.cardContent}>
+                <h3 className={styles.cardTitle}>{t.title}</h3>
+                <p className={styles.cardExcerpt}>
                   {t.category} · {t.isFree ? "Free" : `$${t.price}`} · {t.downloadCount} downloads
                   {t.featured && " · ⭐ Featured"}
-                </div>
+                </p>
               </div>
-              <div style={{ display: "flex", gap: 8 }}>
+              <div className={styles.cardActions}>
                 <button className={styles.editBtn} onClick={() => openEdit(t)}>Edit</button>
                 <button className={styles.deleteBtn} onClick={() => deleteTemplate(t.id)}>Delete</button>
               </div>

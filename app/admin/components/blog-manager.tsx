@@ -261,12 +261,12 @@ export default function BlogManager() {
 
               <div className={styles.formGroup}>
                 <label className={styles.label}>Category *</label>
-                <select
-                  value={currentItem.category || ""}
-                  onChange={(e) => setCurrentItem({ ...currentItem, category: e.target.value })}
-                  required
-                  className={styles.input}
-                >
+<select
+                   value={currentItem.category || ""}
+                   onChange={(e) => setCurrentItem({ ...currentItem, category: e.target.value })}
+                   required
+                   className={styles.select}
+                 >
                   <option value="">Select a category</option>
                   <option value="technology">Technology</option>
                   <option value="business">Business</option>

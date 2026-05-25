@@ -324,7 +324,7 @@ export default function CareersManager() {
             </div>
 
             <div className={styles.formGroup}>
-              <label className={styles.checkbox}>
+              <label className={styles.label} style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer", marginBottom: 0 }}>
                 <input
                   type="checkbox"
                   checked={currentItem.featured || false}

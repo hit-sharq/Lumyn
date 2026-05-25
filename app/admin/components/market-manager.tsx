@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import styles from "../admin.module.css"
+import styles from "./manager.module.css"
 
 export default function MarketManager() {
   const [products, setProducts] = useState<any[]>([])
@@ -38,15 +38,13 @@ export default function MarketManager() {
     setMessage("Product deleted.")
   }
 
-  if (loading) return <p style={{ color: "#6d8196" }}>Loading products...</p>
+  if (loading) return <div className={styles.loading}>Loading products...</div>
 
   return (
     <div>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
-        <h2 style={{ fontWeight: 700, color: "#4a4a4a", fontSize: "1.2rem" }}>
-          Market Products ({products.length})
-        </h2>
-        <a href="/market" target="_blank" rel="noreferrer" className={styles.createBtn} style={{ textDecoration: "none" }}>
+      <div className={styles.header}>
+        <h1 className={styles.title}>Market Products ({products.length})</h1>
+        <a href="/market" target="_blank" rel="noreferrer" className={styles.addBtn} style={{ textDecoration: "none" }}>
           View Market →
         </a>
       </div>
@@ -54,24 +52,19 @@ export default function MarketManager() {
       {message && <p style={{ color: "#2ecc71", marginBottom: 16, fontWeight: 600 }}>{message}</p>}
 
       {products.length === 0 ? (
-        <p style={{ color: "#6d8196", textAlign: "center", padding: "40px 0" }}>
-          No products yet. Creators can list products via the Market dashboard.
-        </p>
+        <p className={styles.empty}>No products yet. Creators can list products via the Market dashboard.</p>
       ) : (
-        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+        <div className={styles.list}>
           {products.map((p: any) => (
-            <div key={p.id} style={{
-              background: "#fff", borderRadius: 10, padding: "16px 20px",
-              border: "1px solid rgba(74,74,74,0.08)", display: "flex", alignItems: "center", gap: 16
-            }}>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontWeight: 700, color: "#4a4a4a", marginBottom: 4 }}>{p.title}</div>
-                <div style={{ fontSize: "0.85rem", color: "#6d8196" }}>
+            <div key={p.id} className={styles.card}>
+              <div className={styles.cardContent}>
+                <h3 className={styles.cardTitle}>{p.title}</h3>
+                <p className={styles.cardExcerpt}>
                   by {p.creator?.displayName} · {p.category} · ${p.price.toFixed(2)} · {p.salesCount} sales
                   · {p.isPublished ? "✓ Published" : "○ Draft"}
-                </div>
+                </p>
               </div>
-              <div style={{ display: "flex", gap: 8 }}>
+              <div className={styles.cardActions}>
                 <button className={styles.editBtn} onClick={() => togglePublish(p)}>
                   {p.isPublished ? "Unpublish" : "Publish"}
                 </button>

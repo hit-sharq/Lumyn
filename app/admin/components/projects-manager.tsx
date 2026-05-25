@@ -194,56 +194,48 @@ export default function ProjectsManager() {
         )}
       </div>
 
-      {showForm && (
-        <div className={styles.modal}>
-          <div className={styles.modalContent}>
-            <div className={styles.modalHeader}>
-              <h1 className={styles.modalTitle}>{editingProject ? "Edit Project" : "Add New Project"}</h1>
-              <button
-                className={styles.modalClose}
-                onClick={() => setShowForm(false)}
-              >
-                ×
-              </button>
-            </div>
+{showForm && (
+        <form onSubmit={handleSubmit} className={styles.form} style={{ maxWidth: "800px" }}>
+          <h3 style={{ fontWeight: 700, marginBottom: 20, color: "#ffffe3" }}>
+            {editingProject ? "Edit Project" : "Add New Project"}
+          </h3>
 
-            <form onSubmit={handleSubmit} className={styles.form}>
-              <div className={styles.formGroup}>
-                <label className={styles.label}>Title *</label>
-                <input
-                  type="text"
-                  value={formData.title}
-                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                  required
-                  className={styles.input}
-                />
-              </div>
+          <div className={styles.formGroup}>
+            <label className={styles.label}>Title *</label>
+            <input
+              type="text"
+              value={formData.title}
+              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+              required
+              className={styles.input}
+            />
+          </div>
 
-              <div className={styles.formGroup}>
-                <label className={styles.label}>Description *</label>
-                <textarea
-                  value={formData.description}
-                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  required
-                  className={styles.textarea}
-                  rows={4}
-                />
-              </div>
+          <div className={styles.formGroup}>
+            <label className={styles.label}>Description *</label>
+            <textarea
+              value={formData.description}
+              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+              required
+              className={styles.textarea}
+              rows={4}
+            />
+          </div>
 
-              <div className={styles.formGroup}>
-                <label className={styles.label}>Image (optional)</label>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleFileChange}
-                  className={styles.input}
-                />
-                {previewUrl && (
-                  <div style={{ marginTop: '10px' }}>
-                    <img src={previewUrl} alt="Preview" style={{ maxWidth: '200px', maxHeight: '200px' }} />
-                  </div>
-                )}
+          <div className={styles.formGroup}>
+            <label className={styles.label}>Image (optional)</label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              className={styles.input}
+            />
+            {previewUrl && (
+              <div style={{ marginTop: '10px' }}>
+                <img src={previewUrl} alt="Preview" style={{ maxWidth: '200px', maxHeight: '200px' }} />
               </div>
+            )}
+          </div>
 
               <div className={styles.formRow}>
                 <div className={styles.formGroup}>
@@ -298,32 +290,29 @@ export default function ProjectsManager() {
               </div>
 
               <div className={styles.formGroup}>
-                <label className={styles.checkboxLabel}>
-                  <input
-                    type="checkbox"
-                    checked={formData.featured}
-                    onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
-                    className={styles.checkbox}
-                  />
-                  Featured Project
-                </label>
-              </div>
-
-              <div className={styles.formActions}>
-                <button type="submit" className={styles.saveBtn}>
-                  {editingProject ? "Update Project" : "Add Project"}
-                </button>
-                <button
-                  type="button"
-                  className={styles.cancelBtn}
-                  onClick={() => setShowForm(false)}
-                >
-                  Cancel
-                </button>
-              </div>
-            </form>
+            <label className={styles.label} style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer", marginBottom: 0 }}>
+              <input
+                type="checkbox"
+                checked={formData.featured}
+                onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
+              />
+              Featured Project
+            </label>
           </div>
-        </div>
+
+          <div className={styles.formActions}>
+            <button type="submit" className={styles.saveBtn}>
+              {editingProject ? "Update Project" : "Add Project"}
+            </button>
+            <button
+              type="button"
+              className={styles.cancelBtn}
+              onClick={() => setShowForm(false)}
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
       )}
 
       <div className={styles.gridList}>
