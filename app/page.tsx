@@ -491,90 +491,92 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Projects Section */}
-      <section className={styles.projectsSection}>
-        <div className={styles.container}>
-          <motion.div
-            className={styles.sectionHeader}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <span className={styles.sectionLabel}>Featured Work</span>
-            <h2 className={styles.sectionTitle}>
-              Our Latest
-              <br />
-              <span className={styles.titleLight}>Projects</span>
-            </h2>
-          </motion.div>
+       {/* News Section */}
+       <section className={styles.projectsSection}>
+         <div className={styles.container}>
+           <motion.div
+             className={styles.sectionHeader}
+             initial={{ opacity: 0, y: 30 }}
+             whileInView={{ opacity: 1, y: 0 }}
+             viewport={{ once: true }}
+             transition={{ duration: 0.8 }}
+           >
+             <span className={styles.sectionLabel}>Latest News</span>
+             <h2 className={styles.sectionTitle}>
+               Stay Updated
+               <br />
+               <span className={styles.titleLight}>With Lumyn</span>
+             </h2>
+           </motion.div>
 
-          <div className={styles.projectsGrid}>
-            {loading ? (
-              [1, 2, 3].map((i) => (
-                <div key={i} className={styles.projectCardSkeleton}>
-                  <div className={styles.skeletonImage} />
-                  <div className={styles.skeletonContent}>
-                    <div className={styles.skeletonTitle} />
-                    <div className={styles.skeletonDesc} />
-                  </div>
-                </div>
-              ))
-            ) : latestNews.length > 0 ? (
-              latestNews.map((news, index) => (
-                <motion.div
-                  key={news.id}
-                  className={styles.projectCard}
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.15, duration: 0.8 }}
-                  whileHover={{ y: -12, transition: { duration: 0.4 } }}
-                >
-                  <div className={styles.projectImageWrapper}>
-                    {news.image ? (
-                      <Image
-                        src={news.image}
-                        alt={news.title}
-                        fill
-                        className={styles.projectImage}
-                      />
-                    ) : (
-                      <div className={styles.projectPlaceholder}>
-                        <span>L</span>
-                      </div>
-                    )}
-                    <div className={styles.projectOverlay}>
-                      <span className={styles.projectView}>View Project</span>
-                    </div>
-                  </div>
-                  <div className={styles.projectContent}>
-                    <span className={styles.projectCategory}>Case Study</span>
-                    <h3 className={styles.projectTitle}>{news.title}</h3>
-                    <p className={styles.projectExcerpt}>{news.excerpt}</p>
-                  </div>
-                </motion.div>
-              ))
-            ) : (
-              <div className={styles.noProjects}>
-                <p>Projects coming soon</p>
-              </div>
-            )}
-          </div>
+           <div className={styles.projectsGrid}>
+             {loading ? (
+               [1, 2, 3].map((i) => (
+                 <div key={i} className={styles.projectCardSkeleton}>
+                   <div className={styles.skeletonImage} />
+                   <div className={styles.skeletonContent}>
+                     <div className={styles.skeletonTitle} />
+                     <div className={styles.skeletonDesc} />
+                   </div>
+                 </div>
+               ))
+             ) : latestNews.length > 0 ? (
+               latestNews.map((news, index) => (
+                 <motion.div
+                   key={news.id}
+                   className={styles.projectCard}
+                   initial={{ opacity: 0, y: 50 }}
+                   whileInView={{ opacity: 1, y: 0 }}
+                   viewport={{ once: true }}
+                   transition={{ delay: index * 0.15, duration: 0.8 }}
+                   whileHover={{ y: -12, transition: { duration: 0.4 } }}
+                 >
+                   <div className={styles.projectImageWrapper}>
+                     {news.image ? (
+                       <Image
+                         src={news.image}
+                         alt={news.title}
+                         fill
+                         className={styles.projectImage}
+                       />
+                     ) : (
+                       <div className={styles.projectPlaceholder}>
+                         <span>L</span>
+                       </div>
+                     )}
+                   <div className={styles.projectOverlay}>
+                     <Link href={`/news/${news.id}`} className={styles.projectView}>
+                       Read More
+                     </Link>
+                   </div>
+                   </div>
+                   <div className={styles.projectContent}>
+                     <span className={styles.projectCategory}>{news.category}</span>
+                     <h3 className={styles.projectTitle}>{news.title}</h3>
+                     <p className={styles.projectExcerpt}>{news.excerpt}</p>
+                   </div>
+                 </motion.div>
+               ))
+             ) : (
+               <div className={styles.noProjects}>
+                 <p>No news available</p>
+               </div>
+             )}
+           </div>
 
-          <motion.div
-            className={styles.viewAllContainer}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5 }}
-          >
-            <Link href="/projects" className={styles.viewAllButton}>
-              View All Projects <span>→</span>
-            </Link>
-          </motion.div>
-        </div>
-      </section>
+           <motion.div
+             className={styles.viewAllContainer}
+             initial={{ opacity: 0 }}
+             whileInView={{ opacity: 1 }}
+             viewport={{ once: true }}
+             transition={{ delay: 0.5 }}
+           >
+             <Link href="/news" className={styles.viewAllButton}>
+               View All News <span>→</span>
+             </Link>
+           </motion.div>
+         </div>
+       </section>
 
       {/* Events Section */}
       <section className={styles.eventsSection}>

@@ -3,11 +3,12 @@
 }
 
 .hero {
-  background: linear-gradient(135deg, #cdcfd2, #2f3031);
+  background: linear-gradient(135deg, rgba(109,129,150,0.35), rgba(20,20,20,0.6));
   padding: 120px 20px 80px 20px;
   text-align: center;
-  color: white;
+  color: var(--foreground);
 }
+
 
 .heroContent {
   max-width: 800px;
@@ -41,8 +42,9 @@
 
 .newsSection {
   padding: 80px 20px;
-  background: #f5f5f5;
+  background: var(--background);
 }
+
 
 .container {
   max-width: 1200px;
@@ -59,15 +61,16 @@
 
 .filterBtn {
   padding: 12px 28px;
-  background: white;
-  border: 2px solid #e0e0e0;
+  background: rgba(255, 255, 227, 0.04);
+  border: 2px solid var(--border);
   border-radius: 50px;
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  color: #333;
+  color: var(--foreground);
 }
+
 
 .filterBtn:hover {
   border-color: #002060;
@@ -215,6 +218,7 @@
   font-weight: 700;
   text-decoration: none;
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .readMoreBtn:hover {
