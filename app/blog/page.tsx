@@ -111,35 +111,35 @@ export default function BlogPage() {
 
             {selectedPost && (
               <div className={styles.modalOverlay} onClick={() => setSelectedPost(null)}>
-                <div className={styles.blogDetailCard} onClick={(e) => e.stopPropagation()}>
-                  <button className={styles.detailClose} onClick={() => setSelectedPost(null)}>
+                <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+                  <button className={styles.modalClose} onClick={() => setSelectedPost(null)}>
                     ×
                   </button>
-                  <div className={styles.detailImageWrapper}>
+                  <div className={styles.modalImageWrapper}>
                     <Image
                       src={selectedPost.image || "/placeholder.svg?height=300&width=500&query=blog"}
                       alt={selectedPost.title}
                       fill
-                      className={styles.detailImage}
+                      className={styles.modalImage}
                     />
                   </div>
-                  <div className={styles.detailBody}>
-                    <h3 className={styles.detailTitle}>{selectedPost.title}</h3>
-                    <p className={styles.detailDescription}>{selectedPost.content}</p>
-                    <div className={styles.detailDetails}>
-                      <div className={styles.detailDetail}>
-                        <span className={styles.detailIcon}>👤</span>
-                        <span>{selectedPost.author}</span>
+                  <div className={styles.modalBody}>
+                    <h3 className={styles.modalTitle}>{selectedPost.title}</h3>
+                    <p className={styles.modalDescription}>{selectedPost.content}</p>
+                      <div className={styles.blogMeta}>
+                        <div className={styles.blogMetaItem}>
+                          <span className={styles.blogMetaIcon}>👤</span>
+                          <span>{selectedPost.author}</span>
+                        </div>
+                        <div className={styles.blogMetaItem}>
+                          <span className={styles.blogMetaIcon}>📅</span>
+                          <span>{new Date(selectedPost.createdAt).toLocaleDateString()}</span>
+                        </div>
+                        <div className={styles.blogMetaItem}>
+                          <span className={styles.blogMetaIcon}>🏷️</span>
+                          <span>{selectedPost.category}</span>
+                        </div>
                       </div>
-                      <div className={styles.detailDetail}>
-                        <span className={styles.detailIcon}>📅</span>
-                        <span>{new Date(selectedPost.createdAt).toLocaleDateString()}</span>
-                      </div>
-                      <div className={styles.detailDetail}>
-                        <span className={styles.detailIcon}>🏷️</span>
-                        <span>{selectedPost.category}</span>
-                      </div>
-                    </div>
                     <Link href={`/blog/${selectedPost.id}`} className={styles.viewFullArticle}>
                       View Full Article →
                     </Link>

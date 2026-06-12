@@ -343,6 +343,25 @@
   margin-bottom: 24px;
 }
 
+.blogMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+.blogMetaItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.blogMetaIcon {
+  font-size: 1rem;
+}
+
 .viewFullArticle {
   display: inline-flex;
   align-items: center;
