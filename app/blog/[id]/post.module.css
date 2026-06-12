@@ -1,6 +1,6 @@
 .postPage {
   width: 100%;
-  background: white;
+  background: var(--background);
   padding: 40px 20px 80px 20px;
 }
 
@@ -12,8 +12,8 @@
 .spinner {
   width: 50px;
   height: 50px;
-  border: 4px solid #e0e0e0;
-  border-top-color: #d32f2f;
+  border: 4px solid var(--border);
+  border-top-color: var(--primary);
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin: 0 auto 20px auto;
@@ -28,15 +28,16 @@
 .post {
   max-width: 900px;
   margin: 0 auto;
-  background: white;
-  border-radius: 16px;
+  background: var(--card);
+  border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--border);
 }
 
 .postHeader {
   padding: 60px 60px 40px 60px;
-  background: linear-gradient(to bottom, #fef5f5, white);
+  background: linear-gradient(to bottom, rgba(109, 129, 150, 0.05), transparent);
 }
 
 .postMeta {
@@ -45,23 +46,26 @@
   align-items: center;
   margin-bottom: 24px;
   font-size: 0.95rem;
+  color: var(--muted-foreground);
 }
 
 .author {
   font-weight: 700;
-  color: #d32f2f;
+  color: var(--primary);
 }
 
 .date {
-  color: #999;
+  color: var(--muted-foreground);
+  opacity: 0.7;
 }
 
 .title {
-  font-size: 3rem;
+  font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 800;
   margin: 0 0 24px 0;
-  color: #002060;
+  color: var(--foreground);
   line-height: 1.2;
+  letter-spacing: -0.03em;
 }
 
 .tags {
@@ -72,12 +76,12 @@
 
 .tag {
   padding: 8px 16px;
-  background: #f5f5f5;
-  color: #002060;
+  background: rgba(109, 129, 150, 0.1);
+  color: var(--primary);
   font-size: 0.875rem;
   font-weight: 600;
   border-radius: 20px;
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--border);
 }
 
 .imageWrapper {
@@ -97,7 +101,7 @@
 .contentInner {
   font-size: 1.125rem;
   line-height: 1.8;
-  color: #333;
+  color: var(--foreground);
 }
 
 .contentInner p {
@@ -108,14 +112,14 @@
   font-size: 2rem;
   font-weight: 700;
   margin: 40px 0 20px 0;
-  color: #002060;
+  color: var(--foreground);
 }
 
 .contentInner h3 {
   font-size: 1.5rem;
   font-weight: 700;
   margin: 32px 0 16px 0;
-  color: #002060;
+  color: var(--foreground);
 }
 
 .contentInner ul,
@@ -131,39 +135,46 @@
 .contentInner blockquote {
   margin: 32px 0;
   padding: 24px 32px;
-  background: #f8f9fa;
-  border-left: 4px solid #d32f2f;
+  background: rgba(109, 129, 150, 0.08);
+  border-left: 4px solid var(--primary);
   font-style: italic;
-  color: #666;
+  color: var(--muted-foreground);
 }
 
 .backButton {
   padding: 40px 60px;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid var(--border);
 }
 
 .backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   padding: 14px 32px;
-  background: #d32f2f;
-  color: white;
+  background: var(--primary);
+  color: var(--primary-foreground);
   border: none;
-  border-radius: 50px;
+  border-radius: 10px;
   font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
+.backBtn::before {
+  content: '←';
+}
 
 .backBtn:hover {
-  background: #b71c1c;
-  transform: translateX(-4px);
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(109, 129, 150, 0.3);
 }
 
 .shareSection {
   padding: 40px 60px;
-  border-top: 1px solid #e0e0e0;
-  background: #f8f9fa;
+  border-top: 1px solid var(--border);
+  background: rgba(109, 129, 150, 0.03);
 }
 
 @media (max-width: 768px) {
@@ -188,6 +199,10 @@
   }
 
   .backButton {
+    padding: 24px;
+  }
+
+  .shareSection {
     padding: 24px;
   }
 }
