@@ -5,7 +5,8 @@ import { useState, useEffect } from "react"
 import { SignInButton, UserButton, useUser } from "@clerk/nextjs"
 import styles from "./header.module.css"
 import SearchComponent from "./search"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion } from "framer-motion"
+
 
 export default function Header() {
   const { user, isSignedIn } = useUser()
@@ -24,9 +25,28 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  useEffect(() => {
+    if (!isMobileMenuOpen) return
+
+    const handleDocumentClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null
+      if (!target) return
+
+      // Close if the click is outside the header area (i.e., any "system" click)
+      if (target.closest(`.${styles.container}`) === null) {
+        setIsMobileMenuOpen(false)
+      }
+    }
+
+    document.addEventListener("mousedown", handleDocumentClick)
+    return () => document.removeEventListener("mousedown", handleDocumentClick)
+  }, [isMobileMenuOpen])
+
   const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen)
+    setIsMobileMenuOpen((prev) => !prev)
   }
+
+
 
   return (
     <motion.header
@@ -42,27 +62,56 @@ export default function Header() {
         </Link>
 
         {/* Mobile Menu Toggle */}
-        <div className={styles.menuToggle} onClick={toggleMobileMenu}>
+        <div
+          className={styles.menuToggle}
+          onClick={toggleMobileMenu}
+          role="button"
+          tabIndex={0}
+          aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") toggleMobileMenu()
+          }}
+        >
           <span></span>
           <span></span>
           <span></span>
         </div>
 
+
         <nav className={`${styles.nav} ${isMobileMenuOpen ? styles.open : ""}`}>
           {isAdmin && (
-            <Link href="/admin" className={styles.navLinkAdmin} onClick={() => setIsMobileMenuOpen(false)}>
+            <Link
+              href="/admin"
+              className={styles.navLinkAdmin}
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
               Admin
             </Link>
           )}
-          <Link href="/services" className={styles.navLink} onClick={() => setIsMobileMenuOpen(false)}>
+
+          <Link
+            href="/services"
+            className={styles.navLink}
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
             Services
           </Link>
-          <Link href="/projects" className={styles.navLink} onClick={() => setIsMobileMenuOpen(false)}>
+
+          <Link
+            href="/projects"
+            className={styles.navLink}
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
             Projects
           </Link>
-          <Link href="/contact" className={styles.navLink} onClick={() => setIsMobileMenuOpen(false)}>
+          <Link
+            href="/contact"
+            className={styles.navLink}
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
             Contact
           </Link>
+
           <div className={styles.authButtons}>
             {isSignedIn ? (
               <UserButton afterSignOutUrl="/" />

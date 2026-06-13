@@ -20,10 +20,16 @@ type Tab = "news" | "blog" | "events" | "gallery" | "members" | "contacts" | "le
 
 export default function AdminPage() {
   const [activeTab, setActiveTab] = useState<Tab>("news")
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const { user, isSignedIn, isLoaded } = useUser()
 
   const adminIds = process.env.NEXT_PUBLIC_ADMIN_IDS?.split(",") || []
   const isAdmin = isSignedIn && user && adminIds.includes(user.id)
+
+  const handleTabChange = (tab: Tab) => {
+    setActiveTab(tab)
+    setMobileMenuOpen(false)
+  }
 
   // Show loading state while Clerk is loading
   if (!isLoaded) {
@@ -50,78 +56,93 @@ export default function AdminPage() {
 
   return (
     <div className={styles.adminPage}>
-<div className={styles.sidebar}>
-         <div className={styles.sidebarHeader}>
-           <h2 className={styles.sidebarTitle}>Lumyn Admin</h2>
-           <p className={styles.adminName}>{user.fullName || user.emailAddresses[0].emailAddress}</p>
-           <button
-             className={styles.logoutBtn}
-             onClick={async () => {
-               await fetch("/api/auth/logout", { method: "POST" })
-               window.location.href = "/"
-             }}
-           >
-             Sign Out
-           </button>
-         </div>
-         <nav className={styles.nav}>
+      <button
+        className={styles.hamburgerBtn}
+        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        aria-label="Toggle navigation menu"
+      >
+        <span className={styles.hamburgerIcon}>{mobileMenuOpen ? "✕" : "☰"}</span>
+      </button>
+
+      {mobileMenuOpen && (
+        <div
+          className={`${styles.overlay} ${styles.overlayActive}`}
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
+
+      <div className={`${styles.sidebar} ${mobileMenuOpen ? styles.sidebarOpen : ""}`}>
+        <div className={styles.sidebarHeader}>
+          <h2 className={styles.sidebarTitle}>Lumyn Admin</h2>
+          <p className={styles.adminName}>{user.fullName || user.emailAddresses[0].emailAddress}</p>
+          <button
+            className={styles.logoutBtn}
+            onClick={async () => {
+              await fetch("/api/auth/logout", { method: "POST" })
+              window.location.href = "/"
+            }}
+          >
+            Sign Out
+          </button>
+        </div>
+        <nav className={styles.nav}>
           <button
             className={`${styles.navBtn} ${activeTab === "news" ? styles.navBtnActive : ""}`}
-            onClick={() => setActiveTab("news")}
+            onClick={() => handleTabChange("news")}
           >
             News
           </button>
           <button
             className={`${styles.navBtn} ${activeTab === "blog" ? styles.navBtnActive : ""}`}
-            onClick={() => setActiveTab("blog")}
+            onClick={() => handleTabChange("blog")}
           >
             Blog
           </button>
           <button
             className={`${styles.navBtn} ${activeTab === "events" ? styles.navBtnActive : ""}`}
-            onClick={() => setActiveTab("events")}
+            onClick={() => handleTabChange("events")}
           >
             Events
           </button>
           <button
             className={`${styles.navBtn} ${activeTab === "gallery" ? styles.navBtnActive : ""}`}
-            onClick={() => setActiveTab("gallery")}
+            onClick={() => handleTabChange("gallery")}
           >
             Gallery
           </button>
           <button
             className={`${styles.navBtn} ${activeTab === "members" ? styles.navBtnActive : ""}`}
-            onClick={() => setActiveTab("members")}
+            onClick={() => handleTabChange("members")}
           >
             Members
           </button>
           <button
             className={`${styles.navBtn} ${activeTab === "projects" ? styles.navBtnActive : ""}`}
-            onClick={() => setActiveTab("projects")}
+            onClick={() => handleTabChange("projects")}
           >
             Projects
           </button>
           <button
             className={`${styles.navBtn} ${activeTab === "leadership" ? styles.navBtnActive : ""}`}
-            onClick={() => setActiveTab("leadership")}
+            onClick={() => handleTabChange("leadership")}
           >
             Leadership
           </button>
           <button
             className={`${styles.navBtn} ${activeTab === "contacts" ? styles.navBtnActive : ""}`}
-            onClick={() => setActiveTab("contacts")}
+            onClick={() => handleTabChange("contacts")}
           >
             Contact Messages
           </button>
           <button
             className={`${styles.navBtn} ${activeTab === "careers" ? styles.navBtnActive : ""}`}
-            onClick={() => setActiveTab("careers")}
+            onClick={() => handleTabChange("careers")}
           >
             Careers
           </button>
           <button
             className={`${styles.navBtn} ${activeTab === "partners" ? styles.navBtnActive : ""}`}
-            onClick={() => setActiveTab("partners")}
+            onClick={() => handleTabChange("partners")}
           >
             Partners
           </button>
@@ -130,13 +151,13 @@ export default function AdminPage() {
           </div>
           <button
             className={`${styles.navBtn} ${activeTab === "studio" ? styles.navBtnActive : ""}`}
-            onClick={() => setActiveTab("studio")}
+            onClick={() => handleTabChange("studio")}
           >
             Lumyn Studio
           </button>
           <button
             className={`${styles.navBtn} ${activeTab === "market" ? styles.navBtnActive : ""}`}
-            onClick={() => setActiveTab("market")}
+            onClick={() => handleTabChange("market")}
           >
             Lumyn Market
           </button>
