@@ -376,4 +376,67 @@
   .formRowThree {
     grid-template-columns: 1fr;
   }
+
+  .page {
+    padding-top: 60px;
+  }
+
+  .container {
+    padding: 24px 12px 60px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .form {
+    padding: 20px 16px;
+    border-radius: 12px;
+  }
+
+  .templateCard {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .templateInfo {
+    min-width: 120px;
+  }
+
+  .previewWrapper {
+    width: 60px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 16px 8px 40px;
+  }
+
+  .title {
+    font-size: 1.25rem;
+  }
+
+  .addBtn {
+    width: 100%;
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+
+  .templateCard {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .templateActions {
+    align-self: flex-start;
+  }
 }
