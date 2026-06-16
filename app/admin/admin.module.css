@@ -270,12 +270,17 @@
 
   .sidebar {
     left: -280px;
+    width: min(100%, 320px);
     transition: left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     z-index: 1000;
   }
 
   .sidebarOpen {
     left: 0;
+  }
+
+  .content {
+    margin-left: 0;
   }
 }
 
@@ -286,6 +291,7 @@
 
   .content {
     padding: 24px;
+    margin-left: 0;
   }
 
   .loginBox {

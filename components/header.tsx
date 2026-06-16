@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { useState, useEffect } from "react"
+import { usePathname } from "next/navigation"
 import { SignInButton, UserButton, useUser } from "@clerk/nextjs"
 import styles from "./header.module.css"
 import SearchComponent from "./search"
@@ -9,12 +10,14 @@ import { motion } from "framer-motion"
 
 
 export default function Header() {
+  const pathname = usePathname()
   const { user, isSignedIn } = useUser()
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   const adminIds = process.env.NEXT_PUBLIC_ADMIN_IDS?.split(",") || []
   const isAdmin = isSignedIn && user && adminIds.includes(user.id)
+  const isAdminRoute = pathname?.startsWith("/admin")
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,6 +45,12 @@ export default function Header() {
     return () => document.removeEventListener("mousedown", handleDocumentClick)
   }, [isMobileMenuOpen])
 
+  useEffect(() => {
+    if (isAdminRoute && isMobileMenuOpen) {
+      setIsMobileMenuOpen(false)
+    }
+  }, [isAdminRoute, isMobileMenuOpen])
+
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen((prev) => !prev)
   }
@@ -62,20 +71,22 @@ export default function Header() {
         </Link>
 
         {/* Mobile Menu Toggle */}
-        <div
-          className={styles.menuToggle}
-          onClick={toggleMobileMenu}
-          role="button"
-          tabIndex={0}
-          aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") toggleMobileMenu()
-          }}
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
+        {!isAdminRoute && (
+          <div
+            className={styles.menuToggle}
+            onClick={toggleMobileMenu}
+            role="button"
+            tabIndex={0}
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") toggleMobileMenu()
+            }}
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        )}
 
 
         <nav className={`${styles.nav} ${isMobileMenuOpen ? styles.open : ""}`}>
