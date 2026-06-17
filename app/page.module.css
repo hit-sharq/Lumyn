@@ -1114,6 +1114,26 @@
     grid-template-columns: 1fr;
   }
 
+  .mobileSwipeGrid {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 12px;
+    scrollbar-width: none;
+  }
+
+  .mobileSwipeGrid::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Make each card act like a swipe "page" */
+  .mobileSwipeGrid > * {
+    flex: 0 0 88%;
+    scroll-snap-align: start;
+  }
+
   .projectImageWrapper,
   .eventImageWrapper {
     height: 220px;

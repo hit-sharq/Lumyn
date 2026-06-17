@@ -509,7 +509,7 @@ export default function HomePage() {
              </h2>
            </motion.div>
 
-           <div className={styles.projectsGrid}>
+           <div className={styles.projectsGrid + " " + styles.mobileSwipeGrid}>
              {loading ? (
                [1, 2, 3].map((i) => (
                  <div key={i} className={styles.projectCardSkeleton}>
@@ -596,7 +596,7 @@ export default function HomePage() {
             </h2>
           </motion.div>
 
-          <div className={styles.eventsGrid}>
+          <div className={styles.eventsGrid + " " + styles.mobileSwipeGrid}>
             {upcomingEvents.length > 0 ? (
               upcomingEvents.map((event, index) => (
                 <motion.div
