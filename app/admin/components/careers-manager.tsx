@@ -64,8 +64,6 @@ export default function CareersManager() {
     } catch (error: any) {
       console.error("Error fetching careers:", error)
       showToast(error.message || "Failed to load career opportunities", "error")
-    } finally {
-      setLoading(false)
     }
   }
 
@@ -130,7 +128,12 @@ export default function CareersManager() {
         throw new Error(error.message || "Failed to save career")
       }
 
-      await fetchItems()
+      const saved = (await response.json()) as Career
+
+      setItems((prev) => {
+        if (currentItem.id) return prev.map((it) => (it.id === currentItem.id ? saved : it))
+        return [saved, ...prev]
+      })
       setIsEditing(false)
       setCurrentItem({})
       setSelectedFile(null)
@@ -153,7 +156,8 @@ export default function CareersManager() {
         throw new Error(error.message || "Failed to delete career")
       }
 
-      await fetchItems()
+      setItems((prev) => prev.filter((it) => it.id !== id))
+      setIsEditing(false)
       showToast("Career opportunity deleted successfully", "success")
     } catch (error: any) {
       console.error("Error deleting career:", error)

@@ -22,7 +22,7 @@ const createBlogSchema = z.object({
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
-    const limit = searchParams.get("limit") ? Number.parseInt(searchParams.get("limit")!) : undefined
+    const limit = searchParams.get("limit") ? Number.parseInt(searchParams.get("limit")!) : 50
     const featured = searchParams.get("featured") === "true"
     const category = searchParams.get("category")
     const isPublished = searchParams.get("isPublished")

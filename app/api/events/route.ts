@@ -29,9 +29,14 @@ export async function GET(request: NextRequest) {
         }
       : {}
 
+    const limit = searchParams.get("limit")
+      ? Number.parseInt(searchParams.get("limit")!)
+      : 50
+
     const events = await prisma.event.findMany({
       where,
       orderBy: { date: "desc" },
+      take: limit,
     })
     return NextResponse.json(events, {
       headers: {

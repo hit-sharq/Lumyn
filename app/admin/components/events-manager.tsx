@@ -111,7 +111,12 @@ export default function EventsManager() {
         throw new Error(error.message || "Failed to save event")
       }
 
-      await fetchItems()
+      const event = (await response.json()) as Event
+
+      setItems((prev) => {
+        if (currentItem.id) return prev.map((it) => (it.id === currentItem.id ? event : it))
+        return [event, ...prev]
+      })
       setIsEditing(false)
       setCurrentItem({})
       setSelectedFile(null)
@@ -120,6 +125,8 @@ export default function EventsManager() {
     } catch (error: any) {
       console.error("Error saving event:", error)
       showToast(error.message || "Failed to save event", "error")
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -134,7 +141,8 @@ export default function EventsManager() {
         throw new Error(error.message || "Failed to delete event")
       }
 
-      await fetchItems()
+      setItems((prev) => prev.filter((it) => it.id !== id))
+      setIsEditing(false)
       showToast("Event deleted successfully", "success")
     } catch (error: any) {
       console.error("Error deleting event:", error)

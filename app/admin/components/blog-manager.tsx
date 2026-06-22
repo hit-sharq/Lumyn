@@ -131,7 +131,12 @@ export default function BlogManager() {
         throw new Error(error.message || "Failed to save blog post")
       }
 
-      await fetchItems()
+      const post = (await response.json()) as BlogPost
+
+      setItems((prev) => {
+        if (currentItem.id) return prev.map((it) => (it.id === currentItem.id ? post : it))
+        return [post, ...prev]
+      })
       setIsEditing(false)
       setCurrentItem({})
       setTagsInput("")
@@ -141,6 +146,8 @@ export default function BlogManager() {
     } catch (error: any) {
       console.error("Error saving blog post:", error)
       showToast(error.message || "Failed to save blog post", "error")
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -155,7 +162,8 @@ export default function BlogManager() {
         throw new Error(error.message || "Failed to delete blog post")
       }
 
-      await fetchItems()
+      setItems((prev) => prev.filter((it) => it.id !== id))
+      setIsEditing(false)
       showToast("Blog post deleted successfully", "success")
     } catch (error: any) {
       console.error("Error deleting blog post:", error)

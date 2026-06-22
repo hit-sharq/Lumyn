@@ -117,7 +117,13 @@ export default function NewsManager() {
         throw new Error(error.message || "Failed to save news")
       }
 
-      await fetchItems()
+      const news = (await response.json()) as NewsItem
+
+
+      setItems((prev) => {
+        if (currentItem.id) return prev.map((it) => (it.id === currentItem.id ? news : it))
+        return [news, ...prev]
+      })
       setIsEditing(false)
       setCurrentItem({})
       setSelectedFile(null)
@@ -126,6 +132,8 @@ export default function NewsManager() {
     } catch (error: any) {
       console.error("Error saving news:", error)
       showToast(error.message || "Failed to save news", "error")
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -140,7 +148,8 @@ export default function NewsManager() {
         throw new Error(error.message || "Failed to delete news")
       }
 
-      await fetchItems()
+      setItems((prev) => prev.filter((it) => it.id !== id))
+      setIsEditing(false)
       showToast("News deleted successfully", "success")
     } catch (error: any) {
       console.error("Error deleting news:", error)
