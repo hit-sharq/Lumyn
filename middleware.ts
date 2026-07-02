@@ -50,7 +50,6 @@ export default authMiddleware({
     '/api/marketing/newsletter(.*)',
     '/api/marketing/sms-blast(.*)',
     '/api/marketing/push-blast(.*)',
-    '/api/analytics(.*)',
     '/api/partners(.*)',
     '/api/service-requests(.*)',
     '/notifications(.*)',

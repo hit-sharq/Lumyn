@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server"
 import { auth } from "@clerk/nextjs/server"
-import { prisma } from "@/lib/db/prisma"
 import { getAdminAnalytics } from "@/lib/marketing/analytics"
+
+export const dynamic = 'force-dynamic'
 
 export async function GET() {
   try {
