@@ -13,6 +13,10 @@ export function startCronJobs() {
     return
   }
 
+  if (process.env.NEXT_PHASE === 'build') {
+    return
+  }
+
   console.log("[CRON] Starting scheduled jobs...")
 
   cronJob = cron.schedule("0 * * * *", async () => {

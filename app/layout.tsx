@@ -9,11 +9,6 @@ import JsonLd from "@/components/json-ld"
 import "./globals.css"
 import { GeistSans } from 'geist/font/sans';
 import { cn } from "@/lib/utils";
-import { startCronJobs } from "@/lib/cron";
-
-if (typeof window === "undefined") {
-  startCronJobs()
-}
 
 // GeistSans is already an object, no need to call it as a function
 const geist = GeistSans;
