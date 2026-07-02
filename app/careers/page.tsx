@@ -23,7 +23,7 @@ interface Career {
   contactEmail?: string
   featured: boolean
   image?: string
-  jobType: string
+  jobType?: string
   whatsappNumber?: string
   phoneNumber?: string
   createdAt: string
@@ -60,7 +60,7 @@ function CareersPageContent() {
   const filteredCareers = filter === "all" ? careers : careers.filter((career) => career.type === filter)
 
   const handleApplyNow = (career: Career) => {
-    if (career.jobType === "formal") {
+    if (career.jobType === "formal" || !career.jobType) {
       router.push(`/careers/apply/${career.id}`)
     } else {
       showToast({
@@ -83,7 +83,6 @@ function CareersPageContent() {
       title: "Opening WhatsApp",
       message: "Redirecting you to WhatsApp to contact about this job.",
     })
-
   }
 
   const handlePhoneCall = (career: Career) => {
@@ -99,7 +98,6 @@ function CareersPageContent() {
 
   return (
     <>
-
       <Head>
         <title>Careers | Lumyn - Join Our Team</title>
         <meta
@@ -237,7 +235,7 @@ function CareersPageContent() {
                       </div>
                     )}
                     <div className={styles.detailActions}>
-                      {selectedCareer.jobType === "formal" ? (
+                      {selectedCareer.jobType === "formal" || !selectedCareer.jobType ? (
                         <button
                           className={styles.detailApplyBtn}
                           onClick={() => {

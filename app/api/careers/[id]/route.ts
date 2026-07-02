@@ -63,6 +63,9 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
     if (body.applicationUrl !== undefined) updateData.applicationUrl = body.applicationUrl
     if (body.contactEmail !== undefined) updateData.contactEmail = body.contactEmail
     if (body.featured !== undefined) updateData.featured = body.featured
+    if (body.jobType !== undefined) updateData.jobType = body.jobType
+    if (body.whatsappNumber !== undefined) updateData.whatsappNumber = body.whatsappNumber
+    if (body.phoneNumber !== undefined) updateData.phoneNumber = body.phoneNumber
 
     const career = await prisma.career.update({
       where: { id },

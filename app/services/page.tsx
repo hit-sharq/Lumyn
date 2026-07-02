@@ -6,6 +6,7 @@ import Link from "next/link"
 import { motion } from "framer-motion"
 import styles from "./services.module.css"
 import type { JSX } from "react/jsx-runtime"
+import CustomSelect from "@/components/CustomSelect"
 
 const services = [
   {
@@ -61,6 +62,44 @@ const processSteps = [
 export default function ServicesPage() {
   const sectionRefs = useRef<{ [key: string]: HTMLElement | null }>({})
   const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set())
+  const [showRequestForm, setShowRequestForm] = useState(false)
+  const [formData, setFormData] = useState({
+    userName: "",
+    userEmail: "",
+    serviceType: "fullstack",
+    budget: "",
+    timeline: "",
+    message: "",
+  })
+  const [submitting, setSubmitting] = useState(false)
+  const [submitMessage, setSubmitMessage] = useState<{ type: "success" | "error"; text: string } | null>(null)
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setSubmitting(true)
+    setSubmitMessage(null)
+
+    try {
+      const res = await fetch("/api/service-requests", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      })
+
+      if (res.ok) {
+        setSubmitMessage({ type: "success", text: "Service request submitted successfully! We'll get back to you soon." })
+        setFormData({ userName: "", userEmail: "", serviceType: "fullstack", budget: "", timeline: "", message: "" })
+        setShowRequestForm(false)
+      } else {
+        const data = await res.json()
+        setSubmitMessage({ type: "error", text: data.error || "Failed to submit request" })
+      }
+    } catch (error) {
+      setSubmitMessage({ type: "error", text: "Something went wrong. Please try again." })
+    } finally {
+      setSubmitting(false)
+    }
+  }
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -210,15 +249,156 @@ export default function ServicesPage() {
               <p className={styles.ctaText}>
                 Let's discuss your goals and craft a tailored solution — no templates, no fluff.
               </p>
-              <Link href="/contact" className={styles.ctaButton}>
-                Get in Touch
+              <button
+                onClick={() => setShowRequestForm(!showRequestForm)}
+                className={styles.ctaButton}
+              >
+                Request a Service
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M7.5 5L12.5 10L7.5 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
-              </Link>
+              </button>
             </motion.div>
           </div>
         </section>
+
+        {/* Service Request Form */}
+        {showRequestForm && (
+          <section className={styles.requestSection}>
+            <div className={styles.container}>
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                className={styles.requestFormWrapper}
+              >
+                <div className={styles.requestHeader}>
+                  <h2 className={styles.requestTitle}>Request a Service</h2>
+                  <p className={styles.requestSubtitle}>
+                    Tell us about your project and we'll get back to you within 24 hours.
+                  </p>
+                </div>
+
+                {submitMessage && (
+                  <div
+                    className={`${styles.requestMessage} ${
+                      submitMessage.type === "success"
+                        ? styles.requestMessageSuccess
+                        : styles.requestMessageError
+                    }`}
+                  >
+                    {submitMessage.text}
+                  </div>
+                )}
+
+                <form onSubmit={handleSubmit} className={styles.requestForm}>
+                  <div className={styles.formGrid}>
+                    <div className={styles.formGroup}>
+                      <label htmlFor="userName" className={styles.formLabel}>
+                        Full Name
+                      </label>
+                      <input
+                        type="text"
+                        id="userName"
+                        value={formData.userName}
+                        onChange={(e) => setFormData({ ...formData, userName: e.target.value })}
+                        className={styles.formInput}
+                        placeholder="joshua mwendwa"
+                      />
+                    </div>
+
+                    <div className={styles.formGroup}>
+                      <label htmlFor="userEmail" className={styles.formLabel}>
+                        Email Address *
+                      </label>
+                      <input
+                        type="email"
+                        id="userEmail"
+                        value={formData.userEmail}
+                        onChange={(e) => setFormData({ ...formData, userEmail: e.target.value })}
+                        className={styles.formInput}
+                        placeholder="joshua@gmail.com"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className={styles.formGrid}>
+                    <div className={styles.formGroup}>
+                      <label htmlFor="serviceType" className={styles.formLabel}>
+                        Service Type *
+                      </label>
+                      <CustomSelect
+                        value={formData.serviceType}
+                        onChange={(value) => setFormData({ ...formData, serviceType: value })}
+                        className={styles.formInput}
+                      />
+                    </div>
+
+                    <div className={styles.formGroup}>
+                      <label htmlFor="budget" className={styles.formLabel}>
+                        Budget Range (KES)
+                      </label>
+                      <input
+                        type="text"
+                        id="budget"
+                        value={formData.budget}
+                        onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
+                        className={styles.formInput}
+                        placeholder="e.g., 50,000 - 100,000"
+                      />
+                    </div>
+                  </div>
+
+                  <div className={styles.formGroup}>
+                    <label htmlFor="timeline" className={styles.formLabel}>
+                      Expected Timeline
+                    </label>
+                    <input
+                      type="text"
+                      id="timeline"
+                      value={formData.timeline}
+                      onChange={(e) => setFormData({ ...formData, timeline: e.target.value })}
+                      className={styles.formInput}
+                      placeholder="e.g., 2-3 months"
+                    />
+                  </div>
+
+                  <div className={styles.formGroup}>
+                    <label htmlFor="message" className={styles.formLabel}>
+                      Project Details *
+                    </label>
+                    <textarea
+                      id="message"
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      rows={6}
+                      className={styles.formTextarea}
+                      placeholder="Describe your project, goals, and any specific requirements..."
+                      required
+                    />
+                  </div>
+
+                  <div className={styles.formActions}>
+                    <button
+                      type="submit"
+                      disabled={submitting}
+                      className={styles.submitButton}
+                    >
+                      {submitting ? "Submitting..." : "Submit Request"}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setShowRequestForm(false)}
+                      className={styles.cancelButton}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              </motion.div>
+            </div>
+          </section>
+        )}
       </div>
     </>
   )

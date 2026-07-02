@@ -7,6 +7,7 @@ import { SignInButton, UserButton, useUser } from "@clerk/nextjs"
 import styles from "./header.module.css"
 import SearchComponent from "./search"
 import { motion } from "framer-motion"
+import NotificationBell from "./NotificationBell"
 
 
 export default function Header() {
@@ -125,7 +126,10 @@ export default function Header() {
 
           <div className={styles.authButtons}>
             {isSignedIn ? (
-              <UserButton afterSignOutUrl="/" />
+              <>
+                <NotificationBell />
+                <UserButton afterSignOutUrl="/" />
+              </>
             ) : (
               <SignInButton mode="modal">
                 <button className={styles.signInBtn}>Sign In</button>

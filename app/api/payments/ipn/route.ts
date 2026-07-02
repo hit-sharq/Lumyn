@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { getTransactionStatus } from "@/lib/pesapal"
 import { prisma } from "@/lib/db/prisma"
+import { autoPostJobToSocial } from "@/lib/marketing/social"
 
 export const dynamic = "force-dynamic"
 
@@ -72,6 +73,33 @@ async function handleIPN(request: NextRequest) {
             where: { id: order.itemId },
             data: { downloadCount: { increment: 1 } },
           })
+        }
+      }
+
+      if (order.type === "job_post") {
+        const job = await prisma.paidJobPost.findUnique({
+          where: { id: order.itemId },
+        })
+
+        if (job) {
+          await prisma.paidJobPost.update({
+            where: { id: job.id },
+            data: {
+              isPaid: true,
+              isPublished: true,
+            },
+          })
+
+          if (job.isFeatured) {
+            setTimeout(async () => {
+              await autoPostJobToSocial(job.id, {
+                jobTitle: job.jobTitle,
+                companyName: job.companyName,
+                location: job.location,
+                applicationUrl: job.applicationUrl || undefined,
+              })
+            }, 1000)
+          }
         }
       }
     }

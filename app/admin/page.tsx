@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
 import { useUser } from "@clerk/nextjs"
 import styles from "./admin.module.css"
 import NewsManager from "./components/news-manager"
@@ -31,7 +32,6 @@ export default function AdminPage() {
     setMobileMenuOpen(false)
   }
 
-  // Show loading state while Clerk is loading
   if (!isLoaded) {
     return (
       <div className={styles.loginPage}>
@@ -162,6 +162,24 @@ export default function AdminPage() {
             Lumyn Market
           </button>
           <div className={styles.navSection}>
+            <h3 className={styles.navSectionTitle}>GROWTH</h3>
+          </div>
+          <Link href="/admin/proposals" className={styles.navBtn}>
+            Enterprise Proposals
+          </Link>
+          <Link href="/admin/analytics" className={styles.navBtn}>
+            Analytics
+          </Link>
+          <Link href="/admin/marketing" className={styles.navBtn}>
+            Marketing Blasts
+          </Link>
+          <Link href="/admin/partners" className={styles.navBtn}>
+            Partners
+          </Link>
+          <Link href="/admin/service-requests" className={styles.navBtn}>
+            Service Requests
+          </Link>
+          <div className={styles.navSection}>
             <h3 className={styles.navSectionTitle}>GDPR</h3>
             <button
               className={styles.navBtn}
@@ -212,18 +230,18 @@ export default function AdminPage() {
       </div>
 
       <div className={styles.content}>
-        {activeTab === "news" && <NewsManager />}
-        {activeTab === "blog" && <BlogManager />}
-        {activeTab === "events" && <EventsManager />}
-        {activeTab === "gallery" && <GalleryManager />}
-        {activeTab === "members" && <MembersManager />}
-        {activeTab === "projects" && <ProjectsManager />}
-        {activeTab === "leadership" && <LeadershipManager />}
-        {activeTab === "contacts" && <ContactsManager />}
-        {activeTab === "careers" && <CareersManager />}
-        {activeTab === "partners" && <PartnersManager />}
-        {activeTab === "studio" && <StudioManager />}
-        {activeTab === "market" && <MarketManager />}
+         {activeTab === "news" && <NewsManager />}
+         {activeTab === "blog" && <BlogManager />}
+         {activeTab === "events" && <EventsManager />}
+         {activeTab === "gallery" && <GalleryManager />}
+         {activeTab === "members" && <MembersManager />}
+         {activeTab === "projects" && <ProjectsManager />}
+         {activeTab === "leadership" && <LeadershipManager />}
+         {activeTab === "contacts" && <ContactsManager />}
+         {activeTab === "careers" && <CareersManager />}
+         {activeTab === "partners" && <PartnersManager />}
+         {activeTab === "studio" && <StudioManager />}
+         {activeTab === "market" && <MarketManager />}
       </div>
     </div>
   )

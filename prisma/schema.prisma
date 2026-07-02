@@ -86,12 +86,40 @@ model Member {
   year      String
   major     String
   interests String?
+  userId    String?  @unique
+  referralCode    String?  @unique
+  referredBy      String?
+  pushEnabled     Boolean @default(false)
   joinedAt  DateTime @default(now())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  generatedTemplates GeneratedTemplate[]
+  notifications Notification[]
+  pushSubscriptions PushSubscription[]
+  referredUsers Referral[] @relation("ReferralReferred")
+  sentReferrals Referral[] @relation("ReferralReferrer")
 
   @@index([email])
   @@index([joinedAt])
+  @@index([userId])
+  @@index([referralCode])
+}
+
+// ─── AI Template Engine ──────────────────────────────────────────────────────
+
+model GeneratedTemplate {
+  id         String   @id @default(uuid())
+  memberId   String
+  member     Member   @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  title      String
+  category   String
+  configJson Json
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([memberId])
+  @@index([category])
+  @@index([createdAt])
 }
 
 model Contact {
@@ -174,20 +202,54 @@ model Career {
 
 
 model Partner {
-  id          String   @id @default(cuid())
-  name        String
-  description String?
-  logoUrl     String?
-  website     String?
-  category    String   @default("general")
-  featured    Boolean  @default(false)
-  order       Int      @default(0)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id             String   @id @default(cuid())
+  name           String
+  description    String?
+  logoUrl        String?
+  website        String?
+  category       String   @default("general")
+  featured       Boolean  @default(false)
+  order          Int      @default(0)
+  contactName    String?
+  contactEmail   String?
+  contactPhone   String?
+  dealType       String?  // "template_co_brand", "job_board", "university", "affiliate", "media"
+  commissionType String?  // "flat_fee", "per_click", "per_conversion", "revenue_share"
+  commissionValue Float?
+  status         String   @default("active") // active, paused, expired
+  startDate      DateTime?
+  endDate        DateTime?
+  notes          String?
+  clicks         Int      @default(0)
+  conversions    Int      @default(0)
+  revenue        Float    @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  conversions_relation PartnerConversion[]
 
   @@index([category])
   @@index([featured])
   @@index([order])
+  @@index([status])
+  @@index([dealType])
+}
+
+model PartnerConversion {
+  id             String   @id @default(cuid())
+  partnerId      String
+  partner        Partner  @relation(fields: [partnerId], references: [id], onDelete: Cascade)
+  userId         String?
+  type           String   // "template_purchase", "job_post", "subscription", "signup"
+  referenceId    String?
+  amount         Float?
+  commission     Float?
+  metadata       Json?
+  createdAt      DateTime @default(now())
+
+  @@index([partnerId])
+  @@index([type])
+  @@index([createdAt])
 }
 
 model JobApplication {
@@ -395,6 +457,8 @@ model PaymentOrder {
   status            String   @default("PENDING")
   paymentMethod     String?
   confirmationCode  String?
+  partnerCode       String?
+  partnerId         String?
   subscriptions     Subscription[]
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
@@ -402,6 +466,7 @@ model PaymentOrder {
   @@index([userId])
   @@index([orderTrackingId])
   @@index([status])
+  @@index([partnerCode])
 }
 
 // ─── Subscriptions ──────────────────────────────────────────────────────────
@@ -455,5 +520,166 @@ model PaidJobPost {
   @@index([isPublished])
   @@index([isFeatured])
   @@index([category])
+}
+
+// ─── Enterprise Procurement Engine ──────────────────────────────────────────
+
+model InternalSalesProposal {
+  id                    String    @id @default(uuid())
+  createdById           String
+  clientCompanyName     String
+  targetIndustry        String
+  proposalData          Json
+  isApprovedBySales     Boolean   @default(false)
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@index([createdById])
+  @@index([targetIndustry])
+  @@index([isApprovedBySales])
+  @@index([createdAt])
+}
+
+// ─── Communications & Growth ────────────────────────────────────────────────
+
+model SmsLog {
+  id        String   @id @default(cuid())
+  recipient String
+  message   String
+  status    String   @default("pending")
+  senderId  String?
+  provider  String   @default("africastalking")
+  error     String?
+  sentAt    DateTime?
+  createdAt DateTime @default(now())
+
+  @@index([recipient])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model EmailLog {
+  id        String   @id @default(cuid())
+  to        String
+  subject   String
+  template  String
+  status    String   @default("pending")
+  error     String?
+  sentAt    DateTime?
+  createdAt DateTime @default(now())
+
+  @@index([to])
+  @@index([template])
+  @@index([createdAt])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  member    Member   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      String
+  message   String
+  data      Json?
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([isRead])
+  @@index([createdAt])
+}
+
+model PushSubscription {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  member    Member   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  endpoint  String   @unique
+  p256dh    String?
+  auth      String?
+  enabled   Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model Referral {
+  id           String   @id @default(cuid())
+  referrerId   String
+  referrer     Member   @relation("ReferralReferrer", fields: [referrerId], references: [id], onDelete: Cascade)
+  referredId   String   @unique
+  referred     Member   @relation("ReferralReferred", fields: [referredId], references: [id], onDelete: Cascade)
+  referralCode String
+  status       String   @default("pending") // pending, completed, rewarded
+  rewardType   String?  // "featured_job", "creator_pro_extension"
+  rewardGiven  Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([referrerId])
+  @@index([referredId])
+  @@index([status])
+  @@index([rewardGiven])
+  @@index([createdAt])
+}
+
+model SocialPost {
+  id            String   @id @default(cuid())
+  platform      String   // "twitter", "linkedin"
+  postType      String   // "job_post", "announcement"
+  referenceId   String?  // jobId, announcementId
+  content       String
+  status        String   @default("pending") // pending, posted, failed
+  platformPostId String?
+  error         String?
+  scheduledFor  DateTime?
+  postedAt      DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([platform])
+  @@index([status])
+  @@index([referenceId])
+  @@index([createdAt])
+}
+
+model AbandonedCart {
+  id             String   @id @default(cuid())
+  userId         String
+  type           String   // "job_post", "subscription", "template", "product"
+  referenceId    String
+  amount         Float
+  currency       String   @default("KES")
+  reminderSent   Boolean  @default(false)
+  reminderSentAt DateTime?
+  recoveredAt    DateTime?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([userId])
+  @@index([type])
+  @@index([reminderSent])
+  @@index([createdAt])
+  @@unique([userId, type, referenceId])
+}
+
+model ServiceRequest {
+  id            String   @id @default(cuid())
+  userId        String?
+  userEmail     String
+  userName      String?
+  serviceType   String   // "frontend", "backend", "fullstack", "cloud", "devops", "security", "consulting", etc.
+  budget        String?
+  timeline      String?
+  message       String
+  status        String   @default("pending") // pending, replied, closed
+  reply         String?
+  repliedAt     DateTime?
+  repliedById   String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([userEmail])
+  @@index([status])
+  @@index([createdAt])
 }
 

@@ -16,6 +16,9 @@ const createCareerSchema = z.object({
   applicationUrl: z.string().optional(),
   contactEmail: z.string().email().optional(),
   featured: z.boolean().optional(),
+  jobType: z.enum(["formal", "informal"]).optional(),
+  whatsappNumber: z.string().optional(),
+  phoneNumber: z.string().optional(),
 })
 
 export async function GET() {
@@ -69,6 +72,9 @@ export async function POST(request: NextRequest) {
         applicationUrl: validatedData.applicationUrl || "",
         contactEmail: validatedData.contactEmail || "",
         featured: validatedData.featured || false,
+        jobType: validatedData.jobType || "formal",
+        whatsappNumber: validatedData.whatsappNumber || "",
+        phoneNumber: validatedData.phoneNumber || "",
       },
     })
     return NextResponse.json(career, { status: 201 })

@@ -1,131 +1,94 @@
-import { NextResponse } from "next/server"
-import { prisma } from "@/lib/prisma"
-import { z } from "zod"
+import { NextRequest, NextResponse } from "next/server"
+import { auth } from "@clerk/nextjs/server"
+import { prisma } from "@/lib/db/prisma"
 
-const createPartnerSchema = z.object({
-  name: z.string().min(1).max(100),
-  description: z.string().optional(),
-  logoUrl: z.string().url().optional(),
-  website: z.string().url().optional(),
-  category: z.string().default("general"),
-  featured: z.boolean().default(false),
-  order: z.number().int().min(0).optional(),
-})
-
-const updatePartnerSchema = createPartnerSchema.extend({
-  id: z.string().min(1),
-})
-
-export async function GET(request: Request) {
+export async function GET() {
   try {
-    const { searchParams } = new URL(request.url)
-    const limit = searchParams.get('limit') ? parseInt(searchParams.get('limit')!) : undefined
+    const { userId } = await auth()
+    if (!userId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    }
 
-    console.log("Fetching partners from database")
+    const adminIds = process.env.NEXT_PUBLIC_ADMIN_IDS?.split(",") || []
+    if (!adminIds.includes(userId)) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 })
+    }
+
     const partners = await prisma.partner.findMany({
-      orderBy: { order: "asc" },
-      take: limit,
-    })
-    console.log("Found partners:", partners.length)
-    return NextResponse.json(partners, {
-      headers: {
-        'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
+      orderBy: { createdAt: "desc" },
+      include: {
+        conversions_relation: {
+          orderBy: { createdAt: "desc" },
+          take: 10,
+        },
       },
     })
-  } catch (error) {
-    console.error("Error fetching partners:", error)
-    return NextResponse.json([])
+
+    return NextResponse.json(partners)
+  } catch (error: any) {
+    console.error("Partners GET error:", error)
+    return NextResponse.json({ error: "Failed to fetch partners" }, { status: 500 })
   }
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
-    const body = await request.json()
-
-    // Validate input
-    const validationResult = createPartnerSchema.safeParse(body)
-    if (!validationResult.success) {
-      return NextResponse.json(
-        { error: "Validation failed", details: validationResult.error.issues },
-        { status: 400 }
-      )
+    const { userId } = await auth()
+    if (!userId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
-    const validatedData = validationResult.data
+    const adminIds = process.env.NEXT_PUBLIC_ADMIN_IDS?.split(",") || []
+    if (!adminIds.includes(userId)) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 })
+    }
 
-    console.log("Creating new partner:", validatedData.name)
+    const body = await request.json()
+    const {
+      name,
+      description,
+      logoUrl,
+      website,
+      category,
+      contactName,
+      contactEmail,
+      contactPhone,
+      dealType,
+      commissionType,
+      commissionValue,
+      status,
+      startDate,
+      endDate,
+      notes,
+    } = body
+
+    if (!name) {
+      return NextResponse.json({ error: "Name is required" }, { status: 400 })
+    }
+
     const partner = await prisma.partner.create({
       data: {
-        name: validatedData.name.trim(),
-        description: validatedData.description?.trim(),
-        logoUrl: validatedData.logoUrl,
-        website: validatedData.website,
-        category: validatedData.category,
-        featured: validatedData.featured || false,
-        order: validatedData.order || 0,
+        name,
+        description,
+        logoUrl,
+        website,
+        category: category || "general",
+        contactName,
+        contactEmail,
+        contactPhone,
+        dealType,
+        commissionType,
+        commissionValue: commissionValue ? parseFloat(commissionValue) : null,
+        status: status || "active",
+        startDate: startDate ? new Date(startDate) : null,
+        endDate: endDate ? new Date(endDate) : null,
+        notes,
       },
     })
 
-    return NextResponse.json(partner)
-  } catch (error) {
-    console.error("Error creating partner:", error)
+    return NextResponse.json(partner, { status: 201 })
+  } catch (error: any) {
+    console.error("Partners POST error:", error)
     return NextResponse.json({ error: "Failed to create partner" }, { status: 500 })
-  }
-}
-
-export async function PUT(request: Request) {
-  try {
-    const body = await request.json()
-
-    // Validate input
-    const validationResult = updatePartnerSchema.safeParse(body)
-    if (!validationResult.success) {
-      return NextResponse.json(
-        { error: "Validation failed", details: validationResult.error.issues },
-        { status: 400 }
-      )
-    }
-
-    const validatedData = validationResult.data
-
-    console.log("Updating partner:", validatedData.id)
-    const partner = await prisma.partner.update({
-      where: { id: validatedData.id },
-      data: {
-        name: validatedData.name.trim(),
-        description: validatedData.description?.trim(),
-        logoUrl: validatedData.logoUrl,
-        website: validatedData.website,
-        category: validatedData.category,
-        featured: validatedData.featured || false,
-        order: validatedData.order || 0,
-      },
-    })
-
-    return NextResponse.json(partner)
-  } catch (error) {
-    console.error("Error updating partner:", error)
-    return NextResponse.json({ error: "Failed to update partner" }, { status: 500 })
-  }
-}
-
-export async function DELETE(request: Request) {
-  try {
-    const { searchParams } = new URL(request.url)
-    const id = searchParams.get("id")
-
-    if (!id) {
-      return NextResponse.json({ error: "Partner ID is required" }, { status: 400 })
-    }
-
-    console.log("Deleting partner:", id)
-    await prisma.partner.delete({
-      where: { id },
-    })
-
-    return NextResponse.json({ success: true })
-  } catch (error) {
-    console.error("Error deleting partner:", error)
-    return NextResponse.json({ error: "Failed to delete partner" }, { status: 500 })
   }
 }

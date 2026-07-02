@@ -1,0 +1,335 @@
+.serviceRequestsPage {
+  min-height: 100vh;
+  background: #0a0a0a;
+  padding: 40px;
+}
+
+.serviceRequestsHeader {
+  margin-bottom: 32px;
+}
+
+.serviceRequestsTitle {
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0 0 8px 0;
+  color: #ffffe3;
+}
+
+.serviceRequestsSubtitle {
+  font-size: 1rem;
+  color: rgba(255, 255, 227, 0.5);
+  margin: 0;
+}
+
+.serviceRequestsMessage {
+  padding: 16px 20px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+}
+
+.serviceRequestsMessageSuccess {
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  color: #4ade80;
+}
+
+.serviceRequestsMessageError {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #f87171;
+}
+
+.serviceRequestDetail {
+  background: rgba(20, 20, 20, 0.85);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 227, 0.08);
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+  margin-bottom: 32px;
+}
+
+.serviceRequestDetailHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.serviceRequestDetailTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  color: #ffffe3;
+}
+
+.serviceRequestDetailEmail {
+  color: rgba(255, 255, 227, 0.5);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.serviceRequestDetailGrid {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.serviceRequestDetailItem {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 227, 0.08);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.serviceRequestDetailLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 227, 0.4);
+  margin: 0 0 8px 0;
+}
+
+.serviceRequestDetailValue {
+  font-size: 0.9375rem;
+  color: rgba(255, 255, 227, 0.8);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.serviceRequestDetailReply {
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.serviceRequestDetailReply .serviceRequestDetailLabel {
+  color: rgba(59, 130, 246, 0.8);
+}
+
+.serviceRequestDetailReply .serviceRequestDetailValue {
+  color: rgba(255, 255, 227, 0.9);
+}
+
+.serviceRequestReplyForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.serviceRequestReplyTextarea {
+  width: 100%;
+  padding: 16px;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 227, 0.15);
+  border-radius: 12px;
+  color: #ffffe3;
+  transition: all 0.3s ease;
+  outline: none;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 120px;
+}
+
+.serviceRequestReplyTextarea:focus {
+  border-color: rgba(255, 255, 227, 0.3);
+  box-shadow: 0 0 0 3px rgba(255, 255, 227, 0.1);
+}
+
+.serviceRequestReplyTextarea::placeholder {
+  color: rgba(255, 255, 227, 0.4);
+}
+
+.serviceRequestActions {
+  display: flex;
+  gap: 12px;
+}
+
+.serviceRequestSubmitButton {
+  padding: 14px 24px;
+  background: linear-gradient(135deg, #6d8196, #4a5a6a);
+  color: #0a0a0a;
+  border: none;
+  border-radius: 50px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.serviceRequestSubmitButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(109, 129, 150, 0.4);
+}
+
+.serviceRequestSubmitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.serviceRequestCancelButton {
+  padding: 14px 24px;
+  background: rgba(255, 255, 227, 0.05);
+  color: rgba(255, 255, 227, 0.8);
+  border: 1px solid rgba(255, 255, 227, 0.15);
+  border-radius: 50px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.serviceRequestCancelButton:hover {
+  background: rgba(255, 255, 227, 0.1);
+  border-color: rgba(255, 255, 227, 0.3);
+}
+
+.serviceRequestList {
+  background: rgba(20, 20, 20, 0.85);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 227, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+.serviceRequestListHeader {
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(255, 255, 227, 0.08);
+}
+
+.serviceRequestListTitle {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin: 0;
+  color: #ffffe3;
+}
+
+.serviceRequestListEmpty {
+  padding: 48px 24px;
+  text-align: center;
+  color: rgba(255, 255, 227, 0.4);
+  font-size: 0.875rem;
+}
+
+.serviceRequestListItem {
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(255, 255, 227, 0.04);
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.serviceRequestListItem:hover {
+  background: rgba(255, 255, 227, 0.02);
+}
+
+.serviceRequestListItemHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.serviceRequestListItemTitle {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #ffffe3;
+  margin: 0;
+}
+
+.serviceRequestListItemMeta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.serviceRequestListItemAuthor {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 227, 0.6);
+}
+
+.serviceRequestListItemDate {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 227, 0.4);
+}
+
+.serviceRequestListItemExcerpt {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 227, 0.5);
+  margin: 0;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.serviceRequestListItemMetaDetails {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.serviceRequestListItemMetaDetail {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 227, 0.4);
+}
+
+.serviceRequestStatusBadge {
+  display: inline-flex;
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.serviceRequestStatusPending {
+  background: rgba(234, 179, 8, 0.1);
+  color: #facc15;
+}
+
+.serviceRequestStatusReplied {
+  background: rgba(34, 197, 94, 0.1);
+  color: #4ade80;
+}
+
+.serviceRequestStatusClosed {
+  background: rgba(255, 255, 227, 0.05);
+  color: rgba(255, 255, 227, 0.5);
+}
+
+@media (max-width: 768px) {
+  .serviceRequestsPage {
+    padding: 24px;
+  }
+
+  .serviceRequestDetail {
+    padding: 24px;
+  }
+
+  .serviceRequestDetailHeader {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .serviceRequestActions {
+    flex-direction: column;
+  }
+
+  .serviceRequestSubmitButton,
+  .serviceRequestCancelButton {
+    width: 100%;
+  }
+}

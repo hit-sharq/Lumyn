@@ -20,6 +20,9 @@ interface Career {
   featured: boolean
   createdAt: string
   image?: string
+  jobType?: string
+  whatsappNumber?: string
+  phoneNumber?: string
 }
 
 interface Toast {
@@ -327,15 +330,54 @@ export default function CareersManager() {
               </div>
             </div>
 
-            <div className={styles.formGroup}>
-              <label className={styles.label} style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer", marginBottom: 0 }}>
+            <div className={styles.formRow}>
+              <div className={styles.formGroup}>
+                <label className={styles.label}>Job Application Type</label>
+                <select
+                  value={currentItem.jobType || "formal"}
+                  onChange={(e) => setCurrentItem({ ...currentItem, jobType: e.target.value })}
+                  className={styles.input}
+                >
+                  <option value="formal">Formal (Application Form)</option>
+                  <option value="informal">Informal (WhatsApp/Call)</option>
+                </select>
+              </div>
+
+              <div className={styles.formGroup}>
+                <label className={styles.label}>WhatsApp Number (Informal)</label>
                 <input
-                  type="checkbox"
-                  checked={currentItem.featured || false}
-                  onChange={(e) => setCurrentItem({ ...currentItem, featured: e.target.checked })}
+                  type="tel"
+                  value={currentItem.whatsappNumber || ""}
+                  onChange={(e) => setCurrentItem({ ...currentItem, whatsappNumber: e.target.value })}
+                  className={styles.input}
+                  placeholder="e.g., 0792687584"
                 />
-                Featured opportunity
-              </label>
+              </div>
+            </div>
+
+            <div className={styles.formRow}>
+              <div className={styles.formGroup}>
+                <label className={styles.label}>Phone Number (Informal)</label>
+                <input
+                  type="tel"
+                  value={currentItem.phoneNumber || ""}
+                  onChange={(e) => setCurrentItem({ ...currentItem, phoneNumber: e.target.value })}
+                  className={styles.input}
+                  placeholder="e.g., 0794773452"
+                />
+              </div>
+
+              <div className={styles.formGroup}>
+                <label className={styles.label}>Featured opportunity</label>
+                <label style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer", marginBottom: 0 }}>
+                  <input
+                    type="checkbox"
+                    checked={currentItem.featured || false}
+                    onChange={(e) => setCurrentItem({ ...currentItem, featured: e.target.checked })}
+                  />
+                  <span>Featured opportunity</span>
+                </label>
+              </div>
             </div>
 
             <div className={styles.formGroup}>
@@ -378,6 +420,9 @@ export default function CareersManager() {
                     </p>
                     <div className={styles.cardMeta}>
                       <span className={styles.cardCategory}>{item.type}</span>
+                      <span className={styles.cardCategory} style={{ marginLeft: "8px", textTransform: "capitalize" }}>
+                        {item.jobType || "formal"}
+                      </span>
                       {item.salary && <span className={styles.cardSalary}>{item.salary}</span>}
                       <span className={styles.cardDate}>
                         {item.applicationDeadline

@@ -9,6 +9,11 @@ import JsonLd from "@/components/json-ld"
 import "./globals.css"
 import { GeistSans } from 'geist/font/sans';
 import { cn } from "@/lib/utils";
+import { startCronJobs } from "@/lib/cron";
+
+if (typeof window === "undefined") {
+  startCronJobs()
+}
 
 // GeistSans is already an object, no need to call it as a function
 const geist = GeistSans;
@@ -82,6 +87,64 @@ export default function RootLayout({
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6640250879995161"
             crossOrigin="anonymous"
           />
+          {process.env.NEXT_PUBLIC_GA4_ID && (
+            <>
+              <Script
+                id="ga4"
+                src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA4_ID}`}
+                strategy="afterInteractive"
+              />
+              <Script
+                id="ga4-config"
+                strategy="afterInteractive"
+                dangerouslySetInnerHTML={{
+                  __html: `
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                    gtag('config', '${process.env.NEXT_PUBLIC_GA4_ID}');
+                  `,
+                }}
+              />
+            </>
+          )}
+          {process.env.NEXT_PUBLIC_FB_PIXEL_ID && (
+            <Script
+              id="fb-pixel"
+              strategy="afterInteractive"
+              dangerouslySetInnerHTML={{
+                __html: `
+                  !function(f,b,e,v,n,t,s)
+                  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+                  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+                  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+                  n.queue=[];t=b.createElement(e);t.async=!0;
+                  t.src=v;s=b.getElementsByTagName(e)[0];
+                  s.parentNode.insertBefore(t,s)}(window, document,'script',
+                  'https://connect.facebook.net/en_US/fbevents.js');
+                  fbq('init', '${process.env.NEXT_PUBLIC_FB_PIXEL_ID}');
+                  fbq('track', 'PageView');
+                `,
+              }}
+            />
+          )}
+          {process.env.NEXT_PUBLIC_HOTJAR_ID && (
+            <Script
+              id="hotjar"
+              strategy="afterInteractive"
+              dangerouslySetInnerHTML={{
+                __html: `
+                  (function(h,o,t,j,a,r){
+                    h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+                    a=o.getElementsByTagName('head')[0];
+                    r=o.createElement('script');r.async=1;
+                    r.src=t+h._hjSettings=${process.env.NEXT_PUBLIC_HOTJAR_ID};
+                    a.appendChild(r);
+                  })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+                `,
+              }}
+            />
+          )}
         </head>
         <body>
           <JsonLd />
