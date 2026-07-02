@@ -1,4 +1,4 @@
-import { authMiddleware } from '@clerk/nextjs/edge-middlewarefiles'
+import { authMiddleware } from '@clerk/nextjs/server'
 
 export default authMiddleware({
   publicRoutes: [
