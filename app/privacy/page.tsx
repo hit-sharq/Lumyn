@@ -186,7 +186,7 @@ export default function PrivacyPage() {
           property="og:description"
           content="Learn about how Lumyn collects, uses, and protects your personal information in our digital solutions services."
         />
-        <meta property="og:url" content="https://lumyn.vercel.app/privacy" />
+        <meta property="og:url" content="https://www.lumyn.co.ke/privacy" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Privacy Policy | Lumyn - Modern Digital Solutions" />
@@ -194,7 +194,7 @@ export default function PrivacyPage() {
           name="twitter:description"
           content="Learn about how Lumyn collects, uses, and protects your personal information in our digital solutions services."
         />
-        <link rel="canonical" href="https://lumyn.vercel.app/privacy" />
+        <link rel="canonical" href="https://www.lumyn.co.ke/privacy" />
       </Head>
       <div className={styles.privacyPage}>
         <section className={styles.hero}>

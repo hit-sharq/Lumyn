@@ -279,7 +279,7 @@ model JobApplication {
   @@index([email])
 }
 
-// ─── Lumyn Studio ────────────────────────────────────────────────────────────
+// ─── Lumyn Studio ───────────────────────────────��────────────────────────────
 
 model StudioTemplate {
   id             String   @id @default(cuid())
@@ -681,5 +681,105 @@ model ServiceRequest {
   @@index([userEmail])
   @@index([status])
   @@index([createdAt])
+}
+
+// ─── AI Marketing Suite ─────────────────────────────────────────────────────
+
+model AITemplate {
+  id              String   @id @default(cuid())
+  title           String
+  type            String   // "social_post", "email", "ad_copy", "landing_page", "blog", "headline"
+  content         String
+  brandVoice      String?  // "formal", "casual", "creative", "technical"
+  platform        String?  // "twitter", "linkedin", "email", "instagram", "tiktok"
+  tone            String?  // "promotional", "educational", "entertaining", "urgent"
+  metadata        Json?    // additional data like hashtags, cta, emoji count
+  savedCount      Int      @default(0)
+  usageCount      Int      @default(0)
+  isPublic        Boolean  @default(false) // public templates for customers
+  createdBy       String   // userId or "system"
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([type])
+  @@index([platform])
+  @@index([createdBy])
+  @@index([isPublic])
+  @@index([createdAt])
+}
+
+model AICampaign {
+  id              String      @id @default(cuid())
+  title           String
+  description     String?
+  createdBy       String      // userId
+  objective       String      // "awareness", "engagement", "conversion", "retention"
+  targetAudience  String?
+  channels        String[]    // ["twitter", "linkedin", "email", "sms"]
+  contentData     Json        // generated content per channel
+  status          String      @default("draft") // draft, scheduled, active, completed, paused
+  scheduledStart  DateTime?
+  scheduledEnd    DateTime?
+  metrics         Json?       // engagement, clicks, conversions
+  budget          Float?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  @@index([createdBy])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model AIContentIdea {
+  id              String   @id @default(cuid())
+  topic           String
+  angle           String   // perspective or approach
+  contentType     String   // "blog_post", "social_series", "video_script", "email_sequence"
+  ideas           String[] // array of specific ideas
+  insights        Json?    // ai-generated insights
+  createdBy       String
+  liked           Boolean  @default(false)
+  usedCount       Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([createdBy])
+  @@index([contentType])
+  @@index([createdAt])
+}
+
+model MarketingMetrics {
+  id              String   @id @default(cuid())
+  templateId      String?  // link to AITemplate
+  campaignId      String?  // link to AICampaign
+  platform        String
+  contentTitle    String?
+  impressions     Int      @default(0)
+  clicks          Int      @default(0)
+  engagements     Int      @default(0)
+  conversions     Int      @default(0)
+  ctr             Float    @default(0) // click-through rate
+  conversionRate  Float    @default(0)
+  engagementRate  Float    @default(0)
+  metadata        Json?
+  recordedAt      DateTime @default(now())
+  createdAt       DateTime @default(now())
+
+  @@index([templateId])
+  @@index([campaignId])
+  @@index([platform])
+  @@index([recordedAt])
+}
+
+model AIMarketingUsage {
+  id         String   @id @default(cuid())
+  userId     String
+  month      String   @db.VarChar(10) // YYYY-MM
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([userId, month])
+  @@index([userId])
+  @@index([month])
 }
 

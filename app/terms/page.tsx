@@ -193,7 +193,7 @@ export default function TermsPage() {
           property="og:description"
           content="Read the terms and conditions for using Lumyn's digital solutions services and website."
         />
-        <meta property="og:url" content="https://lumyn.vercel.app/terms" />
+        <meta property="og:url" content="https://www.lumyn.co.ke/terms" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Terms and Conditions | Lumyn - Modern Digital Solutions" />
@@ -201,7 +201,7 @@ export default function TermsPage() {
           name="twitter:description"
           content="Read the terms and conditions for using Lumyn's digital solutions services and website."
         />
-        <link rel="canonical" href="https://lumyn.vercel.app/terms" />
+        <link rel="canonical" href="https://www.lumyn.co.ke/terms" />
       </Head>
       <div className={styles.termsPage}>
         <section className={styles.hero}>

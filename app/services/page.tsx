@@ -134,7 +134,7 @@ export default function ServicesPage() {
           name="og:description"
           content="Comprehensive technology services: full-stack development, cloud infrastructure, product strategy, UI/UX design, security & compliance. End-to-end solutions for modern businesses."
         />
-        <meta property="og:url" content="https://lumyn.vercel.app/services" />
+        <meta property="og:url" content="https://www.lumyn.co.ke/services" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Services | Lumyn — Full-Stack Development & Digital Solutions" />
@@ -142,7 +142,7 @@ export default function ServicesPage() {
           name="twitter:description"
           content="Comprehensive technology services: full-stack development, cloud infrastructure, product strategy, UI/UX design, security & compliance."
         />
-        <link rel="canonical" href="https://lumyn.vercel.app/services" />
+        <link rel="canonical" href="https://www.lumyn.co.ke/services" />
       </Head>
 
       <div className={styles.servicesPage}>

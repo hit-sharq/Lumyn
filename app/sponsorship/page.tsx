@@ -99,7 +99,7 @@ export default function SponsorshipPage() {
           property="og:description"
           content="Partner with Lumyn, a forward-thinking tech company. Support our digital solutions and gain recognition through various sponsorship levels."
         />
-        <meta property="og:url" content="https://lumyn.vercel.app/sponsorship" />
+        <meta property="og:url" content="https://www.lumyn.co.ke/sponsorship" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Sponsorship Opportunities | Lumyn - Tech Company" />
@@ -107,7 +107,7 @@ export default function SponsorshipPage() {
           name="twitter:description"
           content="Partner with Lumyn, a forward-thinking tech company. Support our digital solutions and gain recognition through various sponsorship levels."
         />
-        <link rel="canonical" href="https://lumyn.vercel.app/sponsorship" />
+        <link rel="canonical" href="https://www.lumyn.co.ke/sponsorship" />
       </Head>
       <div className={styles.sponsorshipPage}>
         {/* Hero Section */}

@@ -85,7 +85,7 @@ export default function ProjectsPage() {
           name="og:description"
           content="Explore our portfolio of successful projects. From web applications to mobile apps, see how Lumyn delivers innovative digital solutions."
         />
-        <meta property="og:url" content="https://lumyn.vercel.app/projects" />
+        <meta property="og:url" content="https://www.lumyn.co.ke/projects" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Our Projects | Lumyn - Digital Solutions Portfolio" />
@@ -93,7 +93,7 @@ export default function ProjectsPage() {
           name="twitter:description"
           content="Explore our portfolio of successful projects. From web applications to mobile apps, see how Lumyn delivers innovative digital solutions."
         />
-        <link rel="canonical" href="https://lumyn.vercel.app/projects" />
+        <link rel="canonical" href="https://www.lumyn.co.ke/projects" />
       </Head>
 
       <div className={styles.projectsPage}>

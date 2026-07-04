@@ -311,7 +311,7 @@ export default function AboutPage() {
           name="og:description"
           content="Learn about Lumyn, a forward-thinking tech company specializing in modern digital solutions, web development, and innovative technology."
         />
-        <meta property="og:url" content="https://lumyn.vercel.app/about" />
+        <meta property="og:url" content="https://www.lumyn.co.ke/about" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="About Lumyn | Modern Digital Solutions Company" />
@@ -319,7 +319,7 @@ export default function AboutPage() {
           name="twitter:description"
           content="Learn about Lumyn, a forward-thinking tech company specializing in modern digital solutions, web development, and innovative technology."
         />
-        <link rel="canonical" href="https://lumyn.vercel.app/about" />
+        <link rel="canonical" href="https://www.lumyn.co.ke/about" />
       </Head>
 
       <div className={styles.aboutPage}>

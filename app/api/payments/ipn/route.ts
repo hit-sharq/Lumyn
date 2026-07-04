@@ -76,6 +76,36 @@ async function handleIPN(request: NextRequest) {
         }
       }
 
+      if (order.type === "ai_marketing_subscription") {
+        const periodEnd = new Date()
+        periodEnd.setMonth(periodEnd.getMonth() + 1)
+
+        await prisma.subscription.upsert({
+          where: {
+            userId_plan: {
+              userId: order.userId,
+              plan: "ai_marketing_pro",
+            },
+          },
+          create: {
+            userId: order.userId,
+            plan: "ai_marketing_pro",
+            status: "active",
+            currentPeriodStart: new Date(),
+            currentPeriodEnd: periodEnd,
+            nextBillingDate: periodEnd,
+            paymentOrderId: order.id,
+          },
+          update: {
+            status: "active",
+            currentPeriodStart: new Date(),
+            currentPeriodEnd: periodEnd,
+            nextBillingDate: periodEnd,
+            paymentOrderId: order.id,
+          },
+        })
+      }
+
       if (order.type === "job_post") {
         const job = await prisma.paidJobPost.findUnique({
           where: { id: order.itemId },

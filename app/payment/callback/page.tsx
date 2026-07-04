@@ -29,6 +29,7 @@ export default async function PaymentCallbackPage({ searchParams }: PageProps) {
     if (type === "studio_template") return "/studio"
     if (type === "market_product") return "/market"
     if (type === "job_post") return "/hire"
+    if (type === "ai_marketing_subscription") return "/ai-marketing"
     return "/"
   })()
 

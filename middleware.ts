@@ -32,6 +32,8 @@ const clerkHandler = authMiddleware({
     '/careers(.*)',
     '/technologies(.*)',
     '/services(.*)',
+    '/ai-marketing(.*)',
+    '/api/ai-marketing(.*)',
     '/api/news(.*)',
     '/api/blog(.*)',
     '/api/events(.*)',

@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 // GeistSans is already an object, no need to call it as a function
 const geist = GeistSans;
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://lumyn.vercel.app'
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.lumyn.co.ke'
 
 export const metadata: Metadata = {
   title: {

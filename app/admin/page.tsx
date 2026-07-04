@@ -164,6 +164,9 @@ export default function AdminPage() {
           <div className={styles.navSection}>
             <h3 className={styles.navSectionTitle}>GROWTH</h3>
           </div>
+          <Link href="/admin/ai-marketing" className={styles.navBtn}>
+            AI Marketing Suite
+          </Link>
           <Link href="/admin/proposals" className={styles.navBtn}>
             Enterprise Proposals
           </Link>

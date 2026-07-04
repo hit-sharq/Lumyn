@@ -72,6 +72,10 @@ export default function Footer() {
                 <span className={styles.productDot} style={{ background: "#1a5c3a" }} />
                 Lumyn Hire
               </Link>
+              <Link href="/ai-marketing" className={styles.footerLink}>
+                <span className={styles.productDot} style={{ background: "#a259f7" }} />
+                AI Marketing
+              </Link>
             </nav>
           </div>
 
