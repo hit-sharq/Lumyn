@@ -9,9 +9,9 @@ import { PublicContentGenerator } from "./components/public-content-generator";
 
 const SITE_URL = process.env.NEXT_PUBLIC_APP_URL || "https://www.lumyn.co.ke"
 
-const pageMetadata = {
+  const pageMetadata = {
   title: "AI Marketing Suite | Lumyn — AI-Powered Content Generator & Campaign Builder",
-  description: "Generate marketing copy, build multi-channel campaigns, and optimize content with AI. Free tier available. Unlimited generations with Pro plan.",
+  description: "Generate marketing copy, build multi-channel campaigns, and optimize content with AI. Start free, upgrade for unlimited access.",
   url: `${SITE_URL}/ai-marketing`,
   ogImage: `${SITE_URL}/og-image.png`,
 }
@@ -137,7 +137,7 @@ export default function AIMarketingPage() {
             Marketing Copy, <span className={styles.titleGradient}>In Seconds</span>
           </h1>
           <p className={styles.heroDescription}>
-            Create engaging social posts, emails, and ad copy with AI. Then optimize for maximum engagement. No account required.
+            Create engaging social posts, emails, and ad copy with AI. Then optimize for maximum engagement. Start free — no credit card required.
           </p>
           <div className={styles.heroButtons}>
             <button onClick={() => openTool("generate")} className={styles.primaryButton}>
@@ -181,7 +181,7 @@ export default function AIMarketingPage() {
               <div>
                 <h3 className={styles.toolPanelTitle}>AI Content Generator</h3>
                 <p className={styles.toolPanelDescription}>
-                  Generate marketing copy for any platform and content type. Free tier includes 5 generations.
+                  Generate marketing copy for any platform and content type. Start with free generations, upgrade for unlimited access.
                 </p>
                 <PublicContentGenerator
                   onGenerate={(content) => console.log("Generated:", content)}
