@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 import { prisma } from '@/lib/db/prisma'
 import { readdirSync, statSync } from 'fs'
-import { join, relative } from 'path'
+import { join, sep } from 'path'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.lumyn.co.ke'
 const APP_DIR = join(process.cwd(), 'app')
@@ -43,7 +43,7 @@ async function getLastModified(filePath: string): Promise<Date> {
   }
 }
 
-async function discoverStaticPages(dir: string, baseDir: string): Promise<MetadataRoute.Sitemap> {
+async function discoverStaticPages(dir: string): Promise<MetadataRoute.Sitemap> {
   const pages: MetadataRoute.Sitemap = []
   let entries
   try {
@@ -55,15 +55,8 @@ async function discoverStaticPages(dir: string, baseDir: string): Promise<Metada
   const hasPage = entries.some((entry) => entry.name === 'page.tsx' || entry.name === 'page.ts')
 
   if (hasPage) {
-    const relativePath = relative(join(baseDir, 'app'), dir)
-    let urlPath = relativePath.replace(/\\/g, '/')
-
-    if (urlPath === '' || urlPath === '.') {
-      urlPath = '/'
-    } else if (!urlPath.startsWith('/')) {
-      urlPath = `/${urlPath}`
-    }
-
+    const relativePath = dir.slice(APP_DIR.length).replace(/\\/g, '/')
+    const urlPath = relativePath && relativePath !== '/' ? relativePath : '/'
     const filePath = join(dir, 'page.tsx')
     const lastModified = await getLastModified(filePath)
     const url = urlPath === '/' ? BASE_URL : `${BASE_URL}${urlPath}`
@@ -79,7 +72,7 @@ async function discoverStaticPages(dir: string, baseDir: string): Promise<Metada
 
   for (const entry of entries) {
     if (entry.isDirectory() && !entry.name.startsWith('.') && !EXCLUDED_DIRS.has(entry.name)) {
-      const childPages = await discoverStaticPages(join(dir, entry.name), baseDir)
+      const childPages = await discoverStaticPages(join(dir, entry.name))
       pages.push(...childPages)
     }
   }
@@ -88,7 +81,7 @@ async function discoverStaticPages(dir: string, baseDir: string): Promise<Metada
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const staticPages = await discoverStaticPages(APP_DIR, APP_DIR)
+  const staticPages = await discoverStaticPages(APP_DIR)
   const dynamicUrls: MetadataRoute.Sitemap = []
 
   try {
