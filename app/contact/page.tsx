@@ -95,7 +95,7 @@ export default function ContactPage() {
               <div className={styles.socialSection}>
                 <h3 className={styles.socialTitle}>Follow Us</h3>
                 <div className={styles.socialLinks}>
-                  <a href="https://www.instagram.com/j_lee087/" className={styles.socialLink}>
+                  <a href="https://www.instagram.com/lumyn_technologies" className={styles.socialLink}>
                     Instagram
                   </a>
                 </div>

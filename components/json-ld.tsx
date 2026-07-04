@@ -14,9 +14,10 @@ export default function JsonLd() {
       url: BASE_URL,
       logo: `${BASE_URL}/logo.png`,
       sameAs: [
-        'https://twitter.com/lumyn',
-        'https://instagram.com/lumyn',
-        'https://linkedin.com/company/lumyn',
+        'https://x.com/LumynTec',
+        'https://www.linkedin.com/company/lumyn-technologies',
+        'https://www.instagram.com/lumyn_technologies',
+        'https://github.com/lumyntechnologies-oss',
       ],
       contactPoint: {
         '@type': 'ContactPoint',
