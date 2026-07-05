@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import styles from "./service-requests.module.css"
+import RichTextEditor from "./RichTextEditor"
 
 interface ServiceRequest {
   id: string
@@ -169,14 +170,13 @@ export default function ServiceRequestsManager() {
               <label className={styles.serviceRequestDetailLabel} htmlFor="reply">
                 Send Reply to {selectedRequest.userEmail}
               </label>
-              <textarea
-                id="reply"
-                value={replyText}
-                onChange={(e) => setReplyText(e.target.value)}
-                className={styles.serviceRequestReplyTextarea}
-                placeholder="Type your reply here..."
-                required
-              />
+              <div style={{ marginBottom: "8px" }}>
+                <RichTextEditor
+                  value={replyText}
+                  onChange={setReplyText}
+                  placeholder="Type your reply here..."
+                />
+              </div>
               <div className={styles.serviceRequestActions}>
                 <button type="submit" disabled={submitting} className={styles.serviceRequestSubmitButton}>
                   {submitting ? "Sending..." : "Send Reply"}

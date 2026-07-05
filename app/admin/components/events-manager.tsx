@@ -4,6 +4,7 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import styles from "./manager.module.css"
 import ToastNotification from "@/components/toast-notification"
+import RichTextEditor from "./RichTextEditor"
 
 interface Event {
   id: string
@@ -204,12 +205,10 @@ export default function EventsManager() {
 
             <div className={styles.formGroup}>
               <label className={styles.label}>Description *</label>
-              <textarea
+              <RichTextEditor
                 value={currentItem.description || ""}
-                onChange={(e) => setCurrentItem({ ...currentItem, description: e.target.value })}
-                required
-                className={styles.textarea}
-                rows={4}
+                onChange={(value) => setCurrentItem({ ...currentItem, description: value })}
+                placeholder="Describe the event..."
               />
             </div>
 

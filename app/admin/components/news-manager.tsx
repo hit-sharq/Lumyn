@@ -4,6 +4,7 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import styles from "./manager.module.css"
 import ToastNotification from "@/components/toast-notification"
+import RichTextEditor from "./RichTextEditor"
 
 interface NewsItem {
   id: string
@@ -211,23 +212,19 @@ export default function NewsManager() {
 
             <div className={styles.formGroup}>
               <label className={styles.label}>Excerpt *</label>
-              <textarea
+              <RichTextEditor
                 value={currentItem.excerpt || ""}
-                onChange={(e) => setCurrentItem({ ...currentItem, excerpt: e.target.value })}
-                required
-                className={styles.textarea}
-                rows={3}
+                onChange={(value) => setCurrentItem({ ...currentItem, excerpt: value })}
+                placeholder="Enter a brief excerpt..."
               />
             </div>
 
             <div className={styles.formGroup}>
               <label className={styles.label}>Content *</label>
-              <textarea
+              <RichTextEditor
                 value={currentItem.content || ""}
-                onChange={(e) => setCurrentItem({ ...currentItem, content: e.target.value })}
-                required
-                className={styles.textarea}
-                rows={8}
+                onChange={(value) => setCurrentItem({ ...currentItem, content: value })}
+                placeholder="Enter your news content..."
               />
             </div>
 

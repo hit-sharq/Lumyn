@@ -4,6 +4,7 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import styles from "./manager.module.css"
 import ToastNotification from "@/components/toast-notification"
+import RichTextEditor from "./RichTextEditor"
 
 interface Career {
   id: string
@@ -235,22 +236,18 @@ export default function CareersManager() {
 
             <div className={styles.formGroup}>
               <label className={styles.label}>Description *</label>
-              <textarea
+              <RichTextEditor
                 value={currentItem.description || ""}
-                onChange={(e) => setCurrentItem({ ...currentItem, description: e.target.value })}
-                required
-                className={styles.textarea}
-                rows={4}
+                onChange={(value) => setCurrentItem({ ...currentItem, description: value })}
+                placeholder="Describe the job role and responsibilities..."
               />
             </div>
 
             <div className={styles.formGroup}>
               <label className={styles.label}>Requirements</label>
-              <textarea
+              <RichTextEditor
                 value={currentItem.requirements || ""}
-                onChange={(e) => setCurrentItem({ ...currentItem, requirements: e.target.value })}
-                className={styles.textarea}
-                rows={3}
+                onChange={(value) => setCurrentItem({ ...currentItem, requirements: value })}
                 placeholder="List the key requirements and qualifications..."
               />
             </div>

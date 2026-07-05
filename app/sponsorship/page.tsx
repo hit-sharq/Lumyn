@@ -230,17 +230,17 @@ export default function SponsorshipPage() {
               <p className={styles.contactText}>
                 <strong>Important:</strong> Payments are made after discussions with founders and Lumyn leaders. Please do not make any payments until you have spoken with us.
               </p>
-              <p className={styles.contactText}>
-                <strong>Instagram:</strong>{" "}
-                <a
-                  href="https://www.instagram.com/j_lee087/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.contactLink}
-                >
-                  @j_lee087
-                </a>
-              </p>
+               <p className={styles.contactText}>
+                 <strong>Instagram:</strong>{" "}
+                 <a
+                   href="https://www.instagram.com/lumyn_technologies"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   className={styles.contactLink}
+                 >
+                   @lumyn_technologies
+                 </a>
+               </p>
             </div>
           </div>
         </div>

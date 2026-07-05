@@ -7,6 +7,7 @@ import Image from "next/image"
 import { motion, useScroll, useTransform } from "framer-motion"
 import styles from "./about.module.css"
 import type { JSX } from "react/jsx-runtime"
+import { markdownToHtml } from "@/lib/markdown"
 
 interface Section {
   id: string
@@ -27,6 +28,7 @@ export default function AboutPage() {
   const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set())
   const [leaders, setLeaders] = useState<Leader[]>([])
   const [loading, setLoading] = useState(true)
+  const [expandedLeaderId, setExpandedLeaderId] = useState<string | null>(null)
   const sectionRefs = useRef<{ [key: string]: HTMLElement | null }>({})
 
   const { scrollY } = useScroll()
@@ -277,7 +279,29 @@ export default function AboutPage() {
                   <div className={styles.teamContent}>
                     <h3 className={styles.teamName}>{leader.name}</h3>
                     <p className={styles.teamPosition}>{leader.position}</p>
-                    <p className={styles.teamBio}>{leader.role}</p>
+                    <div
+                      className={styles.teamBio}
+                      dangerouslySetInnerHTML={{
+                        __html: markdownToHtml(
+                          expandedLeaderId === leader.id || leader.role.length <= 150
+                            ? leader.role
+                            : `${leader.role.slice(0, 150).trimEnd()}...`
+                        ),
+                      }}
+                    />
+                    {leader.role.length > 150 && (
+                      <button
+                        type="button"
+                        className={styles.readMoreButton}
+                        onClick={() =>
+                          setExpandedLeaderId((current) =>
+                            current === leader.id ? null : leader.id
+                          )
+                        }
+                      >
+                        {expandedLeaderId === leader.id ? "Show less" : "Read more"}
+                      </button>
+                    )}
                   </div>
                 </motion.div>
               ))}
@@ -292,6 +316,11 @@ export default function AboutPage() {
               Team members will be displayed here once added through the admin panel.
             </motion.p>
           )}
+          <div style={{ marginTop: 32, textAlign: 'center' }}>
+            <Link href="/team" className={styles.ctaButton}>
+              Explore the full team page
+            </Link>
+          </div>
         </div>
       ),
     },

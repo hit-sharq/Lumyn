@@ -4,6 +4,7 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import styles from "./manager.module.css"
+import RichTextEditor from "./RichTextEditor"
 
 interface Project {
   id: string
@@ -213,12 +214,10 @@ export default function ProjectsManager() {
 
           <div className={styles.formGroup}>
             <label className={styles.label}>Description *</label>
-            <textarea
+            <RichTextEditor
               value={formData.description}
-              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-              required
-              className={styles.textarea}
-              rows={4}
+              onChange={(value) => setFormData({ ...formData, description: value })}
+              placeholder="Describe your project..."
             />
           </div>
 

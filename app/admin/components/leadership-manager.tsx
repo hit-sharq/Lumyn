@@ -4,6 +4,8 @@ import type React from "react"
 
 import { useState, useEffect } from "react"
 import styles from "./manager.module.css"
+import RichTextEditor from "./RichTextEditor"
+import { markdownToHtml } from "@/lib/markdown"
 
 interface Leader {
   id: string
@@ -212,12 +214,10 @@ export default function LeadershipManager() {
 
           <div className={styles.formGroup}>
             <label className={styles.label}>Role Description</label>
-            <textarea
-              className={styles.textarea}
+            <RichTextEditor
               value={formData.role}
-              onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-              placeholder="e.g., Leading the vision and strategy"
-              required
+              onChange={(value) => setFormData({ ...formData, role: value })}
+              placeholder="Describe their role and responsibilities..."
             />
           </div>
 
@@ -295,7 +295,10 @@ export default function LeadershipManager() {
                 <p className={styles.cardMeta} style={{ color: "#d32f2f", fontWeight: 600, marginBottom: "8px" }}>
                   {leader.position}
                 </p>
-                <p className={styles.cardExcerpt}>{leader.role}</p>
+                <div
+                  className={styles.cardExcerpt}
+                  dangerouslySetInnerHTML={{ __html: markdownToHtml(leader.role || "") }}
+                />
               </div>
               <div className={styles.gridActions}>
                 <button className={styles.editBtn} onClick={() => handleEdit(leader)}>

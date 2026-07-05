@@ -4,6 +4,7 @@ import type React from "react"
 
 import { useState, useEffect } from "react"
 import styles from "./manager.module.css"
+import RichTextEditor from "./RichTextEditor"
 
 interface GalleryItem {
   id: string
@@ -148,12 +149,10 @@ export default function GalleryManager() {
 
           <div className={styles.formGroup}>
             <label className={styles.label}>Description *</label>
-            <textarea
+            <RichTextEditor
               value={currentItem.description || ""}
-              onChange={(e) => setCurrentItem({ ...currentItem, description: e.target.value })}
-              required
-              className={styles.textarea}
-              rows={3}
+              onChange={(value) => setCurrentItem({ ...currentItem, description: value })}
+              placeholder="Describe the image..."
             />
           </div>
 

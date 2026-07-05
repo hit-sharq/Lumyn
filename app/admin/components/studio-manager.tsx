@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import Image from "next/image"
 import styles from "./manager.module.css"
+import RichTextEditor from "./RichTextEditor"
 
 const CATEGORIES = ["Developer", "Designer", "Freelancer", "Photographer", "Student", "Agency"]
 
@@ -125,7 +126,11 @@ export default function StudioManager() {
           </div>
           <div className={styles.formGroup}>
             <label className={styles.label}>Description *</label>
-            <textarea className={styles.textarea} value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} />
+            <RichTextEditor
+              value={form.description}
+              onChange={(value) => setForm(f => ({ ...f, description: value }))}
+              placeholder="Describe your template..."
+            />
           </div>
           <div className={styles.formGroup}>
             <label className={styles.label}>Preview Image URL *</label>
