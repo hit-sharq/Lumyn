@@ -1,7 +1,10 @@
 import { generateText } from "ai";
+import { createGoogle } from "@ai-sdk/google";
 
 const getModel = () => {
-  return process.env.AI_MODEL || "google/gemini-2.0-flash-exp";
+  const apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY || process.env.GEMINI_API_KEY;
+  const googleProvider = createGoogle({ apiKey });
+  return googleProvider("gemini-2.5-flash");
 };
 
 export interface OptimizationResult {

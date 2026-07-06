@@ -1,9 +1,11 @@
 import { generateText, streamText } from "ai";
+import { createGoogle } from "@ai-sdk/google";
 import { marketingPrompts, generatePrompt } from "./prompts";
 
 const getModel = () => {
-  // Using Google Gemini as default (from existing setup)
-  return process.env.AI_MODEL || "google/gemini-2.0-flash-exp";
+  const apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY || process.env.GEMINI_API_KEY;
+  const googleProvider = createGoogle({ apiKey });
+  return googleProvider("gemini-2.5-flash");
 };
 
 export async function generateMarketingContent(
@@ -31,8 +33,8 @@ export async function generateMarketingContent(
       return {
         content: result.text,
         usage: {
-          promptTokens: result.usage.promptTokens,
-          completionTokens: result.usage.completionTokens,
+          promptTokens: (result as any).usage?.promptTokens || 0,
+          completionTokens: (result as any).usage?.completionTokens || 0,
         },
       };
     }
@@ -155,7 +157,6 @@ export async function generateABTestVariations(
   );
 }
 
-// Batch generation for multi-platform campaigns
 export async function generateMultiPlatformContent(
   topic: string,
   platforms: string[],
