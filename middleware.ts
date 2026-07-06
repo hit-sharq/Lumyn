@@ -61,6 +61,7 @@ const clerkHandler = authMiddleware({
     '/api/partners(.*)',
     '/api/service-requests(.*)',
     '/notifications(.*)',
+    '/admin(.*)',
   ],
 })
 
