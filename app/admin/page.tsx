@@ -29,11 +29,13 @@ export default function AdminPage() {
   const { user, isSignedIn, isLoaded } = useUser()
 
   const [isAdmin, setIsAdmin] = useState(false)
+  const [isChecking, setIsChecking] = useState(true)
 
   // Query server to determine admin status; server uses ADMIN_IDS env
   useEffect(() => {
     if (!isLoaded || !isSignedIn) {
       setIsAdmin(false)
+      setIsChecking(false)
       return
     }
 
@@ -45,6 +47,8 @@ export default function AdminPage() {
         if (mounted) setIsAdmin(!!data.isAdmin)
       } catch (_) {
         if (mounted) setIsAdmin(false)
+      } finally {
+        if (mounted) setIsChecking(false)
       }
     })()
 
@@ -58,7 +62,7 @@ export default function AdminPage() {
     setMobileMenuOpen(false)
   }
 
-  if (!isLoaded) {
+  if (!isLoaded || isChecking) {
     return (
       <div className={styles.loginPage}>
         <div className={styles.loginBox}>
