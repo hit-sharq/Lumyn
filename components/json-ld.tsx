@@ -12,7 +12,7 @@ export default function JsonLd() {
       name: 'Lumyn',
       description: 'The complete creative platform for African creators. Build portfolios, sell products, find jobs, and access premium templates.',
       url: BASE_URL,
-      logo: `${BASE_URL}/logo.png`,
+      logo: `${BASE_URL}/placeholder-logo.png`,
       sameAs: [
         'https://x.com/LumynTec',
         'https://www.linkedin.com/company/lumyn-technologies',
