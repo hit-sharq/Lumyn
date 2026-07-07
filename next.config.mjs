@@ -17,7 +17,7 @@ const nextConfig = {
     if (!isDev) {
       headers.push({
         key: 'Content-Security-Policy',
-        value: "default-src 'self'; script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://www.googleapis.com; connect-src 'self' https://api.openai.com https://generativelanguage.googleapis.com https://graph.facebook.com; img-src 'self' data: https://res.cloudinary.com; style-src 'self' 'unsafe-inline'; frame-ancestors 'none'",
+        value: "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://www.googleapis.com https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://vercel.live; connect-src 'self' https://api.openai.com https://generativelanguage.googleapis.com https://graph.facebook.com; img-src 'self' data: https://res.cloudinary.com https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net; style-src 'self' 'unsafe-inline'; frame-ancestors 'none'",
       })
     }
 
