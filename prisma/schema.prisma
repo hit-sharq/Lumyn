@@ -775,6 +775,7 @@ model AIMarketingUsage {
   id         String   @id @default(cuid())
   userId     String
   month      String   @db.VarChar(10) // YYYY-MM
+  count      Int      @default(0)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 

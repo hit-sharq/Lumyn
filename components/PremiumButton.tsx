@@ -49,7 +49,7 @@ export default function PremiumButton({
   if (href) {
     return (
       <Link href={href} passHref legacyBehavior>
-        <Component {...commonProps} as="a">
+        <Component {...commonProps}>
           {content}
         </Component>
       </Link>

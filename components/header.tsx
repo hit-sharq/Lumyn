@@ -16,8 +16,29 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
-  const adminIds = process.env.NEXT_PUBLIC_ADMIN_IDS?.split(",") || []
-  const isAdmin = isSignedIn && user && adminIds.includes(user.id)
+  const [isAdmin, setIsAdmin] = useState(false)
+
+  useEffect(() => {
+    if (!isSignedIn) {
+      setIsAdmin(false)
+      return
+    }
+
+    let mounted = true
+    ;(async () => {
+      try {
+        const res = await fetch('/api/auth/is-admin')
+        const data = await res.json()
+        if (mounted) setIsAdmin(!!data.isAdmin)
+      } catch (_) {
+        if (mounted) setIsAdmin(false)
+      }
+    })()
+
+    return () => {
+      mounted = false
+    }
+  }, [isSignedIn])
   const isAdminRoute = pathname?.startsWith("/admin")
 
   useEffect(() => {

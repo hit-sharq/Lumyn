@@ -8,14 +8,13 @@ import { AIMarketingTabs } from "@/app/admin/components/ai-marketing-tabs"
 export default async function AdminAIMarketingPage() {
   const { userId } = await auth()
 
-  if (!userId) {
-    redirect("/sign-in")
+  // server-side admin check
+  const { isAdmin } = await import("@/lib/admin").then((m) => ({ isAdmin: m.isAdminUser(userId) }))
+
+  if (!isAdmin) {
+    redirect("/admin")
   }
 
-  const adminIds = process.env.NEXT_PUBLIC_ADMIN_IDS?.split(",") || []
-  if (!adminIds.includes(userId)) {
-    redirect("/")
-  }
 
   return (
     <main className={styles.growthPage}>

@@ -1,5 +1,6 @@
 import { auth } from "@clerk/nextjs/server"
 import { getAdminAnalytics } from "@/lib/marketing/analytics"
+import { isAdminUser } from "@/lib/admin"
 import { redirect } from "next/navigation"
 import styles from "../growth.module.css"
 
@@ -8,14 +9,10 @@ export const dynamic = "force-dynamic"
 export default async function AdminAnalyticsPage() {
   const { userId } = await auth()
 
-  if (!userId) {
-    redirect("/sign-in")
+  if (!isAdminUser(userId)) {
+    redirect("/admin")
   }
 
-  const adminIds = process.env.NEXT_PUBLIC_ADMIN_IDS?.split(",") || []
-  if (!adminIds.includes(userId)) {
-    redirect("/")
-  }
 
   const analytics = await getAdminAnalytics()
 
@@ -55,7 +52,7 @@ export default async function AdminAnalyticsPage() {
         </div>
         <div className={styles.growthCard}>
           <p className={styles.growthStatLabel}>Conversion Rate</p>
-          <p className={styles.growthStatValue}>{analytics.conversionRate}%</p>
+          <p className={styles.growthStatValue}>{analytics.conversionRate?.rate}%</p>
         </div>
       </div>
 

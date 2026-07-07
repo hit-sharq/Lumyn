@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from "next/server"
 import { getTransactionStatus } from "@/lib/pesapal"
 import { prisma } from "@/lib/db/prisma"
 import { autoPostJobToSocial } from "@/lib/marketing/social"
+import { verifyHmac } from "@/lib/security"
 
 export const dynamic = "force-dynamic"
 
@@ -37,6 +38,24 @@ async function handleIPN(request: NextRequest) {
 
     if (order.status === "COMPLETED") {
       return NextResponse.json({ status: "already_completed" }, { status: 200 })
+    }
+
+    // verify IPN authenticity using configured secret
+    const incomingSecret = request.nextUrl.searchParams.get("ipn_secret") || request.headers.get("x-ipn-secret")
+    if (process.env.PESAPAL_IPN_SECRET) {
+      // prefer HMAC-style verification when provider supplies a signature header
+      const sigHeader = request.headers.get('x-pesapal-signature') || request.headers.get('x-hub-signature') || request.headers.get('x-signature')
+      if (sigHeader) {
+        const raw = await request.text()
+        const ok = await verifyHmac({ payload: raw, secret: process.env.PESAPAL_IPN_SECRET, signature: sigHeader })
+        if (!ok) {
+          console.warn('IPN HMAC signature mismatch')
+          return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+        }
+      } else if (incomingSecret !== process.env.PESAPAL_IPN_SECRET) {
+        console.warn('IPN secret mismatch')
+        return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+      }
     }
 
     const pesapalStatus = await getTransactionStatus(orderTrackingId)

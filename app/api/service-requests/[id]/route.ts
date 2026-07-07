@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { auth } from "@clerk/nextjs/server"
 import { prisma } from "@/lib/db/prisma"
 import { sendEmail } from "@/lib/email/service"
+import { isAdminUser } from "@/lib/admin"
 
 export async function PATCH(
   request: NextRequest,
@@ -13,8 +14,7 @@ export async function PATCH(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
-    const adminIds = process.env.NEXT_PUBLIC_ADMIN_IDS?.split(",") || []
-    if (!adminIds.includes(userId)) {
+    if (!isAdminUser(userId)) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 })
     }
 

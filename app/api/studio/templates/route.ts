@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/db/prisma"
 import { auth } from "@clerk/nextjs/server"
+import { isAdminUser } from "@/lib/admin"
 
 export async function GET(request: NextRequest) {
   if (!process.env.DATABASE_URL) {
@@ -39,8 +40,7 @@ export async function POST(request: NextRequest) {
     const { userId } = await auth()
     if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
 
-    const adminIds = process.env.NEXT_PUBLIC_ADMIN_IDS?.split(",") || []
-    if (!adminIds.includes(userId)) {
+    if (!isAdminUser(userId)) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 })
     }
 

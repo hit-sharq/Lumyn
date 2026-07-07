@@ -9,7 +9,9 @@ export async function POST(request: NextRequest) {
 
     const user = await currentUser()
     const userEmail = user?.emailAddresses[0]?.emailAddress || ""
-    const userName = user?.fullName || user?.firstName || "Anonymous"
+    const userName = user?.firstName || user?.lastName
+      ? `${user?.firstName || ""} ${user?.lastName || ""}`.trim()
+      : "Anonymous"
 
     const body = await request.json()
     const { templateId, rating, comment } = body

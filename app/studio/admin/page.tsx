@@ -44,8 +44,24 @@ export default function StudioAdminPage() {
   const [submitting, setSubmitting] = useState(false)
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null)
 
-  const adminIds = (process.env.NEXT_PUBLIC_ADMIN_IDS || "").split(",").filter(Boolean)
-  const isAdmin = isLoaded && user && adminIds.includes(user.id)
+  const [isAdmin, setIsAdmin] = useState(false)
+
+  useEffect(() => {
+    if (!isLoaded || !user) return setIsAdmin(false)
+    let mounted = true
+    ;(async () => {
+      try {
+        const res = await fetch('/api/auth/is-admin')
+        const data = await res.json()
+        if (mounted) setIsAdmin(!!data.isAdmin)
+      } catch (_) {
+        if (mounted) setIsAdmin(false)
+      }
+    })()
+    return () => {
+      mounted = false
+    }
+  }, [isLoaded, user])
 
   useEffect(() => {
     if (isAdmin) fetchTemplates()

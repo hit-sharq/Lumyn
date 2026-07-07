@@ -5,7 +5,7 @@ import { sendRenewalReminder } from "@/lib/email/templates"
 import { sendOnboardingDrip } from "@/lib/email/templates"
 import { createNotification } from "@/lib/marketing/notifications"
 
-let cronJob: cron.ScheduledTask | null = null
+let cronJob: any | null = null
 
 export function startCronJobs() {
   if (cronJob) {

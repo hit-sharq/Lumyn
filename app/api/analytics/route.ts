@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 import { auth } from "@clerk/nextjs/server"
 import { getAdminAnalytics } from "@/lib/marketing/analytics"
+import { isAdminUser } from "@/lib/admin"
 
 export const dynamic = 'force-dynamic'
 
@@ -11,8 +12,7 @@ export async function GET() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
-    const adminIds = process.env.NEXT_PUBLIC_ADMIN_IDS?.split(",") || []
-    if (!adminIds.includes(userId)) {
+    if (!isAdminUser(userId)) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 })
     }
 

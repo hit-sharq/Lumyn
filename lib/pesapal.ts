@@ -45,6 +45,8 @@ export async function registerIPN(): Promise<string> {
     body: JSON.stringify({
       url: ipnUrl.startsWith("http") ? ipnUrl : `https://${ipnUrl}`,
       ipn_notification_type: "GET",
+      // include a shared secret so our IPN route can verify authenticity
+      ipn_secret: process.env.PESAPAL_IPN_SECRET,
     }),
   })
 

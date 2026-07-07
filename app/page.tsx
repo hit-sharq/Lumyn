@@ -551,7 +551,6 @@ export default function HomePage() {
                    </div>
                    </div>
                    <div className={styles.projectContent}>
-                     <span className={styles.projectCategory}>{news.category}</span>
                      <h3 className={styles.projectTitle}>{news.title}</h3>
                      <p className={styles.projectExcerpt}>{news.excerpt}</p>
                    </div>

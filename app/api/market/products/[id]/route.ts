@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/db/prisma"
 import { auth } from "@clerk/nextjs/server"
+import { isAdminUser } from "@/lib/admin"
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   try {
@@ -26,8 +27,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
     })
     if (!product) return NextResponse.json({ error: "Not found" }, { status: 404 })
     if (product.creator.userId !== userId) {
-      const adminIds = process.env.NEXT_PUBLIC_ADMIN_IDS?.split(",") || []
-      if (!adminIds.includes(userId)) return NextResponse.json({ error: "Forbidden" }, { status: 403 })
+      if (!isAdminUser(userId)) return NextResponse.json({ error: "Forbidden" }, { status: 403 })
     }
 
     const body = await request.json()
@@ -63,8 +63,7 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
     })
     if (!product) return NextResponse.json({ error: "Not found" }, { status: 404 })
     if (product.creator.userId !== userId) {
-      const adminIds = process.env.NEXT_PUBLIC_ADMIN_IDS?.split(",") || []
-      if (!adminIds.includes(userId)) return NextResponse.json({ error: "Forbidden" }, { status: 403 })
+      if (!isAdminUser(userId)) return NextResponse.json({ error: "Forbidden" }, { status: 403 })
     }
 
     await prisma.marketProduct.delete({ where: { id: params.id } })

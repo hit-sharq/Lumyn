@@ -17,11 +17,11 @@ async function getUserMonthlyUsage(userId: string): Promise<number> {
   const now = new Date()
   const month = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`
 
-  const record = await prisma.aIMarketingUsage.findUnique({
-    where: { userId_month: { userId, month } },
+  const count = await prisma.aIMarketingUsage.count({
+    where: { userId, month },
   })
 
-  return record?.count || 0
+  return count
 }
 
 async function incrementUserMonthlyUsage(userId: string): Promise<void> {

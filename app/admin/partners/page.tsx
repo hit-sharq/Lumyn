@@ -1,18 +1,15 @@
 import { auth } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 import PartnersManager from '../components/partners-manager'
+import { isAdminUser } from '@/lib/admin'
 
 export default async function AdminPartnersPage() {
   const { userId } = await auth()
 
-  if (!userId) {
-    redirect('/sign-in')
-  }
-
-  const adminIds = process.env.NEXT_PUBLIC_ADMIN_IDS?.split(',') || []
-  if (!adminIds.includes(userId)) {
-    redirect('/')
+  if (!isAdminUser(userId)) {
+    redirect('/admin')
   }
 
   return <PartnersManager />
+
 }

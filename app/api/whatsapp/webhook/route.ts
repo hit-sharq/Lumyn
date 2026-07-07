@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server"
+import { verifyHmac } from '@/lib/security'
 
 const WHATSAPP_VERIFY_TOKEN = process.env.WHATSAPP_VERIFY_TOKEN
 const WHATSAPP_PHONE_NUMBER_ID = process.env.WHATSAPP_PHONE_NUMBER_ID
@@ -24,7 +25,29 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json()
+    const tokenHeader = request.headers.get("x-whatsapp-signature") || request.headers.get("x-hub-signature") || request.headers.get('x-signature')
+    let body: any
+
+    if (process.env.WHATSAPP_WEBHOOK_SECRET) {
+      if (tokenHeader) {
+        const raw = await request.text()
+        const ok = await verifyHmac({ payload: raw, secret: process.env.WHATSAPP_WEBHOOK_SECRET, signature: tokenHeader, algorithm: 'SHA-256' })
+        if (!ok) {
+          console.warn('WhatsApp webhook HMAC mismatch')
+          return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+        }
+        body = JSON.parse(raw)
+      } else {
+        const plain = request.headers.get('x-whatsapp-signature') || request.headers.get('x-hub-signature')
+        if (!plain || plain !== process.env.WHATSAPP_WEBHOOK_SECRET) {
+          console.warn('WhatsApp webhook signature mismatch')
+          return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+        }
+        body = await request.json()
+      }
+    } else {
+      body = await request.json()
+    }
 
     if (body.object !== "page") {
       return NextResponse.json({ error: "Invalid payload" }, { status: 400 })

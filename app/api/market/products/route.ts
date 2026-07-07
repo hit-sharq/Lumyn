@@ -40,7 +40,10 @@ export async function POST(request: NextRequest) {
         data: {
           userId,
           userEmail,
-          displayName: user?.fullName || user?.firstName || "Creator",
+          displayName:
+            user?.firstName || user?.lastName
+              ? `${user?.firstName || ""} ${user?.lastName || ""}`.trim()
+              : "Creator",
         },
       })
     }

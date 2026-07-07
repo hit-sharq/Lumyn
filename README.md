@@ -134,7 +134,7 @@ Edit `.env.local`:
 ```env
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_...
 CLERK_SECRET_KEY=sk_test_...
-NEXT_PUBLIC_ADMIN_IDS=your-clerk-user-id
+ADMIN_IDS=your-clerk-user-id
 DATABASE_URL="postgresql://..."
 ```
 
@@ -437,33 +437,10 @@ model Event {
 
 - **Sign In/Sign Up**: Modal-based auth
 - **Protected Routes**: Middleware checks
-- **Admin Access**: Configure via `NEXT_PUBLIC_ADMIN_IDS`
+- **Admin Access**: Configure via `ADMIN_IDS` (server-only)
 - **User Button**: Avatar dropdown with profile management
 
-**Example:**
-```tsx
-import { useUser, SignInButton, UserButton } from '@clerk/nextjs'
-
-export default function Component() {
-  const { user, isSignedIn } = useUser()
-  const adminIds = process.env.NEXT_PUBLIC_ADMIN_IDS?.split(',') || []
-  const isAdmin = isSignedIn && user && adminIds.includes(user.id)
-
-  return (
-    <>
-      {isSignedIn ? (
-        <UserButton afterSignOutUrl="/" />
-      ) : (
-        <SignInButton mode="modal">
-          <button>Sign In</button>
-        </SignInButton>
-      )}
-      
-      {isAdmin && <Link href="/admin">Admin Panel</Link>}
-    </>
-  )
-}
-```
+**Client usage:** Call the server endpoint `/api/auth/is-admin` to determine admin status. Do not expose admin IDs in client-side environment variables.
 
 ---
 

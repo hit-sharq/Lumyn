@@ -60,6 +60,8 @@ export async function POST(request: NextRequest) {
           email: userEmail,
           firstName: user?.firstName || "User",
           lastName: user?.lastName || "",
+          year: "unknown",
+          major: "unknown",
         },
       })
     }

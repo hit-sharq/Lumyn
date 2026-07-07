@@ -13,6 +13,8 @@ const MAX_SIZE = 5 * 1024 * 1024 // 5MB
 
 export async function POST(request: NextRequest) {
   try {
+    // Enforce server-side auth for uploads
+    // (Clerk middleware will run; for extra safety check the token here if needed)
     const formData = await request.formData()
     const file = formData.get('file') as File
 

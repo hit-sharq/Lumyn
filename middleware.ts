@@ -1,6 +1,7 @@
 import { authMiddleware } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
 import type { NextRequest, NextFetchEvent } from 'next/server'
+import { rateLimit } from '@/lib/security'
 
 // 1. Define your base Clerk middleware handler instance
 const clerkHandler = authMiddleware({
@@ -61,13 +62,24 @@ const clerkHandler = authMiddleware({
     '/api/partners(.*)',
     '/api/service-requests(.*)',
     '/notifications(.*)',
-    '/admin(.*)',
+      // '/admin(.*)', // Removed for auth enforcement
   ],
 })
 
 // 2. Intercept the execution to prevent unhandled fatal runtime crashes
 export default async function middleware(req: NextRequest, event: NextFetchEvent) {
   try {
+    // Basic rate limiting for public API endpoints to reduce abuse
+    const publicApiPaths = ['/api/upload', '/api/contact', '/api/newsletter', '/api/payments/ipn']
+    const pathname = req.nextUrl.pathname
+    if (publicApiPaths.some(p => pathname.startsWith(p))) {
+      const ip = (req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || 'unknown').split(',')[0].trim()
+      const { allowed, remaining } = rateLimit(ip)
+      if (!allowed) {
+        return NextResponse.json({ error: 'Too many requests' }, { status: 429 })
+      }
+    }
+
     return await clerkHandler(req, event)
   } catch (error: any) {
     // Intercept Clerk's fatal clock-skew exception

@@ -2,6 +2,7 @@
 
 import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/db/prisma'
+import { isAdminUser } from '@/lib/admin'
 import { generateObject } from 'ai'
 import { google } from '@ai-sdk/google'
 import { z } from 'zod'
@@ -39,8 +40,7 @@ export async function generateBusinessCase(formData: FormData) {
     return { success: false, error: 'Unauthorized' }
   }
 
-  const adminIds = process.env.NEXT_PUBLIC_ADMIN_IDS?.split(',') || []
-  if (!adminIds.includes(userId)) {
+  if (!isAdminUser(userId)) {
     return { success: false, error: 'Forbidden: Admin access required' }
   }
 
@@ -112,8 +112,7 @@ export async function getProposals() {
     return []
   }
 
-  const adminIds = process.env.NEXT_PUBLIC_ADMIN_IDS?.split(',') || []
-  if (!adminIds.includes(userId)) {
+  if (!isAdminUser(userId)) {
     return []
   }
 
@@ -129,8 +128,7 @@ export async function approveProposal(id: string) {
     return { success: false, error: 'Unauthorized' }
   }
 
-  const adminIds = process.env.NEXT_PUBLIC_ADMIN_IDS?.split(',') || []
-  if (!adminIds.includes(userId)) {
+  if (!isAdminUser(userId)) {
     return { success: false, error: 'Forbidden' }
   }
 

@@ -1,20 +1,17 @@
 import { auth } from "@clerk/nextjs/server"
 import { redirect } from "next/navigation"
 import styles from "../growth.module.css"
+import { isAdminUser } from "@/lib/admin"
 
 export default async function AdminMarketingPage() {
   const { userId } = await auth()
 
-  if (!userId) {
-    redirect("/sign-in")
-  }
-
-  const adminIds = process.env.NEXT_PUBLIC_ADMIN_IDS?.split(",") || []
-  if (!adminIds.includes(userId)) {
-    redirect("/")
+  if (!isAdminUser(userId)) {
+    redirect("/admin")
   }
 
   return (
+
     <main className={styles.growthPage}>
       <div>
         <a href="/admin" className={styles.growthBack}>

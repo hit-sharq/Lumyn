@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { useUser } from "@clerk/nextjs"
 import styles from "./admin.module.css"
@@ -24,8 +24,30 @@ export default function AdminPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const { user, isSignedIn, isLoaded } = useUser()
 
-  const adminIds = process.env.NEXT_PUBLIC_ADMIN_IDS?.split(",") || []
-  const isAdmin = isSignedIn && user && adminIds.includes(user.id)
+  const [isAdmin, setIsAdmin] = useState(false)
+
+  // Query server to determine admin status; server uses ADMIN_IDS env
+  useEffect(() => {
+    if (!isLoaded || !isSignedIn) {
+      setIsAdmin(false)
+      return
+    }
+
+    let mounted = true
+    ;(async () => {
+      try {
+        const res = await fetch('/api/auth/is-admin')
+        const data = await res.json()
+        if (mounted) setIsAdmin(!!data.isAdmin)
+      } catch (_) {
+        if (mounted) setIsAdmin(false)
+      }
+    })()
+
+    return () => {
+      mounted = false
+    }
+  }, [isLoaded, isSignedIn])
 
   const handleTabChange = (tab: Tab) => {
     setActiveTab(tab)
@@ -74,7 +96,7 @@ export default function AdminPage() {
       <div className={`${styles.sidebar} ${mobileMenuOpen ? styles.sidebarOpen : ""}`}>
         <div className={styles.sidebarHeader}>
           <h2 className={styles.sidebarTitle}>Lumyn Admin</h2>
-          <p className={styles.adminName}>{user.fullName || user.emailAddresses[0].emailAddress}</p>
+          <p className={styles.adminName}>{user?.fullName || user?.emailAddresses?.[0]?.emailAddress || ''}</p>
           <button
             className={styles.logoutBtn}
             onClick={async () => {

@@ -36,7 +36,6 @@ export async function POST(request: NextRequest) {
     const subscription = await prisma.subscription.create({
       data: {
         userId,
-        userEmail: email, // Store for records
         plan,
         status: "active",
         currentPeriodStart: new Date(),

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { auth } from "@clerk/nextjs/server"
 import { prisma } from "@/lib/db/prisma"
 import { sendBulkPush } from "@/lib/push/service"
+import { isAdminUser } from "@/lib/admin"
 
 export async function POST(request: NextRequest) {
   try {
@@ -10,8 +11,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
-    const adminIds = process.env.NEXT_PUBLIC_ADMIN_IDS?.split(",") || []
-    if (!adminIds.includes(userId)) {
+    if (!isAdminUser(userId)) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 })
     }
 
