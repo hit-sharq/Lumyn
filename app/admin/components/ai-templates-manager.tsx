@@ -19,6 +19,30 @@ export function AITemplatesManager() {
   const [loading, setLoading] = useState(true)
   const [filterType, setFilterType] = useState<string>("all")
   const [searchQuery, setSearchQuery] = useState("")
+  const [postingId, setPostingId] = useState<string | null>(null)
+  const [postMessage, setPostMessage] = useState<{ id: string; type: "success" | "error"; text: string } | null>(null)
+
+  const handlePostTemplate = async (template: AITemplate, platform: "twitter" | "linkedin") => {
+    setPostingId(template.id)
+    setPostMessage(null)
+    try {
+      const res = await fetch("/api/ai-marketing/post", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ content: template.content, platform }),
+      })
+      const data = await res.json()
+      if (data.success) {
+        setPostMessage({ id: template.id, type: "success", text: data.skipped ? `Posted (skipped - no API keys)` : `Posted to ${platform}` })
+      } else {
+        setPostMessage({ id: template.id, type: "error", text: data.error || `Failed to post` })
+      }
+    } catch (e) {
+      setPostMessage({ id: template.id, type: "error", text: "Failed to post" })
+    } finally {
+      setPostingId(null)
+    }
+  }
 
   useEffect(() => {
     fetchTemplates()
@@ -135,13 +159,45 @@ export function AITemplatesManager() {
                     )}
                   </div>
                 </div>
-                <div style={{ display: "flex", gap: "8px" }}>
+                <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
                   <button
                     onClick={() => handleCopy(template.content)}
                     className={styles.growthButtonSecondary}
                     style={{ padding: "6px 12px", fontSize: "0.75rem" }}
                   >
                     Copy
+                  </button>
+                  <button
+                    onClick={() => handlePostTemplate(template, "twitter")}
+                    disabled={postingId === template.id}
+                    style={{
+                      background: "rgba(29, 161, 242, 0.1)",
+                      color: "#1da1f2",
+                      border: "1px solid rgba(29, 161, 242, 0.2)",
+                      padding: "6px 12px",
+                      borderRadius: "50px",
+                      cursor: "pointer",
+                      fontSize: "0.75rem",
+                      fontWeight: 600,
+                    }}
+                  >
+                    {postingId === template.id ? "Posting..." : "Post X"}
+                  </button>
+                  <button
+                    onClick={() => handlePostTemplate(template, "linkedin")}
+                    disabled={postingId === template.id}
+                    style={{
+                      background: "rgba(0, 119, 181, 0.1)",
+                      color: "#0077b5",
+                      border: "1px solid rgba(0, 119, 181, 0.2)",
+                      padding: "6px 12px",
+                      borderRadius: "50px",
+                      cursor: "pointer",
+                      fontSize: "0.75rem",
+                      fontWeight: 600,
+                    }}
+                  >
+                    {postingId === template.id ? "Posting..." : "Post LinkedIn"}
                   </button>
                   <button
                     onClick={() => handleDelete(template.id)}
@@ -159,6 +215,11 @@ export function AITemplatesManager() {
                     Delete
                   </button>
                 </div>
+                {postMessage && postMessage.id === template.id && (
+                  <p style={{ marginTop: "8px", fontSize: "0.75rem", color: postMessage.type === "success" ? "#4ade80" : "#ff6b6b" }}>
+                    {postMessage.text}
+                  </p>
+                )}
               </div>
 
               <div

@@ -19,6 +19,30 @@ export function AIContentGenerator({ onGenerate }: ContentGeneratorProps) {
   const [generatedContent, setGeneratedContent] = useState<string>("")
   const [error, setError] = useState<string>("")
 
+  const [posting, setPosting] = useState(false)
+  const [postMessage, setPostMessage] = useState<{ type: "success" | "error"; text: string } | null>(null)
+
+  const handlePost = async (platform: "twitter" | "linkedin") => {
+    setPosting(true)
+    setPostMessage(null)
+    try {
+      const res = await fetch("/api/ai-marketing/post", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ content: generatedContent, platform }),
+      })
+      const data = await res.json()
+      if (data.success) {
+        setPostMessage({ type: "success", text: data.skipped ? `Posted to ${platform} (skipped - no API keys)` : `Posted to ${platform} successfully` })
+      } else {
+        setPostMessage({ type: "error", text: data.error || `Failed to post to ${platform}` })
+      }
+    } catch (e) {
+      setPostMessage({ type: "error", text: `Failed to post to ${platform}` })
+    } finally {
+      setPosting(false)
+    }
+  }
   const handleGenerate = async () => {
     const baseFields: Record<string, any> = { contentType, platform, tone }
 
@@ -217,15 +241,30 @@ export function AIContentGenerator({ onGenerate }: ContentGeneratorProps) {
             >
               {generatedContent}
             </div>
-            <button
-              onClick={() => {
-                navigator.clipboard.writeText(generatedContent)
-              }}
-              className={styles.growthButtonSecondary}
-              style={{ marginTop: "12px" }}
-            >
-              Copy to Clipboard
-            </button>
+             <button
+               onClick={() => {
+                 navigator.clipboard.writeText(generatedContent)
+               }}
+               className={styles.growthButtonSecondary}
+               style={{ marginTop: "12px" }}
+             >
+               Copy to Clipboard
+             </button>
+             {(platform === "twitter" || platform === "linkedin") && (
+               <button
+                 onClick={() => handlePost(platform as "twitter" | "linkedin")}
+                 disabled={posting}
+                 className={styles.growthButton}
+                 style={{ marginTop: "12px", width: "auto" }}
+               >
+                 {posting ? "Posting..." : `Post to ${platform === "twitter" ? "Twitter/X" : "LinkedIn"}`}
+               </button>
+             )}
+             {postMessage && (
+               <p style={{ marginTop: "8px", fontSize: "0.875rem", color: postMessage.type === "success" ? "#4ade80" : "#ff6b6b" }}>
+                 {postMessage.text}
+               </p>
+             )}
           </div>
         </div>
       )}

@@ -55,6 +55,37 @@ export function AICampaignBuilder() {
     }
   }
 
+  const [posting, setPosting] = useState(false)
+  const [postMessage, setPostMessage] = useState<{ type: "success" | "error"; text: string } | null>(null)
+
+  const handlePost = async (platform: "twitter" | "linkedin") => {
+    setPosting(true)
+    setPostMessage(null)
+    try {
+      const content = typeof campaignData.result?.twitter === "string"
+        ? campaignData.result.twitter
+        : typeof campaignData.result?.contentData?.twitter === "string"
+          ? campaignData.result.contentData.twitter
+          : JSON.stringify(campaignData.result || campaignData.contentData || {})
+
+      const res = await fetch("/api/ai-marketing/post", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ content, platform }),
+      })
+      const data = await res.json()
+      if (data.success) {
+        setPostMessage({ type: "success", text: data.skipped ? `Posted to ${platform} (skipped - no API keys)` : `Posted to ${platform} successfully` })
+      } else {
+        setPostMessage({ type: "error", text: data.error || `Failed to post to ${platform}` })
+      }
+    } catch (e) {
+      setPostMessage({ type: "error", text: `Failed to post to ${platform}` })
+    } finally {
+      setPosting(false)
+    }
+  }
+
   const channelOptions = [
     { id: "twitter", label: "Twitter/X" },
     { id: "linkedin", label: "LinkedIn" },
@@ -223,6 +254,30 @@ export function AICampaignBuilder() {
                     </div>
                   </div>
                 ))}
+            </div>
+
+            <div style={{ display: "flex", gap: "12px", marginTop: "16px", flexWrap: "wrap" }}>
+              <button
+                onClick={() => handlePost("twitter")}
+                disabled={posting}
+                className={styles.growthButton}
+                style={{ width: "auto" }}
+              >
+                {posting ? "Posting..." : "Post to Twitter/X"}
+              </button>
+              <button
+                onClick={() => handlePost("linkedin")}
+                disabled={posting}
+                className={styles.growthButton}
+                style={{ width: "auto" }}
+              >
+                {posting ? "Posting..." : "Post to LinkedIn"}
+              </button>
+              {postMessage && (
+                <p style={{ fontSize: "0.875rem", color: postMessage.type === "success" ? "#4ade80" : "#ff6b6b", alignSelf: "center" }}>
+                  {postMessage.text}
+                </p>
+              )}
             </div>
           </div>
         </div>
