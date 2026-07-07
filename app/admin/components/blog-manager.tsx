@@ -1,277 +1,229 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { useState, useEffect } from "react"
-import styles from "./manager.module.css"
-import ToastNotification from "@/components/toast-notification"
-import RichTextEditor from "./RichTextEditor"
-
-
-
+import type React from "react";
+import { useState, useEffect } from "react";
+import styles from "./manager.module.css";
+import ToastNotification from "@/components/toast-notification";
+import RichTextEditor from "./RichTextEditor";
 interface BlogPost {
-  id: string
-  title: string
-  content: string
-  excerpt: string
-  image: string
-  author: string
-  category: string
-  tags: string[]
-  isPublished: boolean
-  featured: boolean
-  createdAt: string
+  id: string;
+  title: string;
+  content: string;
+  excerpt: string;
+  image: string;
+  author: string;
+  category: string;
+  tags: string[];
+  isPublished: boolean;
+  featured: boolean;
+  createdAt: string;
 }
-
 interface Toast {
-  message: string
-  type: "success" | "error" | "info" | "warning"
-  id: number
+  message: string;
+  type: "success" | "error" | "info" | "warning";
+  id: number;
 }
-
 export default function BlogManager() {
-  const [items, setItems] = useState<BlogPost[]>([])
-  const [isEditing, setIsEditing] = useState(false)
-  const [currentItem, setCurrentItem] = useState<Partial<BlogPost>>({})
-  const [tagsInput, setTagsInput] = useState("")
-  const [loading, setLoading] = useState(true)
-  const [selectedFile, setSelectedFile] = useState<File | null>(null)
-  const [previewUrl, setPreviewUrl] = useState<string>("")
-  const [toasts, setToasts] = useState<Toast[]>([])
-
+  const [items, setItems] = useState<BlogPost[]>([]);
+  const [isEditing, setIsEditing] = useState(false);
+  const [currentItem, setCurrentItem] = useState<Partial<BlogPost>>({});
+  const [tagsInput, setTagsInput] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string>("");
+  const [toasts, setToasts] = useState<Toast[]>([]);
   const showToast = (message: string, type: Toast["type"]) => {
-    const id = Date.now()
-    setToasts((prev) => [...prev, { message, type, id }])
-  }
-
+    const id = Date.now();
+    setToasts(prev => [...prev, {
+      message,
+      type,
+      id
+    }]);
+  };
   const removeToast = (id: number) => {
-    setToasts((prev) => prev.filter((toast) => toast.id !== id))
-  }
-
+    setToasts(prev => prev.filter(toast => toast.id !== id));
+  };
   useEffect(() => {
-    fetchItems()
-  }, [])
-
+    fetchItems();
+  }, []);
   const fetchItems = async () => {
     try {
-      const response = await fetch("/api/blog")
+      const response = await fetch("/api/blog");
       if (!response.ok) {
-        const error = await response.json()
-        throw new Error(error.message || "Failed to fetch blog posts")
+        const error = await response.json();
+        throw new Error(error.message || "Failed to fetch blog posts");
       }
-      const data = await response.json()
-      setItems(data)
+      const data = await response.json();
+      setItems(data);
     } catch (error: any) {
-      console.error("Error fetching blog posts:", error)
-      showToast(error.message || "Failed to load blog posts", "error")
+      console.error("Error fetching blog posts:", error);
+      showToast(error.message || "Failed to load blog posts", "error");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
-
+  };
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
+    const file = e.target.files?.[0];
     if (file) {
-      setSelectedFile(file)
-      const url = URL.createObjectURL(file)
-      setPreviewUrl(url)
+      setSelectedFile(file);
+      const url = URL.createObjectURL(file);
+      setPreviewUrl(url);
     }
-  }
-
+  };
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
       if (!currentItem.category || currentItem.category.trim() === "") {
-        showToast("Category is required", "warning")
-        return
+        showToast("Category is required", "warning");
+        return;
       }
-
-      let image = currentItem.image
-
+      let image = currentItem.image;
       if (selectedFile) {
-        const formDataUpload = new FormData()
-        formDataUpload.append("file", selectedFile)
-
+        const formDataUpload = new FormData();
+        formDataUpload.append("file", selectedFile);
         const uploadResponse = await fetch("/api/upload", {
           method: "POST",
-          body: formDataUpload,
-        })
-
+          body: formDataUpload
+        });
         if (!uploadResponse.ok) {
-          showToast("Image upload failed", "error")
-          return
+          showToast("Image upload failed", "error");
+          return;
         }
-
-        const uploadData = await uploadResponse.json()
-        image = uploadData.url
+        const uploadData = await uploadResponse.json();
+        image = uploadData.url;
       }
-
-      const tags = tagsInput
-        .split(",")
-        .map((tag) => tag.trim())
-        .filter(Boolean)
-      const url = currentItem.id ? `/api/blog/${currentItem.id}` : "/api/blog"
-      const method = currentItem.id ? "PUT" : "POST"
-
-
-
+      const tags = tagsInput.split(",").map(tag => tag.trim()).filter(Boolean);
+      const url = currentItem.id ? `/api/blog/${currentItem.id}` : "/api/blog";
+      const method = currentItem.id ? "PUT" : "POST";
       const response = await fetch(url, {
         method,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ 
-          ...currentItem, 
-          tags, 
-          image, 
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          ...currentItem,
+          tags,
+          image,
           category: currentItem.category,
-          isPublished: currentItem.isPublished !== false, // Default to true
-          featured: currentItem.featured || false, // Default to false
-        }),
-      })
-
+          isPublished: currentItem.isPublished !== false,
+          // Default to true
+          featured: currentItem.featured || false // Default to false
+        })
+      });
       if (!response.ok) {
-        const error = await response.json()
-        throw new Error(error.message || "Failed to save blog post")
+        const error = await response.json();
+        throw new Error(error.message || "Failed to save blog post");
       }
-
-      const post = (await response.json()) as BlogPost
-
-      setItems((prev) => {
-        if (currentItem.id) return prev.map((it) => (it.id === currentItem.id ? post : it))
-        return [post, ...prev]
-      })
-      setIsEditing(false)
-      setCurrentItem({})
-      setTagsInput("")
-      setSelectedFile(null)
-      setPreviewUrl("")
-      showToast(currentItem.id ? "Blog post updated successfully" : "Blog post created successfully", "success")
+      const post = (await response.json()) as BlogPost;
+      setItems(prev => {
+        if (currentItem.id) return prev.map(it => it.id === currentItem.id ? post : it);
+        return [post, ...prev];
+      });
+      setIsEditing(false);
+      setCurrentItem({});
+      setTagsInput("");
+      setSelectedFile(null);
+      setPreviewUrl("");
+      showToast(currentItem.id ? "Blog post updated successfully" : "Blog post created successfully", "success");
     } catch (error: any) {
-      console.error("Error saving blog post:", error)
-      showToast(error.message || "Failed to save blog post", "error")
+      console.error("Error saving blog post:", error);
+      showToast(error.message || "Failed to save blog post", "error");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
-
+  };
   const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this blog post?")) return
-
+    if (!confirm("Are you sure you want to delete this blog post?")) return;
     try {
-      const response = await fetch(`/api/blog/${id}`, { method: "DELETE" })
-
+      const response = await fetch(`/api/blog/${id}`, {
+        method: "DELETE"
+      });
       if (!response.ok) {
-        const error = await response.json()
-        throw new Error(error.message || "Failed to delete blog post")
+        const error = await response.json();
+        throw new Error(error.message || "Failed to delete blog post");
       }
-
-      setItems((prev) => prev.filter((it) => it.id !== id))
-      setIsEditing(false)
-      showToast("Blog post deleted successfully", "success")
+      setItems(prev => prev.filter(it => it.id !== id));
+      setIsEditing(false);
+      showToast("Blog post deleted successfully", "success");
     } catch (error: any) {
-      console.error("Error deleting blog post:", error)
-      showToast(error.message || "Failed to delete blog post", "error")
+      console.error("Error deleting blog post:", error);
+      showToast(error.message || "Failed to delete blog post", "error");
     }
-  }
-
-
-
+  };
   const handleEdit = (item: BlogPost) => {
     setCurrentItem({
       ...item
-    })
-    setTagsInput(item.tags?.join(", ") || "")
-    setPreviewUrl(item.image || "")
-    setSelectedFile(null)
-    setIsEditing(true)
-  }
-
-
+    });
+    setTagsInput(item.tags?.join(", ") || "");
+    setPreviewUrl(item.image || "");
+    setSelectedFile(null);
+    setIsEditing(true);
+  };
   const handleCancel = () => {
-    setIsEditing(false)
+    setIsEditing(false);
     setCurrentItem({
-      isPublished: true, // Default to published
-      featured: false    // Default to not featured
-    })
-    setTagsInput("")
-    setSelectedFile(null)
-    setPreviewUrl("")
-  }
-
+      isPublished: true,
+      // Default to published
+      featured: false // Default to not featured
+    });
+    setTagsInput("");
+    setSelectedFile(null);
+    setPreviewUrl("");
+  };
   if (loading) {
-    return <div className={styles.loading}>Loading...</div>
+    return <div className={styles.loading}>Loading...</div>;
   }
-
-  return (
-    <>
-      {toasts.map((toast) => (
-        <ToastNotification
-          key={toast.id}
-          message={toast.message}
-          type={toast.type}
-          onClose={() => removeToast(toast.id)}
-        />
-      ))}
+  return <>
+      {toasts.map(toast => <ToastNotification key={toast.id} message={toast.message} type={toast.type} onClose={() => removeToast(toast.id)} />)}
 
       <div className={styles.manager}>
         <div className={styles.header}>
           <h1 className={styles.title}>Blog Management</h1>
-          {!isEditing && (
-            <button onClick={() => setIsEditing(true)} className={styles.addBtn}>
+          {!isEditing && <button onClick={() => setIsEditing(true)} className={styles.addBtn}>
               Add Blog Post
-            </button>
-          )}
+            </button>}
         </div>
 
-        {isEditing ? (
-          <form onSubmit={handleSubmit} className={styles.form}>
+        {isEditing ? <form onSubmit={handleSubmit} className={styles.form}>
             <div className={styles.formGroup}>
               <label className={styles.label}>Title *</label>
-              <input
-                type="text"
-                value={currentItem.title || ""}
-                onChange={(e) => setCurrentItem({ ...currentItem, title: e.target.value })}
-                required
-                className={styles.input}
-              />
+              <input type="text" value={currentItem.title || ""} onChange={e => setCurrentItem({
+            ...currentItem,
+            title: e.target.value
+          })} required className={styles.input} />
             </div>
 
             <div className={styles.formGroup}>
               <label className={styles.label}>Excerpt *</label>
-              <RichTextEditor
-                value={currentItem.excerpt || ""}
-                onChange={(value) => setCurrentItem({ ...currentItem, excerpt: value })}
-                placeholder="Enter a brief excerpt..."
-              />
+              <RichTextEditor value={currentItem.excerpt || ""} onChange={value => setCurrentItem({
+            ...currentItem,
+            excerpt: value
+          })} placeholder="Enter a brief excerpt..." />
             </div>
 
             <div className={styles.formGroup}>
               <label className={styles.label}>Content *</label>
-              <RichTextEditor
-                value={currentItem.content || ""}
-                onChange={(value) => setCurrentItem({ ...currentItem, content: value })}
-                placeholder="Enter your blog post content..."
-              />
+              <RichTextEditor value={currentItem.content || ""} onChange={value => setCurrentItem({
+            ...currentItem,
+            content: value
+          })} placeholder="Enter your blog post content..." />
             </div>
 
             <div className={styles.formRow}>
               <div className={styles.formGroup}>
                 <label className={styles.label}>Author *</label>
-                <input
-                  type="text"
-                  value={currentItem.author || ""}
-                  onChange={(e) => setCurrentItem({ ...currentItem, author: e.target.value })}
-                  required
-                  className={styles.input}
-                />
+                <input type="text" value={currentItem.author || ""} onChange={e => setCurrentItem({
+              ...currentItem,
+              author: e.target.value
+            })} required className={styles.input} />
               </div>
 
               <div className={styles.formGroup}>
                 <label className={styles.label}>Category *</label>
-<select
-                   value={currentItem.category || ""}
-                   onChange={(e) => setCurrentItem({ ...currentItem, category: e.target.value })}
-                   required
-                   className={styles.select}
-                 >
+<select value={currentItem.category || ""} onChange={e => setCurrentItem({
+              ...currentItem,
+              category: e.target.value
+            })} required className={styles.select}>
                   <option value="">Select a category</option>
                   <option value="technology">Technology</option>
                   <option value="business">Business</option>
@@ -288,49 +240,38 @@ export default function BlogManager() {
 
             <div className={styles.formGroup}>
               <label className={styles.label}>Tags (comma-separated)</label>
-              <input
-                type="text"
-                value={tagsInput}
-                onChange={(e) => setTagsInput(e.target.value)}
-                className={styles.input}
-                placeholder="culture, community, events"
-              />
+              <input type="text" value={tagsInput} onChange={e => setTagsInput(e.target.value)} className={styles.input} placeholder="culture, community, events" />
             </div>
 
             <div className={styles.formGroup}>
               <label className={styles.label}>Image (optional)</label>
               <input type="file" accept="image/*" onChange={handleFileChange} className={styles.input} />
-              {previewUrl && (
-                <div style={{ marginTop: "10px" }}>
-                  <img
-                    src={previewUrl || "/placeholder.svg"}
-                    alt="Preview"
-                    style={{ maxWidth: "200px", maxHeight: "200px" }}
-                  />
-                </div>
-              )}
+              {previewUrl && <div style={{
+            marginTop: "10px"
+          }}>
+                  <img src={previewUrl || "/placeholder.svg"} alt="Preview" style={{
+              maxWidth: "200px",
+              maxHeight: "200px"
+            }} />
+                </div>}
             </div>
 
             <div className={styles.formGroup}>
               <label className={styles.label}>
-                <input
-                  type="checkbox"
-                  checked={currentItem.isPublished !== false}
-                  onChange={(e) => setCurrentItem({ ...currentItem, isPublished: e.target.checked })}
-                  className={styles.checkbox}
-                />
+                <input type="checkbox" checked={currentItem.isPublished !== false} onChange={e => setCurrentItem({
+              ...currentItem,
+              isPublished: e.target.checked
+            })} className={styles.checkbox} />
                 Publish immediately
               </label>
             </div>
 
             <div className={styles.formGroup}>
               <label className={styles.label}>
-                <input
-                  type="checkbox"
-                  checked={currentItem.featured || false}
-                  onChange={(e) => setCurrentItem({ ...currentItem, featured: e.target.checked })}
-                  className={styles.checkbox}
-                />
+                <input type="checkbox" checked={currentItem.featured || false} onChange={e => setCurrentItem({
+              ...currentItem,
+              featured: e.target.checked
+            })} className={styles.checkbox} />
                 Mark as Featured Post
               </label>
             </div>
@@ -343,35 +284,21 @@ export default function BlogManager() {
                 Cancel
               </button>
             </div>
-          </form>
-        ) : (
-          <div className={styles.list}>
-            {items.length === 0 ? (
-              <p className={styles.empty}>No blog posts yet. Click "Add Blog Post" to create one.</p>
-            ) : (
-              items.map((item) => (
-                <div key={item.id} className={styles.card}>
+          </form> : <div className={styles.list}>
+            {items.length === 0 ? <p className={styles.empty}>No blog posts yet. Click &quot;Add Blog Post&quot; to create one.</p> : items.map(item => <div key={item.id} className={styles.card}>
                   <div className={styles.cardContent}>
                     <h3 className={styles.cardTitle}>{item.title}</h3>
                     <p className={styles.cardExcerpt}>{item.excerpt}</p>
 
                     <div className={styles.cardMeta}>
                       <span className={styles.cardCategory}>{item.category}</span>
-                      {item.featured && (
-                        <span className={styles.featured}>Featured</span>
-                      )}
-                      {!item.isPublished && (
-                        <span className={styles.draft}>Draft</span>
-                      )}
-                      {item.tags && item.tags.length > 0 && (
-                        <div className={styles.tags}>
-                          {item.tags.map((tag) => (
-                            <span key={tag} className={styles.tag}>
+                      {item.featured && <span className={styles.featured}>Featured</span>}
+                      {!item.isPublished && <span className={styles.draft}>Draft</span>}
+                      {item.tags && item.tags.length > 0 && <div className={styles.tags}>
+                          {item.tags.map(tag => <span key={tag} className={styles.tag}>
                               {tag}
-                            </span>
-                          ))}
-                        </div>
-                      )}
+                            </span>)}
+                        </div>}
                       <span className={styles.cardAuthor}>By {item.author}</span>
 
                       <span className={styles.cardDate}>
@@ -387,12 +314,8 @@ export default function BlogManager() {
                       Delete
                     </button>
                   </div>
-                </div>
-              ))
-            )}
-          </div>
-        )}
+                </div>)}
+          </div>}
       </div>
-    </>
-  )
+    </>;
 }

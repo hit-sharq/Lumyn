@@ -1,44 +1,41 @@
-"use client"
+"use client";
 
-import type React from "react"
-
-import { useState } from "react"
-import Head from "next/head"
-import styles from "./newsletter.module.css"
-
+import type React from "react";
+import { useState } from "react";
+import Head from "next/head";
+import styles from "./newsletter.module.css";
 export default function NewsletterPage() {
-  const [email, setEmail] = useState("")
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
-  const [message, setMessage] = useState("")
-
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [message, setMessage] = useState("");
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setStatus("loading")
-
+    e.preventDefault();
+    setStatus("loading");
     try {
       const response = await fetch("/api/newsletter", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      })
-
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email
+        })
+      });
       if (response.ok) {
-        setStatus("success")
-        setMessage("Thank you for subscribing! You'll receive our latest updates.")
-        setEmail("")
+        setStatus("success");
+        setMessage("Thank you for subscribing! You'll receive our latest updates.");
+        setEmail("");
       } else {
-        const data = await response.json()
-        setStatus("error")
-        setMessage(data.error || "Failed to subscribe. Please try again.")
+        const data = await response.json();
+        setStatus("error");
+        setMessage(data.error || "Failed to subscribe. Please try again.");
       }
     } catch (error) {
-      setStatus("error")
-      setMessage("An error occurred. Please try again later.")
+      setStatus("error");
+      setMessage("An error occurred. Please try again later.");
     }
-  }
-
-  return (
-    <>
+  };
+  return <>
 
       <div className={styles.container}>
         <div className={styles.content}>
@@ -48,7 +45,7 @@ export default function NewsletterPage() {
           </p>
 
         <div className={styles.benefits}>
-          <h2 className={styles.benefitsTitle}>What You'll Get:</h2>
+          <h2 className={styles.benefitsTitle}>What You&apos;ll Get:</h2>
           <ul className={styles.benefitsList}>
             <li>Weekly updates on upcoming tech events and activities</li>
             <li>Exclusive member-only content and opportunities</li>
@@ -60,15 +57,7 @@ export default function NewsletterPage() {
 
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.inputGroup}>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email address"
-              className={styles.input}
-              required
-              disabled={status === "loading"}
-            />
+            <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Enter your email address" className={styles.input} required disabled={status === "loading"} />
             <button type="submit" className={styles.button} disabled={status === "loading"}>
               {status === "loading" ? "Subscribing..." : "Subscribe"}
             </button>
@@ -83,6 +72,5 @@ export default function NewsletterPage() {
         </p>
       </div>
     </div>
-    </>
-  )
+    </>;
 }

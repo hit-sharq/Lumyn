@@ -1,28 +1,34 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
-import { motion, AnimatePresence } from "framer-motion"
-import styles from "./assistant-product-card.module.css"
-
+import { useState } from "react";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import styles from "./assistant-product-card.module.css";
 interface Tab {
-  id: string
-  label: string
-  icon: string
-  description: string
+  id: string;
+  label: string;
+  icon: string;
+  description: string;
 }
-
-const tabs: Tab[] = [
-  { id: "customer", label: "Customer View", icon: "👤", description: "Real-time conversation experience" },
-  { id: "business", label: "Business View", icon: "📊", description: "Inventory & data integration" },
-  { id: "developer", label: "Developer View", icon: "⚙️", description: "Secure webhook infrastructure" },
-]
-
+const tabs: Tab[] = [{
+  id: "customer",
+  label: "Customer View",
+  icon: "👤",
+  description: "Real-time conversation experience"
+}, {
+  id: "business",
+  label: "Business View",
+  icon: "📊",
+  description: "Inventory & data integration"
+}, {
+  id: "developer",
+  label: "Developer View",
+  icon: "⚙️",
+  description: "Secure webhook infrastructure"
+}];
 export default function AiWhatsappAssistantCard() {
-  const [activeTab, setActiveTab] = useState<string>("customer")
-
-  return (
-    <section className={styles.productSection}>
+  const [activeTab, setActiveTab] = useState<string>("customer");
+  return <section className={styles.productSection}>
       <div className={styles.container}>
         <div className={styles.header}>
           <span className={styles.kicker}>✨ NEW PRODUCT</span>
@@ -61,12 +67,7 @@ export default function AiWhatsappAssistantCard() {
 
           <div className={styles.tabsWrap}>
             <div className={styles.tabHeader}>
-              {tabs.map((tab) => (
-                <button
-                  key={tab.id}
-                  className={`${styles.tabButton} ${activeTab === tab.id ? styles.tabButtonActive : ""}`}
-                  onClick={() => setActiveTab(tab.id)}
-                >
+              {tabs.map(tab => <button key={tab.id} className={`${styles.tabButton} ${activeTab === tab.id ? styles.tabButtonActive : ""}`} onClick={() => setActiveTab(tab.id)}>
                   <div className={styles.tabButtonTop}>
                     <span className={styles.tabIcon}>{tab.icon}</span>
                     <span className={styles.tabLabel}>
@@ -75,20 +76,22 @@ export default function AiWhatsappAssistantCard() {
                     </span>
                   </div>
                   <span className={styles.tabUnderline}></span>
-                </button>
-              ))}
+                </button>)}
             </div>
 
             <AnimatePresence mode="wait">
-              {activeTab === "customer" && (
-                <motion.div
-                  key="customer"
-                  className={styles.tabPanel}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.35 }}
-                >
+              {activeTab === "customer" && <motion.div key="customer" className={styles.tabPanel} initial={{
+              opacity: 0,
+              y: 20
+            }} animate={{
+              opacity: 1,
+              y: 0
+            }} exit={{
+              opacity: 0,
+              y: -20
+            }} transition={{
+              duration: 0.35
+            }}>
                   <div className={styles.panelInner}>
                     <div className={styles.panelGrid}>
                       <div>
@@ -137,18 +140,20 @@ export default function AiWhatsappAssistantCard() {
                       </div>
                     </div>
                   </div>
-                </motion.div>
-              )}
+                </motion.div>}
 
-              {activeTab === "business" && (
-                <motion.div
-                  key="business"
-                  className={styles.tabPanel}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.35 }}
-                >
+              {activeTab === "business" && <motion.div key="business" className={styles.tabPanel} initial={{
+              opacity: 0,
+              y: 20
+            }} animate={{
+              opacity: 1,
+              y: 0
+            }} exit={{
+              opacity: 0,
+              y: -20
+            }} transition={{
+              duration: 0.35
+            }}>
                   <div className={styles.panelInner}>
                     <div className={styles.panelGrid}>
                       <div>
@@ -169,7 +174,7 @@ export default function AiWhatsappAssistantCard() {
                           <div className={styles.chat}>
                             <div className={styles.bubbleRow}>
                               <div className={`${styles.bubble} ${styles.bubbleAi}`}>
-                                <strong>Query:</strong> "iPhone 15 Pro blue stock?"
+                                <strong>Query:</strong> &quot;iPhone 15 Pro blue stock?&quot;
                                 <br />
                                 <strong>Source:</strong> Google Sheet sync
                                 <br />
@@ -204,24 +209,26 @@ export default function AiWhatsappAssistantCard() {
                       </div>
                     </div>
                   </div>
-                </motion.div>
-              )}
+                </motion.div>}
 
-              {activeTab === "developer" && (
-                <motion.div
-                  key="developer"
-                  className={styles.tabPanel}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.35 }}
-                >
+              {activeTab === "developer" && <motion.div key="developer" className={styles.tabPanel} initial={{
+              opacity: 0,
+              y: 20
+            }} animate={{
+              opacity: 1,
+              y: 0
+            }} exit={{
+              opacity: 0,
+              y: -20
+            }} transition={{
+              duration: 0.35
+            }}>
                   <div className={styles.panelInner}>
                     <div className={styles.panelGrid}>
                       <div>
                         <h3 className={styles.panelTitle}>Serverless Webhook Architecture</h3>
                         <p className={styles.panelText}>
-                          Minimal, secure infrastructure handles Meta's webhook verification and message
+                          Minimal, secure infrastructure handles Meta&apos;s webhook verification and message
                           processing. Scale to thousands of conversations without managing servers.
                         </p>
                         <pre className={styles.codeBlock}>
@@ -252,8 +259,7 @@ verify: mode -> challenge response
                       </div>
                     </div>
                   </div>
-                </motion.div>
-              )}
+                </motion.div>}
             </AnimatePresence>
           </div>
 
@@ -271,6 +277,5 @@ verify: mode -> challenge response
           </div>
         </div>
       </div>
-    </section>
-  )
+    </section>;
 }

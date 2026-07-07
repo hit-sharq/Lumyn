@@ -155,7 +155,7 @@ export function TerminalCode({ children, comment }: { children: React.ReactNode,
   return (
     <div className={styles.terminalCode}>
       {comment && (
-        <div className={styles.codeComment}>// {comment}</div>
+        <div className={styles.codeComment}>{`// ${comment}`}</div>
       )}
       <code>{children}</code>
     </div>

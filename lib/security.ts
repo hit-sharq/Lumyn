@@ -42,7 +42,7 @@ export async function verifyHmac({
 
   const cleaned = signature.replace(/^sha256=|^sha1=|^/, '')
 
-  return cleaned === hex || (base64 && cleaned === base64)
+  return cleaned === hex || !!(base64 && cleaned === base64)
 }
 
 // Simple in-memory rate limiter: max `limit` requests per `windowMs` per key

@@ -1,9 +1,8 @@
-"use client"
+"use client";
 
-import type React from "react"
-
-import { useState } from "react"
-import styles from "./contact.module.css"
+import type React from "react";
+import { useState } from "react";
+import styles from "./contact.module.css";
 
 // Enhanced contact form with phone number and areas of interest for well-detailed submissions
 
@@ -14,51 +13,52 @@ export default function ContactPage() {
     phone: "",
     subject: "",
     interests: "",
-    message: "",
-  })
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
-  const [errorMessage, setErrorMessage] = useState("")
-
+    message: ""
+  });
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
-    })
-  }
-
+      [e.target.name]: e.target.value
+    });
+  };
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setStatus("loading")
-    setErrorMessage("")
-
+    e.preventDefault();
+    setStatus("loading");
+    setErrorMessage("");
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify(formData),
-      })
-
+        body: JSON.stringify(formData)
+      });
       if (response.ok) {
-        setStatus("success")
-        setFormData({ name: "", email: "", phone: "", subject: "", interests: "", message: "" })
+        setStatus("success");
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          subject: "",
+          interests: "",
+          message: ""
+        });
       } else {
-        setStatus("error")
-        setErrorMessage("Failed to send message. Please try again.")
+        setStatus("error");
+        setErrorMessage("Failed to send message. Please try again.");
       }
     } catch (error) {
-      setStatus("error")
-      setErrorMessage("An error occurred. Please try again later.")
+      setStatus("error");
+      setErrorMessage("An error occurred. Please try again later.");
     }
-  }
-
-  return (
-    <div className={styles.contactPage}>
+  };
+  return <div className={styles.contactPage}>
       <section className={styles.hero}>
         <div className={styles.heroContent}>
           <h1 className={styles.heroTitle}>Get In Touch</h1>
-          <p className={styles.heroSubtitle}>We'd love to hear from you. Send us a message!</p>
+          <p className={styles.heroSubtitle}>We&apos;d love to hear from you. Send us a message!</p>
         </div>
       </section>
 
@@ -68,7 +68,7 @@ export default function ContactPage() {
             <div className={styles.contactInfo}>
               <h2 className={styles.infoTitle}>Contact Information</h2>
               <p className={styles.infoText}>
-                Have questions about our services? Want to discuss a project? Reach out to us and we'll get back to you as soon as
+                Have questions about our services? Want to discuss a project? Reach out to us and we&apos;ll get back to you as soon as
                 possible.
               </p>
 
@@ -105,64 +105,34 @@ export default function ContactPage() {
             <div className={styles.contactForm}>
               <h2 className={styles.formTitle}>Send Us a Message</h2>
 
-              {status === "success" && (
-                <div className={styles.successMessage}>
-                  <p>Thank you for your message! We'll get back to you soon.</p>
-                </div>
-              )}
+              {status === "success" && <div className={styles.successMessage}>
+                  <p>Thank you for your message! We&apos;ll get back to you soon.</p>
+                </div>}
 
-              {status === "error" && (
-                <div className={styles.errorMessage}>
+              {status === "error" && <div className={styles.errorMessage}>
                   <p>{errorMessage}</p>
-                </div>
-              )}
+                </div>}
 
               <form onSubmit={handleSubmit}>
                 <div className={styles.formGroup}>
                   <label htmlFor="name" className={styles.label}>
                     Full Name *
                   </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className={styles.input}
-                    placeholder="Joshua Mwendwa"
-                  />
+                  <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required className={styles.input} placeholder="Joshua Mwendwa" />
                 </div>
 
                 <div className={styles.formGroup}>
                   <label htmlFor="email" className={styles.label}>
                     Email Address *
                   </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className={styles.input}
-                    placeholder="joshua@example.com"
-                  />
+                  <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required className={styles.input} placeholder="joshua@example.com" />
                 </div>
 
                 <div className={styles.formGroup}>
                   <label htmlFor="phone" className={styles.label}>
                     Phone Number
                   </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className={styles.input}
-                    placeholder="+254 712 345 678"
-                  />
+                  <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleChange} className={styles.input} placeholder="+254 712 345 678" />
                   {/* Added phone field for more detailed contact information */}
                 </div>
 
@@ -170,14 +140,7 @@ export default function ContactPage() {
                   <label htmlFor="subject" className={styles.label}>
                     Subject *
                   </label>
-                  <select
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    required
-                    className={styles.select}
-                  >
+                  <select id="subject" name="subject" value={formData.subject} onChange={handleChange} required className={styles.select}>
                     <option value="">Select a subject</option>
                     <option value="general">General Inquiry</option>
                     <option value="project">Project Discussion</option>
@@ -192,13 +155,7 @@ export default function ContactPage() {
                   <label htmlFor="interests" className={styles.label}>
                     Areas of Interest
                   </label>
-                  <select
-                    id="interests"
-                    name="interests"
-                    value={formData.interests}
-                    onChange={handleChange}
-                    className={styles.select}
-                  >
+                  <select id="interests" name="interests" value={formData.interests} onChange={handleChange} className={styles.select}>
                     <option value="">Select areas of interest (optional)</option>
                     <option value="web-development">Web Development</option>
                     <option value="mobile-apps">Mobile Applications</option>
@@ -216,16 +173,7 @@ export default function ContactPage() {
                   <label htmlFor="message" className={styles.label}>
                     Message *
                   </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    className={styles.textarea}
-                    rows={6}
-                    placeholder="Tell us what's on your mind..."
-                  />
+                  <textarea id="message" name="message" value={formData.message} onChange={handleChange} required className={styles.textarea} rows={6} placeholder="Tell us what's on your mind..." />
                 </div>
 
                 <button type="submit" className={styles.submitBtn} disabled={status === "loading"}>
@@ -236,6 +184,5 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-    </div>
-  )
+    </div>;
 }

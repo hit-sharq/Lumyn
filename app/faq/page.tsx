@@ -1,45 +1,38 @@
-"use client"
+"use client";
 
-import { useEffect, useRef, useState } from "react"
-import Head from "next/head"
-import styles from "./faq.module.css"
-import type { JSX } from "react/jsx-runtime"
-
+import { useEffect, useRef, useState } from "react";
+import Head from "next/head";
+import styles from "./faq.module.css";
+import type { JSX } from "react/jsx-runtime";
 interface Section {
-  id: string
-  title: string
-  content: JSX.Element
+  id: string;
+  title: string;
+  content: JSX.Element;
 }
-
 export default function FAQPage() {
-  const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set())
-  const sectionRefs = useRef<{ [key: string]: HTMLElement | null }>({})
-
+  const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
+  const sectionRefs = useRef<{
+    [key: string]: HTMLElement | null;
+  }>({});
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setVisibleSections((prev) => new Set(prev).add(entry.target.id))
-          }
-        })
-      },
-      { threshold: 0.1 },
-    )
-
-    Object.values(sectionRefs.current).forEach((ref) => {
-      if (ref) observer.observe(ref)
-    })
-
-    return () => observer.disconnect()
-  }, [])
-
-  const sections: Section[] = [
-    {
-      id: "about-lumyn",
-      title: "About Lumyn",
-      content: (
-        <>
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setVisibleSections(prev => new Set(prev).add(entry.target.id));
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+    Object.values(sectionRefs.current).forEach(ref => {
+      if (ref) observer.observe(ref);
+    });
+    return () => observer.disconnect();
+  }, []);
+  const sections: Section[] = [{
+    id: "about-lumyn",
+    title: "About Lumyn",
+    content: <>
           <details className={styles.faqItem}>
             <summary className={styles.faqQuestion}>What is Lumyn?</summary>
             <p className={styles.faqAnswer}>
@@ -48,7 +41,7 @@ export default function FAQPage() {
             </p>
           </details>
           <details className={styles.faqItem}>
-            <summary className={styles.faqQuestion}>What is Lumyn's mission?</summary>
+            <summary className={styles.faqQuestion}>What is Lumyn&apos;s mission?</summary>
             <p className={styles.faqAnswer}>
               Our mission is to empower businesses with elegant, efficient, and scalable digital solutions that drive
               growth and success in the modern digital landscape.
@@ -62,13 +55,10 @@ export default function FAQPage() {
             </p>
           </details>
         </>
-      ),
-    },
-    {
-      id: "services",
-      title: "Services",
-      content: (
-        <>
+  }, {
+    id: "services",
+    title: "Services",
+    content: <>
           <details className={styles.faqItem}>
             <summary className={styles.faqQuestion}>What services does Lumyn offer?</summary>
             <p className={styles.faqAnswer}>
@@ -87,7 +77,7 @@ export default function FAQPage() {
             <summary className={styles.faqQuestion}>How long does a typical project take?</summary>
             <p className={styles.faqAnswer}>
               Project timelines vary based on complexity and scope. A simple website might take 2-4 weeks, while a full
-              web application could take 8-12 weeks or more. We'll provide a detailed timeline during our initial consultation.
+              web application could take 8-12 weeks or more. We&apos;ll provide a detailed timeline during our initial consultation.
             </p>
           </details>
           <details className={styles.faqItem}>
@@ -98,13 +88,10 @@ export default function FAQPage() {
             </p>
           </details>
         </>
-      ),
-    },
-    {
-      id: "process",
-      title: "Our Process",
-      content: (
-        <>
+  }, {
+    id: "process",
+    title: "Our Process",
+    content: <>
           <details className={styles.faqItem}>
             <summary className={styles.faqQuestion}>What is your development process?</summary>
             <p className={styles.faqAnswer}>
@@ -123,24 +110,21 @@ export default function FAQPage() {
             <summary className={styles.faqQuestion}>Can I see examples of your work?</summary>
             <p className={styles.faqAnswer}>
               While we maintain client confidentiality, we can discuss our approach and show relevant case studies.
-              Contact us to learn more about how we've helped similar businesses achieve their goals.
+              Contact us to learn more about how we&apos;ve helped similar businesses achieve their goals.
             </p>
           </details>
           <details className={styles.faqItem}>
             <summary className={styles.faqQuestion}>What technologies do you use?</summary>
             <p className={styles.faqAnswer}>
               We use modern, scalable technologies including React, Next.js, Node.js, TypeScript, PostgreSQL,
-              and cloud platforms like Vercel and AWS. We choose the best tools for each project's specific needs.
+              and cloud platforms like Vercel and AWS. We choose the best tools for each project&apos;s specific needs.
             </p>
           </details>
         </>
-      ),
-    },
-    {
-      id: "pricing",
-      title: "Pricing & Terms",
-      content: (
-        <>
+  }, {
+    id: "pricing",
+    title: "Pricing & Terms",
+    content: <>
           <details className={styles.faqItem}>
             <summary className={styles.faqQuestion}>How much do your services cost?</summary>
             <p className={styles.faqAnswer}>
@@ -158,7 +142,7 @@ export default function FAQPage() {
           <details className={styles.faqItem}>
             <summary className={styles.faqQuestion}>What is your refund policy?</summary>
             <p className={styles.faqAnswer}>
-              We offer a satisfaction guarantee. If you're not happy with our work, we'll work to make it right.
+              We offer a satisfaction guarantee. If you&apos;re not happy with our work, we&apos;ll work to make it right.
               Refunds are considered on a case-by-case basis for deposits on cancelled projects.
             </p>
           </details>
@@ -166,21 +150,18 @@ export default function FAQPage() {
             <summary className={styles.faqQuestion}>Do you provide contracts?</summary>
             <p className={styles.faqAnswer}>
               Yes, we provide detailed project contracts outlining scope, timeline, deliverables, and terms.
-              All agreements are transparent and protect both parties' interests.
+              All agreements are transparent and protect both parties&apos; interests.
             </p>
           </details>
         </>
-      ),
-    },
-    {
-      id: "contact-support",
-      title: "Contact & Support",
-      content: (
-        <>
+  }, {
+    id: "contact-support",
+    title: "Contact & Support",
+    content: <>
           <details className={styles.faqItem}>
             <summary className={styles.faqQuestion}>How do I contact Lumyn?</summary>
             <p className={styles.faqAnswer}>
-              You can reach us through our contact form on the website or email us directly. We'll respond to all
+              You can reach us through our contact form on the website or email us directly. We&apos;ll respond to all
               inquiries within 24 hours and schedule a free consultation to discuss your project needs.
             </p>
           </details>
@@ -199,12 +180,8 @@ export default function FAQPage() {
             </p>
           </details>
         </>
-      ),
-    },
-  ]
-
-  return (
-    <>
+  }];
+  return <>
 
       <div className={styles.faqPage}>
         <section className={styles.hero}>
@@ -217,25 +194,16 @@ export default function FAQPage() {
 
         <section className={styles.contentSection}>
           <div className={styles.container}>
-            {sections.map((section, index) => (
-              <section
-                key={section.id}
-                id={section.id}
-                ref={(el) => {
-                  sectionRefs.current[section.id] = el
-                }}
-                className={`${styles.sectionCard} ${visibleSections.has(section.id) ? styles.visible : ""}`}
-                style={{
-                  animationDelay: `${index * 0.1}s`,
-                }}
-              >
+            {sections.map((section, index) => <section key={section.id} id={section.id} ref={el => {
+            sectionRefs.current[section.id] = el;
+          }} className={`${styles.sectionCard} ${visibleSections.has(section.id) ? styles.visible : ""}`} style={{
+            animationDelay: `${index * 0.1}s`
+          }}>
                 <h2 className={styles.sectionTitle}>{section.title}</h2>
                 <div className={styles.sectionContent}>{section.content}</div>
-              </section>
-            ))}
+              </section>)}
           </div>
         </section>
       </div>
-    </>
-  )
+    </>;
 }

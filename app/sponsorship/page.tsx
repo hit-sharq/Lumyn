@@ -1,112 +1,73 @@
-"use client"
+"use client";
 
-import { useEffect, useRef, useState } from "react"
-import Head from "next/head"
-import Link from "next/link"
-import styles from "./sponsorship.module.css"
-
+import { useEffect, useRef, useState } from "react";
+import Head from "next/head";
+import Link from "next/link";
+import styles from "./sponsorship.module.css";
 interface SponsorshipTier {
-  id: string
-  name: string
-  amount: string
-  color: string
-  benefits: string[]
+  id: string;
+  name: string;
+  amount: string;
+  color: string;
+  benefits: string[];
 }
-
-const sponsorshipTiers: SponsorshipTier[] = [
-  {
-    id: "supporter",
-    name: "Supporter",
-    amount: "$100",
-    color: "#051F20",
-    benefits: [
-      "Recognition on Lumyn's social media platforms",
-      "A personalized thank-you email from the Lumyn team",
-      "Invitation to attend one of our tech events or webinars",
-    ],
-  },
-  {
-    id: "advocate",
-    name: "Advocate",
-    amount: "$250",
-    color: "#0B2B26",
-    benefits: [
-      "All benefits from the Supporter level",
-      "Logo or name featured on project showcases and promotional materials",
-      "Verbal recognition at one of our major tech events",
-    ],
-  },
-  {
-    id: "partner",
-    name: "Partner",
-    amount: "$500",
-    color: "#163832",
-    benefits: [
-      "All benefits from the Advocate level",
-      "Logo or name featured on Lumyn's website and newsletters",
-      "Opportunity to showcase your business or organization at a Lumyn event",
-      "Special recognition at our annual tech conferences",
-    ],
-  },
-  {
-    id: "custom",
-    name: "Custom Sponsorship",
-    amount: "Open",
-    color: "#235347",
-    benefits: [
-      "Open contributions of any amount",
-      "Discussion of aligned sponsorship opportunities",
-      "In-kind donations, services, or monetary contributions",
-      "Support to help Lumyn innovate and grow",
-    ],
-  },
-]
-
+const sponsorshipTiers: SponsorshipTier[] = [{
+  id: "supporter",
+  name: "Supporter",
+  amount: "$100",
+  color: "#051F20",
+  benefits: ["Recognition on Lumyn's social media platforms", "A personalized thank-you email from the Lumyn team", "Invitation to attend one of our tech events or webinars"]
+}, {
+  id: "advocate",
+  name: "Advocate",
+  amount: "$250",
+  color: "#0B2B26",
+  benefits: ["All benefits from the Supporter level", "Logo or name featured on project showcases and promotional materials", "Verbal recognition at one of our major tech events"]
+}, {
+  id: "partner",
+  name: "Partner",
+  amount: "$500",
+  color: "#163832",
+  benefits: ["All benefits from the Advocate level", "Logo or name featured on Lumyn's website and newsletters", "Opportunity to showcase your business or organization at a Lumyn event", "Special recognition at our annual tech conferences"]
+}, {
+  id: "custom",
+  name: "Custom Sponsorship",
+  amount: "Open",
+  color: "#235347",
+  benefits: ["Open contributions of any amount", "Discussion of aligned sponsorship opportunities", "In-kind donations, services, or monetary contributions", "Support to help Lumyn innovate and grow"]
+}];
 export default function SponsorshipPage() {
-  const [visibleCards, setVisibleCards] = useState<Set<string>>(new Set())
-  const cardRefs = useRef<{ [key: string]: HTMLDivElement | null }>({})
-
+  const [visibleCards, setVisibleCards] = useState<Set<string>>(new Set());
+  const cardRefs = useRef<{
+    [key: string]: HTMLDivElement | null;
+  }>({});
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setVisibleCards((prev) => new Set(prev).add(entry.target.id))
-          }
-        })
-      },
-      { threshold: 0.2 },
-    )
-
-    Object.values(cardRefs.current).forEach((ref) => {
-      if (ref) observer.observe(ref)
-    })
-
-    return () => observer.disconnect()
-  }, [])
-
-  return (
-    <>
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setVisibleCards(prev => new Set(prev).add(entry.target.id));
+        }
+      });
+    }, {
+      threshold: 0.2
+    });
+    Object.values(cardRefs.current).forEach(ref => {
+      if (ref) observer.observe(ref);
+    });
+    return () => observer.disconnect();
+  }, []);
+  return <>
       <Head>
         <title>Sponsorship Opportunities | Lumyn - Tech Company</title>
-        <meta
-          name="description"
-          content="Partner with Lumyn, a forward-thinking tech company. Support our digital solutions and gain recognition through various sponsorship levels."
-        />
+        <meta name="description" content="Partner with Lumyn, a forward-thinking tech company. Support our digital solutions and gain recognition through various sponsorship levels." />
         <meta name="keywords" content="Lumyn, tech company, sponsorship, partner, support, digital solutions, web development" />
         <meta property="og:title" content="Sponsorship Opportunities | Lumyn - Tech Company" />
-        <meta
-          property="og:description"
-          content="Partner with Lumyn, a forward-thinking tech company. Support our digital solutions and gain recognition through various sponsorship levels."
-        />
+        <meta property="og:description" content="Partner with Lumyn, a forward-thinking tech company. Support our digital solutions and gain recognition through various sponsorship levels." />
         <meta property="og:url" content="https://www.lumyn.co.ke/sponsorship" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Sponsorship Opportunities | Lumyn - Tech Company" />
-        <meta
-          name="twitter:description"
-          content="Partner with Lumyn, a forward-thinking tech company. Support our digital solutions and gain recognition through various sponsorship levels."
-        />
+        <meta name="twitter:description" content="Partner with Lumyn, a forward-thinking tech company. Support our digital solutions and gain recognition through various sponsorship levels." />
         <link rel="canonical" href="https://www.lumyn.co.ke/sponsorship" />
       </Head>
       <div className={styles.sponsorshipPage}>
@@ -128,37 +89,27 @@ export default function SponsorshipPage() {
         <div className={styles.container}>
           <h2 className={styles.sectionTitle}>Sponsorship Opportunities</h2>
           <p className={styles.sectionDescription}>
-            Choose a sponsorship level that aligns with your organization's goals and budget
+            Choose a sponsorship level that aligns with your organization&apos;s goals and budget
           </p>
 
           <div className={styles.tiersContainer}>
-            {sponsorshipTiers.map((tier, index) => (
-              <div
-                key={tier.id}
-                id={tier.id}
-                ref={(el) => {
-                  cardRefs.current[tier.id] = el
-                }}
-                className={`${styles.tierCard} ${visibleCards.has(tier.id) ? styles.visible : ""}`}
-                style={{
-                  backgroundColor: tier.color,
-                  animationDelay: `${index * 0.15}s`,
-                }}
-              >
+            {sponsorshipTiers.map((tier, index) => <div key={tier.id} id={tier.id} ref={el => {
+              cardRefs.current[tier.id] = el;
+            }} className={`${styles.tierCard} ${visibleCards.has(tier.id) ? styles.visible : ""}`} style={{
+              backgroundColor: tier.color,
+              animationDelay: `${index * 0.15}s`
+            }}>
                 <div className={styles.tierHeader}>
                   <h3 className={styles.tierName}>{tier.name}</h3>
                   <p className={styles.tierAmount}>{tier.amount}</p>
                 </div>
                 <ul className={styles.benefitsList}>
-                  {tier.benefits.map((benefit, idx) => (
-                    <li key={idx} className={styles.benefitItem}>
+                  {tier.benefits.map((benefit, idx) => <li key={idx} className={styles.benefitItem}>
                       <span className={styles.checkmark}>✓</span>
                       {benefit}
-                    </li>
-                  ))}
+                    </li>)}
                 </ul>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
       </section>
@@ -232,12 +183,7 @@ export default function SponsorshipPage() {
               </p>
                <p className={styles.contactText}>
                  <strong>Instagram:</strong>{" "}
-                 <a
-                   href="https://www.instagram.com/lumyn_technologies"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   className={styles.contactLink}
-                 >
+                 <a href="https://www.instagram.com/lumyn_technologies" target="_blank" rel="noopener noreferrer" className={styles.contactLink}>
                    @lumyn_technologies
                  </a>
                </p>
@@ -261,6 +207,5 @@ export default function SponsorshipPage() {
         </div>
       </section>
     </div>
-    </>
-  )
+    </>;
 }
