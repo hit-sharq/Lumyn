@@ -149,7 +149,13 @@ export default function Header() {
             {isSignedIn ? (
               <>
                 <NotificationBell />
-                <UserButton afterSignOutUrl="/" />
+                <UserButton afterSignOutUrl="/" appearance={{
+                  elements: {
+                    userButtonAvatarBox: {
+                      boxShadow: '0 0 0 2px rgba(109, 129, 150, 0.6)',
+                    }
+                  }
+                }} />
               </>
             ) : (
               <SignInButton mode="modal">
