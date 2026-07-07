@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import Link from "next/link"
 import { useUser } from "@clerk/nextjs"
 import styles from "./admin.module.css"
 import NewsManager from "./components/news-manager"
@@ -16,8 +15,13 @@ import CareersManager from "./components/careers-manager"
 import PartnersManager from "./components/partners-manager"
 import StudioManager from "./components/studio-manager"
 import MarketManager from "./components/market-manager"
+import AnalyticsManager from "./components/analytics-manager"
+import ProposalsManager from "./components/proposals-manager"
+import MarketingManager from "./components/marketing-manager"
+import ServiceRequestsManager from "./components/service-requests-manager"
+import AIMarketingPageManager from "./components/ai-marketing-page-manager"
 
-type Tab = "news" | "blog" | "events" | "gallery" | "members" | "contacts" | "leadership" | "projects" | "careers" | "partners" | "studio" | "market"
+type Tab = "news" | "blog" | "events" | "gallery" | "members" | "contacts" | "leadership" | "projects" | "careers" | "partners" | "studio" | "market" | "analytics" | "proposals" | "marketing" | "service-requests" | "ai-marketing"
 
 export default function AdminPage() {
   const [activeTab, setActiveTab] = useState<Tab>("news")
@@ -186,24 +190,42 @@ export default function AdminPage() {
           <div className={styles.navSection}>
             <h3 className={styles.navSectionTitle}>GROWTH</h3>
           </div>
-          <Link href="/admin/ai-marketing" className={styles.navBtn}>
+          <button
+            className={`${styles.navBtn} ${activeTab === "ai-marketing" ? styles.navBtnActive : ""}`}
+            onClick={() => handleTabChange("ai-marketing")}
+          >
             AI Marketing Suite
-          </Link>
-          <Link href="/admin/proposals" className={styles.navBtn}>
+          </button>
+          <button
+            className={`${styles.navBtn} ${activeTab === "proposals" ? styles.navBtnActive : ""}`}
+            onClick={() => handleTabChange("proposals")}
+          >
             Enterprise Proposals
-          </Link>
-          <Link href="/admin/analytics" className={styles.navBtn}>
+          </button>
+          <button
+            className={`${styles.navBtn} ${activeTab === "analytics" ? styles.navBtnActive : ""}`}
+            onClick={() => handleTabChange("analytics")}
+          >
             Analytics
-          </Link>
-          <Link href="/admin/marketing" className={styles.navBtn}>
+          </button>
+          <button
+            className={`${styles.navBtn} ${activeTab === "marketing" ? styles.navBtnActive : ""}`}
+            onClick={() => handleTabChange("marketing")}
+          >
             Marketing Blasts
-          </Link>
-          <Link href="/admin/partners" className={styles.navBtn}>
+          </button>
+          <button
+            className={`${styles.navBtn} ${activeTab === "partners" ? styles.navBtnActive : ""}`}
+            onClick={() => handleTabChange("partners")}
+          >
             Partners
-          </Link>
-          <Link href="/admin/service-requests" className={styles.navBtn}>
+          </button>
+          <button
+            className={`${styles.navBtn} ${activeTab === "service-requests" ? styles.navBtnActive : ""}`}
+            onClick={() => handleTabChange("service-requests")}
+          >
             Service Requests
-          </Link>
+          </button>
           <div className={styles.navSection}>
             <h3 className={styles.navSectionTitle}>GDPR</h3>
             <button
@@ -267,6 +289,11 @@ export default function AdminPage() {
          {activeTab === "partners" && <PartnersManager />}
          {activeTab === "studio" && <StudioManager />}
          {activeTab === "market" && <MarketManager />}
+         {activeTab === "analytics" && <AnalyticsManager />}
+         {activeTab === "proposals" && <ProposalsManager />}
+         {activeTab === "marketing" && <MarketingManager />}
+         {activeTab === "service-requests" && <ServiceRequestsManager />}
+         {activeTab === "ai-marketing" && <AIMarketingPageManager />}
       </div>
     </div>
   )

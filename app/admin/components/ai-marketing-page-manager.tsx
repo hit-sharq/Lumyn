@@ -1,29 +1,13 @@
-import { auth } from "@clerk/nextjs/server"
-import { redirect } from "next/navigation"
-import styles from "../growth.module.css"
-import Link from "next/link"
+"use client"
+
 import { AIContentGenerator } from "@/app/admin/components/ai-content-generator"
 import { AICampaignBuilder } from "@/app/admin/components/ai-campaign-builder"
 import { AIMarketingTabs } from "@/app/admin/components/ai-marketing-tabs"
+import styles from "../growth.module.css"
 
-export default async function AdminAIMarketingPage() {
-  const { userId } = await auth()
-
-  // server-side admin check
-  const { isAdmin } = await import("@/lib/admin").then((m) => ({ isAdmin: m.isAdminUser(userId) }))
-
-  if (!isAdmin) {
-    redirect("/admin")
-  }
-
-
+export default function AIMarketingPageManager() {
   return (
     <main className={styles.growthPage}>
-      <div>
-        <Link href="/admin" className={styles.growthBack}>
-          ← Back to Admin
-        </Link>
-      </div>
       <div className={styles.growthHeader}>
         <h1 className={styles.growthTitle}>AI Marketing Suite</h1>
         <p className={styles.growthSubtitle}>

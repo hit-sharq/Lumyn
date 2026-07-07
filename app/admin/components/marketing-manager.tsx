@@ -1,24 +1,10 @@
-import { auth } from "@clerk/nextjs/server"
-import { redirect } from "next/navigation"
+"use client"
+
 import styles from "../growth.module.css"
-import { isAdminUser } from "@/lib/admin"
-import Link from "next/link"
 
-export default async function AdminMarketingPage() {
-  const { userId } = await auth()
-
-  if (!isAdminUser(userId)) {
-    redirect("/admin")
-  }
-
+export default function MarketingManager() {
   return (
-
     <main className={styles.growthPage}>
-      <div>
-          <Link href="/admin" className={styles.growthBack}>
-            ← Back to Admin
-          </Link>
-      </div>
       <div className={styles.growthHeader}>
         <h1 className={styles.growthTitle}>Marketing Command Center</h1>
         <p className={styles.growthSubtitle}>
