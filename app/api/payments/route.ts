@@ -21,16 +21,13 @@ export async function POST(request: NextRequest) {
     const { type, itemId, amount, currency = "KES", description } = body
 
     if (!type || !itemId || !amount) {
-      return NextResponse.json({ error: "Missing required fields: type, itemId, amount" }, { status: 400 })
-    }
-
-    if (!process.env.PESAPAL_CONSUMER_KEY || !process.env.PESAPAL_CONSUMER_SECRET) {
-      return NextResponse.json({ error: "Payment gateway not configured" }, { status: 503 })
+      return NextResponse.json({ error: "Something's missing. Please refresh and try again." }, { status: 400 })
     }
 
     // ── Free-launch waiver ───────────────────────────────────────────────
     // During FREE_LAUNCH, Lumyn-owned products (Hire posts, AI Pro) are free.
     // No charge is made; the asset is activated the same way a paid IPN would.
+    // This runs FIRST so free users are never blocked by gateway config.
     const freeLaunch = await isFreeLaunch()
     if (freeLaunch && FREE_PHASE_PAYMENT_TYPES.includes(type)) {
       const freeRef = randomUUID()
@@ -88,6 +85,14 @@ export async function POST(request: NextRequest) {
         merchant_reference: freeRef,
         free: true,
       })
+    }
+
+    // Paid flow only: the gateway must be configured for real charges.
+    if (!process.env.PESAPAL_CONSUMER_KEY || !process.env.PESAPAL_CONSUMER_SECRET) {
+      return NextResponse.json(
+        { error: "Payments are temporarily unavailable. Please try again later or contact support@lumyn.co.ke." },
+        { status: 503 }
+      )
     }
 
     const merchantReference = randomUUID()

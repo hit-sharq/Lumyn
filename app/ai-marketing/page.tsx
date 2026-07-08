@@ -6,6 +6,7 @@ import Head from "next/head";
 import { useUser, SignInButton } from "@clerk/nextjs";
 import styles from "./page.module.css";
 import { PublicContentGenerator } from "./components/public-content-generator";
+import ErrorMessage from "@/components/ErrorMessage";
 
 const SITE_URL = process.env.NEXT_PUBLIC_APP_URL || "https://www.lumyn.co.ke"
 
@@ -20,6 +21,7 @@ export default function AIMarketingPage() {
   const { isSignedIn, isLoaded } = useUser();
   const [activeTool, setActiveTool] = useState<string>("generate");
   const [hasSubscription, setHasSubscription] = useState(false);
+  const [payError, setPayError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!isSignedIn) {
@@ -53,6 +55,7 @@ export default function AIMarketingPage() {
       return;
     }
 
+    setPayError(null);
     try {
       const res = await fetch("/api/payments", {
         method: "POST",
@@ -70,7 +73,7 @@ export default function AIMarketingPage() {
       if (!res.ok) throw new Error(data.error || "Payment initiation failed");
       window.location.href = data.redirect_url;
     } catch (err: any) {
-      alert(err.message || "Something went wrong. Please try again.");
+      setPayError(err.message || "Something went wrong. Please try again.");
     }
   };
 
@@ -126,6 +129,7 @@ export default function AIMarketingPage() {
       />
 
       <div className={styles.page}>
+      <ErrorMessage message={payError} onClose={() => setPayError(null)} />
       {/* Hero */}
       <section className={styles.hero}>
         <div className={styles.heroBackground} />

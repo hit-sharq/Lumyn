@@ -19,10 +19,15 @@ export async function getSystemConfig() {
 
 export async function getPricingPhase(): Promise<PricingPhase> {
   if (cache && Date.now() - cache.ts < TTL_MS) return cache.phase
-  const config = await prisma.systemConfig.findUnique({ where: { id: 1 } })
-  const phase = (config?.pricingPhase as PricingPhase) ?? "FREE_LAUNCH"
-  cache = { phase, ts: Date.now() }
-  return phase
+  try {
+    const config = await prisma.systemConfig.findUnique({ where: { id: 1 } })
+    const phase = (config?.pricingPhase as PricingPhase) ?? "FREE_LAUNCH"
+    cache = { phase, ts: Date.now() }
+    return phase
+  } catch {
+    // Table missing or DB error → fail safe to free launch rather than block.
+    return "FREE_LAUNCH"
+  }
 }
 
 export async function isFreeLaunch(): Promise<boolean> {

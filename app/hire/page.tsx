@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "@clerk/nextjs";
 import Link from "next/link";
 import styles from "./hire.module.css";
+import ErrorMessage from "@/components/ErrorMessage";
 const CATEGORIES = ["All", "Technology", "Design", "Marketing", "Finance", "Healthcare", "Education", "Operations", "Sales", "Other"];
 const JOB_TYPES = ["Full-time", "Part-time", "Contract", "Freelance", "Internship"];
 const PLANS = [{
@@ -69,6 +70,7 @@ export default function HirePage() {
   });
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [payError, setPayError] = useState<string | null>(null);
   useEffect(() => {
     const params = new URLSearchParams();
     if (selectedCategory !== "All") params.set("category", selectedCategory);
@@ -79,7 +81,11 @@ export default function HirePage() {
   }, [selectedCategory]);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!isSignedIn) return alert("Please sign in to post a job.");
+    setPayError(null);
+    if (!isSignedIn) {
+      setPayError("Please sign in to post a job.");
+      return;
+    }
     setSubmitting(true);
     try {
       const jobRes = await fetch("/api/hire", {
@@ -112,7 +118,7 @@ export default function HirePage() {
       if (!payRes.ok) throw new Error(payment.error);
       window.location.href = payment.redirect_url;
     } catch (err: any) {
-      alert(err.message || "Something went wrong. Please try again.");
+      setPayError(err.message || "Something went wrong. Please try again.");
     } finally {
       setSubmitting(false);
     }
@@ -221,6 +227,8 @@ export default function HirePage() {
               <h2 className={styles.sectionTitle}>Post a Job on Lumyn</h2>
               <p className={styles.sectionSub}>Choose a plan, fill in your listing, and pay via M-Pesa, card, or bank transfer through Pesapal.</p>
             </div>
+
+            <ErrorMessage message={payError} onClose={() => setPayError(null)} />
 
             <div className={styles.plansGrid}>
               {PLANS.map(plan => <div key={plan.id} className={`${styles.planCard} ${form.plan === plan.id ? styles.selectedPlan : ""} ${plan.popular ? styles.popularPlan : ""}`} onClick={() => setForm(f => ({
