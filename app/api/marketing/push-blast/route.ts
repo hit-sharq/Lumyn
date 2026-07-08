@@ -15,8 +15,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 })
     }
 
-    const body = await request.json()
-    const { title, message, segment, url } = body
+    const formData = await request.formData()
+    const body = Object.fromEntries(formData.entries())
+    const { title, message, segment, url } = body as { title?: string; message?: string; segment?: string; url?: string }
 
     if (!title || !message) {
       return NextResponse.json({ error: "Missing title or message" }, { status: 400 })
