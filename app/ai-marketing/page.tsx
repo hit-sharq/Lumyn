@@ -29,7 +29,8 @@ export default function AIMarketingPage() {
 
     fetch("/api/ai-marketing/subscription")
       .then((res) => res.json())
-      .then((data) => setHasSubscription(data.hasSubscription))
+      // During FREE_LAUNCH everyone is treated as subscribed (unlimited).
+      .then((data) => setHasSubscription(!!data.hasSubscription || !!data.freeLaunch))
       .catch(() => setHasSubscription(false))
   }, [isSignedIn])
 

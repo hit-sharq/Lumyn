@@ -3,6 +3,9 @@ import { auth, currentUser } from "@clerk/nextjs/server"
 import { submitOrder, registerIPN } from "@/lib/pesapal"
 import { prisma } from "@/lib/prisma"
 import { randomUUID } from "crypto"
+import { isFreeLaunch } from "@/lib/pricing"
+import { FREE_PHASE_PAYMENT_TYPES } from "@/lib/pricing-config"
+import { recordJobPost, recordAIGeneration } from "@/lib/pricing-eval"
 
 export async function POST(request: NextRequest) {
   try {
@@ -23,6 +26,68 @@ export async function POST(request: NextRequest) {
 
     if (!process.env.PESAPAL_CONSUMER_KEY || !process.env.PESAPAL_CONSUMER_SECRET) {
       return NextResponse.json({ error: "Payment gateway not configured" }, { status: 503 })
+    }
+
+    // ── Free-launch waiver ───────────────────────────────────────────────
+    // During FREE_LAUNCH, Lumyn-owned products (Hire posts, AI Pro) are free.
+    // No charge is made; the asset is activated the same way a paid IPN would.
+    const freeLaunch = await isFreeLaunch()
+    if (freeLaunch && FREE_PHASE_PAYMENT_TYPES.includes(type)) {
+      const freeRef = randomUUID()
+      const amountNum = parseFloat(amount)
+      await prisma.paymentOrder.create({
+        data: {
+          merchantReference: freeRef,
+          orderTrackingId: "FREE_LAUNCH",
+          userId,
+          userEmail: email,
+          type,
+          itemId,
+          amount: amountNum,
+          platformCommission: 0,
+          netPayout: amountNum,
+          currency,
+          status: "COMPLETED",
+        },
+      })
+
+      if (type === "job_post") {
+        await prisma.paidJobPost.update({
+          where: { id: itemId },
+          data: { isPaid: true, isPublished: true },
+        })
+        await recordJobPost()
+      } else if (type === "ai_marketing_subscription") {
+        const periodEnd = new Date()
+        periodEnd.setMonth(periodEnd.getMonth() + 1)
+        await prisma.subscription.upsert({
+          where: { userId_plan: { userId, plan: "ai_marketing_pro" } },
+          create: {
+            userId,
+            plan: "ai_marketing_pro",
+            status: "active",
+            currentPeriodStart: new Date(),
+            currentPeriodEnd: periodEnd,
+            nextBillingDate: periodEnd,
+          },
+          update: {
+            status: "active",
+            currentPeriodStart: new Date(),
+            currentPeriodEnd: periodEnd,
+            nextBillingDate: periodEnd,
+          },
+        })
+      }
+
+      const appUrl =
+        process.env.NEXT_PUBLIC_APP_URL ||
+        (process.env.REPLIT_DEV_DOMAIN ? `https://${process.env.REPLIT_DEV_DOMAIN}` : "http://localhost:5000")
+      const redirectTarget = type === "job_post" ? "/hire" : "/ai-marketing"
+      return NextResponse.json({
+        redirect_url: `${appUrl}${redirectTarget}?free=1`,
+        merchant_reference: freeRef,
+        free: true,
+      })
     }
 
     const merchantReference = randomUUID()

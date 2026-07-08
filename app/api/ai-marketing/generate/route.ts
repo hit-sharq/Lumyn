@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db/prisma";
+import { isFreeLaunch } from "@/lib/pricing";
+import { recordAIGeneration } from "@/lib/pricing-eval";
 import {
   generateSocialPost,
   generateEmailCopy,
@@ -178,8 +180,11 @@ export async function POST(request: NextRequest) {
         );
     }
 
-    const userId = request.headers.get("x-user-id") || "public-user";
-    const isPro = userId !== "public-user" && await hasActiveAISubscription(userId)
+    const userId = request.headers.get("x-user-id") || "public-user"
+    // During FREE_LAUNCH everyone is treated as Pro (unlimited generations).
+    const freeLaunch = await isFreeLaunch()
+    const isPro =
+      freeLaunch || (userId !== "public-user" && (await hasActiveAISubscription(userId)))
 
     if (!isPro) {
       const usage = await getUserMonthlyUsage(userId)
@@ -191,6 +196,9 @@ export async function POST(request: NextRequest) {
       }
       await incrementUserMonthlyUsage(userId)
     }
+
+    // Count every generation toward the launch-phase auto-switch threshold.
+    await recordAIGeneration()
 
     if (saveAsTemplate && templateTitle) {
       await prisma.aITemplate.create({

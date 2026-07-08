@@ -784,3 +784,12 @@ model AIMarketingUsage {
   @@index([month])
 }
 
+model SystemConfig {
+  id                Int       @id @default(1)
+  pricingPhase      String    @default("FREE_LAUNCH") // FREE_LAUNCH | PAID
+  freeLaunchEndedAt DateTime?
+  jobPostCount      Int       @default(0)
+  aiGenerationCount Int       @default(0)
+  updatedAt         DateTime  @updatedAt
+}
+
