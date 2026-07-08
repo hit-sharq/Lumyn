@@ -37,18 +37,23 @@ export default function Footer() {
           {/* Company */}
           <div className={styles.footerSection}>
             <h4 className={styles.footerHeading}>Company</h4>
-            <nav className={styles.footerLinks}>
-              <Link href="/about" className={styles.footerLink}>About</Link>
-              <Link href="/team" className={styles.footerLink}>Team</Link>
-              <Link href="/services" className={styles.footerLink}>Services</Link>
-              <Link href="/projects" className={styles.footerLink}>Projects</Link>
-              <Link href="/blog" className={styles.footerLink}>Blog</Link>
-              <Link href="/events" className={styles.footerLink}>Events</Link>
-              <Link href="/news" className={styles.footerLink}>News</Link>
-              <Link href="/careers" className={styles.footerLink}>Careers</Link>
-              <Link href="/partners" className={styles.footerLink}>Partners</Link>
-              <Link href="/contact" className={styles.footerLink}>Contact</Link>
-            </nav>
+            <div className={styles.footerLinkGrid}>
+              <nav className={styles.footerLinks}>
+                 <Link href="/about" className={styles.footerLink}>About</Link>
+                 <Link href="/team" className={styles.footerLink}>Team</Link>
+                 <Link href="/careers" className={styles.footerLink}>Careers</Link>
+                 <Link href="/services" className={styles.footerLink}>Services</Link>
+                 <Link href="/company-profile" className={styles.footerLink}>Company Profile</Link>
+                 <Link href="/projects" className={styles.footerLink}>Projects</Link>
+              </nav>
+              <nav className={styles.footerLinks}>
+                 <Link href="/partners" className={styles.footerLink}>Partners</Link>
+                 <Link href="/blog" className={styles.footerLink}>Blog</Link>
+                 <Link href="/events" className={styles.footerLink}>Events</Link>
+                 <Link href="/news" className={styles.footerLink}>News</Link>
+                 <Link href="/contact" className={styles.footerLink}>Contact</Link>
+              </nav>
+            </div>
           </div>
 
           {/* Products */}
