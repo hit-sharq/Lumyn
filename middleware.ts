@@ -59,6 +59,7 @@ const clerkHandler = authMiddleware({
     '/api/marketing/newsletter(.*)',
     '/api/marketing/sms-blast(.*)',
     '/api/marketing/push-blast(.*)',
+    '/api/clerk/webhook(.*)',
     '/api/partners(.*)',
     '/api/service-requests(.*)',
     '/notifications(.*)',
