@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/db/prisma"
+import { APP_URL } from "@/lib/app-url"
 
 const AT_USERNAME = process.env.AFRICASTALKING_USERNAME || "sandbox"
 const AT_API_KEY = process.env.AFRICASTALKING_API_KEY
@@ -64,7 +65,7 @@ export async function sendWeeklyJobDigest({
   jobs.slice(0, 5).forEach((job, i) => {
     message += `${i + 1}. ${job.title} at ${job.company} (${job.location})\n   Apply: ${job.applyUrl}\n\n`
   })
-  message += `Browse all jobs: ${process.env.NEXT_PUBLIC_APP_URL}/hire`
+  message += `Browse all jobs: ${APP_URL}/hire`
 
   return sendWhatsApp({ to, message })
 }

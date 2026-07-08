@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/db/prisma"
 import { auth } from "@clerk/nextjs/server"
 import { sendEmail } from "@/lib/email/service"
+import { APP_URL } from "@/lib/app-url"
 import { isAdminUser } from "@/lib/admin"
 
 export async function GET(request: NextRequest) {
@@ -74,7 +75,7 @@ export async function POST(request: NextRequest) {
           <p><strong>Timeline:</strong> ${timeline || "Not specified"}</p>
           <p><strong>Message:</strong></p>
           <p>${message}</p>
-          <p><a href="${process.env.NEXT_PUBLIC_APP_URL}/admin/service-requests">View in Admin Panel</a></p>
+          <p><a href="${APP_URL}/admin/service-requests">View in Admin Panel</a></p>
         `,
       })
     }

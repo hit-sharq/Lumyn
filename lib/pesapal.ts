@@ -31,9 +31,9 @@ export async function getPesapalToken(): Promise<string> {
   return data.token
 }
 
-export async function registerIPN(): Promise<string> {
+export async function registerIPN(baseUrl: string = "https://www.lumyn.co.ke"): Promise<string> {
   const token = await getPesapalToken()
-  const ipnUrl = `${process.env.NEXT_PUBLIC_APP_URL || process.env.REPLIT_DEV_DOMAIN || "http://localhost:3000"}/api/payments/ipn`
+  const ipnUrl = `${baseUrl}/api/payments/ipn`
 
   const res = await fetch(`${PESAPAL_BASE_URL}/api/URLSetup/RegisterIPN`, {
     method: "POST",

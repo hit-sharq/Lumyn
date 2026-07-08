@@ -3,6 +3,7 @@ import { auth } from "@clerk/nextjs/server"
 import { prisma } from "@/lib/db/prisma"
 import { sendNewsletter } from "@/lib/email/templates"
 import { isAdminUser } from "@/lib/admin"
+import { APP_URL } from "@/lib/app-url"
 
 export async function POST(request: NextRequest) {
   try {
@@ -52,7 +53,7 @@ export async function POST(request: NextRequest) {
           to: m.email,
           subject,
           body: content.replace("{{name}}", m.firstName || "there"),
-          unsubscribeUrl: `${process.env.NEXT_PUBLIC_APP_URL}/newsletter/unsubscribe?email=${encodeURIComponent(m.email)}`,
+          unsubscribeUrl: `${APP_URL}/newsletter/unsubscribe?email=${encodeURIComponent(m.email)}`,
         })
       )
     )

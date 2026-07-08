@@ -76,12 +76,10 @@ export async function POST(request: NextRequest) {
         })
       }
 
-      const appUrl =
-        process.env.NEXT_PUBLIC_APP_URL ||
-        (process.env.REPLIT_DEV_DOMAIN ? `https://${process.env.REPLIT_DEV_DOMAIN}` : "http://localhost:5000")
+      const origin = request.nextUrl.origin
       const redirectTarget = type === "job_post" ? "/hire" : "/ai-marketing"
       return NextResponse.json({
-        redirect_url: `${appUrl}${redirectTarget}?free=1`,
+        redirect_url: `${origin}${redirectTarget}?free=1`,
         merchant_reference: freeRef,
         free: true,
       })
@@ -96,14 +94,13 @@ export async function POST(request: NextRequest) {
     }
 
     const merchantReference = randomUUID()
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL ||
-      (process.env.REPLIT_DEV_DOMAIN ? `https://${process.env.REPLIT_DEV_DOMAIN}` : "http://localhost:5000")
+    const appUrl = request.nextUrl.origin
 
     const callbackUrl = `${appUrl}/payment/callback?type=${type}&itemId=${itemId}&ref=${merchantReference}`
 
     let ipnId = process.env.PESAPAL_IPN_ID || ""
     if (!ipnId) {
-      try { ipnId = await registerIPN() } catch { ipnId = "" }
+      try { ipnId = await registerIPN(appUrl) } catch { ipnId = "" }
     }
 
     const result = await submitOrder({
