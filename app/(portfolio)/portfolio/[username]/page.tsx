@@ -41,7 +41,7 @@ export default async function PublicPortfolioPage({ params }: PageProps) {
     <iframe
       srcDoc={renderedHtml}
       title={`${portfolio.displayName} portfolio`}
-      style={{ position: 'fixed', inset: 0, width: '100%', height: '100%', border: 0, zIndex: 9999, background: '#fff' }}
+      style={{ position: 'fixed', inset: 0, width: '100%', height: '100%', border: 0, zIndex: 9999 }}
       loading="eager"
     />
   )

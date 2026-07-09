@@ -295,6 +295,25 @@ const templates = [
     htmlFile: "startup-launch",
     downloadUrl: "https://example.com/templates/startup-launch.zip",
   },
+  {
+    title: "THE BIG SIX | Art Marketplace",
+    description:
+      "A premium art marketplace template for selling original artworks. Features gallery grid, artist profiles, artwork cards, pricing, and an 'Apply to Sell' CTA. Built for curators and collectors.",
+    category: "Marketplace",
+    previewImage:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&q=80",
+    previewImages: [
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&q=80",
+      "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=1200&q=80",
+    ],
+    tags: ["Art", "Marketplace", "Gallery", "Premium"],
+    isFree: false,
+    price: 3499,
+    featured: true,
+    isPublished: true,
+    htmlFile: "art-marketplace",
+    downloadUrl: "https://example.com/templates/art-marketplace.zip",
+  },
 ]
 
 function readTemplateHtml(htmlFile: string): string {
