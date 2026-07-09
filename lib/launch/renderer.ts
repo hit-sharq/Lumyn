@@ -121,6 +121,8 @@ export function renderPortfolioTemplate(templateHtml: string, portfolio: any): s
   html = html.replace("{{projectsHtml}}", buildProjectsHtml(projects))
   html = html.replace("{{linksHtml}}", buildLinksHtml(socialLinks))
   html = html.replace("{{contactLinksHtml}}", buildContactLinksHtml(socialLinks))
+  html = html.replace(/class="reveal(?![\w-])/g, 'class="reveal in')
+  html = html.replace(/(<style[^>]*>)/i, `$1.reveal{opacity:1!important;transform:none!important;transition:none!important;}`)
 
   return html
 }

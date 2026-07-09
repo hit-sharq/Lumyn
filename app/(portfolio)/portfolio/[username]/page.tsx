@@ -13,14 +13,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       where: { username: params.username },
       select: { displayName: true, title: true, about: true, isPublished: true },
     })
-    if (!portfolio || !portfolio.isPublished) return { title: "Portfolio not found | Lumyn" }
+    if (!portfolio || !portfolio.isPublished) return { title: "Portfolio not found" }
     const name = portfolio.displayName || params.username
     return {
       title: `${name} | Portfolio`,
       description: portfolio.title || portfolio.about || `View ${name}'s portfolio.`,
     }
   } catch {
-    return { title: "Portfolio | Lumyn" }
+    return { title: "Portfolio" }
   }
 }
 
@@ -41,8 +41,8 @@ export default async function PublicPortfolioPage({ params }: PageProps) {
     <iframe
       srcDoc={renderedHtml}
       title={`${portfolio.displayName} portfolio`}
-      style={{ width: "100%", height: "100vh", border: 0, display: "block" }}
-      sandbox="allow-scripts allow-same-origin allow-forms"
+      style={{ position: 'fixed', inset: 0, width: '100%', height: '100%', border: 0, zIndex: 9999, background: '#fff' }}
+      loading="eager"
     />
   )
 }
