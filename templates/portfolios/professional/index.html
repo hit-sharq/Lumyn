@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bold Professional Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #080c14; --bg-2: #0e1320; --surface: rgba(255,255,255,0.035);
+      --accent: #38bdf8; --accent-light: #7dd3fc; --accent-2: #818cf8;
+      --cream: #e7e1d1; --cream-bright: #f3ecdb;
+      --muted: rgba(231,225,209,0.56); --muted-2: rgba(231,225,209,0.36);
+      --border: rgba(56,189,248,0.18); --border-strong: rgba(56,189,248,0.45);
+      --serif: 'Playfair Display', serif; --sans: 'Inter', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--bg); color: var(--cream); line-height: 1.7; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    ::selection { background: rgba(56,189,248,0.28); color: var(--cream-bright); }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 1s cubic-bezier(0.16,1,0.3,1), transform 1s cubic-bezier(0.16,1,0.3,1); }
+    .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+    header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 22px 0; background: rgba(8,12,20,0.6); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border-bottom: 0.5px solid var(--border); transition: padding 0.5s cubic-bezier(0.16,1,0.3,1), background 0.5s ease; }
+    header.scrolled { padding: 14px 0; background: rgba(8,12,20,0.96); border-bottom-color: var(--border-strong); }
+    nav { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-family: var(--serif); font-size: 1.45rem; font-weight: 500; color: var(--accent); text-decoration: none; letter-spacing: 0.1em; transition: letter-spacing 0.5s cubic-bezier(0.16,1,0.3,1); }
+    header.scrolled .logo { letter-spacing: 0.16em; }
+    .nav-links { display: flex; gap: 40px; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; position: relative; transition: color 0.4s; }
+    .nav-links a::after { content: ''; position: absolute; left: 0; bottom: -8px; width: 0; height: 0.5px; background: var(--accent); transition: width 0.45s cubic-bezier(0.16,1,0.3,1); }
+    .nav-links a:hover { color: var(--cream-bright); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta { padding: 12px 28px; background: var(--accent); color: #080c14; text-decoration: none; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; border: 0.5px solid var(--accent); transition: all 0.45s cubic-bezier(0.16,1,0.3,1); cursor: pointer; }
+    .nav-cta:hover { background: var(--accent-light); border-color: var(--accent-light); transform: translateY(-3px); box-shadow: 0 8px 28px rgba(56,189,248,0.22); }
+
+    .hero { padding: 240px 0 170px; position: relative; text-align: center; background: radial-gradient(120% 120% at 50% -10%, rgba(56,189,248,0.10) 0%, transparent 55%), radial-gradient(100% 100% at 90% 10%, rgba(129,140,248,0.08) 0%, transparent 50%), var(--bg); }
+    .hero::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(135deg, transparent, transparent 70px, rgba(255,255,255,0.012) 1px); pointer-events: none; }
+    .hero-avatar { width: 140px; height: 140px; border-radius: 50%; margin: 0 auto 36px; background: var(--bg-2); border: 0.5px solid var(--border); overflow: hidden; position: relative; }
+    .hero-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-avatar::after { content: ''; position: absolute; inset: -5px; border-radius: 50%; border: 0.5px solid var(--accent); opacity: 0.35; }
+    .hero h1 { font-family: var(--serif); font-size: clamp(3.2rem, 7vw, 5.5rem); font-weight: 500; line-height: 1.05; color: var(--cream-bright); }
+    .hero h1 .accent { color: var(--accent); }
+    .hero-subtitle { font-size: 1.15rem; color: var(--muted); max-width: 520px; margin: 24px auto 0; font-weight: 300; line-height: 1.8; }
+    .hero-cta-row { display: flex; justify-content: center; gap: 18px; margin-top: 40px; }
+    .cta-primary { padding: 14px 32px; background: var(--accent); color: #080c14; text-decoration: none; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; border: 0.5px solid var(--accent); border-radius: 100px; transition: all 0.45s cubic-bezier(0.16,1,0.3,1); }
+    .cta-primary:hover { background: var(--accent-light); border-color: var(--accent-light); transform: translateY(-3px); box-shadow: 0 8px 28px rgba(56,189,248,0.25); }
+    .cta-secondary { padding: 14px 32px; background: transparent; color: var(--cream); text-decoration: none; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; border: 0.5px solid var(--border); border-radius: 100px; transition: all 0.4s; }
+    .cta-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+    section { padding: 120px 0; position: relative; }
+    .section-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; display: block; position: relative; }
+    .section-label::before { content: ''; display: inline-block; width: 24px; height: 0.5px; background: var(--accent); vertical-align: middle; margin-right: 12px; }
+    .section-title { font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem); font-weight: 500; line-height: 1.15; color: var(--cream-bright); margin: 0 0 20px; }
+    .section-desc { color: var(--muted); max-width: 600px; font-weight: 300; line-height: 1.8; }
+
+    .about-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 80px; align-items: start; margin-top: 60px; }
+    .about-text { font-family: var(--serif); font-size: 1.25rem; line-height: 1.85; color: var(--cream); font-weight: 400; }
+    .about-meta { border: 0.5px solid var(--border); border-radius: 20px; padding: 32px; background: var(--bg-2); }
+    .meta-row { display: flex; justify-content: space-between; padding: 14px 0; border-bottom: 0.5px solid var(--border); }
+    .meta-row:last-child { border-bottom: none; }
+    .meta-label { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+    .meta-value { font-size: 0.9rem; font-weight: 500; color: var(--cream-bright); }
+
+    .projects-band { background: var(--bg-2); border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); padding: 120px 0; }
+    .projects-list { margin-top: 64px; display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 0.5px solid var(--border); }
+    .project-row { display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; background: var(--bg); padding: 32px 36px; transition: background 0.5s; position: relative; overflow: hidden; }
+    .project-row::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: linear-gradient(90deg, rgba(56,189,248,0.08), transparent); transition: width 0.5s; }
+    .project-row:hover::before { width: 100%; }
+    .project-row:hover { background: var(--bg-2); }
+    .project-title { font-family: var(--serif); font-size: 1.6rem; font-weight: 500; color: var(--cream-bright); margin-bottom: 6px; }
+    .project-category { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 10px; }
+    .project-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.6; max-width: 640px; }
+    .project-tags { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+    .project-tag { font-size: 0.68rem; padding: 3px 10px; border-radius: 100px; background: var(--surface); color: var(--muted); border: 0.5px solid var(--border); }
+    .project-arrow { width: 44px; height: 44px; border-radius: 50%; border: 0.5px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--muted); transition: all 0.45s cubic-bezier(0.16,1,0.3,1); flex-shrink: 0; }
+    .project-row:hover .project-arrow { color: var(--accent); border-color: var(--accent); transform: translateX(6px); }
+
+    .skills-band { padding: 100px 0; }
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 14px; margin-top: 60px; }
+    .skill-card { padding: 22px; border: 0.5px solid var(--border); border-radius: 16px; background: var(--bg-2); text-align: center; transition: all 0.4s; }
+    .skill-card:hover { border-color: var(--accent); transform: translateY(-6px); background: var(--surface); }
+    .skill-card-name { font-size: 0.82rem; font-weight: 600; color: var(--cream); margin-top: 10px; }
+    .skill-card-icon { font-size: 1.4rem; color: var(--accent); }
+
+    .contact { border-top: 0.5px solid var(--border); }
+    .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-top: 60px; }
+    .contact-email { font-family: var(--serif); font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 500; color: var(--accent); text-decoration: none; display: inline-block; border-bottom: 0.5px solid var(--border); padding-bottom: 8px; transition: border-color 0.4s; margin-top: 20px; }
+    .contact-email:hover { border-color: var(--accent); }
+    .contact-socials { display: flex; gap: 14px; margin-top: 28px; }
+    .contact-social { width: 48px; height: 48px; border-radius: 50%; border: 0.5px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--muted); text-decoration: none; font-size: 0.82rem; font-weight: 600; transition: all 0.4s; background: var(--bg); }
+    .contact-social:hover { color: var(--accent); border-color: var(--accent); transform: translateY(-4px); background: var(--surface); }
+
+    footer { padding: 60px 0; text-align: center; position: relative; border-top: 0.5px solid var(--border); }
+    .footer-text { color: var(--muted-2); font-size: 0.74rem; letter-spacing: 0.06em; }
+
+    @media (max-width: 900px) {
+      .about-grid, .contact-inner { grid-template-columns: 1fr; }
+      .project-row { grid-template-columns: 1fr; }
+      .project-arrow { display: none; }
+    }
+    @media (max-width: 640px) {
+      .container { padding: 0 24px; }
+      .nav-links { display: none; }
+      .hero { padding: 200px 0 110px; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <a href="#" class="logo">james.k</a>
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#work">Work</a></li>
+          <li><a href="#expertise">Expertise</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <a href="mailto:james@example.com" class="nav-cta">Get in Touch</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-avatar reveal">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&q=80" alt="James" loading="eager">
+      </div>
+      <h1 class="reveal d1">Senior Product<br>Designer <span class="accent">&</span> Strategist</h1>
+      <p class="hero-subtitle reveal d2">Shaping digital products that bridge business goals with human needs. Based in Lagos. Working globally.</p>
+      <div class="hero-cta-row reveal d3">
+        <a href="#work" class="cta-primary">View Selected Work</a>
+        <a href="#contact" class="cta-secondary">Download Résumé</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="container">
+      <span class="section-label reveal">Profile</span>
+      <div class="about-grid">
+        <div>
+          <h2 class="section-title reveal d1">Driven by clarity. Measured by impact.</h2>
+          <p class="about-text reveal d2">I'm James, a senior product designer with 10+ years leading design at high-growth startups and consultancies. My work spans end-to-end product design, design systems, and design strategy.</p>
+          <p class="about-text reveal d3" style="margin-top: 24px;">I partner closely with founders, PMs, and engineering leads to move from ambiguity to shipped products—without losing craft.</p>
+        </div>
+        <div class="about-meta reveal d2">
+          <div class="meta-row">
+            <span class="meta-label">Experience</span>
+            <span class="meta-value">10+ years</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-label">Focus</span>
+            <span class="meta-value">Product / Strategy</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-label">Location</span>
+            <span class="meta-value">Lagos, NG</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-label">Availability</span>
+            <span class="meta-value">Open to select roles</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="work" class="projects-band">
+    <div class="container">
+      <span class="section-label reveal">Selected Work</span>
+      <h2 class="section-title reveal d1">Recent engagements</h2>
+      <p class="section-desc reveal d2">A representative sample of product design, systems, and strategy work.</p>
+      <div class="projects-list">
+        <div class="project-row reveal d1">
+          <div>
+            <div class="project-category">Product Design</div>
+            <div class="project-title">Payments Platform Redesign</div>
+            <p class="project-desc">Led end-to-end redesign of a B2B payments dashboard used by 2,000+ businesses, improving task completion by 34%.</p>
+            <div class="project-tags">
+              <span class="project-tag">Figma</span>
+              <span class="project-tag">Design System</span>
+              <span class="project-tag">User Research</span>
+            </div>
+          </div>
+          <div class="project-arrow">→</div>
+        </div>
+        <div class="project-row reveal d2">
+          <div>
+            <div class="project-category">Design Strategy</div>
+            <div class="project-title">HealthTech Scale-up</div>
+            <p class="project-desc">Established design org practices, hiring roadmap, and a component library adopted across 4 squads.</p>
+            <div class="project-tags">
+              <span class="project-tag">Org Design</span>
+              <span class="project-tag">Systems</span>
+              <span class="project-tag">Tokens</span>
+            </div>
+          </div>
+          <div class="project-arrow">→</div>
+        </div>
+        <div class="project-row reveal d3">
+          <div>
+            <div class="project-category">Mobile</div>
+            <div class="project-title">Marketplace iOS</div>
+            <p class="project-desc">Designed a peer-to-peer marketplace flow from onboarding to transaction, lifting retention by 21%.</p>
+            <div class="project-tags">
+              <span class="project-tag">iOS</span>
+              <span class="project-tag">Prototyping</span>
+              <span class="project-tag">Analytics</span>
+            </div>
+          </div>
+          <div class="project-arrow">→</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="expertise">
+    <div class="container">
+      <span class="section-label reveal">Expertise</span>
+      <h2 class="section-title reveal d1">Capabilities</h2>
+      <div class="skills-grid reveal d2">
+        <div class="skill-card">
+          <div class="skill-card-icon">◆</div>
+          <div class="skill-card-name">Product Strategy</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-icon">◆</div>
+          <div class="skill-card-name">Design Systems</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-icon">◆</div>
+          <div class="skill-card-name">User Research</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-icon">◆</div>
+          <div class="skill-card-name">Prototyping</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-icon">◆</div>
+          <div class="skill-card-name">Interaction Design</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-icon">◆</div>
+          <div class="skill-card-name">Web / Mobile</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-icon">◆</div>
+          <div class="skill-card-name">Design Tokens</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-icon">◆</div>
+          <div class="skill-card-name">Workshops</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="container">
+      <span class="section-label reveal">Contact</span>
+      <h2 class="section-title reveal d1">Let's build what's next</h2>
+      <p class="section-desc reveal d2">I'm selective about collaborations to ensure deep focus and strong outcomes.</p>
+      <a href="mailto:james@example.com" class="contact-email reveal d3">james@example.com</a>
+      <div class="contact-socials reveal d3">
+        <a href="#" class="contact-social">LI</a>
+        <a href="#" class="contact-social">TW</a>
+        <a href="#" class="contact-social">DR</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p class="footer-text">© 2025 James. Built with Lumyn Launch.</p>
+    </div>
+  </footer>
+
+  <script>
+    const header = document.querySelector('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 40);
+    });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => { if (entry.isIntersecting) entry.target.classList.add('in'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+  </script>
+</body>
+</html>
