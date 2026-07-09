@@ -7,7 +7,32 @@ import { PrismaClient } from "@prisma/client"
 
 const prisma = new PrismaClient()
 
-const portfolios = [
+interface SeedProject {
+  title: string
+  description: string
+  imageUrl: string
+  liveUrl: string
+  githubUrl?: string
+  tags: string[]
+  order: number
+}
+
+interface SeedPortfolio {
+  userId: string
+  userEmail: string
+  username: string
+  displayName: string
+  templateId: string
+  isPublished: boolean
+  title: string
+  about: string
+  avatarUrl: string
+  skills: string[]
+  socialLinks: Record<string, string>
+  projects: SeedProject[]
+}
+
+const portfolios: SeedPortfolio[] = [
   {
     userId: "demo-user-1",
     userEmail: "alex@example.com",
@@ -166,7 +191,7 @@ async function main() {
             description: project.description,
             imageUrl: project.imageUrl,
             liveUrl: project.liveUrl,
-            githubUrl: project.githubUrl,
+            githubUrl: project.githubUrl || null,
             tags: project.tags,
             order: project.order,
           })),

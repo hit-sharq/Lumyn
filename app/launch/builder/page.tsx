@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, Suspense } from "react"
+import { useEffect, useState, Suspense, useRef } from "react"
 import { useSearchParams } from "next/navigation"
 import { useUser, SignInButton } from "@clerk/nextjs"
 import Link from "next/link"
@@ -62,6 +62,9 @@ function BuilderContent() {
   const [newProject, setNewProject] = useState<Project>({
     title: "", description: "", imageUrl: "", liveUrl: "", githubUrl: "", tags: "",
   })
+  const [previewHtml, setPreviewHtml] = useState<string | null>(null)
+  const iframeRef = useRef<HTMLIFrameElement>(null)
+  const previewTimerRef = useRef<NodeJS.Timeout | null>(null)
 
   const [data, setData] = useState<PortfolioData>({
     username: "", displayName: "", title: "", about: "",
@@ -76,6 +79,34 @@ function BuilderContent() {
   }, [user])
 
   useEffect(() => { if (editId) loadPortfolio(editId) }, [editId])
+
+  useEffect(() => {
+    let cancelled = false
+    if (previewTimerRef.current) clearTimeout(previewTimerRef.current)
+
+    if (!data.displayName) {
+      setPreviewHtml(null)
+      return
+    }
+
+    previewTimerRef.current = setTimeout(async () => {
+      try {
+        const res = await fetch("/api/launch/templates/preview", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ templateId: data.templateId, portfolio: data }),
+        })
+        if (!res.ok) return
+        const html = await res.text()
+        if (!cancelled) setPreviewHtml(html)
+      } catch {}
+    }, 400)
+
+    return () => {
+      cancelled = true
+      if (previewTimerRef.current) clearTimeout(previewTimerRef.current)
+    }
+  }, [data.templateId, data.displayName, data.title, data.about, data.skills, data.socialLinks, data.avatarUrl, data.projects])
 
   const loadPortfolio = async (id: string) => {
     try {
@@ -128,7 +159,7 @@ function BuilderContent() {
 
   const addProject = () => {
     if (!newProject.title) return
-    update("projects", [...data.projects, newProject])
+    setData(d => ({ ...d, projects: [...d.projects, newProject] }))
     setNewProject({ title: "", description: "", imageUrl: "", liveUrl: "", githubUrl: "", tags: "" })
     setAddingProject(false)
   }
@@ -274,13 +305,28 @@ function BuilderContent() {
                 </div>
 
                 <div className={styles.fieldGroup}>
-                  <label className={styles.label}>Profile Photo URL</label>
+                  <label className={styles.label}>Profile Photo</label>
                   <input
+                    type="file"
+                    accept="image/*"
                     className={styles.input}
-                    value={data.avatarUrl}
-                    onChange={e => update("avatarUrl", e.target.value)}
-                    placeholder="https://..."
+                    onChange={async (e) => {
+                      const file = e.target.files?.[0]
+                      if (!file) return
+                      const formData = new FormData()
+                      formData.append("file", file)
+                      try {
+                        const res = await fetch("/api/upload", { method: "POST", body: formData })
+                        const json = await res.json()
+                        if (json.url) update("avatarUrl", json.url)
+                      } catch { flash("Photo upload failed.", false) }
+                    }}
                   />
+                  {data.avatarUrl && (
+                    <div style={{ marginTop: 12 }}>
+                      <img src={data.avatarUrl} alt="" style={{ width: 80, height: 80, borderRadius: "50%", objectFit: "cover", border: "1px solid #e5e7eb" }} />
+                    </div>
+                  )}
                 </div>
 
                 <div className={styles.fieldGroup}>
@@ -363,8 +409,8 @@ function BuilderContent() {
                       </div>
                     </div>
                     <div className={styles.addProjectActions}>
-                      <button className={styles.addProjSave} onClick={addProject}>Add Project</button>
-                      <button className={styles.addProjCancel} onClick={() => setAddingProject(false)}>Cancel</button>
+                      <button type="button" className={styles.addProjSave} onClick={addProject}>Add Project</button>
+                      <button type="button" className={styles.addProjCancel} onClick={() => setAddingProject(false)}>Cancel</button>
                     </div>
                   </div>
                 ) : (
@@ -399,7 +445,7 @@ function BuilderContent() {
                   <div className={styles.publishBox}>
                     <div className={styles.publishBoxTitle}>Your portfolio URL</div>
                     <div className={styles.publishBoxUrl}>
-                      /creators/{data.username}
+                      /portfolio/{data.username}
                     </div>
                   </div>
                 )}
@@ -412,7 +458,7 @@ function BuilderContent() {
                     </div>
                     {data.username && (
                       <a
-                        href={`/creators/${data.username}`}
+                        href={`/portfolio/${data.username}`}
                         target="_blank"
                         rel="noreferrer"
                         className={styles.viewLiveBtn}
@@ -449,12 +495,12 @@ function BuilderContent() {
               <div className={styles.previewDot} style={{ background: "#28c840" }} />
             </div>
             <div className={styles.previewAddressBar}>
-              {data.username ? `lumyn.dev/creators/${data.username}` : "your-portfolio-url"}
+              {data.username ? `lumyn.dev/portfolio/${data.username}` : "your-portfolio-url"}
             </div>
           </div>
 
           <div className={styles.previewFrame}>
-            {!data.displayName ? (
+            {!previewHtml ? (
               <div className={styles.previewEmpty}>
                 <div className={styles.previewEmptyIcon}>✏️</div>
                 <div className={styles.previewEmptyText}>
@@ -462,74 +508,13 @@ function BuilderContent() {
                 </div>
               </div>
             ) : (
-              <div className={styles.portfolioPreview}>
-                <div className={styles.portfolioHero}>
-                  {data.avatarUrl ? (
-                    <img src={data.avatarUrl} alt="" className={styles.portfolioAvatar} />
-                  ) : (
-                    <div className={styles.portfolioAvatarPlaceholder}>
-                      {data.displayName.charAt(0).toUpperCase()}
-                    </div>
-                  )}
-                  <div className={styles.portfolioName}>{data.displayName}</div>
-                  {data.title && <div className={styles.portfolioTitle}>{data.title}</div>}
-                  {data.username && (
-                    <div className={styles.portfolioUsername}>@{data.username}</div>
-                  )}
-                </div>
-
-                <div className={styles.portfolioBody}>
-                  {data.about && (
-                    <div className={styles.portfolioSection}>
-                      <div className={styles.portfolioSectionTitle}>About</div>
-                      <div className={styles.portfolioBio}>{data.about}</div>
-                    </div>
-                  )}
-
-                  {data.skills.length > 0 && (
-                    <div className={styles.portfolioSection}>
-                      <div className={styles.portfolioSectionTitle}>Skills</div>
-                      <div className={styles.portfolioSkills}>
-                        {data.skills.map(s => (
-                          <span key={s} className={styles.portfolioSkill}>{s}</span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {data.projects.length > 0 && (
-                    <div className={styles.portfolioSection}>
-                      <div className={styles.portfolioSectionTitle}>Projects</div>
-                      <div className={styles.portfolioProjects}>
-                        {data.projects.map((p, i) => (
-                          <div key={i} className={styles.portfolioProject}>
-                            <div className={styles.portfolioProjectTitle}>{p.title}</div>
-                            {p.description && (
-                              <div className={styles.portfolioProjectDesc}>{p.description}</div>
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {Object.values(data.socialLinks).some(Boolean) && (
-                    <div className={styles.portfolioSection}>
-                      <div className={styles.portfolioSectionTitle}>Links</div>
-                      <div className={styles.portfolioSocials}>
-                        {SOCIAL_FIELDS.map(f => {
-                          const val = (data.socialLinks as any)[f.key]
-                          return val ? (
-                            <a key={f.key} href={val} className={styles.portfolioSocialLink} target="_blank" rel="noreferrer">
-                              {f.label}
-                            </a>
-                          ) : null
-                        })}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
+              <iframe
+                ref={iframeRef}
+                title="Portfolio preview"
+                sandbox="allow-scripts allow-same-origin allow-forms"
+                srcDoc={previewHtml}
+                style={{ width: "100%", height: "100%", border: 0, background: "#fff" }}
+              />
             )}
           </div>
         </div>
