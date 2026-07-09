@@ -5,11 +5,11 @@ import Image from "next/image"
 import styles from "./manager.module.css"
 import RichTextEditor from "./RichTextEditor"
 
-const CATEGORIES = ["Developer", "Designer", "Freelancer", "Photographer", "Student", "Agency"]
+const CATEGORIES = ["Portfolio", "Business", "Landing Page", "Blog", "E-Commerce", "SaaS", "Restaurant", "Event", "Church", "School", "Real Estate", "Medical", "Nonprofit", "Musician"]
 
 const emptyForm = {
   title: "", description: "", category: "Developer",
-  previewImage: "", tags: "", isFree: true, price: "0", downloadUrl: "", featured: false
+  previewImage: "", tags: "", isFree: true, price: "0", downloadUrl: "", featured: false, authorId: ""
 }
 
 export default function StudioManager() {
@@ -48,7 +48,8 @@ export default function StudioManager() {
     setForm({
       title: t.title, description: t.description, category: t.category,
       previewImage: t.previewImage, tags: t.tags.join(", "),
-      isFree: t.isFree, price: t.price.toString(), downloadUrl: t.downloadUrl || "", featured: t.featured
+      isFree: t.isFree, price: t.price.toString(), downloadUrl: t.downloadUrl || "", featured: t.featured,
+      authorId: t.authorId || ""
     })
     setShowForm(true)
     setMessage("")
@@ -66,6 +67,7 @@ export default function StudioManager() {
         ...form,
         price: parseFloat(form.price) || 0,
         tags: form.tags.split(",").map((t: string) => t.trim()).filter(Boolean),
+        authorId: form.authorId || null,
       }
       let res
       if (editItem) {
@@ -144,6 +146,10 @@ export default function StudioManager() {
             <div className={styles.formGroup}>
               <label className={styles.label}>Tags (comma separated)</label>
               <input className={styles.input} value={form.tags} onChange={e => setForm(f => ({ ...f, tags: e.target.value }))} placeholder="react, tailwind, dark mode" />
+            </div>
+            <div className={styles.formGroup}>
+              <label className={styles.label}>Author ID (Clerk User ID)</label>
+              <input className={styles.input} value={form.authorId} onChange={e => setForm(f => ({ ...f, authorId: e.target.value }))} placeholder="user_2abc..." />
             </div>
             <div className={styles.formGroup}>
               <label className={styles.label}>Price (USD)</label>

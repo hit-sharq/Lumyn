@@ -1,0 +1,539 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-sans); background: transparent; }
+
+  .hero {
+    background: linear-gradient(135deg, #8B1A1A 0%, #C0392B 40%, #E67E22 100%);
+    padding: 60px 32px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 8px,
+      rgba(255,255,255,0.04) 8px,
+      rgba(255,255,255,0.04) 16px
+    );
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.3);
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    color: #fff;
+    font-size: 36px;
+    font-weight: 500;
+    line-height: 1.2;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .hero p {
+    color: rgba(255,255,255,0.85);
+    font-size: 15px;
+    max-width: 420px;
+    margin: 0 auto 28px;
+    line-height: 1.6;
+    position: relative;
+  }
+  .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; position: relative; }
+  .btn-primary {
+    background: #fff;
+    color: #8B1A1A;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.9; }
+  .btn-outline {
+    background: transparent;
+    color: #fff;
+    border: 1.5px solid rgba(255,255,255,0.6);
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-outline:hover { background: rgba(255,255,255,0.1); }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    height: 60px;
+    background: var(--surface-2);
+    border-bottom: 0.5px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .nav-logo { font-size: 15px; font-weight: 500; color: var(--text-primary); display: flex; align-items: center; gap: 8px; }
+  .logo-dot { width: 10px; height: 10px; border-radius: 50%; background: #C0392B; display: inline-block; }
+  .nav-links { display: flex; gap: 24px; }
+  .nav-links a {
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .nav-links a:hover { color: var(--text-primary); }
+  .nav-cta {
+    background: #C0392B;
+    color: #fff;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+  }
+
+  .section { padding: 40px 32px; }
+  .section-header { text-align: center; margin-bottom: 28px; }
+  .section-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #C0392B;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .section-header h2 { font-size: 22px; font-weight: 500; color: var(--text-primary); margin-bottom: 8px; }
+  .section-header p { font-size: 14px; color: var(--text-secondary); max-width: 400px; margin: 0 auto; line-height: 1.6; }
+
+  .categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .cat-card {
+    background: var(--surface-1);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.15s;
+  }
+  .cat-card:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+  .cat-icon {
+    font-size: 28px;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .cat-name { font-size: 13px; font-weight: 500; color: var(--text-primary); margin-bottom: 4px; }
+  .cat-count { font-size: 11px; color: var(--text-muted); }
+
+  .products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+  }
+  .product-card {
+    background: var(--surface-2);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .product-card:hover { border-color: var(--border-strong); }
+  .product-img {
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 44px;
+  }
+  .p-img-1 { background: linear-gradient(135deg, #8B1A1A22, #E67E2222); }
+  .p-img-2 { background: linear-gradient(135deg, #1a5c8b22, #3498db22); }
+  .p-img-3 { background: linear-gradient(135deg, #1a8b3022, #27ae6022); }
+  .p-img-4 { background: linear-gradient(135deg, #8b6a1a22, #f39c1222); }
+  .p-img-5 { background: linear-gradient(135deg, #6a1a8b22, #9b59b622); }
+  .p-img-6 { background: linear-gradient(135deg, #8b1a5c22, #e91e6322); }
+  .product-info { padding: 12px; }
+  .product-name { font-size: 13px; font-weight: 500; color: var(--text-primary); margin-bottom: 4px; }
+  .product-origin { font-size: 11px; color: var(--text-muted); margin-bottom: 8px; }
+  .product-footer { display: flex; align-items: center; justify-content: space-between; }
+  .product-price { font-size: 14px; font-weight: 500; color: #C0392B; }
+  .add-btn {
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    background: #C0392B;
+    color: #fff;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    line-height: 1;
+  }
+
+  .stripe {
+    background: linear-gradient(90deg, #8B1A1A, #C0392B, #E67E22, #C0392B, #8B1A1A);
+    height: 4px;
+    margin: 0;
+  }
+  .stripe-thin {
+    display: flex;
+    height: 3px;
+  }
+  .stripe-thin span { flex: 1; }
+  .s1 { background: #1a1a1a; }
+  .s2 { background: #C0392B; }
+  .s3 { background: #fff; border: 0.5px solid var(--border); }
+  .s4 { background: #1a1a1a; }
+
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+    background: var(--surface-1);
+    border-radius: 12px;
+    border: 0.5px solid var(--border);
+    padding: 24px 20px;
+  }
+  .feat { text-align: center; }
+  .feat-icon { font-size: 22px; margin-bottom: 8px; }
+  .feat h4 { font-size: 13px; font-weight: 500; color: var(--text-primary); margin-bottom: 4px; }
+  .feat p { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+
+  .testimonials { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+  .testi {
+    background: var(--surface-1);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .stars { color: #E67E22; font-size: 13px; margin-bottom: 8px; }
+  .testi-text { font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px; font-style: italic; }
+  .testi-author { display: flex; align-items: center; gap: 8px; }
+  .avatar {
+    width: 30px; height: 30px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 500;
+  }
+  .av1 { background: #FAECE7; color: #993C1D; }
+  .av2 { background: #E6F1FB; color: #185FA5; }
+  .av3 { background: #EAF3DE; color: #3B6D11; }
+  .author-name { font-size: 12px; font-weight: 500; color: var(--text-primary); }
+  .author-loc { font-size: 11px; color: var(--text-muted); }
+
+  .footer {
+    background: #1a0a0a;
+    padding: 32px;
+    margin-top: 0;
+  }
+  .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+  .footer-brand { }
+  .footer-logo { font-size: 15px; font-weight: 500; color: #fff; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .footer-desc { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; max-width: 200px; }
+  .footer-col h5 { font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .footer-col a { display: block; font-size: 13px; color: rgba(255,255,255,0.45); text-decoration: none; margin-bottom: 8px; cursor: pointer; }
+  .footer-col a:hover { color: rgba(255,255,255,0.8); }
+  .footer-bottom { border-top: 0.5px solid rgba(255,255,255,0.1); padding-top: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+  .footer-copy { font-size: 12px; color: rgba(255,255,255,0.3); }
+  .footer-socials { display: flex; gap: 10px; }
+  .social-btn {
+    width: 30px; height: 30px; border-radius: 8px;
+    background: rgba(255,255,255,0.08);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.5);
+    font-size: 14px;
+    cursor: pointer;
+    border: 0.5px solid rgba(255,255,255,0.1);
+  }
+  .social-btn:hover { background: rgba(255,255,255,0.14); color: #fff; }
+
+  .section-alt { background: var(--surface-1); }
+  .explore-btn {
+    display: block;
+    margin: 20px auto 0;
+    background: transparent;
+    border: 0.5px solid var(--border-strong);
+    color: var(--text-secondary);
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .explore-btn:hover { color: var(--text-primary); border-color: var(--border-stronger); }
+
+  @media (max-width: 500px) {
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .footer-brand { grid-column: 1 / -1; }
+    .nav-links { display: none; }
+    .hero h1 { font-size: 26px; }
+  }
+</style>
+
+<h2 class="sr-only">Maasai Market — authentic African crafts and cultural products, online store design</h2>
+
+<div class="nav">
+  <div class="nav-logo">
+    <span class="logo-dot"></span>
+    Maasai Market
+  </div>
+  <div class="nav-links">
+    <a>Shop</a>
+    <a>Collections</a>
+    <a>Our Story</a>
+    <a>Contact</a>
+  </div>
+  <button class="nav-cta">Shop now</button>
+</div>
+
+<div class="stripe-thin">
+  <span class="s1"></span>
+  <span class="s2"></span>
+  <span class="s3"></span>
+  <span class="s2"></span>
+  <span class="s1"></span>
+</div>
+
+<div class="hero">
+  <div class="hero-badge">Authentic · Handcrafted · Cultural</div>
+  <h1>Authentic Maasai<br>crafts, delivered to you</h1>
+  <p>Handmade jewelry, fabrics, carvings, and traditional crafts direct from artisan markets across East Africa.</p>
+  <div class="hero-btns">
+    <button class="btn-primary" onclick="sendPrompt('Show me all product categories available at the Maasai Market shop')">Explore products ↗</button>
+    <button class="btn-outline" onclick="sendPrompt('Tell me the story behind the Maasai Market and its cultural significance')">Our story</button>
+  </div>
+</div>
+
+<div class="stripe"></div>
+
+<div class="section">
+  <div class="section-header">
+    <div class="section-label">Browse by type</div>
+    <h2>Shop by category</h2>
+    <p>Everything from hand-beaded jewelry to woven baskets — all sourced from authentic markets.</p>
+  </div>
+  <div class="categories">
+    <div class="cat-card" onclick="sendPrompt('Show me beaded jewelry products from the Maasai Market')">
+      <span class="cat-icon">📿</span>
+      <div class="cat-name">Beaded jewelry</div>
+      <div class="cat-count">80+ items</div>
+    </div>
+    <div class="cat-card" onclick="sendPrompt('Show me woven baskets and bags from Maasai Market')">
+      <span class="cat-icon">🧺</span>
+      <div class="cat-name">Baskets & bags</div>
+      <div class="cat-count">45+ items</div>
+    </div>
+    <div class="cat-card" onclick="sendPrompt('Show me wood carvings and sculptures from Maasai Market')">
+      <span class="cat-icon">🪵</span>
+      <div class="cat-name">Wood carvings</div>
+      <div class="cat-count">60+ items</div>
+    </div>
+    <div class="cat-card" onclick="sendPrompt('Show me traditional fabrics and clothing from Maasai Market')">
+      <span class="cat-icon">🧣</span>
+      <div class="cat-name">Fabrics & shuka</div>
+      <div class="cat-count">35+ items</div>
+    </div>
+    <div class="cat-card" onclick="sendPrompt('Show me Maasai paintings and art from the market')">
+      <span class="cat-icon">🖼️</span>
+      <div class="cat-name">Paintings & art</div>
+      <div class="cat-count">50+ items</div>
+    </div>
+    <div class="cat-card" onclick="sendPrompt('Show me home décor items from the Maasai Market')">
+      <span class="cat-icon">🏺</span>
+      <div class="cat-name">Home décor</div>
+      <div class="cat-count">70+ items</div>
+    </div>
+  </div>
+</div>
+
+<div class="section section-alt">
+  <div class="section-header">
+    <div class="section-label">Hand-picked</div>
+    <h2>Featured products</h2>
+    <p>Our most loved pieces this week.</p>
+  </div>
+  <div class="products">
+    <div class="product-card">
+      <div class="product-img p-img-1">📿</div>
+      <div class="product-info">
+        <div class="product-name">Maasai beaded collar</div>
+        <div class="product-origin">Nairobi market</div>
+        <div class="product-footer">
+          <span class="product-price">KSh 1,200</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img p-img-2">🪵</div>
+      <div class="product-info">
+        <div class="product-name">Ebony elephant carving</div>
+        <div class="product-origin">Kisii artisans</div>
+        <div class="product-footer">
+          <span class="product-price">KSh 2,500</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img p-img-3">🧺</div>
+      <div class="product-info">
+        <div class="product-name">Sisal woven basket</div>
+        <div class="product-origin">Kikuyu weavers</div>
+        <div class="product-footer">
+          <span class="product-price">KSh 850</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img p-img-4">🧣</div>
+      <div class="product-info">
+        <div class="product-name">Traditional shuka</div>
+        <div class="product-origin">Maasai Mara</div>
+        <div class="product-footer">
+          <span class="product-price">KSh 1,800</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img p-img-5">🖼️</div>
+      <div class="product-info">
+        <div class="product-name">Acrylic wildlife painting</div>
+        <div class="product-origin">Local artists</div>
+        <div class="product-footer">
+          <span class="product-price">KSh 3,200</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img p-img-6">🏺</div>
+      <div class="product-info">
+        <div class="product-name">Soapstone vase</div>
+        <div class="product-origin">Kisii stone craft</div>
+        <div class="product-footer">
+          <span class="product-price">KSh 1,500</span>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="explore-btn" onclick="sendPrompt('Show me the full product catalog for the Maasai Market shop')">View all products →</button>
+</div>
+
+<div class="section">
+  <div class="features">
+    <div class="feat">
+      <div class="feat-icon">🤝</div>
+      <h4>Direct from artisans</h4>
+      <p>Every item is sourced straight from market vendors and craftspeople.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">🚚</div>
+      <h4>Nationwide delivery</h4>
+      <p>We ship across Kenya via trusted courier services.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">✅</div>
+      <h4>Authenticity guaranteed</h4>
+      <p>All products are handmade and verified as genuine.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">💬</div>
+      <h4>Easy returns</h4>
+      <p>Not satisfied? Contact us within 7 days for a full resolution.</p>
+    </div>
+  </div>
+</div>
+
+<div class="section section-alt">
+  <div class="section-header">
+    <div class="section-label">Happy customers</div>
+    <h2>What people are saying</h2>
+  </div>
+  <div class="testimonials">
+    <div class="testi">
+      <div class="stars">★★★★★</div>
+      <div class="testi-text">"The beaded necklace I ordered was absolutely stunning. Perfect gift for my sister visiting from abroad."</div>
+      <div class="testi-author">
+        <div class="avatar av1">AM</div>
+        <div>
+          <div class="author-name">Amina M.</div>
+          <div class="author-loc">Nairobi</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi">
+      <div class="stars">★★★★★</div>
+      <div class="testi-text">"Fast delivery, well packaged, and the carving was even more beautiful in person. Highly recommend!"</div>
+      <div class="testi-author">
+        <div class="avatar av2">JO</div>
+        <div>
+          <div class="author-name">James O.</div>
+          <div class="author-loc">Kisumu</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi">
+      <div class="stars">★★★★☆</div>
+      <div class="testi-text">"Love that I can support local artisans without going to the market myself. Great selection!"</div>
+      <div class="testi-author">
+        <div class="avatar av3">FW</div>
+        <div>
+          <div class="author-name">Faith W.</div>
+          <div class="author-loc">Mombasa</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo"><span class="logo-dot"></span> Maasai Market</div>
+      <div class="footer-desc">Bringing authentic African craftsmanship to your doorstep. Proud to support local artisans.</div>
+    </div>
+    <div class="footer-col">
+      <h5>Shop</h5>
+      <a>Jewelry</a>
+      <a>Fabrics</a>
+      <a>Carvings</a>
+      <a>Paintings</a>
+      <a>Home décor</a>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <a>+254 700 000 000</a>
+      <a>info@maasaimarket.co.ke</a>
+      <a>Nairobi, Kenya</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Maasai Market. All rights reserved.</div>
+    <div class="footer-socials">
+      <div class="social-btn"><i class="ti ti-brand-facebook" aria-hidden="true"></i></div>
+      <div class="social-btn"><i class="ti ti-brand-instagram" aria-hidden="true"></i></div>
+      <div class="social-btn"><i class="ti ti-brand-whatsapp" aria-hidden="true"></i></div>
+    </div>
+  </div>
+</div>

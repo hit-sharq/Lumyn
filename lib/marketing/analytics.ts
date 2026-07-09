@@ -71,6 +71,7 @@ export async function getAdminAnalytics() {
     newSignups,
     activeSubscriptions,
     topTemplates,
+    topTemplatesByPurchases,
     topJobPosts,
     conversionRate,
   ] = await Promise.all([
@@ -86,6 +87,24 @@ export async function getAdminAnalytics() {
       orderBy: { downloadCount: "desc" },
       take: 5,
       select: { id: true, title: true, downloadCount: true },
+    }),
+    prisma.studioPurchase.groupBy({
+      by: ["templateId"],
+      _count: { id: true },
+      _sum: { amount: true },
+      orderBy: { _count: { id: "desc" } },
+      take: 5,
+    }).then(async (grouped) => {
+      const ids = grouped.map((g) => g.templateId)
+      const templates = await prisma.studioTemplate.findMany({
+        where: { id: { in: ids } },
+        select: { id: true, title: true },
+      })
+      const map = new Map(templates.map((t) => [t.id, t.title]))
+      return grouped.map((g) => ({
+        ...g,
+        title: map.get(g.templateId) || "Unknown",
+      }))
     }),
     prisma.paidJobPost.findMany({
       where: { isPaid: true },
@@ -111,5 +130,12 @@ export async function getAdminAnalytics() {
     topTemplates,
     topJobPosts,
     conversionRate,
+    topTemplatesByPurchases: (topTemplatesByPurchases as Array<{ templateId: string; title: string; _count: { id: number }; _sum: { amount: number | null } }>).map((t) => ({
+      id: t.templateId,
+      title: t.title,
+      downloadCount: 0,
+      purchases: t._count.id,
+      revenue: t._sum.amount || 0,
+    })),
   }
 }

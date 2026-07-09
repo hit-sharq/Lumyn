@@ -9,7 +9,7 @@
     "prisma:migrate": "prisma migrate dev",
     "prisma:studio": "prisma studio",
     "start": "next start -p 3000 -H 0.0.0.0",
-    "seed:studio": "tsx scripts/seed-studio-templates.ts"
+    "seed:studio": "tsx scripts/seed-studio-templates-with-images.ts"
   },
   "dependencies": {
     "@ai-sdk/google": "^4.0.2",

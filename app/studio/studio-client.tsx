@@ -5,6 +5,8 @@ import Link from "next/link"
 import Image from "next/image"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { useUser } from "@clerk/nextjs"
+import { SignInButton } from "@clerk/nextjs"
 import styles from "./studio.module.css"
 
 interface TemplateItem {
@@ -22,20 +24,58 @@ interface TemplateItem {
   reviews?: { rating: number }[]
 }
 
-const CATEGORIES = ["All", "Portfolio", "Business", "Landing Page", "Blog", "E-Commerce", "SaaS"]
+const CATEGORIES = ["All", "Portfolio", "Business", "Landing Page", "Blog", "E-Commerce", "SaaS", "Restaurant", "Event", "Church", "School", "Real Estate", "Medical", "Nonprofit", "Musician"]
 
 export default function StudioClient({ initialTemplates = [] }: { initialTemplates?: TemplateItem[] }) {
+  const { user, isSignedIn } = useUser()
   const [items, setItems] = useState<TemplateItem[]>(initialTemplates)
   const [filtered, setFiltered] = useState<TemplateItem[]>(initialTemplates)
   const [activeCategory, setActiveCategory] = useState("All")
   const [showFreeOnly, setShowFreeOnly] = useState(false)
+  const [searchQuery, setSearchQuery] = useState("")
+  const [sortBy, setSortBy] = useState("featured")
 
   useEffect(() => {
-    let result = items
+    let result = [...items]
+
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase()
+      result = result.filter((t) =>
+        t.title.toLowerCase().includes(q) ||
+        t.description.toLowerCase().includes(q) ||
+        t.tags.some((tag) => tag.toLowerCase().includes(q))
+      )
+    }
+
     if (activeCategory !== "All") result = result.filter((t) => t.category === activeCategory)
     if (showFreeOnly) result = result.filter((t) => t.isFree)
+
+    switch (sortBy) {
+      case "popular":
+        result.sort((a, b) => (b._count?.purchases || 0) - (a._count?.purchases || 0))
+        break
+      case "newest":
+        result.sort((a, b) => b.id.localeCompare(a.id))
+        break
+      case "price-asc":
+        result.sort((a, b) => a.price - b.price)
+        break
+      case "price-desc":
+        result.sort((a, b) => b.price - a.price)
+        break
+      case "rating":
+        result.sort((a, b) => {
+          const avgA = a.reviews?.length ? a.reviews.reduce((s, r) => s + r.rating, 0) / a.reviews.length : 0
+          const avgB = b.reviews?.length ? b.reviews.reduce((s, r) => s + r.rating, 0) / b.reviews.length : 0
+          return avgB - avgA
+        })
+        break
+      default:
+        result.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0))
+    }
+
     setFiltered(result)
-  }, [items, activeCategory, showFreeOnly])
+  }, [items, activeCategory, showFreeOnly, searchQuery, sortBy])
 
   const featured = filtered.filter((t) => t.featured)
   const regular = filtered.filter((t) => !t.featured)
@@ -68,6 +108,13 @@ export default function StudioClient({ initialTemplates = [] }: { initialTemplat
               <span>Downloads</span>
             </div>
           </div>
+          {isSignedIn && (
+            <div style={{ marginTop: 32 }}>
+              <Link href="/studio/creator" className={styles.ctaBtn} style={{ display: "inline-block", background: "#fff", color: "#111", padding: "14px 32px", borderRadius: "100px", textDecoration: "none", fontWeight: 700, fontSize: "0.95rem" }}>
+                Creator Dashboard →
+              </Link>
+            </div>
+          )}
         </div>
       </section>
 
@@ -85,12 +132,33 @@ export default function StudioClient({ initialTemplates = [] }: { initialTemplat
               </button>
             ))}
           </div>
-          <button
-            className={`${styles.freeToggle} ${showFreeOnly ? styles.freeToggleActive : ""}`}
-            onClick={() => setShowFreeOnly((v) => !v)}
-          >
-            {showFreeOnly ? "✓ Free only" : "Free only"}
-          </button>
+          <div className={styles.filterControls}>
+            <input
+              type="text"
+              className={styles.searchInput}
+              placeholder="Search templates..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <select
+              className={styles.sortSelect}
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+            >
+              <option value="featured">Featured</option>
+              <option value="popular">Most Popular</option>
+              <option value="newest">Newest</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+              <option value="rating">Top Rated</option>
+            </select>
+            <button
+              className={`${styles.freeToggle} ${showFreeOnly ? styles.freeToggleActive : ""}`}
+              onClick={() => setShowFreeOnly((v) => !v)}
+            >
+              {showFreeOnly ? "✓ Free only" : "Free only"}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -205,7 +273,7 @@ function TemplateCard({ template: t, featured }: { template: TemplateItem; featu
         )}
 
         <div className={styles.cardFooter}>
-          <span className={styles.downloads}>↓ {t.downloadCount || 0} downloads</span>
+          <span className={styles.downloads}>↓ {t.downloadCount || 0} downloads · {t._count?.purchases || 0} sales</span>
           <span className={styles.getBtn}>{t.isFree ? "Download free" : "Get template"}</span>
         </div>
       </div>

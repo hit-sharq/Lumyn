@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pillar Properties — Find Your Next Home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #08140f;
+      --bg-2: #0d1c14;
+      --surface: rgba(255,255,255,0.035);
+      --accent: #cbb079;
+      --accent-light: #e3d098;
+      --cream: #e7e1d1;
+      --cream-bright: #f3ecdb;
+      --muted: rgba(231,225,209,0.56);
+      --muted-2: rgba(231,225,209,0.36);
+      --border: rgba(203,176,121,0.20);
+      --border-strong: rgba(203,176,121,0.48);
+      --serif: 'Cormorant Garamond', serif;
+      --sans: 'Inter', sans-serif;
+      --ease: cubic-bezier(0.16,1,0.3,1);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--bg); color: var(--cream); line-height: 1.7; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    ::selection { background: rgba(203,176,121,0.3); color: var(--cream-bright); }
+    .container { max-width: 1240px; margin: 0 auto; padding: 0 40px; }
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 1s var(--ease), transform 1s var(--ease); }
+    .reveal.in { opacity: 1; transform: none; }
+    .reveal.d1 { transition-delay: 0.08s; } .reveal.d2 { transition-delay: 0.16s; } .reveal.d3 { transition-delay: 0.24s; }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+    header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 24px 0; background: rgba(8,20,15,0.6); backdrop-filter: blur(24px) saturate(150%); -webkit-backdrop-filter: blur(24px) saturate(150%); border-bottom: 0.5px solid var(--border); transition: padding 0.5s var(--ease), background 0.5s var(--ease); }
+    header.scrolled { padding: 16px 0; background: rgba(8,20,15,0.96); border-bottom-color: var(--border-strong); }
+    nav { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-family: var(--serif); font-size: 1.52rem; font-weight: 500; letter-spacing: 0.16em; color: var(--accent); text-decoration: none; transition: letter-spacing 0.5s var(--ease); }
+    header.scrolled .logo { letter-spacing: 0.22em; }
+    .nav-links { display: flex; gap: 40px; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; position: relative; transition: color 0.4s; }
+    .nav-links a::after { content: ''; position: absolute; left: 0; bottom: -8px; width: 0; height: 0.5px; background: var(--accent); transition: width 0.45s var(--ease); }
+    .nav-links a:hover { color: var(--cream-bright); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta { padding: 12px 28px; background: transparent; color: var(--accent); text-decoration: none; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; border: 0.5px solid var(--border-strong); transition: all 0.45s var(--ease); cursor: pointer; }
+    .nav-cta:hover { background: var(--accent); color: #08140f; border-color: var(--accent); box-shadow: 0 8px 28px rgba(203,176,121,0.22); }
+
+    .hero { position: relative; padding: 220px 0 130px; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; background: radial-gradient(130% 100% at 82% 0%, rgba(203,176,121,0.16) 0%, transparent 52%), linear-gradient(165deg, #08140f 0%, #0d1c14 55%, #122a1c 100%); }
+    .hero-glow { position: absolute; right: 5%; top: 18%; width: 420px; height: 420px; border: 0.5px solid var(--border); display: flex; align-items: center; justify-content: center; transition: transform 0.6s var(--ease); }
+    .hero-glow::before { content: ''; position: absolute; inset: 38px; border: 0.5px solid var(--border-strong); }
+    .hero:hover .hero-glow { transform: scale(1.05); }
+    .hero-glow svg { width: 76%; opacity: 0.62; position: relative; transition: transform 0.6s var(--ease); }
+    .hero:hover .hero-glow svg { transform: scale(1.03); }
+    .hero-content { position: relative; z-index: 2; max-width: 680px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 12px; margin-bottom: 30px; font-size: 0.68rem; font-weight: 500; letter-spacing: 0.38em; text-transform: uppercase; color: var(--accent); }
+    .eyebrow::before { content: ''; width: 32px; height: 0.5px; background: var(--accent); }
+    .hero h1 { font-family: var(--serif); font-size: clamp(3.2rem, 7.2vw, 5.6rem); font-weight: 300; line-height: 1.04; color: var(--cream-bright); margin-bottom: 26px; letter-spacing: -0.015em; }
+    .hero h1 em { font-style: italic; color: var(--accent); }
+    .hero p { font-size: 1.14rem; color: var(--muted); max-width: 540px; margin-bottom: 38px; font-weight: 300; line-height: 1.85; }
+    .search-box { max-width: 660px; display: flex; gap: 10px; background: rgba(255,255,255,0.045); border: 0.5px solid var(--border-strong); padding: 9px; backdrop-filter: blur(10px); transition: border-color 0.4s, box-shadow 0.4s; }
+    .search-box:focus-within { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(203,176,121,0.06); }
+    .search-box input { flex: 1; padding: 14px 22px; background: transparent; border: none; outline: none; color: var(--cream); font-size: 0.98rem; font-family: inherit; }
+    .search-box input::placeholder { color: var(--muted-2); }
+    .search-box button { padding: 14px 34px; background: var(--accent); color: #08140f; border: none; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer; transition: all 0.45s var(--ease); white-space: nowrap; }
+    .search-box button:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 10px 24px rgba(203,176,121,0.2); }
+
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); background: var(--bg-2); }
+    .stat { padding: 48px 24px; text-align: center; border-right: 0.5px solid var(--border); position: relative; transition: background 0.5s var(--ease); }
+    .stat:last-child { border-right: none; }
+    .stat:hover { background: rgba(203,176,121,0.04); }
+    .stat-num { font-family: var(--serif); font-size: 3rem; font-weight: 400; color: var(--accent); line-height: 1; letter-spacing: -0.02em; }
+    .stat-label { font-size: 0.64rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-top: 14px; }
+
+    section.block { padding: clamp(100px, 13vw, 150px) 0; }
+    .section-label { font-size: 0.68rem; letter-spacing: 0.36em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+    .section-label::before { content: ''; width: 32px; height: 0.5px; background: var(--accent); }
+    .section-title { font-family: var(--serif); font-size: clamp(2.1rem, 4.6vw, 3.4rem); font-weight: 300; line-height: 1.1; color: var(--cream-bright); max-width: 20ch; }
+    .section-title em { font-style: italic; color: var(--accent); }
+    .section-head { margin-bottom: 72px; max-width: 760px; }
+    .section-head p { color: var(--muted); font-size: 1.08rem; font-weight: 300; margin-top: 24px; line-height: 1.9; }
+
+    .listings { background: var(--surface); border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); }
+    .listings-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .listing-card { border: 0.5px solid var(--border); background: var(--bg); overflow: hidden; transition: border-color 0.5s, transform 0.6s var(--ease), box-shadow 0.5s; position: relative; }
+    .listing-card:hover { border-color: var(--border-strong); transform: translateY(-8px); box-shadow: 0 32px 64px rgba(0,0,0,0.45); }
+    .listing-thumb { aspect-ratio: 16/10; display: flex; align-items: center; justify-content: center; border-bottom: 0.5px solid var(--border); background: radial-gradient(circle at 50% 40%, rgba(203,176,121,0.08), transparent 70%); position: relative; overflow: hidden; }
+    .listing-thumb::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 50%, rgba(203,176,121,0.06) 0%, transparent 70%); opacity: 0; transition: opacity 0.6s; }
+    .listing-card:hover .listing-thumb::after { opacity: 1; }
+    .listing-thumb svg { width: 56%; opacity: 0.85; transition: transform 0.7s var(--ease); position: relative; z-index: 1; }
+    .listing-card:hover .listing-thumb svg { transform: scale(1.06) rotate(1deg); }
+    .listing-badge { position: absolute; top: 14px; left: 14px; padding: 6px 14px; background: var(--bg); border: 0.5px solid var(--border); font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); z-index: 2; }
+    .listing-info { padding: 32px; }
+    .listing-location { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .listing-title { font-family: var(--serif); font-size: 1.6rem; font-weight: 500; color: var(--cream-bright); margin-bottom: 12px; }
+    .listing-price { font-size: 1.35rem; font-weight: 600; color: var(--accent); }
+    .listing-price .period { font-size: 0.85rem; color: var(--muted); font-weight: 400; }
+    .listing-features { display: flex; gap: 18px; margin-top: 18px; padding-top: 18px; border-top: 0.5px solid var(--border); color: var(--muted); font-size: 0.84rem; }
+
+    .agents-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+    .agent-card { border: 0.5px solid var(--border); padding: 54px 38px; text-align: center; background: var(--bg); transition: border-color 0.5s, transform 0.6s var(--ease), background 0.5s, box-shadow 0.5s; position: relative; overflow: hidden; }
+    .agent-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 0.5px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0; transition: opacity 0.5s; }
+    .agent-card:hover::before { opacity: 0.6; }
+    .agent-card:hover { border-color: var(--border-strong); transform: translateY(-8px); background: var(--surface); box-shadow: 0 32px 64px rgba(0,0,0,0.3); }
+    .agent-avatar { width: 100px; height: 100px; border-radius: 50%; margin: 0 auto 24px; border: 0.5px solid var(--border-strong); display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at 50% 35%, rgba(203,176,121,0.18), transparent 72%); transition: transform 0.6s var(--ease), box-shadow 0.5s; }
+    .agent-card:hover .agent-avatar { transform: scale(1.06); box-shadow: 0 0 36px rgba(203,176,121,0.12); }
+    .agent-avatar svg { width: 46%; opacity: 0.85; }
+    .agent-name { font-family: var(--serif); font-size: 1.5rem; font-weight: 500; color: var(--cream-bright); }
+    .agent-role { color: var(--muted); font-size: 0.86rem; font-weight: 300; margin: 6px 0 14px; }
+    .agent-contact { color: var(--accent); font-size: 0.92rem; text-decoration: none; font-weight: 500; transition: color 0.3s; }
+    .agent-contact:hover { color: var(--accent-light); }
+
+    .insights { background: var(--bg-2); border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); }
+    .insights .section-head { margin-bottom: 72px; }
+    .stats-bars { display: grid; grid-template-columns: repeat(2, 1fr); gap: 42px 70px; }
+    .bar-row .bar-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; }
+    .bar-row .bar-name { font-family: var(--serif); font-size: 1.6rem; font-weight: 400; color: var(--cream-bright); }
+    .bar-row .bar-val { font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+    .bar-track { height: 2px; background: rgba(203,176,121,0.16); position: relative; overflow: hidden; }
+    .bar-fill { position: absolute; left: 0; top: 0; height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-light)); width: 0; transition: width 1.4s var(--ease); }
+    .in .bar-fill { width: var(--w); }
+
+    .neighbourhoods { background: var(--surface); border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); }
+    .neighbourhoods-panel { border: 0.5px solid var(--border-strong); padding: clamp(56px, 8vw, 100px); background: radial-gradient(130% 130% at 50% 0%, rgba(203,176,121,0.09) 0%, transparent 60%), var(--bg-2); position: relative; overflow: hidden; text-align: center; }
+    .neighbourhoods-panel::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 60%; height: 0.5px; background: linear-gradient(90deg, transparent, var(--accent), transparent); }
+    .neighbourhoods-panel p { color: var(--muted); max-width: 520px; margin: 22px auto 48px; font-weight: 300; font-size: 1.08rem; line-height: 1.85; }
+    .neighbourhoods-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+    .neighbourhood-card { aspect-ratio: 4/3; border: 0.5px solid var(--border); display: flex; align-items: flex-end; padding: 32px; position: relative; overflow: hidden; transition: border-color 0.5s, transform 0.6s var(--ease), box-shadow 0.5s; }
+    .neighbourhood-card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 70% 20%, rgba(203,176,121,0.14), transparent 60%); transition: transform 0.6s var(--ease); }
+    .neighbourhood-card:hover { border-color: var(--border-strong); transform: translateY(-8px); box-shadow: 0 28px 56px rgba(0,0,0,0.3); }
+    .neighbourhood-card:hover::before { transform: scale(1.15); }
+    .neighbourhood-card span { position: relative; z-index: 1; font-family: var(--serif); font-size: 1.7rem; font-weight: 500; color: var(--cream-bright); }
+
+    .contact-panel { border: 0.5px solid var(--border-strong); padding: clamp(56px, 8vw, 100px); text-align: center; background: radial-gradient(130% 130% at 50% 0%, rgba(203,176,121,0.09) 0%, transparent 60%), var(--bg-2); position: relative; overflow: hidden; }
+    .contact-panel::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 60%; height: 0.5px; background: linear-gradient(90deg, transparent, var(--accent), transparent); }
+    .contact-panel p { color: var(--muted); max-width: 520px; margin: 22px auto 44px; font-weight: 300; font-size: 1.08rem; line-height: 1.85; }
+    .btn-gold { display: inline-block; padding: 16px 36px; background: var(--accent); color: #08140f; text-decoration: none; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; border: 0.5px solid var(--accent); transition: all 0.5s var(--ease); cursor: pointer; position: relative; overflow: hidden; }
+    .btn-gold::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%); opacity: 0; transition: opacity 0.4s; }
+    .btn-gold:hover::after { opacity: 1; }
+    .btn-gold:hover { background: var(--accent-light); border-color: var(--accent-light); transform: translateY(-4px); box-shadow: 0 20px 44px rgba(203,176,121,0.24); }
+
+    footer { border-top: 0.5px solid var(--border); padding: 60px 0; position: relative; }
+    footer::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 0.5px; background: linear-gradient(90deg, transparent, var(--accent), transparent); }
+    .footer-content { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+    .footer-logo { font-family: var(--serif); font-size: 1.32rem; font-weight: 500; letter-spacing: 0.14em; color: var(--accent); transition: letter-spacing 0.5s var(--ease); }
+    .footer-logo:hover { letter-spacing: 0.2em; }
+    .footer-links { display: flex; gap: 32px; }
+    .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.76rem; letter-spacing: 0.08em; transition: color 0.4s; position: relative; }
+    .footer-links a::after { content: ''; position: absolute; left: 0; bottom: -4px; width: 0; height: 0.5px; background: var(--accent); transition: width 0.4s var(--ease); }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-links a:hover::after { width: 100%; }
+    .footer-text { color: var(--muted-2); font-size: 0.74rem; letter-spacing: 0.04em; }
+
+    @media (max-width: 1000px) {
+      .listings-grid, .agents-grid, .neighbourhoods-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats-bars { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .container { padding: 0 24px; }
+      .nav-links { display: none; }
+      .hero { padding: 185px 0 90px; }
+      .hero-glow { display: none; }
+      .search-box { flex-direction: column; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .stat:nth-child(2) { border-right: none; }
+      .stat:nth-child(1), .stat:nth-child(2) { border-bottom: 0.5px solid var(--border); }
+      .listings-grid, .agents-grid, .neighbourhoods-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header id="nav">
+    <div class="container">
+      <nav>
+        <a href="#" class="logo">PILLAR PROPERTIES</a>
+        <ul class="nav-links">
+          <li><a href="#listings">Listings</a></li>
+          <li><a href="#agents">Agents</a></li>
+          <li><a href="#neighbourhoods">Neighbourhoods</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <a href="#listings" class="nav-cta">Find a Home</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-glow">
+      <svg viewBox="0 0 200 200" fill="none" stroke="#cbb079" stroke-width="0.8"><rect x="20" y="20" width="70" height="60"/><rect x="90" y="20" width="90" height="40"/><rect x="90" y="60" width="40" height="80"/><rect x="130" y="60" width="50" height="80"/><rect x="20" y="80" width="70" height="60"/><line x1="90" y1="20" x2="90" y2="140" stroke-dasharray="4,4"/><text x="55" y="55" fill="#cbb079" font-size="9" text-anchor="middle" font-family="Inter,sans-serif">LIVING</text><text x="135" y="45" fill="#cbb079" font-size="9" text-anchor="middle" font-family="Inter,sans-serif">KITCHEN</text><text x="110" y="105" fill="#cbb079" font-size="9" text-anchor="middle" font-family="Inter,sans-serif">BED</text><text x="155" y="105" fill="#cbb079" font-size="9" text-anchor="middle" font-family="Inter,sans-serif">BED</text></svg>
+    </div>
+    <div class="container">
+      <div class="hero-content reveal">
+        <div class="eyebrow">Exclusive Listings</div>
+        <h1>Find your <em>next home</em></h1>
+        <p>Exclusive listings in Nairobi, Mombasa, and beyond. From modern apartments to family villas, we help you find the perfect place.</p>
+        <form class="search-box" onsubmit="event.preventDefault(); alert('Searching properties...');">
+          <input type="text" placeholder="City, neighbourhood, or address" />
+          <button type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats reveal">
+    <div class="stat"><div class="stat-num">850+</div><div class="stat-label">Properties Listed</div></div>
+    <div class="stat"><div class="stat-num">24</div><div class="stat-label">Neighbourhoods</div></div>
+    <div class="stat"><div class="stat-num">98%</div><div class="stat-label">Client Satisfaction</div></div>
+    <div class="stat"><div class="stat-num">12</div><div class="stat-label">Years of Trust</div></div>
+  </div>
+
+  <section id="listings" class="block listings">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="section-label">Featured Properties</div>
+        <h2 class="section-title">Handpicked for <em>you</em></h2>
+      </div>
+      <div class="listings-grid">
+        <div class="listing-card reveal">
+          <div class="listing-thumb"><span class="listing-badge">For Rent</span><svg viewBox="0 0 120 80" fill="none" stroke="#cbb079" stroke-width="1"><rect x="20" y="24" width="80" height="44" rx="2"/><path d="M20 40h80M44 24v44M76 24v44"/></svg></div>
+          <div class="listing-info">
+            <div class="listing-location">Kileleshwa · Apartment</div>
+            <h3 class="listing-title">2 Bedroom Suite with Balcony</h3>
+            <div class="listing-price">KES 85,000<span class="period">/month</span></div>
+            <div class="listing-features"><span>2 Beds</span><span>2 Baths</span><span>90 sqm</span></div>
+          </div>
+        </div>
+        <div class="listing-card reveal d1">
+          <div class="listing-thumb"><span class="listing-badge">For Sale</span><svg viewBox="0 0 120 80" fill="none" stroke="#cbb079" stroke-width="1"><path d="M30 64V36l30-18 30 18v46H30z"/><path d="M52 64V48h16v16"/></svg></div>
+          <div class="listing-info">
+            <div class="listing-location">Karen · Villa</div>
+            <h3 class="listing-title">4 Bedroom Family Home with Garden</h3>
+            <div class="listing-price">KES 45,000,000</div>
+            <div class="listing-features"><span>4 Beds</span><span>3 Baths</span><span>350 sqm</span></div>
+          </div>
+        </div>
+        <div class="listing-card reveal d2">
+          <div class="listing-thumb"><span class="listing-badge">For Rent</span><svg viewBox="0 0 120 80" fill="none" stroke="#cbb079" stroke-width="1"><rect x="40" y="22" width="40" height="58" rx="2"/><path d="M40 40h40M52 22v-6h16v6"/></svg></div>
+          <div class="listing-info">
+            <div class="listing-location">Westlands · Studio</div>
+            <h3 class="listing-title">Modern Studio Flat with City Views</h3>
+            <div class="listing-price">KES 55,000<span class="period">/month</span></div>
+            <div class="listing-features"><span>1 Bed</span><span>1 Bath</span><span>45 sqm</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="agents" class="block">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="section-label">Our Team</div>
+        <h2 class="section-title">Meet our <em>agents</em></h2>
+      </div>
+      <div class="agents-grid">
+        <div class="agent-card reveal">
+          <div class="agent-avatar"><svg viewBox="0 0 48 48" fill="none" stroke="#cbb079" stroke-width="1.2"><circle cx="24" cy="19" r="8"/><path d="M10 40c0-9 7-15 14-15s14 6 14 15"/></svg></div>
+          <p class="agent-name">Grace Muthoni</p>
+          <p class="agent-role">Senior Property Consultant</p>
+          <a href="tel:+254712345678" class="agent-contact">+254 712 345 678</a>
+        </div>
+        <div class="agent-card reveal d1">
+          <div class="agent-avatar"><svg viewBox="0 0 48 48" fill="none" stroke="#cbb079" stroke-width="1.2"><circle cx="24" cy="19" r="8"/><path d="M10 40c0-9 7-15 14-15s14 6 14 15"/></svg></div>
+          <p class="agent-name">James Kiptoo</p>
+          <p class="agent-role">Residential Specialist</p>
+          <a href="tel:+254723456789" class="agent-contact">+254 723 456 789</a>
+        </div>
+        <div class="agent-card reveal d2">
+          <div class="agent-avatar"><svg viewBox="0 0 48 48" fill="none" stroke="#cbb079" stroke-width="1.2"><circle cx="24" cy="19" r="8"/><path d="M10 40c0-9 7-15 14-15s14 6 14 15"/></svg></div>
+          <p class="agent-name">Amina Abdi</p>
+          <p class="agent-role">Commercial Real Estate</p>
+          <a href="tel:+254734567890" class="agent-contact">+254 734 567 890</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block insights">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="section-label">Market Insights</div>
+        <h2 class="section-title">The Nairobi <em>advantage</em></h2>
+      </div>
+      <div class="stats-bars" id="insights-bars">
+        <div class="bar-row reveal"><div class="bar-top"><span class="bar-name">Year-on-Year Growth</span><span class="bar-val">+14%</span></div><div class="bar-track"><div class="bar-fill" style="--w:82%"></div></div></div>
+        <div class="bar-row reveal d1"><div class="bar-top"><span class="bar-name">Rental Yield</span><span class="bar-val">8.6%</span></div><div class="bar-track"><div class="bar-fill" style="--w:64%"></div></div></div>
+        <div class="bar-row reveal d2"><div class="bar-top"><span class="bar-name">Avg. Days to Let</span><span class="bar-val">21 days</span></div><div class="bar-track"><div class="bar-fill" style="--w:38%"></div></div></div>
+        <div class="bar-row reveal d3"><div class="bar-top"><span class="bar-name">Buyer Satisfaction</span><span class="bar-val">98%</span></div><div class="bar-track"><div class="bar-fill" style="--w:98%"></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="neighbourhoods" class="block neighbourhoods">
+    <div class="container">
+      <div class="neighbourhoods-panel reveal">
+        <div class="section-label" style="text-align:center; display:block;">Explore</div>
+        <h2 class="section-title" style="margin: 0 auto 0; max-width: 18ch;">Neighbourhood <em>guides</em></h2>
+        <p>Discover the best areas to live, work, and play in Nairobi and beyond.</p>
+        <div class="neighbourhoods-grid">
+          <div class="neighbourhood-card"><span>Kileleshwa</span></div>
+          <div class="neighbourhood-card"><span>Karen</span></div>
+          <div class="neighbourhood-card"><span>Westlands</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="block">
+    <div class="container">
+      <div class="contact-panel reveal">
+        <div class="section-label">Get in Touch</div>
+        <h2 class="section-title" style="margin: 0 auto; max-width: 16ch;">Ready to find your <em>home</em>?</h2>
+        <p>Get in touch with our team for a free, no-obligation consultation.</p>
+        <a href="mailto:hello@pillarproperties.co.ke" class="btn btn-gold">Contact Us</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">PILLAR PROPERTIES</div>
+        <div class="footer-links"><a href="#">Instagram</a><a href="#">LinkedIn</a><a href="#">Contact</a></div>
+        <div class="footer-text">© 2025 Pillar Properties · All rights reserved</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 30));
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>

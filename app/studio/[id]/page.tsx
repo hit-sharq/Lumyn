@@ -21,6 +21,7 @@ interface Template {
   downloadUrl: string | null
   featured: boolean
   downloadCount: number
+  htmlContent: string | null
   reviews: { id: string; userName: string; rating: number; comment: string | null; createdAt: string }[]
   _count: { purchases: number; reviews: number }
 }
@@ -134,12 +135,21 @@ export default function TemplateDetailPage() {
         <div className={styles.detailLayout}>
           <div>
             <div className={styles.detailPreview}>
-              <Image
-                src={template.previewImage || "/placeholder.svg?height=500&width=800"}
-                alt={template.title}
-                fill
-                className={styles.detailPreviewImg}
-              />
+              {template.htmlContent ? (
+                <iframe
+                  src={`/api/studio/templates/${template.id}/preview`}
+                  title={`${template.title} preview`}
+                  sandbox="allow-scripts allow-same-origin allow-forms"
+                  className={styles.detailPreviewIframe}
+                />
+              ) : (
+                <Image
+                  src={template.previewImage || "/placeholder.svg?height=500&width=800"}
+                  alt={template.title}
+                  fill
+                  className={styles.detailPreviewImg}
+                />
+              )}
             </div>
 
             {template.reviews.length > 0 && (

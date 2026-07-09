@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hope Rising Foundation — Empowering Communities</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #faf2e9;
+      --bg-2: #f3e6d8;
+      --surface: #fffdfb;
+      --ink: #221509;
+      --muted: #7c6a59;
+      --accent: #c0501d;
+      --accent-light: #e2622a;
+      --accent-soft: rgba(192,80,29,0.07);
+      --border: rgba(34,21,9,0.12);
+      --border-strong: rgba(192,80,29,0.40);
+      --serif: 'Cormorant Garamond', serif;
+      --sans: 'Inter', sans-serif;
+      --ease: cubic-bezier(0.16,1,0.3,1);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      background-image:
+        radial-gradient(120% 80% at 100% 0%, rgba(192,80,29,0.05) 0%, transparent 50%),
+        radial-gradient(80% 60% at 0% 100%, rgba(34,21,9,0.03) 0%, transparent 55%);
+      background-attachment: fixed;
+    }
+    ::selection { background: rgba(192,80,29,0.18); color: var(--ink); }
+    .container { max-width: 1240px; margin: 0 auto; padding: 0 40px; }
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); }
+    .reveal.in { opacity: 1; transform: none; }
+    .reveal.d1 { transition-delay: 0.08s; }
+    .reveal.d2 { transition-delay: 0.16s; }
+    .reveal.d3 { transition-delay: 0.24s; }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 24px 0;
+      background: rgba(250,242,233,0.72);
+      backdrop-filter: blur(22px) saturate(140%);
+      -webkit-backdrop-filter: blur(22px) saturate(140%);
+      border-bottom: 0.5px solid var(--border);
+      transition: padding 0.5s var(--ease), background 0.5s var(--ease);
+    }
+    header.scrolled { padding: 16px 0; background: rgba(250,242,233,0.96); border-bottom-color: var(--border-strong); }
+    nav { display: flex; justify-content: space-between; align-items: center; }
+    .logo { display: inline-flex; align-items: center; gap: 14px; font-family: var(--serif); font-size: 1.42rem; font-weight: 600; letter-spacing: 0.14em; color: var(--ink); text-decoration: none; transition: letter-spacing 0.5s var(--ease); }
+    .logo svg { width: 28px; height: 28px; transition: transform 0.5s var(--ease); }
+    .logo:hover svg { transform: rotate(15deg) scale(1.1); }
+    header.scrolled .logo { letter-spacing: 0.18em; }
+    .nav-links { display: flex; gap: 40px; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; position: relative; transition: color 0.4s; }
+    .nav-links a::after { content: ''; position: absolute; left: 0; bottom: -8px; width: 0; height: 0.5px; background: var(--accent); transition: width 0.45s var(--ease); }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta { padding: 12px 28px; background: var(--accent); color: #fff; text-decoration: none; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; border: 0.5px solid var(--accent); transition: all 0.45s var(--ease); cursor: pointer; position: relative; overflow: hidden; }
+    .nav-cta::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%); opacity: 0; transition: opacity 0.4s; }
+    .nav-cta:hover::after { opacity: 1; }
+    .nav-cta:hover { background: var(--accent-light); border-color: var(--accent-light); transform: translateY(-2px); box-shadow: 0 12px 28px rgba(192,80,29,0.22); }
+
+    .hero { position: relative; padding: 230px 0 150px; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; background: radial-gradient(130% 90% at 80% 0%, rgba(192,80,29,0.12) 0%, transparent 55%), radial-gradient(90% 70% at 0% 100%, rgba(34,21,9,0.05) 0%, transparent 60%), linear-gradient(165deg, #faf2e9 0%, #f5e8da 60%, #efddca 100%); }
+    .hero-glow { position: absolute; right: 7%; top: 24%; width: 380px; height: 380px; border: 0.5px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at 50% 40%, rgba(192,80,29,0.06), transparent 70%); transition: transform 0.6s cubic-bezier(0.16,1,0.3,1); }
+    .hero:hover .hero-glow { transform: scale(1.05); }
+    .hero-glow svg { width: 56%; opacity: 0.8; transition: transform 0.6s cubic-bezier(0.16,1,0.3,1); }
+    .hero:hover .hero-glow svg { transform: scale(1.08); }
+    .hero-content { position: relative; z-index: 2; max-width: 760px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 12px; margin-bottom: 32px; font-size: 0.68rem; font-weight: 500; letter-spacing: 0.38em; text-transform: uppercase; color: var(--accent); }
+    .eyebrow::before { content: ''; width: 32px; height: 0.5px; background: var(--accent); }
+    .hero h1 { font-family: var(--serif); font-size: clamp(3.2rem, 7.2vw, 5.6rem); font-weight: 300; line-height: 1.04; letter-spacing: -0.015em; color: var(--ink); margin-bottom: 30px; }
+    .hero h1 em { font-style: italic; color: var(--accent); }
+    .hero p { font-size: 1.14rem; color: var(--muted); max-width: 580px; margin-bottom: 44px; font-weight: 300; line-height: 1.85; }
+    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn { display: inline-block; padding: 16px 36px; text-decoration: none; cursor: pointer; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; border: 0.5px solid transparent; transition: all 0.5s var(--ease); position: relative; overflow: hidden; }
+    .btn::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%); opacity: 0; transition: opacity 0.4s; }
+    .btn:hover::after { opacity: 1; }
+    .btn-gold { background: var(--accent); color: #fff; }
+    .btn-gold:hover { background: var(--accent-light); transform: translateY(-4px); box-shadow: 0 20px 44px rgba(192,80,29,0.26); }
+    .btn-ghost { background: transparent; color: var(--accent); border-color: var(--border-strong); }
+    .btn-ghost:hover { border-color: var(--accent); background: var(--accent-soft); transform: translateY(-4px); }
+    @media (hover: none) { .btn:hover { transform: none; } }
+
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); background: linear-gradient(180deg, rgba(192,80,29,0.03) 0%, transparent 100%); }
+    .stat { padding: 48px 24px; text-align: center; border-right: 0.5px solid var(--border); position: relative; transition: background 0.5s var(--ease); }
+    .stat:last-child { border-right: none; }
+    .stat:hover { background: var(--accent-soft); }
+    .stat-num { font-family: var(--serif); font-size: 3rem; font-weight: 400; color: var(--accent); line-height: 1; letter-spacing: -0.02em; }
+    .stat-label { font-size: 0.64rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-top: 14px; }
+
+    section.block { padding: clamp(100px, 13vw, 150px) 0; }
+    .section-label { font-size: 0.68rem; letter-spacing: 0.36em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+    .section-label::before { content: ''; width: 32px; height: 0.5px; background: var(--accent); }
+    .section-title { font-family: var(--serif); font-size: clamp(2.1rem, 4.6vw, 3.4rem); font-weight: 300; line-height: 1.1; color: var(--ink); max-width: 20ch; }
+    .section-title em { font-style: italic; color: var(--accent); }
+    .section-head { margin-bottom: 72px; max-width: 760px; }
+    .section-head p { color: var(--muted); font-size: 1.08rem; font-weight: 300; margin-top: 24px; line-height: 1.9; }
+
+    .mission { background: var(--surface); border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); }
+    .mission-content { max-width: 760px; margin: 0 auto; text-align: center; }
+    .mission-content p { color: var(--muted); font-size: 1.14rem; line-height: 1.9; margin-bottom: 26px; font-weight: 300; }
+
+    .programs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .program-card { border: 0.5px solid var(--border); padding: 50px 38px 54px; background: var(--surface); transition: border-color 0.5s, transform 0.6s var(--ease), background 0.5s, box-shadow 0.5s; position: relative; overflow: hidden; }
+    .program-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 0.5px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0; transition: opacity 0.5s; }
+    .program-card:hover::before { opacity: 0.6; }
+    .program-card:hover { border-color: var(--border-strong); transform: translateY(-8px); background: var(--accent-soft); box-shadow: 0 32px 64px rgba(34,21,9,0.06); }
+    .program-icon { width: 62px; height: 62px; border: 0.5px solid var(--border-strong); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 32px; transition: background 0.5s, border-color 0.5s, box-shadow 0.5s; }
+    .program-card:hover .program-icon { background: rgba(192,80,29,0.08); border-color: var(--accent); box-shadow: 0 0 28px rgba(192,80,29,0.1); }
+    .program-icon svg { width: 28px; height: 28px; stroke: var(--accent); fill: none; }
+    .program-card h3 { font-family: var(--serif); font-size: 1.7rem; font-weight: 500; color: var(--ink); margin-bottom: 16px; letter-spacing: -0.01em; }
+    .program-card p { color: var(--muted); font-size: 0.98rem; font-weight: 300; line-height: 1.9; }
+
+    .stories-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+    .story-card { border: 0.5px solid var(--border); padding: 48px 40px 52px; background: var(--surface); transition: border-color 0.5s, transform 0.6s var(--ease), box-shadow 0.5s; position: relative; }
+    .story-card::before { content: '\201C'; position: absolute; top: 22px; left: 32px; font-family: var(--serif); font-size: 3.6rem; line-height: 1; color: var(--border-strong); transition: color 0.5s; }
+    .story-card:hover::before { color: var(--accent); }
+    .story-card:hover { border-color: var(--border-strong); transform: translateY(-8px); box-shadow: 0 32px 64px rgba(34,21,9,0.06); }
+    .story-quote { font-family: var(--serif); font-size: 1.32rem; font-weight: 400; font-style: italic; line-height: 1.6; margin-bottom: 28px; margin-top: 24px; color: var(--ink); }
+    .story-author { font-weight: 600; font-size: 0.95rem; color: var(--accent); letter-spacing: 0.02em; }
+    .story-location { color: var(--muted); font-size: 0.85rem; font-weight: 300; margin-top: 2px; }
+
+    .involved-panel { border: 0.5px solid var(--border-strong); padding: clamp(56px, 8vw, 100px); text-align: center; background: radial-gradient(130% 130% at 50% 0%, rgba(192,80,29,0.08) 0%, transparent 60%), var(--surface); position: relative; overflow: hidden; }
+    .involved-panel::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 60%; height: 0.5px; background: linear-gradient(90deg, transparent, var(--accent), transparent); }
+    .involved-panel p.lead { color: var(--muted); max-width: 520px; margin: 22px auto 48px; font-weight: 300; font-size: 1.1rem; line-height: 1.85; }
+    .involved-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .involved-card { border: 0.5px solid var(--border); padding: 50px 38px 54px; background: var(--surface); transition: border-color 0.5s, transform 0.6s var(--ease), box-shadow 0.5s; position: relative; overflow: hidden; }
+    .involved-card:hover { border-color: var(--border-strong); transform: translateY(-8px); box-shadow: 0 32px 64px rgba(34,21,9,0.06); }
+    .involved-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 0.5px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0; transition: opacity 0.5s; }
+    .involved-card:hover::before { opacity: 0.6; }
+    .involved-icon { width: 58px; height: 58px; margin: 0 auto 22px; border: 0.5px solid var(--border-strong); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: border-color 0.5s, box-shadow 0.5s; }
+    .involved-card:hover .involved-icon { border-color: var(--accent); box-shadow: 0 0 28px rgba(192,80,29,0.1); }
+    .involved-icon svg { width: 26px; height: 26px; stroke: var(--accent); fill: none; }
+    .involved-card h3 { font-family: var(--serif); font-size: 1.7rem; font-weight: 500; color: var(--ink); margin-bottom: 14px; }
+    .involved-card p { color: var(--muted); font-size: 0.98rem; font-weight: 300; line-height: 1.85; margin-bottom: 28px; }
+
+    footer { border-top: 0.5px solid var(--border); padding: 60px 0; position: relative; background: var(--surface); }
+    footer::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 0.5px; background: linear-gradient(90deg, transparent, var(--accent), transparent); }
+    .footer-content { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+    .footer-logo { font-family: var(--serif); font-size: 1.3rem; font-weight: 600; letter-spacing: 0.14em; color: var(--ink); transition: letter-spacing 0.5s var(--ease); }
+    .footer-logo:hover { letter-spacing: 0.2em; }
+    .footer-links { display: flex; gap: 32px; }
+    .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.76rem; letter-spacing: 0.1em; transition: color 0.4s; position: relative; }
+    .footer-links a::after { content: ''; position: absolute; left: 0; bottom: -4px; width: 0; height: 0.5px; background: var(--accent); transition: width 0.4s var(--ease); }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-links a:hover::after { width: 100%; }
+    .footer-text { color: var(--muted); font-size: 0.74rem; letter-spacing: 0.04em; }
+
+    @media (max-width: 1000px) {
+      .programs-grid, .stories-grid, .involved-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .stat:nth-child(2) { border-right: none; }
+      .stat:nth-child(1), .stat:nth-child(2) { border-bottom: 0.5px solid var(--border); }
+    }
+    @media (max-width: 640px) {
+      .container { padding: 0 24px; }
+      .nav-links { display: none; }
+      .hero { padding: 170px 0 90px; }
+      .hero-glow { display: none; }
+      .programs-grid, .stories-grid, .involved-grid, .stats { grid-template-columns: 1fr; }
+      .stat { border-right: none; border-bottom: 0.5px solid var(--border); }
+      .stat:last-child { border-bottom: none; }
+    }
+  </style>
+</head>
+<body>
+  <header id="nav">
+    <div class="container">
+      <nav>
+        <a href="#" class="logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#c0501d" stroke-width="1.4"><path d="M12 3C8 8 6 11 6 15a6 6 0 0012 0c0-4-2-7-6-12z"/><path d="M12 9v9" opacity="0.6"/></svg>
+          HOPE RISING
+        </a>
+        <ul class="nav-links">
+          <li><a href="#mission">Mission</a></li>
+          <li><a href="#programs">Programs</a></li>
+          <li><a href="#stories">Stories</a></li>
+          <li><a href="#get-involved">Get Involved</a></li>
+        </ul>
+        <a href="#get-involved" class="nav-cta">Donate</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-glow">
+      <svg viewBox="0 0 120 120" fill="none" stroke="#c0501d" stroke-width="1.1"><path d="M60 14C40 38 30 54 30 72a30 30 0 0060 0c0-18-10-34-30-58z"/><path d="M60 40v52" opacity="0.6"/></svg>
+    </div>
+    <div class="container">
+      <div class="hero-content reveal">
+        <div class="eyebrow">Nonprofit Organisation</div>
+        <h1>Building hope,<br><em>transforming</em> communities</h1>
+        <p>We work with local partners to deliver sustainable education, clean water, and economic opportunity across East Africa.</p>
+        <div class="hero-btns">
+          <a href="#get-involved" class="btn btn-gold">Make a Donation</a>
+          <a href="#programs" class="btn btn-ghost">Our Work</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats reveal">
+    <div class="stat"><div class="stat-num">24K</div><div class="stat-label">Lives Impacted</div></div>
+    <div class="stat"><div class="stat-num">47</div><div class="stat-label">Communities Served</div></div>
+    <div class="stat"><div class="stat-num">12</div><div class="stat-label">Active Programs</div></div>
+    <div class="stat"><div class="stat-num">89%</div><div class="stat-label">Funds to Programs</div></div>
+  </div>
+
+  <section id="mission" class="block mission">
+    <div class="container">
+      <div class="mission-content reveal">
+        <div class="section-label">Our Mission</div>
+        <h2 class="section-title" style="margin: 0 auto 24px;">Why we <em>exist</em></h2>
+        <p>Hope Rising Foundation was founded in 2012 with a simple belief: that sustainable change comes from within communities. We don't impose solutions — we partner with local leaders, educators, and entrepreneurs to build lasting impact.</p>
+        <p>From rural water projects in Western Kenya to vocational training centres in Nairobi's informal settlements, every initiative is community-led and outcome-driven.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="programs" class="block">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="section-label">What We Do</div>
+        <h2 class="section-title">Our <em>programs</em></h2>
+      </div>
+      <div class="programs-grid">
+        <div class="program-card reveal d1">
+          <div class="program-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><path d="M12 3c4 5 7 8 7 12a7 7 0 01-14 0c0-4 3-7 7-12z"/></svg></div>
+          <h3>Clean Water</h3>
+          <p>Boreholes, rainwater harvesting, and water filtration systems for rural communities lacking safe drinking water.</p>
+        </div>
+        <div class="program-card reveal d2">
+          <div class="program-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h4"/></svg></div>
+          <h3>Education</h3>
+          <p>Scholarships, school construction, teacher training, and digital literacy programs for children and youth.</p>
+        </div>
+        <div class="program-card reveal d3">
+          <div class="program-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M8 8V5a4 4 0 018 0v3"/></svg></div>
+          <h3>Economic Empowerment</h3>
+          <p>Vocational training, microfinance, and business incubation for women and youth entrepreneurs.</p>
+        </div>
+        <div class="program-card reveal d3">
+          <div class="program-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><path d="M12 21s-7-4-7-9a4 4 0 017-3 4 4 0 017 3c0 5-7 9-7 9z"/><path d="M8 12h3l1-2 1 4 1-2h2" opacity="0.7"/></svg></div>
+          <h3>Healthcare</h3>
+          <p>Mobile clinics, maternal health programmes, and mental health support in underserved areas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="stories" class="block mission">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="section-label">Impact Stories</div>
+        <h2 class="section-title">Voices of <em>change</em></h2>
+      </div>
+      <div class="stories-grid">
+        <div class="story-card reveal d1">
+          <p class="story-quote">"Before the borehole, we walked three hours each day for water. Now our daughters go to school instead."</p>
+          <div class="story-author">Grace Achieng</div>
+          <div class="story-location">Community Leader, Siaya County</div>
+        </div>
+        <div class="story-card reveal d2">
+          <p class="story-quote">"The vocational training gave me skills to start my own tailoring business. I now employ three other women from my village."</p>
+          <div class="story-author">Mary Njeri</div>
+          <div class="story-location">Programme Graduate, Nairobi</div>
+        </div>
+        <div class="story-card reveal d3">
+          <p class="story-quote">"Hope Rising did not just build a school — they invested in teachers who transformed how our children learn."</p>
+          <div class="story-author">Samuel Kipchoge</div>
+          <div class="story-location">Head Teacher, Baringo County</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="get-involved" class="block">
+    <div class="container">
+      <div class="involved-panel reveal">
+        <div class="section-label">Get Involved</div>
+        <h2 class="section-title" style="margin: 0 auto; max-width: 16ch;">Join the <em>movement</em></h2>
+        <p class="lead">Whether you donate, volunteer, or spread the word — every action counts.</p>
+        <div class="involved-grid">
+          <div class="involved-card">
+            <div class="involved-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><path d="M12 21s-7-4-7-9a4 4 0 017-3 4 4 0 017 3c0 5-7 9-7 9z"/></svg></div>
+            <h3>Donate</h3>
+            <p>Your contribution directly funds clean water, education, and economic opportunity.</p>
+            <a href="#" class="btn btn-gold">Give Now</a>
+          </div>
+          <div class="involved-card">
+            <div class="involved-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><path d="M12 4v16M4 12h16"/><circle cx="12" cy="12" r="9"/></svg></div>
+            <h3>Volunteer</h3>
+            <p>Share your skills and time with communities that need them most.</p>
+            <a href="#" class="btn btn-ghost">Join Us</a>
+          </div>
+          <div class="involved-card">
+            <div class="involved-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><path d="M4 12h16M16 8l4 4-4 4M8 8l-4 4 4 4"/></svg></div>
+            <h3>Advocate</h3>
+            <p>Amplify our mission. Follow us, share our stories, and spark conversations.</p>
+            <a href="#" class="btn btn-ghost">Follow</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">HOPE RISING</div>
+        <div class="footer-links"><a href="#">Instagram</a><a href="#">LinkedIn</a><a href="#">Contact</a></div>
+        <div class="footer-text">© 2025 Hope Rising Foundation · All rights reserved</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 30));
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>

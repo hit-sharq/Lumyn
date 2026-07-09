@@ -59,7 +59,7 @@ export default async function AdminAnalyticsPage() {
 
       <section className="mt-10 grid gap-6 lg:grid-cols-2">
         <div className={styles.growthCard}>
-          <h2 className={styles.growthCardTitle}>Top Templates</h2>
+          <h2 className={styles.growthCardTitle}>Top Templates by Downloads</h2>
           {analytics.topTemplates.length === 0 ? (
             <p className={styles.growthEmpty}>No template data yet</p>
           ) : (
@@ -75,6 +75,32 @@ export default async function AdminAnalyticsPage() {
                   <tr key={tpl.id}>
                     <td>{tpl.title}</td>
                     <td>{tpl.downloadCount}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
+
+        <div className={styles.growthCard}>
+          <h2 className={styles.growthCardTitle}>Best Sellers by Sales</h2>
+          {analytics.topTemplatesByPurchases.length === 0 ? (
+            <p className={styles.growthEmpty}>No sales data yet</p>
+          ) : (
+            <table className={styles.growthTable}>
+              <thead>
+                <tr>
+                  <th>Template</th>
+                  <th>Sales</th>
+                  <th>Revenue</th>
+                </tr>
+              </thead>
+              <tbody>
+                {analytics.topTemplatesByPurchases.map((tpl: any) => (
+                  <tr key={tpl.id}>
+                    <td>{tpl.title}</td>
+                    <td>{tpl.purchases}</td>
+                    <td>{new Intl.NumberFormat("en-KE", { style: "currency", currency: "KES", minimumFractionDigits: 0 }).format(tpl.revenue)}</td>
                   </tr>
                 ))}
               </tbody>

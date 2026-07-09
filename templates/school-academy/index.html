@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sunrise Academy — Nurturing Minds, Building Character</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #f7f5ef;
+      --surface: #ffffff;
+      --text: #0f1b34;
+      --muted: #6a748c;
+      --navy: #0f1b34;
+      --navy-2: #1d2e52;
+      --gold: #e2a806;
+      --gold-light: #ffce3a;
+      --gold-soft: #fbf1d6;
+      --border: rgba(15,27,52,0.14);
+      --border-soft: rgba(15,27,52,0.10);
+      --serif: 'Fraunces', serif;
+      --sans: 'Inter', sans-serif;
+      --ease: cubic-bezier(0.22,1,0.36,1);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased;
+      background-image: radial-gradient(60% 50% at 50% -10%, rgba(226,168,6,0.07) 0%, transparent 70%);
+    }
+    .container { max-width: 1180px; margin: 0 auto; padding: 0 32px; }
+
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.85s var(--ease), transform 0.85s var(--ease); }
+    .reveal.in { opacity: 1; transform: none; }
+    .reveal.d1 { transition-delay: 0.08s; }
+    .reveal.d2 { transition-delay: 0.16s; }
+    .reveal.d3 { transition-delay: 0.24s; }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+    header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 24px 0; background: rgba(247,245,239,0.78); backdrop-filter: blur(22px) saturate(150%); -webkit-backdrop-filter: blur(22px) saturate(150%); border-bottom: 0.5px solid var(--border); transition: padding 0.5s var(--ease), background 0.5s var(--ease); }
+    header.scrolled { padding: 16px 0; background: rgba(247,245,239,0.96); border-bottom-color: var(--border-strong); }
+    nav { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-family: var(--serif); font-size: 1.52rem; font-weight: 600; letter-spacing: 0.06em; color: var(--navy); text-decoration: none; display: inline-flex; align-items: center; gap: 14px; transition: letter-spacing 0.5s var(--ease); }
+    header.scrolled .logo { letter-spacing: 0.1em; }
+    .logo svg { width: 36px; height: 36px; transition: transform 0.5s var(--ease); }
+    .logo:hover svg { transform: rotate(-15deg) scale(1.08); }
+    .nav-links { display: flex; gap: 40px; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; position: relative; transition: color 0.4s; }
+    .nav-links a::after { content: ''; position: absolute; left: 0; bottom: -8px; width: 0; height: 0.5px; background: var(--gold); transition: width 0.45s var(--ease); }
+    .nav-links a:hover { color: var(--navy); }
+    .nav-links a:hover::after { width: 100%; }
+    .btn { display: inline-block; padding: 12px 30px; background: var(--navy); color: #fff; text-decoration: none; border-radius: 100px; font-weight: 600; font-size: 0.76rem; letter-spacing: 0.16em; text-transform: uppercase; border: 0.5px solid var(--navy); transition: all 0.5s var(--ease); position: relative; overflow: hidden; }
+    .btn::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 60%); opacity: 0; transition: opacity 0.4s; }
+    .btn:hover::after { opacity: 1; }
+    .btn:hover { background: var(--gold); color: var(--navy); border-color: var(--gold); transform: translateY(-3px); box-shadow: 0 14px 32px rgba(226,168,6,0.3); }
+
+    .hero { padding: 160px 0 100px; text-align: center; background: radial-gradient(ellipse at 50% -20%, rgba(226,168,6,0.16) 0%, transparent 60%); position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; opacity: 0.4; background-image: linear-gradient(rgba(15,27,52,0.04) 0.5px, transparent 0.5px), linear-gradient(90deg, rgba(15,27,52,0.04) 0.5px, transparent 0.5px); background-size: 72px 72px; mask-image: radial-gradient(65% 55% at 50% 25%, #000 0%, transparent 82%); -webkit-mask-image: radial-gradient(65% 55% at 50% 25%, #000 0%, transparent 82%); }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 14px; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.38em; text-transform: uppercase; color: #9a7405; margin-bottom: 30px; }
+    .hero-eyebrow::before, .hero-eyebrow::after { content: ''; width: 32px; height: 0.5px; background: var(--gold); }
+    .hero-content { position: relative; z-index: 2; }
+    .hero h1 { font-family: var(--serif); font-size: clamp(3rem, 7vw, 5.4rem); font-weight: 500; line-height: 1.08; letter-spacing: -0.02em; margin-bottom: 24px; }
+    .hero h1 em { font-style: italic; color: #9a7405; }
+    .hero p { color: var(--muted); font-size: 1.14rem; max-width: 640px; margin: 0 auto 52px; font-weight: 300; line-height: 1.85; }
+
+    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; max-width: 960px; margin: 0 auto; }
+    .stat { text-align: center; padding: 40px 20px; border: 0.5px solid var(--border); border-radius: 22px; background: var(--surface); transition: all 0.5s var(--ease); position: relative; overflow: hidden; }
+    .stat::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 0.5px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: 0; transition: opacity 0.5s; }
+    .stat:hover::before { opacity: 0.8; }
+    .stat:hover { transform: translateY(-8px); border-color: rgba(226,168,6,0.5); box-shadow: 0 28px 56px rgba(15,27,52,0.1); }
+    .stat-value { font-family: var(--serif); font-size: 3rem; font-weight: 600; color: var(--navy); line-height: 1; letter-spacing: -0.02em; }
+    .stat-label { color: var(--muted); font-size: 0.88rem; margin-top: 12px; font-weight: 300; letter-spacing: 0.02em; }
+
+    section { padding: 120px 0; }
+    .section-label { display: inline-flex; align-items: center; gap: 12px; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.36em; text-transform: uppercase; color: #9a7405; margin-bottom: 20px; }
+    .section-label::before { content: ''; width: 32px; height: 0.5px; background: var(--gold); }
+    .section-title { font-family: var(--serif); font-size: clamp(2.1rem, 4.6vw, 3.4rem); font-weight: 500; letter-spacing: -0.02em; margin-bottom: 72px; text-align: center; line-height: 1.1; }
+    .section-title em { font-style: italic; color: #9a7405; }
+
+    .programs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .program-card { padding: 54px 40px; border: 0.5px solid var(--border); border-radius: 26px; background: var(--surface); transition: all 0.55s var(--ease); position: relative; overflow: hidden; }
+    .program-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(226,168,6,0.08), transparent 40%); opacity: 0; transition: opacity 0.5s var(--ease); }
+    .program-card:hover { transform: translateY(-8px); box-shadow: 0 32px 64px rgba(15,27,52,0.1); border-color: rgba(226,168,6,0.6); }
+    .program-card:hover::after { opacity: 1; }
+    .program-icon { width: 66px; height: 66px; background: var(--gold-soft); border-radius: 18px; display: flex; align-items: center; justify-content: center; margin-bottom: 28px; transition: transform 0.55s var(--ease), box-shadow 0.5s; }
+    .program-card:hover .program-icon { transform: scale(1.08) rotate(-3deg); box-shadow: 0 0 32px rgba(226,168,6,0.15); }
+    .program-icon svg { width: 30px; height: 30px; stroke: #9a7405; fill: none; }
+    .program-card h3 { font-family: var(--serif); font-size: 1.72rem; font-weight: 600; margin-bottom: 14px; letter-spacing: -0.01em; }
+    .program-card p { color: var(--muted); font-size: 0.98rem; margin-bottom: 18px; font-weight: 300; line-height: 1.85; }
+    .program-details { font-size: 0.82rem; color: var(--navy); font-weight: 600; letter-spacing: 0.04em; padding-top: 16px; border-top: 0.5px solid var(--border-soft); }
+
+    .admissions { background: linear-gradient(155deg, var(--navy) 0%, var(--navy-2) 100%); border-radius: 34px; padding: clamp(60px, 8vw, 100px); color: #fff; border: 0.5px solid rgba(255,255,255,0.08); box-shadow: 0 40px 80px rgba(15,27,52,0.25); position: relative; overflow: hidden; }
+    .admissions::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 0.5px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+    .admissions .section-label { color: var(--gold-light); }
+    .admissions .section-title { color: #fff; }
+    .admissions-lead { text-align: center; color: rgba(255,255,255,0.72); max-width: 600px; margin: 0 auto 54px; font-weight: 300; line-height: 1.85; }
+    .admissions-form { max-width: 640px; margin: 0 auto; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .form-group { margin-bottom: 22px; }
+    .form-group label { display: block; font-weight: 500; margin-bottom: 10px; font-size: 0.88rem; color: rgba(255,255,255,0.9); letter-spacing: 0.02em; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 14px 18px; border: 0.5px solid rgba(255,255,255,0.2); border-radius: 14px; font-size: 0.98rem; font-family: inherit; background: rgba(255,255,255,0.06); color: #fff; outline: none; transition: border-color 0.4s, background 0.4s, box-shadow 0.4s; }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,0.45); }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold-light); background: rgba(255,255,255,0.1); box-shadow: 0 0 0 4px rgba(226,168,6,0.06); }
+    .form-group select option { color: #0f1b34; }
+    .apply-btn { width: 100%; padding: 16px; background: var(--gold); color: var(--navy); border: none; border-radius: 14px; font-weight: 700; font-size: 0.9rem; cursor: pointer; transition: all 0.55s var(--ease); letter-spacing: 0.02em; position: relative; overflow: hidden; }
+    .apply-btn::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 60%); opacity: 0; transition: opacity 0.4s; }
+    .apply-btn:hover::after { opacity: 1; }
+    .apply-btn:hover { background: var(--gold-light); transform: translateY(-3px); box-shadow: 0 16px 40px rgba(226,168,6,0.35); }
+
+    .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
+    .team-member { text-align: center; transition: transform 0.5s var(--ease); }
+    .team-member:hover { transform: translateY(-4px); }
+    .team-avatar { width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 22px; background: linear-gradient(135deg, var(--gold), var(--gold-light)); display: flex; align-items: center; justify-content: center; border: 0.5px solid rgba(226,168,6,0.4); transition: transform 0.55s var(--ease), box-shadow 0.55s var(--ease); }
+    .team-member:hover .team-avatar { transform: translateY(-8px); box-shadow: 0 24px 48px rgba(226,168,6,0.25); }
+    .team-avatar svg { width: 52%; height: 52%; stroke: var(--navy); fill: none; }
+    .team-name { font-family: var(--serif); font-size: 1.42rem; font-weight: 600; margin-bottom: 4px; letter-spacing: -0.01em; }
+    .team-role { color: var(--muted); font-size: 0.9rem; font-weight: 300; }
+
+    footer { border-top: 0.5px solid var(--border); padding: 64px 0; text-align: center; background: var(--surface); position: relative; }
+    footer::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 0.5px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+    .footer-logo { font-family: var(--serif); font-size: 1.52rem; font-weight: 600; color: var(--navy); margin-bottom: 10px; letter-spacing: 0.02em; transition: letter-spacing 0.5s var(--ease); }
+    .footer-logo:hover { letter-spacing: 0.08em; }
+    .footer-text { color: var(--muted); font-size: 0.88rem; font-weight: 300; }
+    .footer-links { display: flex; gap: 30px; justify-content: center; margin-top: 18px; }
+    .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color 0.4s; position: relative; }
+    .footer-links a::after { content: ''; position: absolute; left: 0; bottom: -4px; width: 0; height: 0.5px; background: var(--gold); transition: width 0.4s var(--ease); }
+    .footer-links a:hover { color: var(--navy); }
+    .footer-links a:hover::after { width: 100%; }
+
+    @media (max-width: 900px) {
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .programs-grid, .team-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hero { padding: 120px 0 70px; }
+      .admissions { padding: 56px 28px; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-links { flex-wrap: wrap; }
+    }
+    @media (max-width: 520px) {
+      .stats-row, .programs-grid, .team-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header id="nav">
+    <div class="container">
+      <nav>
+        <a href="#" class="logo">
+          <svg viewBox="0 0 32 32" fill="none" stroke="#e2a806" stroke-width="1.6"><path d="M16 4L4 9l12 5 12-5-12-5z"/><path d="M8 13v7c0 2 4 4 8 4s8-2 8-4v-7"/></svg>
+          Sunrise Academy
+        </a>
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#programs">Programs</a></li>
+          <li><a href="#admissions">Admissions</a></li>
+          <li><a href="#team">Our Team</a></li>
+        </ul>
+        <a href="#admissions" class="btn">Apply Now</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-eyebrow reveal">Kindergarten · Primary · High School</div>
+      <h1 class="reveal d1">Nurturing minds,<br>building <em>character</em></h1>
+      <p class="reveal d2">A world-class education where every child is known, valued, and challenged to reach their full potential.</p>
+      <div class="stats-row reveal d3">
+        <div class="stat"><div class="stat-value">850+</div><div class="stat-label">Students</div></div>
+        <div class="stat"><div class="stat-value">65</div><div class="stat-label">Teachers</div></div>
+        <div class="stat"><div class="stat-value">98%</div><div class="stat-label">Graduation Rate</div></div>
+        <div class="stat"><div class="stat-value">25+</div><div class="stat-label">Years of Excellence</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="programs">
+    <div class="container">
+      <div class="section-label reveal" style="text-align:center; display:block;">Our Programs</div>
+      <h2 class="section-title reveal">A Pathway for Every Age</h2>
+      <div class="programs-grid">
+        <div class="program-card reveal d1">
+          <div class="program-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 20v-6M8 20v-9M16 20v-3M6 8l6-4 6 4v8H6z"/></svg></div>
+          <h3>Kindergarten</h3>
+          <p>Ages 3–5 · Play-based learning with certified early childhood educators in a warm, curious environment.</p>
+          <p class="program-details">Full day · 8:00 AM – 3:00 PM</p>
+        </div>
+        <div class="program-card reveal d2">
+          <div class="program-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h4"/></svg></div>
+          <h3>Primary School</h3>
+          <p>Ages 6–11 · Strong foundations in literacy, numeracy, and the social skills that last a lifetime.</p>
+          <p class="program-details">8:00 AM – 3:30 PM · CBC Curriculum</p>
+        </div>
+        <div class="program-card reveal d3">
+          <div class="program-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg></div>
+          <h3>High School</h3>
+          <p>Ages 12–18 · IGCSE and KCSE preparation with STEM and arts pathways and boarding available.</p>
+          <p class="program-details">8:00 AM – 4:00 PM · Boarding available</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="admissions">
+    <div class="container">
+      <div class="admissions reveal">
+        <div class="section-label" style="text-align:center; display:block;">Admissions</div>
+        <h2 class="section-title">Begin the Journey</h2>
+        <p class="admissions-lead">We accept applications year-round. Start your child's story with us by submitting an enquiry form.</p>
+        <form class="admissions-form" onsubmit="event.preventDefault(); alert('Application received! Our admissions team will be in touch within 48 hours.');">
+          <div class="form-row">
+            <div class="form-group"><label>Student Name</label><input type="text" placeholder="Full name" required /></div>
+            <div class="form-group"><label>Date of Birth</label><input type="date" required /></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Parent / Guardian</label><input type="text" placeholder="Full name" required /></div>
+            <div class="form-group"><label>Email</label><input type="email" placeholder="parent@example.com" required /></div>
+          </div>
+          <div class="form-group"><label>Program of Interest</label><select required><option value="">Select a program</option><option>Kindergarten</option><option>Primary School</option><option>High School</option></select></div>
+          <div class="form-group"><label>Message (optional)</label><textarea placeholder="Tell us about your child..."></textarea></div>
+          <button type="submit" class="apply-btn">Submit Application</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section id="team">
+    <div class="container">
+      <div class="section-label reveal" style="text-align:center; display:block;">Leadership</div>
+      <h2 class="section-title reveal">The People Behind Sunrise</h2>
+      <div class="team-grid">
+        <div class="team-member reveal d1"><div class="team-avatar"><svg viewBox="0 0 48 48" fill="none" stroke-width="1.6"><circle cx="24" cy="19" r="8"/><path d="M10 40c0-9 7-15 14-15s14 6 14 15"/></svg></div><p class="team-name">Dr. Elizabeth Mwangi</p><p class="team-role">Head of School</p></div>
+        <div class="team-member reveal d2"><div class="team-avatar"><svg viewBox="0 0 48 48" fill="none" stroke-width="1.6"><circle cx="24" cy="19" r="8"/><path d="M10 40c0-9 7-15 14-15s14 6 14 15"/></svg></div><p class="team-name">Mr. David Kipchoge</p><p class="team-role">Principal, High School</p></div>
+        <div class="team-member reveal d3"><div class="team-avatar"><svg viewBox="0 0 48 48" fill="none" stroke-width="1.6"><circle cx="24" cy="19" r="8"/><path d="M10 40c0-9 7-15 14-15s14 6 14 15"/></svg></div><p class="team-name">Ms. Sarah Njoroge</p><p class="team-role">Head of Primary</p></div>
+        <div class="team-member reveal d3"><div class="team-avatar"><svg viewBox="0 0 48 48" fill="none" stroke-width="1.6"><circle cx="24" cy="19" r="8"/><path d="M10 40c0-9 7-15 14-15s14 6 14 15"/></svg></div><p class="team-name">Mrs. Grace Otieno</p><p class="team-role">Kindergarten Lead</p></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-logo">Sunrise Academy</div>
+      <div class="footer-text">© 2025 Sunrise Academy. All rights reserved.</div>
+      <div class="footer-links"><a href="#">About</a><a href="#">Admissions</a><a href="#">Calendar</a><a href="#">Contact</a></div>
+    </div>
+  </footer>
+  <script>
+    const nav = document.getElementById('nav');
+    addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 30));
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>

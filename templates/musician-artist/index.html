@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kaya Music — Soulful Rhythms</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #0a0a0f;
+      --bg-2: #14141c;
+      --surface: rgba(255,255,255,0.03);
+      --surface-2: rgba(255,255,255,0.05);
+      --accent: #f43f5e;
+      --accent-light: #fb7185;
+      --cream: #f2eef0;
+      --cream-bright: #fbf7f9;
+      --muted: rgba(242,238,240,0.55);
+      --muted-2: rgba(242,238,240,0.38);
+      --border: rgba(244,63,94,0.20);
+      --border-strong: rgba(244,63,94,0.46);
+      --serif: 'Cormorant Garamond', serif;
+      --sans: 'Inter', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--cream);
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    ::selection { background: rgba(244,63,94,0.3); color: var(--cream-bright); }
+    .container { max-width: 1240px; margin: 0 auto; padding: 0 40px; }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+    .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+    /* ── Navigation ── */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 24px 0;
+      background: rgba(10,10,15,0.68);
+      backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
+      border-bottom: 0.5px solid var(--border);
+      transition: padding 0.5s cubic-bezier(0.16,1,0.3,1), background 0.5s ease;
+    }
+    header.scrolled { padding: 16px 0; background: rgba(10,10,15,0.96); border-bottom-color: var(--border-strong); }
+    nav { display: flex; justify-content: space-between; align-items: center; }
+    .logo {
+      font-family: var(--serif); font-size: 1.4rem; font-weight: 500;
+      letter-spacing: 0.18em; color: var(--accent); text-decoration: none;
+      transition: letter-spacing 0.5s ease;
+    }
+    header.scrolled .logo { letter-spacing: 0.22em; }
+    .nav-links { display: flex; gap: 44px; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase; position: relative; transition: color 0.4s;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; left: 0; bottom: -8px; width: 0; height: 0.5px;
+      background: var(--accent); transition: width 0.45s cubic-bezier(0.16,1,0.3,1);
+    }
+    .nav-links a:hover { color: var(--cream-bright); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta {
+      padding: 12px 28px; background: transparent; color: var(--accent); text-decoration: none;
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+      border: 0.5px solid var(--border-strong); transition: all 0.45s cubic-bezier(0.16,1,0.3,1); cursor: pointer;
+    }
+    .nav-cta:hover { background: var(--accent); color: #0a0a0f; border-color: var(--accent); box-shadow: 0 8px 28px rgba(244,63,94,0.24); }
+
+    /* ── Hero ── */
+    .hero { position: relative; padding: 230px 0 160px; overflow: hidden; text-align: center; }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(130% 100% at 50% 0%, rgba(244,63,94,0.15) 0%, transparent 55%),
+        radial-gradient(90% 80% at 100% 100%, rgba(20,20,28,0.8) 0%, transparent 60%),
+        linear-gradient(165deg, #0a0a0f 0%, #0d0d16 55%, #14141c 100%);
+    }
+    .hero-grid {
+      position: absolute; inset: 0; opacity: 0.55;
+      background-image: linear-gradient(rgba(244,63,94,0.06) 0.5px, transparent 0.5px),
+                        linear-gradient(90deg, rgba(244,63,94,0.06) 0.5px, transparent 0.5px);
+      background-size: 72px 72px; mask-image: radial-gradient(65% 55% at 50% 25%, #000 0%, transparent 82%);
+      -webkit-mask-image: radial-gradient(65% 55% at 50% 25%, #000 0%, transparent 82%);
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 860px; margin: 0 auto; }
+    .hero-emblem { width: 100px; height: 100px; margin: 0 auto 38px; opacity: 0.95; animation: emblemSpin 20s linear infinite; }
+    @keyframes emblemSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .hero-emblem svg { width: 100%; height: 100%; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 12px; margin-bottom: 32px;
+      font-size: 0.68rem; font-weight: 500; letter-spacing: 0.38em; text-transform: uppercase; color: var(--accent);
+    }
+    .eyebrow::before { content: ''; width: 32px; height: 0.5px; background: var(--accent); }
+    .hero h1 {
+      font-family: var(--serif); font-size: clamp(3.2rem, 7.2vw, 5.8rem); font-weight: 300;
+      line-height: 1.02; letter-spacing: -0.015em; color: var(--cream-bright); margin-bottom: 32px;
+    }
+    .hero h1 em { font-style: italic; color: var(--accent); }
+    .hero p { font-size: 1.14rem; color: var(--muted); max-width: 600px; margin: 0 auto 48px; font-weight: 300; line-height: 1.85; }
+    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+    .btn {
+      display: inline-block; padding: 16px 36px; text-decoration: none; cursor: pointer;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+      border: 0.5px solid transparent; transition: all 0.5s cubic-bezier(0.16,1,0.3,1);
+      position: relative; overflow: hidden;
+    }
+    .btn::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 60%);
+      opacity: 0; transition: opacity 0.4s;
+    }
+    .btn:hover::after { opacity: 1; }
+    .btn-gold { background: var(--accent); color: #0a0a0f; }
+    .btn-gold:hover { background: var(--accent-light); transform: translateY(-4px); box-shadow: 0 20px 44px rgba(244,63,94,0.28); }
+    .btn-ghost { background: transparent; color: var(--accent); border-color: var(--border-strong); }
+    .btn-ghost:hover { border-color: var(--accent); background: rgba(244,63,94,0.06); transform: translateY(-4px); }
+    @media (hover: none) {
+      .btn:hover { transform: none; }
+      .service-card:hover { transform: none; }
+      .project-card:hover { transform: none; }
+    }
+
+    /* ── Stats ── */
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); background: linear-gradient(180deg, rgba(244,63,94,0.04) 0%, transparent 100%); }
+    .stat { padding: 48px 24px; text-align: center; border-right: 0.5px solid var(--border); position: relative; transition: background 0.5s ease; }
+    .stat:last-child { border-right: none; }
+    .stat:hover { background: rgba(244,63,94,0.05); }
+    .stat-num { font-family: var(--serif); font-size: 3rem; font-weight: 400; color: var(--accent); line-height: 1; letter-spacing: -0.02em; }
+    .stat-label { font-size: 0.64rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted-2); margin-top: 14px; }
+
+    /* ── Sections ── */
+    section.block { padding: clamp(100px, 13vw, 150px) 0; }
+    .section-label { font-size: 0.68rem; letter-spacing: 0.36em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+    .section-label::before { content: ''; width: 32px; height: 0.5px; background: var(--accent); }
+    .section-title { font-family: var(--serif); font-size: clamp(2.1rem, 4.6vw, 3.4rem); font-weight: 300; line-height: 1.1; color: var(--cream-bright); max-width: 18ch; }
+    .section-title em { font-style: italic; color: var(--accent); }
+    .section-head { margin-bottom: 72px; max-width: 760px; }
+    .section-head.center { margin-left: auto; margin-right: auto; text-align: center; }
+    .section-head p { color: var(--muted); font-size: 1.08rem; font-weight: 300; margin-top: 24px; line-height: 1.9; }
+
+    /* ── Music ── */
+    .music { background: var(--surface); border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); }
+    .music-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+    .music-card {
+      background: var(--bg); border: 0.5px solid var(--border); padding: 36px;
+      text-align: center; transition: border-color 0.5s, transform 0.6s cubic-bezier(0.16,1,0.3,1), background 0.5s, box-shadow 0.5s;
+      position: relative; overflow: hidden;
+    }
+    .music-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 0.5px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0; transition: opacity 0.5s;
+    }
+    .music-card:hover::before { opacity: 0.6; }
+    .music-card:hover { border-color: var(--border-strong); transform: translateY(-8px); background: rgba(244,63,94,0.05); box-shadow: 0 32px 64px rgba(0,0,0,0.3); }
+    .album-art {
+      width: 100%; aspect-ratio: 1; margin-bottom: 28px; border: 0.5px solid var(--border);
+      display: flex; align-items: center; justify-content: center; border-radius: 50%;
+      background: radial-gradient(circle at 50% 35%, rgba(244,63,94,0.12), transparent 72%);
+      transition: border-color 0.5s, box-shadow 0.5s;
+    }
+    .music-card:hover .album-art { border-color: var(--border-strong); box-shadow: 0 0 36px rgba(244,63,94,0.12); }
+    .album-art svg { width: 66%; height: auto; opacity: 0.9; transition: transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+    .music-card:hover .album-art svg { transform: scale(1.06) rotate(8deg); }
+    .music-card h3 { font-family: var(--serif); font-size: 1.8rem; font-weight: 500; color: var(--cream-bright); margin-bottom: 6px; }
+    .music-card .album-meta { color: var(--muted); font-size: 0.82rem; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 24px; }
+    .play-btn {
+      display: inline-block; padding: 11px 26px; background: var(--accent); color: #0a0a0f;
+      text-decoration: none; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+      transition: all 0.45s cubic-bezier(0.16,1,0.3,1);
+    }
+    .play-btn:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 10px 24px rgba(244,63,94,0.22); }
+
+    /* ── Tour ── */
+    .tour-list { max-width: 860px; margin: 0 auto; border-top: 0.5px solid var(--border); }
+    .tour-item {
+      display: flex; justify-content: space-between; align-items: center; gap: 24px;
+      padding: 32px 12px; border-bottom: 0.5px solid var(--border); transition: padding 0.5s, background 0.5s;
+    }
+    .tour-item:hover { padding-left: 28px; padding-right: 28px; background: rgba(244,63,94,0.05); }
+    .tour-date { min-width: 110px; font-family: var(--serif); font-size: 1.7rem; font-weight: 400; color: var(--accent); }
+    .tour-info { flex: 1; }
+    .tour-info h3 { font-family: var(--serif); font-size: 1.55rem; font-weight: 500; color: var(--cream-bright); }
+    .tour-info p { color: var(--muted); font-size: 0.9rem; font-weight: 300; margin-top: 4px; }
+    .tour-ticket {
+      padding: 10px 24px; background: transparent; color: var(--accent); border: 0.5px solid var(--border-strong);
+      text-decoration: none; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+      white-space: nowrap; transition: all 0.45s cubic-bezier(0.16,1,0.3,1);
+    }
+    .tour-ticket:hover { border-color: var(--accent); background: rgba(244,63,94,0.1); transform: translateY(-2px); }
+
+    /* ── Videos ── */
+    .video-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
+    .video-card {
+      aspect-ratio: 16/9; background: var(--surface); border: 0.5px solid var(--border);
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
+      position: relative; overflow: hidden; transition: border-color 0.5s, transform 0.6s cubic-bezier(0.16,1,0.3,1), box-shadow 0.5s;
+    }
+    .video-card:hover { border-color: var(--border-strong); transform: translateY(-8px); box-shadow: 0 28px 56px rgba(244,63,94,0.12); }
+    .video-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(120% 120% at 50% 0%, rgba(244,63,94,0.1), transparent 60%);
+    }
+    .play-icon {
+      width: 76px; height: 76px; background: var(--accent); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; color: #0a0a0f;
+      z-index: 1; transition: all 0.5s cubic-bezier(0.16,1,0.3,1);
+    }
+    .play-icon svg { width: 28px; height: 28px; }
+    .video-card:hover .play-icon { transform: scale(1.12); background: var(--accent-light); box-shadow: 0 12px 32px rgba(244,63,94,0.3); }
+    .video-label {
+      position: absolute; bottom: 28px; left: 28px; z-index: 1;
+      font-family: var(--serif); font-size: 1.2rem; font-weight: 500; color: var(--cream-bright);
+    }
+
+    /* ── Press ── */
+    .press { background: var(--surface); border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); }
+    .press-list { max-width: 920px; margin: 0 auto; }
+    .press-item {
+      display: flex; justify-content: space-between; align-items: baseline; gap: 24px;
+      padding: 28px 12px; border-bottom: 0.5px solid var(--border); transition: padding 0.5s, background 0.5s;
+    }
+    .press-item:last-child { border-bottom: none; }
+    .press-item:hover { padding-left: 24px; background: rgba(244,63,94,0.03); }
+    .press-outlet { font-family: var(--serif); font-size: 1.35rem; font-weight: 500; color: var(--cream-bright); white-space: nowrap; }
+    .press-title { color: var(--muted); font-size: 1.05rem; font-weight: 300; flex: 1; }
+    .press-date { color: var(--muted-2); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; }
+
+    /* ── Contact ── */
+    .contact-panel {
+      border: 0.5px solid var(--border-strong); padding: clamp(56px, 8vw, 100px);
+      text-align: center; background:
+        radial-gradient(130% 130% at 50% 0%, rgba(244,63,94,0.08) 0%, transparent 60%),
+        radial-gradient(80% 60% at 50% 100%, rgba(20,20,28,0.6) 0%, transparent 65%),
+        var(--surface);
+      position: relative; overflow: hidden;
+    }
+    .contact-panel::before {
+      content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 60%; height: 0.5px; background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+    .contact-panel p { color: var(--muted); max-width: 520px; margin: 22px auto 44px; font-weight: 300; font-size: 1.08rem; line-height: 1.85; }
+    .contact-form { max-width: 560px; margin: 44px auto 0; text-align: left; }
+    .form-group { margin-bottom: 22px; }
+    .form-group label { display: block; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; font-weight: 500; }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; padding: 14px 18px; border: 0.5px solid var(--border); border-radius: 12px;
+      font-size: 1rem; font-family: inherit; background: var(--bg); color: var(--cream); transition: border-color 0.4s, box-shadow 0.4s;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px rgba(244,63,94,0.06); }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .submit-btn {
+      width: 100%; padding: 16px; background: var(--accent); color: #0a0a0f; border: none; border-radius: 12px;
+      font-weight: 600; font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer; transition: all 0.5s cubic-bezier(0.16,1,0.3,1);
+    }
+    .submit-btn:hover { background: var(--accent-light); transform: translateY(-3px); box-shadow: 0 16px 40px rgba(244,63,94,0.22); }
+
+    /* ── Footer ── */
+    footer { border-top: 0.5px solid var(--border); padding: 60px 0; position: relative; }
+    footer::before {
+      content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 120px; height: 0.5px; background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+    .footer-content { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+    .footer-logo { font-family: var(--serif); font-size: 1.25rem; font-weight: 500; letter-spacing: 0.16em; color: var(--accent); }
+    .footer-links { display: flex; gap: 32px; }
+    .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.76rem; letter-spacing: 0.1em; transition: color 0.4s; position: relative; }
+    .footer-links a::after { content: ''; position: absolute; left: 0; bottom: -4px; width: 0; height: 0.5px; background: var(--accent); transition: width 0.4s cubic-bezier(0.16,1,0.3,1); }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-links a:hover::after { width: 100%; }
+    .footer-text { color: var(--muted-2); font-size: 0.74rem; letter-spacing: 0.06em; }
+
+    @media (max-width: 900px) {
+      .music-grid { grid-template-columns: repeat(2, 1fr); }
+      .video-grid { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .stat:nth-child(2) { border-right: none; }
+      .stat:nth-child(1), .stat:nth-child(2) { border-bottom: 0.5px solid var(--border); }
+    }
+    @media (max-width: 640px) {
+      .container { padding: 0 24px; }
+      .nav-links { display: none; }
+      .hero { padding: 180px 0 110px; }
+      .music-grid, .stats { grid-template-columns: 1fr; }
+      .stat { border-right: none; border-bottom: 0.5px solid var(--border); }
+      .stat:last-child { border-bottom: none; }
+      .tour-item { flex-direction: column; align-items: flex-start; gap: 14px; }
+      .press-item { flex-direction: column; gap: 6px; }
+      .footer-content { flex-direction: column; gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <header id="nav">
+    <div class="container">
+      <nav>
+        <a href="#" class="logo">KAYA MUSIC</a>
+        <ul class="nav-links">
+          <li><a href="#music">Music</a></li>
+          <li><a href="#tour">Tour</a></li>
+          <li><a href="#videos">Videos</a></li>
+          <li><a href="#press">Press</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <a href="#tour" class="nav-cta">Get Tickets</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="container">
+      <div class="hero-content reveal">
+        <div class="hero-emblem">
+          <svg viewBox="0 0 100 100" fill="none" stroke="#f43f5e" stroke-width="1.4">
+            <circle cx="50" cy="50" r="46"/>
+            <circle cx="50" cy="50" r="34"/>
+            <circle cx="50" cy="50" r="22"/>
+            <circle cx="50" cy="50" r="6" fill="#f43f5e" stroke="none"/>
+            <path d="M50 4 v92 M4 50 h92" stroke="rgba(244,63,94,0.35)" stroke-width="0.6"/>
+          </svg>
+        </div>
+        <div class="eyebrow">Singer &amp; Songwriter</div>
+        <h1>Soulful sounds<br>for the <em>modern</em> soul</h1>
+        <p>Award-winning artist blending Afro-soul, jazz, and electronic textures. Streaming worldwide.</p>
+        <div class="hero-btns">
+          <a href="#music" class="btn btn-gold">Listen Now</a>
+          <a href="#tour" class="btn btn-ghost">Upcoming Shows</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats reveal">
+    <div class="stat"><div class="stat-num">2.4M</div><div class="stat-label">Monthly Listeners</div></div>
+    <div class="stat"><div class="stat-num">3</div><div class="stat-label">Albums Released</div></div>
+    <div class="stat"><div class="stat-num">42</div><div class="stat-label">Cities Toured</div></div>
+    <div class="stat"><div class="stat-num">8</div><div class="stat-label">Years Performing</div></div>
+  </div>
+
+  <section id="music" class="block music">
+    <div class="container">
+      <div class="section-head center reveal">
+        <div class="section-label">Discography</div>
+        <h2 class="section-title">Latest <em>releases</em></h2>
+      </div>
+      <div class="music-grid">
+        <div class="music-card reveal">
+          <div class="album-art">
+            <svg viewBox="0 0 100 100" fill="none" stroke="#f43f5e" stroke-width="1.6">
+              <circle cx="50" cy="50" r="44"/>
+              <circle cx="50" cy="50" r="30"/>
+              <circle cx="50" cy="50" r="16"/>
+              <circle cx="50" cy="50" r="4" fill="#f43f5e" stroke="none"/>
+            </svg>
+          </div>
+          <h3>Midnight Sun</h3>
+          <div class="album-meta">Album · 2024</div>
+          <a href="#" class="play-btn">Play</a>
+        </div>
+        <div class="music-card reveal">
+          <div class="album-art">
+            <svg viewBox="0 0 100 100" fill="none" stroke="#f43f5e" stroke-width="1.6">
+              <circle cx="50" cy="50" r="44"/>
+              <circle cx="50" cy="50" r="30"/>
+              <circle cx="50" cy="50" r="16"/>
+              <circle cx="50" cy="50" r="4" fill="#f43f5e" stroke="none"/>
+            </svg>
+          </div>
+          <h3>Golden Hour</h3>
+          <div class="album-meta">EP · 2023</div>
+          <a href="#" class="play-btn">Play</a>
+        </div>
+        <div class="music-card reveal">
+          <div class="album-art">
+            <svg viewBox="0 0 100 100" fill="none" stroke="#f43f5e" stroke-width="1.6">
+              <circle cx="50" cy="50" r="44"/>
+              <circle cx="50" cy="50" r="30"/>
+              <circle cx="50" cy="50" r="16"/>
+              <circle cx="50" cy="50" r="4" fill="#f43f5e" stroke="none"/>
+            </svg>
+          </div>
+          <h3>Roots</h3>
+          <div class="album-meta">Album · 2022</div>
+          <a href="#" class="play-btn">Play</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tour" class="block">
+    <div class="container">
+      <div class="section-head center reveal">
+        <div class="section-label">On the Road</div>
+        <h2 class="section-title">Tour <em>dates</em></h2>
+      </div>
+      <div class="tour-list">
+        <div class="tour-item reveal">
+          <div class="tour-date">Jul 18</div>
+          <div class="tour-info">
+            <h3>The Alchemist Bar</h3>
+            <p>Nairobi, Kenya</p>
+          </div>
+          <a href="#" class="tour-ticket">Buy Tickets</a>
+        </div>
+        <div class="tour-item reveal">
+          <div class="tour-date">Aug 02</div>
+          <div class="tour-info">
+            <h3>Blankets &amp; Wine</h3>
+            <p>Nairobi, Kenya</p>
+          </div>
+          <a href="#" class="tour-ticket">Buy Tickets</a>
+        </div>
+        <div class="tour-item reveal">
+          <div class="tour-date">Aug 22</div>
+          <div class="tour-info">
+            <h3>Mawazine Festival</h3>
+            <p>Rabat, Morocco</p>
+          </div>
+          <a href="#" class="tour-ticket">Buy Tickets</a>
+        </div>
+        <div class="tour-item reveal">
+          <div class="tour-date">Sep 10</div>
+          <div class="tour-info">
+            <h3>AFRIKASA</h3>
+            <p>London, UK</p>
+          </div>
+          <a href="#" class="tour-ticket">Sold Out</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos" class="block">
+    <div class="container">
+      <div class="section-head center reveal">
+        <div class="section-label">Visuals</div>
+        <h2 class="section-title">Videos</h2>
+      </div>
+      <div class="video-grid">
+        <article class="video-card reveal">
+          <div class="play-icon">
+            <svg viewBox="0 0 24 24" fill="#0a0a0f" stroke="none"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <div class="video-label">Midnight Sun (Official Video)</div>
+        </article>
+        <article class="video-card reveal">
+          <div class="play-icon">
+            <svg viewBox="0 0 24 24" fill="#0a0a0f" stroke="none"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <div class="video-label">Golden Hour (Live Session)</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="press" class="block press">
+    <div class="container">
+      <div class="section-head center reveal">
+        <div class="section-label">Press</div>
+        <h2 class="section-title">Featured <em>in</em></h2>
+      </div>
+      <div class="press-list">
+        <div class="press-item reveal">
+          <div class="press-outlet">The Guardian</div>
+          <div class="press-title">"The voice redefining East African soul music"</div>
+          <div class="press-date">Mar 2025</div>
+        </div>
+        <div class="press-item reveal">
+          <div class="press-outlet">OkayAfrica</div>
+          <div class="press-title">"5 artists you need to hear this summer"</div>
+          <div class="press-date">Jan 2025</div>
+        </div>
+        <div class="press-item reveal">
+          <div class="press-outlet">Songlines Magazine</div>
+          <div class="press-title">"Album of the month: Midnight Sun"</div>
+          <div class="press-date">Dec 2024</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="block">
+    <div class="container">
+      <div class="contact-panel reveal">
+        <div class="section-label">Get in Touch</div>
+        <h2 class="section-title" style="margin: 0 auto; max-width: 16ch;">Booking &amp; <em>enquiries</em></h2>
+        <p>For bookings, press, and collaborations — we would love to hear from you.</p>
+        <form class="contact-form" onsubmit="event.preventDefault(); alert('Message sent! We will get back to you shortly.');">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" placeholder="Your name" required />
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="you@example.com" required />
+          </div>
+          <div class="form-group">
+            <label>Subject</label>
+            <select>
+              <option>Booking Enquiry</option>
+              <option>Press / Media</option>
+              <option>Collaboration</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea placeholder="Tell us about your event or project..."></textarea>
+          </div>
+          <button type="submit" class="submit-btn">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">KAYA MUSIC</div>
+        <div class="footer-links"><a href="#">Spotify</a><a href="#">Apple Music</a><a href="#">YouTube</a><a href="#">Instagram</a><a href="#">TikTok</a></div>
+        <div class="footer-text">© 2025 Kaya Music. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 30));
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>

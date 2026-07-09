@@ -299,14 +299,17 @@ model StudioTemplate {
   featured       Boolean  @default(false)
   isPublished    Boolean  @default(true)
   downloadCount  Int      @default(0)
+  authorId       String?
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
   purchases      StudioPurchase[]
   reviews        StudioReview[]
+  earnings       StudioEarning[]
 
   @@index([category])
   @@index([featured])
   @@index([isPublished])
+  @@index([authorId])
 }
 
 model StudioPurchase {
@@ -321,6 +324,24 @@ model StudioPurchase {
   @@unique([userId, templateId])
   @@index([userId])
   @@index([templateId])
+  @@index([createdAt])
+}
+
+model StudioEarning {
+  id         String         @id @default(cuid())
+  templateId String
+  template   StudioTemplate @relation(fields: [templateId], references: [id], onDelete: Cascade)
+  userId     String
+  amount     Float
+  platformFee Float         @default(0)
+  authorShare Float         @default(0)
+  status     String         @default("pending")
+  paidAt     DateTime?
+  createdAt  DateTime       @default(now())
+
+  @@index([templateId])
+  @@index([userId])
+  @@index([status])
   @@index([createdAt])
 }
 

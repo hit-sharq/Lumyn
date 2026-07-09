@@ -40,6 +40,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
         downloadUrl: body.downloadUrl || null,
         featured: body.featured ?? false,
         isPublished: body.isPublished ?? true,
+        authorId: body.authorId || null,
       },
     })
     return NextResponse.json(template)

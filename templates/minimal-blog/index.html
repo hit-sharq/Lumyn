@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Journal — Thoughts on Design & Code</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #f7f1e8;
+      --bg-2: #f1e8d8;
+      --surface: #fffdf9;
+      --ink: #241c14;
+      --muted: #7a6e5f;
+      --accent: #9a4a23;
+      --accent-light: #c2703f;
+      --border: rgba(36,28,20,0.14);
+      --border-strong: rgba(154,74,35,0.42);
+      --serif: 'Cormorant Garamond', serif;
+      --sans: 'Inter', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--bg); color: var(--ink); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    ::selection { background: rgba(154,74,35,0.18); color: var(--ink); }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 32px; }
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+    .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+    /* ── Navigation ── */
+    header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 24px 0; background: rgba(247,241,232,0.82); backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px); border-bottom: 0.5px solid var(--border); transition: padding 0.5s cubic-bezier(0.16,1,0.3,1), background 0.5s ease; }
+    header.scrolled { padding: 16px 0; background: rgba(247,241,232,0.96); border-bottom-color: var(--border-strong); }
+    .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-family: var(--serif); font-size: 1.4rem; font-weight: 500; letter-spacing: 0.16em; color: var(--ink); text-decoration: none; transition: letter-spacing 0.5s ease; }
+    header.scrolled .logo { letter-spacing: 0.2em; }
+    .nav-links { display: flex; gap: 38px; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; position: relative; transition: color 0.4s; }
+    .nav-links a::after { content: ''; position: absolute; left: 0; bottom: -8px; width: 0; height: 0.5px; background: var(--accent); transition: width 0.45s cubic-bezier(0.16,1,0.3,1); }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .masthead { padding: 210px 0 70px; text-align: center; border-bottom: 0.5px solid var(--border); position: relative; overflow: hidden; }
+    .masthead::before {
+      content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 400px; height: 400px; border: 0.5px solid var(--border); border-radius: 50%;
+      background: radial-gradient(circle, rgba(154,74,35,0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .site-title { font-family: var(--serif); font-size: clamp(3.2rem, 7.5vw, 5rem); font-weight: 300; letter-spacing: -0.01em; color: var(--ink); margin-bottom: 20px; position: relative; }
+    .site-tagline { color: var(--muted); font-size: 1.12rem; font-weight: 300; font-style: italic; position: relative; }
+    .site-meta { display: flex; justify-content: center; gap: 28px; margin-top: 28px; font-size: 0.8rem; color: var(--muted); flex-wrap: wrap; letter-spacing: 0.06em; position: relative; }
+
+    .stats-bar { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); max-width: 860px; margin: 0 auto; }
+    .stat { padding: 36px 20px; text-align: center; border-right: 0.5px solid var(--border); transition: background 0.5s ease; }
+    .stat:last-child { border-right: none; }
+    .stat:hover { background: rgba(154,74,35,0.04); }
+    .stat-num { font-family: var(--serif); font-size: 2.6rem; font-weight: 400; color: var(--accent); line-height: 1; letter-spacing: -0.02em; }
+    .stat-label { font-size: 0.64rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-top: 10px; }
+
+    main { padding: 90px 0 100px; }
+    .featured { margin-bottom: 90px; padding-bottom: 80px; border-bottom: 0.5px solid var(--border); }
+    .featured-figure { aspect-ratio: 16/9; border: 0.5px solid var(--border); background: radial-gradient(circle at 50% 40%, rgba(154,74,35,0.08), transparent 72%); display: flex; align-items: center; justify-content: center; margin-bottom: 40px; transition: border-color 0.5s, box-shadow 0.5s; overflow: hidden; position: relative; }
+    .featured-figure::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 50%, rgba(154,74,35,0.06) 0%, transparent 70%); opacity: 0; transition: opacity 0.6s; }
+    .featured-figure:hover::after { opacity: 1; }
+    .featured-figure:hover { border-color: var(--border-strong); box-shadow: 0 20px 44px rgba(154,74,35,0.08); }
+    .featured-figure svg { width: 54%; opacity: 0.88; transition: transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+    .featured-figure:hover svg { transform: scale(1.05); }
+    .post-meta { color: var(--muted); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px; display: flex; gap: 20px; }
+    .post-title { font-family: var(--serif); font-size: clamp(2.1rem, 4.6vw, 3rem); font-weight: 400; line-height: 1.14; margin-bottom: 24px; letter-spacing: -0.01em; }
+    .post-title a { color: var(--ink); text-decoration: none; transition: color 0.4s; position: relative; display: inline; }
+    .post-title a::after { content: ''; position: absolute; left: 0; bottom: -2px; width: 0; height: 0.5px; background: var(--accent); transition: width 0.4s cubic-bezier(0.16,1,0.3,1); }
+    .post-title a:hover { color: var(--accent); }
+    .post-title a:hover::after { width: 100%; }
+    .post-excerpt { color: var(--muted); font-size: 1.14rem; line-height: 1.9; margin-bottom: 32px; font-weight: 300; }
+    .read-more { display: inline-flex; align-items: center; gap: 10px; color: var(--accent); text-decoration: none; font-weight: 600; font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; transition: gap 0.4s, color 0.3s; }
+    .read-more:hover { gap: 18px; color: var(--accent-light); }
+
+    article { margin-bottom: 70px; padding-bottom: 70px; border-bottom: 0.5px solid var(--border); transition: padding-left 0.5s ease; }
+    article:hover { padding-left: 12px; }
+    article:last-of-type { border-bottom: none; }
+
+    .newsletter { border: 0.5px solid var(--border-strong); padding: clamp(56px, 8vw, 90px); text-align: center; background: radial-gradient(130% 130% at 50% 0%, rgba(154,74,35,0.08) 0%, transparent 60%), var(--surface); position: relative; overflow: hidden; }
+    .newsletter::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 60%; height: 0.5px; background: linear-gradient(90deg, transparent, var(--accent), transparent); }
+    .newsletter-icon { width: 64px; height: 64px; border: 0.5px solid var(--border-strong); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 28px; transition: border-color 0.5s, box-shadow 0.5s; }
+    .newsletter:hover .newsletter-icon { border-color: var(--accent); box-shadow: 0 0 32px rgba(154,74,35,0.12); }
+    .newsletter-icon svg { width: 28px; height: 28px; stroke: var(--accent); }
+    .newsletter h3 { font-family: var(--serif); font-size: 2.4rem; font-weight: 400; color: var(--ink); margin-bottom: 16px; }
+    .newsletter p { color: var(--muted); margin-bottom: 36px; font-weight: 300; font-size: 1.08rem; line-height: 1.85; }
+    .newsletter-form { display: flex; gap: 14px; max-width: 500px; margin: 0 auto; }
+    .newsletter-form input { flex: 1; padding: 16px 24px; border: 0.5px solid var(--border); border-radius: 100px; font-size: 0.95rem; font-family: inherit; background: var(--bg); color: var(--ink); outline: none; transition: border-color 0.4s, box-shadow 0.4s; }
+    .newsletter-form input:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(154,74,35,0.06); }
+    .newsletter-form button { padding: 16px 32px; background: var(--accent); color: #fffdf9; border: none; border-radius: 100px; font-weight: 600; font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer; transition: all 0.45s; white-space: nowrap; }
+    .newsletter-form button:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 12px 28px rgba(154,74,35,0.2); }
+
+    footer { border-top: 0.5px solid var(--border); padding: 60px 0; position: relative; }
+    footer::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 0.5px; background: linear-gradient(90deg, transparent, var(--accent), transparent); }
+    .footer-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+    .footer-logo { font-family: var(--serif); font-size: 1.35rem; font-weight: 500; letter-spacing: 0.1em; color: var(--ink); }
+    .footer-text { color: var(--muted); font-size: 0.85rem; font-weight: 300; }
+    .footer-links { display: flex; gap: 28px; }
+    .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color 0.4s; position: relative; }
+    .footer-links a::after { content: ''; position: absolute; left: 0; bottom: -4px; width: 0; height: 0.5px; background: var(--accent); transition: width 0.4s cubic-bezier(0.16,1,0.3,1); }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-links a:hover::after { width: 100%; }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .masthead { padding: 160px 0 50px; }
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
+      .stat:nth-child(2) { border-right: none; }
+      .stat:nth-child(1), .stat:nth-child(2) { border-bottom: 0.5px solid var(--border); }
+      .newsletter-form { flex-direction: column; }
+      .footer-content { flex-direction: column; gap: 22px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <header id="nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#" class="logo">THE JOURNAL</a>
+        <ul class="nav-links">
+          <li><a href="#essays">Essays</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#newsletter">Newsletter</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <div class="masthead reveal">
+    <div class="container">
+      <h1 class="site-title">The Journal</h1>
+      <p class="site-tagline">Thoughts on design, code, and the craft of the web</p>
+      <div class="site-meta">
+        <span>Nairobi, Kenya</span>
+        <span>hello@janedoe.dev</span>
+        <span>@janedoe</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-bar reveal">
+    <div class="stat"><div class="stat-num">48</div><div class="stat-label">Essays Published</div></div>
+    <div class="stat"><div class="stat-num">12k</div><div class="stat-label">Monthly Readers</div></div>
+    <div class="stat"><div class="stat-num">3</div><div class="stat-label">Years Writing</div></div>
+    <div class="stat"><div class="stat-num">4.9</div><div class="stat-label">Star Rating</div></div>
+  </div>
+
+  <main id="essays">
+    <div class="container">
+      <div class="featured reveal">
+        <div class="featured-figure">
+          <svg viewBox="0 0 240 135" fill="none" stroke="#9a4a23" stroke-width="1.2"><rect x="20" y="24" width="200" height="87" rx="6"/><path d="M40 70c20-22 40-22 60 0s40 22 60 0" stroke-width="1.4"/><circle cx="120" cy="48" r="9" fill="#9a4a23" opacity="0.55"/><line x1="40" y1="92" x2="200" y2="92" opacity="0.5"/></svg>
+        </div>
+        <div class="post-meta"><span>June 18, 2025</span><span>8 min read</span></div>
+        <h2 class="post-title"><a href="#">Designing for readability in 2025</a></h2>
+        <p class="post-excerpt">Good typography is invisible. It guides the reader through content without drawing attention to itself. In this essay we explore line length, measure, and the quiet ratios that make reading on screens feel effortless — and why restraint beats decoration every time.</p>
+        <a href="#" class="read-more">Continue reading →</a>
+      </div>
+
+      <article class="reveal">
+        <div class="post-meta"><span>May 28, 2025</span><span>6 min read</span></div>
+        <h2 class="post-title"><a href="#">The case for static sites</a></h2>
+        <p class="post-excerpt">Static sites are fast, secure, and cheap to host. With the rise of edge rendering, there has never been a better time to go static-first for your next project — without sacrificing the experience dynamic apps promise.</p>
+        <a href="#" class="read-more">Continue reading →</a>
+      </article>
+
+      <article class="reveal">
+        <div class="post-meta"><span>May 10, 2025</span><span>5 min read</span></div>
+        <h2 class="post-title"><a href="#">Why I switched from CSS-in-JS to vanilla CSS</a></h2>
+        <p class="post-excerpt">After three years of styled-components and Emotion, I moved back to plain CSS. Here's what I learned about performance, maintainability, and the developer experience that actually scales.</p>
+        <a href="#" class="read-more">Continue reading →</a>
+      </article>
+
+      <article class="reveal">
+        <div class="post-meta"><span>April 22, 2025</span><span>7 min read</span></div>
+        <h2 class="post-title"><a href="#">A field guide to colour systems</a></h2>
+        <p class="post-excerpt">Colour is the first thing users feel and the last thing they can describe. We walk through building a calm, accessible palette that survives real product pressure.</p>
+        <a href="#" class="read-more">Continue reading →</a>
+      </article>
+
+      <div id="newsletter" class="newsletter reveal">
+        <div class="newsletter-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div>
+        <h3>Subscribe to The Journal</h3>
+        <p>Get one thoughtful essay on design and code delivered to your inbox every week. No spam, just signal.</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Welcome aboard! Check your inbox.');">
+          <input type="email" placeholder="you@example.com" required />
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">The Journal</div>
+        <div class="footer-links"><a href="#">Twitter</a><a href="#">RSS</a><a href="#">About</a></div>
+        <div class="footer-text">© 2025 Jane Doe · All rights reserved</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 30));
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>

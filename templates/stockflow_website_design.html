@@ -1,0 +1,195 @@
+
+<style>
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+@keyframes slideIn{from{opacity:0;transform:translateX(-16px)}to{opacity:1;transform:translateX(0)}}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes badgePop{0%{transform:scale(0.7);opacity:0}70%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
+*{box-sizing:border-box;margin:0;padding:0}
+.sf-nav{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;border-bottom:0.5px solid var(--color-border-tertiary);background:var(--color-background-primary);position:sticky;top:0;z-index:10}
+.sf-logo{font-size:17px;font-weight:500;color:var(--color-text-primary);display:flex;align-items:center;gap:8px}
+.sf-logo-icon{width:28px;height:28px;background:#1D9E75;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff}
+.sf-nav-links{display:flex;gap:20px;font-size:13px;color:var(--color-text-secondary)}
+.sf-nav-links span{cursor:pointer;transition:color .2s}
+.sf-nav-links span:hover{color:var(--color-text-primary)}
+.sf-btn{padding:7px 16px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);background:transparent;font-size:13px;cursor:pointer;color:var(--color-text-primary);transition:background .18s,transform .12s}
+.sf-btn:hover{background:var(--color-background-secondary)}
+.sf-btn:active{transform:scale(0.97)}
+.sf-btn-primary{background:#1D9E75;color:#fff;border-color:#1D9E75}
+.sf-btn-primary:hover{background:#0F6E56;border-color:#0F6E56}
+.sf-hero{padding:56px 24px 40px;text-align:center;animation:fadeUp .6s ease both}
+.sf-hero h1{font-size:34px;font-weight:500;line-height:1.25;color:var(--color-text-primary);max-width:520px;margin:0 auto 14px}
+.sf-hero p{font-size:15px;color:var(--color-text-secondary);max-width:400px;margin:0 auto 28px;line-height:1.6}
+.sf-hero-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.sf-accent{color:#1D9E75}
+.sf-search-bar{display:flex;align-items:center;gap:8px;background:var(--color-background-secondary);border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-lg);padding:10px 14px;max-width:580px;margin:32px auto 0;animation:fadeUp .7s .1s ease both;opacity:0;animation-fill-mode:forwards}
+.sf-search-bar input{flex:1;border:none;background:transparent;font-size:14px;color:var(--color-text-primary);outline:none}
+.sf-search-bar input::placeholder{color:var(--color-text-tertiary)}
+.sf-search-bar select{border:none;background:transparent;font-size:13px;color:var(--color-text-secondary);outline:none;cursor:pointer}
+.sf-ticker-wrap{overflow:hidden;padding:10px 0;border-top:0.5px solid var(--color-border-tertiary);border-bottom:0.5px solid var(--color-border-tertiary);margin:24px 0}
+.sf-ticker{display:flex;gap:32px;width:max-content;animation:ticker 22s linear infinite}
+.sf-ticker-item{white-space:nowrap;font-size:12px;color:var(--color-text-secondary);display:flex;align-items:center;gap:6px}
+.sf-ticker-dot{width:6px;height:6px;border-radius:50%;background:#1D9E75;display:inline-block}
+.sf-section{padding:0 24px 40px}
+.sf-section-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.sf-section-hd h2{font-size:16px;font-weight:500;color:var(--color-text-primary)}
+.sf-section-hd span{font-size:12px;color:#1D9E75;cursor:pointer}
+.sf-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px}
+.sf-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;cursor:pointer;transition:border-color .2s,transform .18s;animation:fadeUp .5s ease both;opacity:0;animation-fill-mode:forwards}
+.sf-card:hover{border-color:var(--color-border-secondary);transform:translateY(-2px)}
+.sf-card-img{height:96px;display:flex;align-items:center;justify-content:center;font-size:32px}
+.sf-card-body{padding:10px 12px 12px}
+.sf-card-tag{font-size:10px;font-weight:500;padding:2px 7px;border-radius:4px;display:inline-block;margin-bottom:6px;background:#E1F5EE;color:#0F6E56}
+.sf-card-tag.urgent{background:#FAECE7;color:#993C1D}
+.sf-card-tag.hot{background:#FAEEDA;color:#854F0B}
+.sf-card-name{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:2px;line-height:1.3}
+.sf-card-seller{font-size:11px;color:var(--color-text-tertiary);margin-bottom:8px}
+.sf-card-footer{display:flex;align-items:center;justify-content:space-between}
+.sf-price-now{font-size:15px;font-weight:500;color:#1D9E75}
+.sf-price-was{font-size:11px;color:var(--color-text-tertiary);text-decoration:line-through}
+.sf-discount{font-size:10px;background:#E1F5EE;color:#0F6E56;padding:2px 5px;border-radius:4px;font-weight:500}
+.sf-card-action{width:26px;height:26px;border-radius:50%;border:0.5px solid var(--color-border-secondary);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s}
+.sf-card-action:hover{background:var(--color-background-info)}
+.sf-cats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.sf-cat{padding:6px 14px;border-radius:20px;border:0.5px solid var(--color-border-secondary);font-size:12px;cursor:pointer;transition:all .15s;color:var(--color-text-secondary);background:transparent}
+.sf-cat.active,.sf-cat:hover{background:#1D9E75;color:#fff;border-color:#1D9E75}
+.sf-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:32px}
+.sf-stat{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:14px;text-align:center;animation:fadeUp .5s ease both;opacity:0;animation-fill-mode:forwards}
+.sf-stat-num{font-size:22px;font-weight:500;color:var(--color-text-primary)}
+.sf-stat-label{font-size:11px;color:var(--color-text-secondary);margin-top:2px}
+.sf-banner{background:#E1F5EE;border:0.5px solid #9FE1CB;border-radius:var(--border-radius-lg);padding:18px 20px;display:flex;align-items:center;gap:16px;margin-bottom:32px;animation:fadeUp .5s .3s ease both;opacity:0;animation-fill-mode:forwards}
+.sf-banner-icon{font-size:28px;color:#1D9E75;flex-shrink:0}
+.sf-banner h3{font-size:14px;font-weight:500;color:#085041;margin-bottom:2px}
+.sf-banner p{font-size:12px;color:#0F6E56;line-height:1.5}
+.sf-list-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:0.5px solid var(--color-border-tertiary);animation:slideIn .4s ease both;opacity:0;animation-fill-mode:forwards;cursor:pointer;transition:background .15s;border-radius:var(--border-radius-md)}
+.sf-list-row:hover{background:var(--color-background-secondary);padding-left:8px}
+.sf-list-icon{width:42px;height:42px;border-radius:var(--border-radius-md);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;background:var(--color-background-secondary)}
+.sf-list-info{flex:1;min-width:0}
+.sf-list-name{font-size:13px;font-weight:500;color:var(--color-text-primary)}
+.sf-list-meta{font-size:11px;color:var(--color-text-tertiary)}
+.sf-list-right{text-align:right}
+.sf-badge-new{display:inline-block;background:#E1F5EE;color:#085041;font-size:10px;padding:2px 7px;border-radius:4px;font-weight:500;animation:badgePop .4s ease both}
+.sf-progress{width:60px;height:5px;background:var(--color-background-secondary);border-radius:3px;margin-top:5px;overflow:hidden}
+.sf-progress-fill{height:100%;border-radius:3px;background:#1D9E75;transition:width 1s ease}
+.sf-footer{margin-top:8px;padding:20px 24px;border-top:0.5px solid var(--color-border-tertiary);display:flex;justify-content:space-between;align-items:center}
+.sf-footer-links{display:flex;gap:16px;font-size:12px;color:var(--color-text-tertiary)}
+.sf-footer-links span{cursor:pointer;transition:color .2s}
+.sf-footer-links span:hover{color:var(--color-text-secondary)}
+</style>
+
+<h2 class="sr-only">StockFlow website design mockup — a surplus inventory marketplace</h2>
+
+<nav class="sf-nav">
+  <div class="sf-logo">
+    <div class="sf-logo-icon" aria-hidden="true"><i class="ti ti-arrow-bar-to-down" style="font-size:15px"></i></div>
+    StockFlow
+  </div>
+  <div class="sf-nav-links">
+    <span>Browse</span>
+    <span>Sell surplus</span>
+    <span>Pricing</span>
+    <span>How it works</span>
+  </div>
+  <div style="display:flex;gap:8px">
+    <button class="sf-btn">Log in</button>
+    <button class="sf-btn sf-btn-primary">List products</button>
+  </div>
+</nav>
+
+<div class="sf-hero">
+  <h1>Turn <span class="sf-accent">excess stock</span> into cash, fast</h1>
+  <p>Businesses list surplus inventory. Smart buyers discover real deals. Everyone wins.</p>
+  <div class="sf-hero-btns">
+    <button class="sf-btn sf-btn-primary" style="padding:10px 22px;font-size:14px" onclick="sendPrompt('How do I list my surplus products on StockFlow?')">Start selling surplus ↗</button>
+    <button class="sf-btn" style="padding:10px 22px;font-size:14px">Browse deals</button>
+  </div>
+</div>
+
+<div class="sf-search-bar">
+  <i class="ti ti-search" style="font-size:16px;color:var(--color-text-tertiary)" aria-hidden="true"></i>
+  <input placeholder="Search surplus electronics, food, clothing, machinery…" />
+  <select>
+    <option>All categories</option>
+    <option>Electronics</option>
+    <option>Food & FMCG</option>
+    <option>Apparel</option>
+    <option>Machinery</option>
+  </select>
+  <button class="sf-btn sf-btn-primary" style="padding:6px 14px;white-space:nowrap">Search</button>
+</div>
+
+<div class="sf-ticker-wrap">
+  <div class="sf-ticker" id="ticker">
+    <div class="sf-ticker-item"><span class="sf-ticker-dot"></span>1,200 kg rice flour listed — 62% off</div>
+    <div class="sf-ticker-item"><span class="sf-ticker-dot"></span>500 units phone cases — 78% off</div>
+    <div class="sf-ticker-item"><span class="sf-ticker-dot"></span>Office furniture bulk lot — 55% off</div>
+    <div class="sf-ticker-item"><span class="sf-ticker-dot"></span>Industrial motor overstock — 45% off</div>
+    <div class="sf-ticker-item"><span class="sf-ticker-dot"></span>Fashion apparel end-of-line — 80% off</div>
+    <div class="sf-ticker-item"><span class="sf-ticker-dot"></span>Laptop accessories lot — 70% off</div>
+    <div class="sf-ticker-item"><span class="sf-ticker-dot"></span>1,200 kg rice flour listed — 62% off</div>
+    <div class="sf-ticker-item"><span class="sf-ticker-dot"></span>500 units phone cases — 78% off</div>
+    <div class="sf-ticker-item"><span class="sf-ticker-dot"></span>Office furniture bulk lot — 55% off</div>
+    <div class="sf-ticker-item"><span class="sf-ticker-dot"></span>Industrial motor overstock — 45% off</div>
+    <div class="sf-ticker-item"><span class="sf-ticker-dot"></span>Fashion apparel end-of-line — 80% off</div>
+    <div class="sf-ticker-item"><span class="sf-ticker-dot"></span>Laptop accessories lot — 70% off</div>
+  </div>
+</div>
+
+<div class="sf-section">
+  <div class="sf-stats">
+    <div class="sf-stat" style="animation-delay:.05s"><div class="sf-stat-num" id="c1">0</div><div class="sf-stat-label">Active listings</div></div>
+    <div class="sf-stat" style="animation-delay:.15s"><div class="sf-stat-num" id="c2">0</div><div class="sf-stat-label">Verified sellers</div></div>
+    <div class="sf-stat" style="animation-delay:.25s"><div class="sf-stat-num" id="c3">0%</div><div class="sf-stat-label">Avg discount</div></div>
+  </div>
+
+  <div class="sf-cats">
+    <div class="sf-cat active" onclick="filterCat(this)">All</div>
+    <div class="sf-cat" onclick="filterCat(this)"><i class="ti ti-device-laptop" style="font-size:13px;vertical-align:-2px;margin-right:4px" aria-hidden="true"></i>Electronics</div>
+    <div class="sf-cat" onclick="filterCat(this)"><i class="ti ti-salad" style="font-size:13px;vertical-align:-2px;margin-right:4px" aria-hidden="true"></i>Food & FMCG</div>
+    <div class="sf-cat" onclick="filterCat(this)"><i class="ti ti-shirt" style="font-size:13px;vertical-align:-2px;margin-right:4px" aria-hidden="true"></i>Apparel</div>
+    <div class="sf-cat" onclick="filterCat(this)"><i class="ti ti-engine" style="font-size:13px;vertical-align:-2px;margin-right:4px" aria-hidden="true"></i>Machinery</div>
+    <div class="sf-cat" onclick="filterCat(this)"><i class="ti ti-armchair" style="font-size:13px;vertical-align:-2px;margin-right:4px" aria-hidden="true"></i>Furniture</div>
+  </div>
+
+  <div class="sf-section-hd">
+    <h2>Hot deals right now</h2>
+    <span onclick="sendPrompt('Show me all surplus deals on StockFlow')">View all ↗</span>
+  </div>
+  <div class="sf-cards">
+    <div class="sf-card" style="animation-delay:.05s" onclick="sendPrompt('Tell me more about this phone cases surplus deal')">
+      <div class="sf-card-img" style="background:#E1F5EE">📱</div>
+      <div class="sf-card-body">
+        <div class="sf-card-tag hot">Hot</div>
+        <div class="sf-card-name">Phone cases — 500 units</div>
+        <div class="sf-card-seller">TechDist Ltd · Nairobi</div>
+        <div class="sf-card-footer">
+          <div>
+            <div class="sf-price-now">KES 4,200</div>
+            <div style="display:flex;align-items:center;gap:4px;margin-top:2px">
+              <div class="sf-price-was">18,000</div>
+              <div class="sf-discount">−78%</div>
+            </div>
+          </div>
+          <div class="sf-card-action"><i class="ti ti-shopping-cart" style="font-size:14px" aria-hidden="true"></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="sf-card" style="animation-delay:.12s" onclick="sendPrompt('Tell me about the rice flour surplus listing')">
+      <div class="sf-card-img" style="background:#FAEEDA">🌾</div>
+      <div class="sf-card-body">
+        <div class="sf-card-tag urgent">Expiring soon</div>
+        <div class="sf-card-name">Rice flour — 1.2 t</div>
+        <div class="sf-card-seller">GrainCo EA · Mombasa</div>
+        <div class="sf-card-footer">
+          <div>
+            <div class="sf-price-now">KES 28,000</div>
+            <div style="display:flex;align-items:center;gap:4px;margin-top:2px">
+              <div class="sf-price-was">74,000</div>
+              <div class="sf-discount">−62%</div>
+            </div>
+          </div>
+          <div class="sf-card-action"><i class="ti ti-shopping-cart" style="font-size:14px" aria-hidden="true"></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="sf-card" style="animation-delay:.19s" onclick="sendPrompt

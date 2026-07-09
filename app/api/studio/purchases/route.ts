@@ -47,6 +47,22 @@ export async function POST(request: NextRequest) {
       data: { downloadCount: { increment: 1 } },
     })
 
+    if (!template.isFree && template.authorId && template.price > 0) {
+      const platformFee = template.price * 0.3
+      const authorShare = template.price - platformFee
+
+      await prisma.studioEarning.create({
+        data: {
+          templateId,
+          userId: template.authorId,
+          amount: template.price,
+          platformFee,
+          authorShare,
+          status: "pending",
+        },
+      })
+    }
+
     return NextResponse.json(purchase, { status: 201 })
   } catch (error) {
     return NextResponse.json({ error: "Failed to create purchase" }, { status: 500 })

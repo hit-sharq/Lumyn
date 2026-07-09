@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json()
-    const { title, description, category, previewImage, previewImages, tags, isFree, price, downloadUrl, featured } = body
+    const { title, description, category, previewImage, previewImages, tags, isFree, price, downloadUrl, featured, authorId } = body
 
     if (!title || !description || !category || !previewImage) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
@@ -63,6 +63,7 @@ export async function POST(request: NextRequest) {
         price: isFree ? 0 : (price || 0),
         downloadUrl: downloadUrl || null,
         featured: featured ?? false,
+        authorId: authorId || null,
       },
     })
 

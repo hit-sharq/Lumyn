@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amara & Kofi — Wedding</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #fbf5f3;
+      --surface: #fffdfc;
+      --text: #20161a;
+      --muted: #8a7c80;
+      --border: rgba(32,22,26,0.14);
+      --accent: #8c1a3c;
+      --accent-light: #b3204c;
+      --warm: #f4ebe6;
+      --blush: #f7ecef;
+      --gold: #c8a25a;
+      --serif: 'Cormorant Garamond', serif;
+      --sans: 'Inter', sans-serif;
+      --ease: cubic-bezier(0.16,1,0.3,1);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      background-image:
+        radial-gradient(80% 50% at 50% 0%, rgba(140,26,60,0.04) 0%, transparent 70%),
+        radial-gradient(70% 50% at 100% 100%, rgba(200,162,90,0.05) 0%, transparent 70%);
+      background-attachment: fixed;
+    }
+    .container { max-width: 800px; margin: 0 auto; padding: 0 32px; }
+
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); }
+    .reveal.in { opacity: 1; transform: none; }
+    .reveal.d1 { transition-delay: 0.1s; }
+    .reveal.d2 { transition-delay: 0.2s; }
+    .reveal.d3 { transition-delay: 0.3s; }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 24px 0;
+      background: rgba(251,245,243,0.72);
+      backdrop-filter: blur(22px) saturate(140%);
+      -webkit-backdrop-filter: blur(22px) saturate(140%);
+      border-bottom: 0.5px solid var(--border);
+      transition: padding 0.5s var(--ease), background 0.5s var(--ease);
+    }
+    header.scrolled { padding: 16px 0; background: rgba(251,245,243,0.96); border-bottom-color: var(--border-strong); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .monogram { display: inline-flex; align-items: center; gap: 14px; text-decoration: none; transition: gap 0.5s var(--ease); }
+    .monogram:hover { gap: 18px; }
+    .monogram svg { width: 36px; height: 36px; transition: transform 0.5s var(--ease); }
+    .monogram:hover svg { transform: rotate(45deg); }
+    .monogram-name { font-family: var(--serif); font-style: italic; font-size: 1.28rem; font-weight: 500; color: var(--text); letter-spacing: 0.02em; }
+    .nav-links { display: flex; gap: 40px; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; position: relative; transition: color 0.4s; }
+    .nav-links a::after { content: ''; position: absolute; left: 0; bottom: -8px; width: 0; height: 0.5px; background: var(--accent); transition: width 0.45s var(--ease); }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta { padding: 12px 28px; background: transparent; color: var(--accent); text-decoration: none; border-radius: 100px; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; border: 0.5px solid var(--border-strong); transition: all 0.45s var(--ease); }
+    .nav-cta:hover { background: var(--accent); color: #fff; border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 12px 28px rgba(140,26,60,0.22); }
+
+    .hero { padding: 130px 0 100px; text-align: center; background: linear-gradient(180deg, var(--blush) 0%, var(--bg) 100%); position: relative; overflow: hidden; }
+    .hero::before {
+      content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 500px; height: 500px; border: 0.5px solid var(--border); border-radius: 50%;
+      background: radial-gradient(circle, rgba(140,26,60,0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 2; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 12px; margin-bottom: 28px; font-size: 0.68rem; font-weight: 500; letter-spacing: 0.38em; text-transform: uppercase; color: var(--accent); }
+    .hero-eyebrow::before { content: ''; width: 32px; height: 0.5px; background: var(--accent); }
+    .hero h1 { font-family: var(--serif); font-size: clamp(3.4rem, 8vw, 6rem); font-weight: 300; line-height: 1; margin: 18px 0 18px; font-style: italic; letter-spacing: -0.015em; }
+    .hero h1 em { font-style: normal; color: var(--accent); }
+    .hero-meta { color: var(--muted); font-size: 1.14rem; margin-bottom: 48px; font-weight: 300; letter-spacing: 0.02em; line-height: 1.85; }
+    .countdown { display: flex; justify-content: center; gap: 44px; margin-bottom: 48px; }
+    .countdown-item { text-align: center; position: relative; }
+    .countdown-item:not(:last-child)::after { content: ''; position: absolute; right: -22px; top: 50%; transform: translateY(-50%); width: 0.5px; height: 60px; background: var(--border); }
+    .countdown-value { font-family: var(--serif); font-size: 4.2rem; font-weight: 300; line-height: 1; color: var(--accent); transition: transform 0.5s var(--ease); }
+    .countdown-item:hover .countdown-value { transform: translateY(-4px); }
+    .countdown-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.18em; margin-top: 12px; }
+    .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn { display: inline-block; padding: 16px 38px; text-decoration: none; border-radius: 100px; font-weight: 500; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; border: 0.5px solid transparent; cursor: pointer; transition: all 0.5s var(--ease); position: relative; overflow: hidden; }
+    .btn::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%); opacity: 0; transition: opacity 0.4s; }
+    .btn:hover::after { opacity: 1; }
+    .btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .btn-primary:hover { background: var(--accent-light); border-color: var(--accent-light); transform: translateY(-4px); box-shadow: 0 20px 44px rgba(140,26,60,0.24); }
+    .btn-secondary { background: transparent; color: var(--text); border-color: var(--border); }
+    .btn-secondary:hover { border-color: var(--text); background: var(--surface); transform: translateY(-4px); box-shadow: 0 12px 28px rgba(32,22,26,0.06); }
+    @media (hover: none) { .btn:hover { transform: none; } }
+
+    .glance { display: grid; grid-template-columns: repeat(3, 1fr); border: 0.5px solid var(--border); border-radius: 18px; overflow: hidden; background: var(--surface); }
+    .glance div { padding: 34px 20px; text-align: center; border-right: 0.5px solid var(--border); transition: background 0.5s var(--ease); }
+    .glance div:hover { background: rgba(140,26,60,0.03); }
+    .glance div:last-child { border-right: none; }
+    .glance .g-val { font-family: var(--serif); font-size: 1.6rem; font-weight: 500; color: var(--accent); line-height: 1.1; }
+    .glance .g-lab { font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.22em; color: var(--muted); margin-top: 10px; }
+
+    section { padding: 110px 0; }
+    .section-header { margin-bottom: 72px; }
+    .section-label { display: inline-flex; align-items: center; gap: 12px; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.36em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
+    .section-label::before { content: ''; width: 32px; height: 0.5px; background: var(--accent); }
+    .section-title { font-family: var(--serif); font-size: clamp(2.1rem, 4.6vw, 3.4rem); font-weight: 300; line-height: 1.1; text-align: center; letter-spacing: -0.01em; }
+    .ornament { display: block; width: 50px; height: 0.5px; margin: 24px auto 0; background: var(--gold); position: relative; transition: width 0.5s var(--ease); }
+    .section-header:hover .ornament { width: 70px; }
+    .ornament::before { content: ''; position: absolute; left: 50%; top: 50%; width: 7px; height: 7px; transform: translate(-50%, -50%) rotate(45deg); background: var(--gold); transition: transform 0.5s var(--ease); }
+    .section-header:hover .ornament::before { transform: translate(-50%, -50%) rotate(45deg) scale(1.3); }
+
+    .story-section { background: var(--surface); border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); }
+    .story-content { max-width: 640px; margin: 0 auto; text-align: center; }
+    .story-content p { color: var(--muted); font-size: 1.14rem; line-height: 1.9; margin-bottom: 26px; font-weight: 300; }
+
+    .details-section { text-align: center; }
+    .details-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; margin-top: 48px; }
+    .detail-card { padding: 54px 34px; background: var(--surface); border: 0.5px solid var(--border); border-radius: 20px; transition: all 0.55s var(--ease); position: relative; overflow: hidden; }
+    .detail-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 0.5px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: 0; transition: opacity 0.5s; }
+    .detail-card:hover::before { opacity: 0.8; }
+    .detail-card:hover { transform: translateY(-8px); border-color: rgba(140,26,60,0.4); box-shadow: 0 28px 56px rgba(32,22,26,0.08); }
+    .detail-icon { width: 68px; height: 68px; margin: 0 auto 22px; border: 0.5px solid rgba(200,162,90,0.5); border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--blush); transition: transform 0.55s var(--ease), box-shadow 0.5s; }
+    .detail-card:hover .detail-icon { transform: scale(1.08); box-shadow: 0 0 32px rgba(200,162,90,0.12); }
+    .detail-icon svg { width: 28px; height: 28px; stroke: var(--accent); fill: none; }
+    .detail-card h3 { font-family: var(--serif); font-size: 1.5rem; font-weight: 500; margin-bottom: 14px; }
+    .detail-card p { color: var(--muted); font-size: 0.98rem; font-weight: 300; line-height: 1.85; }
+
+    .rsvp-section { background: var(--warm); border: 0.5px solid var(--border); border-radius: 26px; padding: clamp(60px, 8vw, 100px); margin-top: 40px; position: relative; overflow: hidden; }
+    .rsvp-section::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 60%; height: 0.5px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+    .rsvp-form { max-width: 500px; margin: 0 auto; }
+    .form-group { margin-bottom: 22px; }
+    .form-group label { display: block; font-weight: 500; margin-bottom: 10px; font-size: 0.88rem; letter-spacing: 0.02em; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 14px 18px; border: 0.5px solid var(--border); border-radius: 12px; font-size: 1rem; font-family: inherit; background: var(--surface); color: var(--text); transition: border-color 0.4s, box-shadow 0.4s; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px rgba(140,26,60,0.05); }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .submit-btn { width: 100%; padding: 16px; background: var(--accent); color: #fff; border: 0.5px solid var(--accent); border-radius: 12px; font-weight: 600; font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; transition: all 0.5s var(--ease); }
+    .submit-btn:hover { background: var(--accent-light); border-color: var(--accent-light); transform: translateY(-3px); box-shadow: 0 16px 40px rgba(140,26,60,0.2); }
+
+    footer { border-top: 0.5px solid var(--border); padding: 64px 0; text-align: center; background: var(--surface); position: relative; }
+    footer::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 0.5px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+    .footer-content { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+    .footer-logo { font-family: var(--serif); font-size: 1.5rem; font-weight: 400; font-style: italic; color: var(--text); transition: letter-spacing 0.5s var(--ease); }
+    .footer-logo:hover { letter-spacing: 0.08em; }
+    .footer-text { color: var(--muted); font-size: 0.85rem; font-weight: 300; }
+    .footer-links { display: flex; gap: 30px; }
+    .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.82rem; letter-spacing: 0.06em; transition: color 0.4s; position: relative; }
+    .footer-links a::after { content: ''; position: absolute; left: 0; bottom: -4px; width: 0; height: 0.5px; background: var(--accent); transition: width 0.4s var(--ease); }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-links a:hover::after { width: 100%; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hero { padding: 110px 0 70px; }
+      .countdown { gap: 22px; }
+      .countdown-value { font-size: 2.8rem; }
+      .countdown-item:not(:last-child)::after { height: 40px; right: -11px; }
+      .rsvp-section { padding: 56px 28px; }
+      .glance { grid-template-columns: 1fr; }
+      .glance div { border-right: none; border-bottom: 0.5px solid var(--border); }
+      .glance div:last-child { border-bottom: none; }
+    }
+    @media (max-width: 560px) {
+      .details-grid { grid-template-columns: 1fr; }
+      .hero-buttons { flex-direction: column; align-items: center; }
+      .btn { width: 100%; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <header id="nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#" class="monogram">
+          <svg viewBox="0 0 40 40" fill="none" stroke="#8c1a3c" stroke-width="1.2"><circle cx="20" cy="20" r="18"/><path d="M14 16c0-3 2-5 6-5s6 2 6 5-2 5-6 5-6 2-6 5 2 5 6 5 6-2 6-5" opacity="0.85"/></svg>
+          <span class="monogram-name">Amara &amp; Kofi</span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="#story">Story</a></li>
+          <li><a href="#details">Details</a></li>
+          <li><a href="#rsvp">RSVP</a></li>
+        </ul>
+        <a href="#rsvp" class="nav-cta">RSVP</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-eyebrow reveal section-label" style="display:block;">We're getting married</div>
+      <h1 class="reveal d1">Amara <em>&amp;</em> Kofi</h1>
+      <p class="hero-meta reveal d2">September 20, 2025 · Karen, Nairobi</p>
+      <div class="countdown reveal d3">
+        <div class="countdown-item">
+          <div class="countdown-value">120</div>
+          <div class="countdown-label">Days</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-value">08</div>
+          <div class="countdown-label">Hours</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-value">45</div>
+          <div class="countdown-label">Minutes</div>
+        </div>
+      </div>
+      <div class="hero-buttons reveal d3">
+        <a href="#rsvp" class="btn">RSVP Now</a>
+        <a href="#details" class="btn btn-secondary">Details</a>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top: 0;">
+    <div class="container">
+      <div class="glance reveal">
+        <div><div class="g-val">Sept 20, 2025</div><div class="g-lab">The Date</div></div>
+        <div><div class="g-val">Karen, Nairobi</div><div class="g-lab">The Place</div></div>
+        <div><div class="g-val">2 PM – 5 PM</div><div class="g-lab">The Celebration</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="story" class="story-section">
+    <div class="container">
+      <div class="story-content">
+        <div class="section-label reveal">Our Story</div>
+        <h2 class="section-title reveal" style="margin-bottom: 32px;">How we met</h2>
+        <span class="ornament reveal"></span>
+        <p class="reveal d1" style="margin-top:28px;">We met at a coffee shop in Westlands on a rainy afternoon in 2020. Five years, countless adventures, and one beautiful proposal later, we're ready to start the next chapter together.</p>
+        <p class="reveal d2">From sunset walks on the coast to late-night coding sessions in our Nairobi apartment, every moment has led us here. We are so grateful to have you alongside us as we celebrate love, family, and the beginning of forever.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="details" class="details-section">
+    <div class="container">
+      <div class="section-label reveal">Wedding Details</div>
+      <h2 class="section-title reveal" style="margin-bottom: 16px;">Join us in celebration</h2>
+      <p class="reveal d1" style="color: var(--muted); max-width: 500px; margin: 0 auto; font-weight: 300;">
+        We can't wait to celebrate with you. Here's everything you need to know.
+      </p>
+      <div class="details-grid">
+        <div class="detail-card reveal d1">
+          <div class="detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><circle cx="9" cy="15" r="5.5"/><circle cx="15" cy="15" r="5.5"/></svg></div>
+          <h3>Ceremony</h3>
+          <p>St. Mary's Chapel<br>Karen, Nairobi<br>2:00 PM</p>
+        </div>
+        <div class="detail-card reveal d2">
+          <div class="detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><path d="M8 3h8l-1 6.5a3 3 0 01-6 0L8 3z"/><path d="M12 13v6M8 19h8"/><path d="M5 19h2M17 19h2" opacity="0.6"/></svg></div>
+          <h3>Reception</h3>
+          <p>The Great Plains Lodge<br>Karen Road<br>5:00 PM</p>
+        </div>
+        <div class="detail-card reveal d3">
+          <div class="detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><path d="M3 18v-5a2 2 0 012-2h14a2 2 0 012 2v5"/><path d="M3 18v2M21 18v2M3 13h18"/><path d="M5 11V9a1 1 0 011-1h3a1 1 0 011 1v2"/></svg></div>
+          <h3>Accommodation</h3>
+          <p>Nairobi Serena Hotel<br>Group rate available<br>Use code AMARA2025</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="rsvp">
+    <div class="container">
+      <div class="rsvp-section reveal">
+        <div class="section-header" style="text-align: center; margin-bottom: 48px;">
+          <div class="section-label">RSVP</div>
+          <h2 class="section-title">Will you join us?</h2>
+          <span class="ornament"></span>
+          <p style="color: var(--muted); max-width: 500px; margin: 22px auto 0; font-weight: 300;">
+            Please respond by August 1, 2025
+          </p>
+        </div>
+        <form class="rsvp-form" onsubmit="event.preventDefault(); alert('Thank you for your RSVP! We can not wait to celebrate with you.');">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" placeholder="Your full name" required />
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="you@example.com" required />
+          </div>
+          <div class="form-group">
+            <label>Will you attend?</label>
+            <select required>
+              <option value="">Select one</option>
+              <option>Joyfully accepts</option>
+              <option>Regretfully declines</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Number of Guests</label>
+            <select>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Dietary Requirements</label>
+            <textarea placeholder="Any allergies or dietary needs?"></textarea>
+          </div>
+          <button type="submit" class="submit-btn">Send RSVP</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">Amara &amp; Kofi</div>
+        <div class="footer-links">
+          <a href="#">Hashtag</a>
+          <a href="#">Registry</a>
+          <a href="#">Contact</a>
+        </div>
+        <div class="footer-text">© 2025 Made with love.</div>
+      </div>
+    </div>
+  </footer>
+  <script>
+    const nav = document.getElementById('nav');
+    addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 30));
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>

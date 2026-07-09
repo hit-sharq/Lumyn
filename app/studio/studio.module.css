@@ -90,6 +90,28 @@
   flex-wrap: wrap;
 }
 .categoryPills { display: flex; gap: 8px; flex-wrap: wrap; }
+.filterControls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.searchInput {
+  padding: 7px 14px;
+  border-radius: 100px;
+  border: 1.5px solid #e5e7eb;
+  background: #fff;
+  font-size: 0.85rem;
+  color: #374151;
+  outline: none;
+  min-width: 180px;
+}
+.searchInput:focus { border-color: #111; }
+.sortSelect {
+  padding: 7px 14px;
+  border-radius: 100px;
+  border: 1.5px solid #e5e7eb;
+  background: #fff;
+  font-size: 0.85rem;
+  color: #374151;
+  cursor: pointer;
+  outline: none;
+}
 .pill {
   padding: 7px 18px;
   border-radius: 100px;
@@ -303,6 +325,14 @@
   border: 1px solid #e5e7eb;
   background: #f3f4f6;
 }
+.detailPreviewIframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  background: #fff;
+}
+.detailPreviewImg { object-fit: cover; }
 .detailSidebar { display: flex; flex-direction: column; gap: 24px; }
 .detailCard {
   background: #fff;
@@ -366,3 +396,24 @@
   .templateGrid { grid-template-columns: 1fr; }
   .filterInner { flex-direction: column; align-items: flex-start; }
 }
+
+/* ── Dashboard / Creator Dashboard ── */
+.dashboardPage { padding-bottom: 80px; }
+.dashboardHeader { margin-bottom: 32px; }
+.dashboardTitle { font-size: 2rem; font-weight: 800; color: #111; margin: 0 0 8px; }
+.dashboardSubtitle { font-size: 1rem; color: #6b7280; margin: 0; }
+.dashboardGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+.dashCard { background: #fff; border: 1px solid #e5e7eb; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; }
+.dashCardImage { position: relative; width: 100%; aspect-ratio: 16/10; background: #f3f4f6; }
+.dashCardBody { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+.dashCardTitle { font-size: 1.05rem; font-weight: 700; color: #111; margin: 0 0 8px; }
+.dashCardMeta { font-size: 0.85rem; color: #6b7280; margin: 0 0 12px; }
+.dashCardBtn { display: inline-block; margin-top: auto; padding: 10px 20px; background: #111; color: #fff; font-size: 0.85rem; font-weight: 600; border-radius: 8px; text-decoration: none; text-align: center; }
+.noAccess { text-align: center; padding: 120px 24px; }
+.noAccessTitle { font-size: 1.5rem; font-weight: 700; color: #111; margin: 0 0 12px; }
+.noAccessText { color: #6b7280; margin: 0 0 24px; }
+.signInLink { display: inline-block; padding: 12px 32px; background: #111; color: #fff; font-weight: 600; border-radius: 8px; text-decoration: none; border: none; cursor: pointer; }
+
+.growthCard { background: #fff; border: 1px solid #e5e7eb; border-radius: 16px; padding: 24px; }
+.growthStatLabel { font-size: 0.875rem; color: #6b7280; margin: 0 0 8px; font-weight: 500; }
+.growthStatValue { font-size: 2rem; font-weight: 800; margin: 0; color: #111; }
