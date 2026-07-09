@@ -1,7 +1,6 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { prisma } from "@/lib/db/prisma"
-import { pageMetadata } from "@/lib/seo"
 import { renderPortfolioTemplate, loadPortfolioTemplate } from "@/lib/launch/renderer"
 
 interface PageProps {
@@ -16,11 +15,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     })
     if (!portfolio || !portfolio.isPublished) return { title: "Portfolio not found | Lumyn" }
     const name = portfolio.displayName || params.username
-    return pageMetadata({
-      title: `${name} | Lumyn Portfolio`,
-      description: portfolio.title || portfolio.about || `View ${name}'s portfolio on Lumyn.`,
-      path: `/portfolio/${params.username}`,
-    })
+    return {
+      title: `${name} | Portfolio`,
+      description: portfolio.title || portfolio.about || `View ${name}'s portfolio.`,
+    }
   } catch {
     return { title: "Portfolio | Lumyn" }
   }
@@ -36,12 +34,15 @@ export default async function PublicPortfolioPage({ params }: PageProps) {
     notFound()
   }
 
-  const socialLinks = (portfolio.socialLinks as any) || {}
-
   const templateHtml = loadPortfolioTemplate(portfolio.templateId || "")
   const renderedHtml = renderPortfolioTemplate(templateHtml, portfolio)
 
   return (
-    <div dangerouslySetInnerHTML={{ __html: renderedHtml }} />
+    <iframe
+      srcDoc={renderedHtml}
+      title={`${portfolio.displayName} portfolio`}
+      style={{ width: "100%", height: "100vh", border: 0, display: "block" }}
+      sandbox="allow-scripts allow-same-origin allow-forms"
+    />
   )
 }
