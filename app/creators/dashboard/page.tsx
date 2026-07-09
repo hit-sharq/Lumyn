@@ -38,32 +38,31 @@ export default function CreatorDashboard() {
     
     const fetchEarnings = async () => {
       try {
-        // Fetch from all three revenue streams
-        const [marketRes, studioRes, hireRes] = await Promise.all([
+        const [marketRes, studioRes, transRes] = await Promise.all([
           fetch('/api/market/creator/earnings'),
-          fetch('/api/studio/creator/earnings'),
-          fetch('/api/hire/creator/earnings'),
+          fetch('/api/studio/creator/stats'),
+          fetch('/api/creators/transactions'),
         ]);
 
         const marketData = await marketRes.json();
         const studioData = await studioRes.json();
-        const hireData = await hireRes.json();
+        const transData = await transRes.json();
+
+        const studioEarnings = studioData?.stats?.totalEarnings || 0;
+        const studioSales = studioData?.stats?.totalSales || 0;
 
         setEarnings({
           marketEarnings: marketData.totalNet || 0,
-          studioEarnings: studioData.totalNet || 0,
-          hireEarnings: hireData.totalNet || 0,
+          studioEarnings: studioEarnings,
+          hireEarnings: 0,
           marketSales: marketData.salesCount || 0,
-          studioSales: studioData.downloadCount || 0,
-          hireApplications: hireData.applicationsCount || 0,
-          thisMonthEarnings: (marketData.totalNet || 0) + (studioData.totalNet || 0) + (hireData.totalNet || 0),
-          lastMonthEarnings: 0, // Would fetch from database
+          studioSales: studioSales,
+          hireApplications: 0,
+          thisMonthEarnings: (marketData.totalNet || 0) + studioEarnings,
+          lastMonthEarnings: 0,
         });
 
-        // Fetch recent transactions
-        const transRes = await fetch('/api/creator/transactions');
-        const transData = await transRes.json();
-        setTransactions(transData || []);
+        setTransactions(Array.isArray(transData) ? transData.slice(0, 5) : []);
       } catch (error) {
         console.error('Failed to fetch earnings:', error);
       } finally {
