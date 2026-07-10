@@ -30,8 +30,14 @@ export default function LaunchDashboardPage() {
   const fetchPortfolios = async () => {
     try {
       const res = await fetch("/api/launch/portfolios")
+      if (!res.ok) {
+        setPortfolios([])
+        return
+      }
       const data = await res.json()
       setPortfolios(Array.isArray(data) ? data : [])
+    } catch (error) {
+      setPortfolios([])
     } finally {
       setLoading(false)
     }
