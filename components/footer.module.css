@@ -51,8 +51,34 @@
   font-size: 0.9375rem;
   line-height: 1.7;
   color: var(--muted-foreground);
-  margin: 0 0 28px 0;
+  margin: 0 0 20px 0;
   max-width: 300px;
+}
+
+.footerContact {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.footerContactItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted-foreground);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.2s ease;
+}
+
+.footerContactItem:hover {
+  color: var(--primary);
+}
+
+.footerContactIcon {
+  font-size: 1rem;
+  opacity: 0.8;
 }
 
 .socialLinks {

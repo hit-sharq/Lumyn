@@ -75,8 +75,14 @@ export default function ContactPage() {
               <div className={styles.infoCards}>
                 <div className={styles.infoCard}>
                   <div className={styles.infoIcon}>📧</div>
-                  <h3 className={styles.infoCardTitle}>Email</h3>
-                  <p className={styles.infoCardText}>lumyntechnologies@gmail.com</p>
+                  <h3 className={styles.infoCardTitle}>General Inquiries</h3>
+                  <a href="mailto:info@lumyn.co.ke" className={styles.infoCardLink}>info@lumyn.co.ke</a>
+                </div>
+
+                <div className={styles.infoCard}>
+                  <div className={styles.infoIcon}>🛟</div>
+                  <h3 className={styles.infoCardTitle}>Technical Support</h3>
+                  <a href="mailto:support@lumyn.co.ke" className={styles.infoCardLink}>support@lumyn.co.ke</a>
                 </div>
 
                 <div className={styles.infoCard}>

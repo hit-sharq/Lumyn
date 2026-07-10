@@ -148,6 +148,20 @@
   line-height: 1.6;
 }
 
+.infoCardLink {
+  font-size: 0.9375rem;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid transparent;
+}
+
+.infoCardLink:hover {
+  border-bottom-color: var(--primary);
+  opacity: 0.9;
+}
+
 /* ===== SOCIAL SECTION ===== */
 .socialSection {
   padding-top: 32px;
