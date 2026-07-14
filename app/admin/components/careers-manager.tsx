@@ -63,6 +63,8 @@ export default function CareersManager() {
     } catch (error: any) {
       console.error("Error fetching careers:", error);
       showToast(error.message || "Failed to load career opportunities", "error");
+    } finally {
+      setLoading(false);
     }
   };
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
