@@ -9,7 +9,8 @@ export default function JsonLd() {
     {
       '@context': 'https://schema.org',
       '@type': 'Organization',
-      name: 'Lumyn',
+      name: 'Lumyn Technologies',
+      alternateName: 'Lumyn',
       description: 'The complete creative platform for African creators. Build portfolios, sell products, find jobs, and access premium templates.',
       url: BASE_URL,
       logo: `${BASE_URL}/placeholder-logo.png`,

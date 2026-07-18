@@ -4,8 +4,8 @@
 
 /* Hero Section */
 .hero {
-  background: linear-gradient(135deg, #051f20 0%, #163832 50%, #235347 100%);
-  color: white;
+  background: linear-gradient(135deg, rgba(109, 129, 150, 0.2), rgba(10, 10, 10, 0.95));
+  color: var(--foreground);
   padding: 120px 20px 80px;
   text-align: center;
   position: relative;
@@ -19,7 +19,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(circle at 30% 50%, rgba(139, 182, 155, 0.1) 0%, transparent 50%);
+  background: radial-gradient(circle at 30% 50%, rgba(109, 129, 150, 0.15) 0%, transparent 50%);
   pointer-events: none;
 }
 
@@ -42,7 +42,7 @@
   font-size: 1.25rem;
   font-weight: 500;
   margin: 0 0 24px 0;
-  color: #8eb69b;
+  color: var(--primary);
   animation: fadeInUp 0.8s ease-out 0.2s backwards;
 }
 
@@ -50,7 +50,7 @@
   font-size: 1rem;
   font-weight: 400;
   margin: 0;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--muted-foreground);
   line-height: 1.6;
   animation: fadeInUp 0.8s ease-out 0.4s backwards;
 }
@@ -58,7 +58,7 @@
 /* Content Section */
 .contentSection {
   padding: 100px 20px;
-  background: linear-gradient(to bottom, #f8faf9, #ffffff);
+  background: var(--background);
 }
 
 .container {
@@ -67,12 +67,13 @@
 }
 
 .sectionCard {
-  background: white;
+  background: var(--card);
+  border: 1px solid var(--border);
   border-radius: 24px;
   padding: 48px;
   margin-bottom: 32px;
-  box-shadow: 0 10px 40px rgba(5, 31, 32, 0.1);
-  border-left: 4px solid #8eb69b;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  border-left: 4px solid var(--primary);
   transform: translateY(50px);
   opacity: 0;
   transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -86,21 +87,21 @@
 .sectionTitle {
   font-size: 1.75rem;
   font-weight: 700;
-  color: #051f20;
+  color: var(--foreground);
   margin: 0 0 24px 0;
   padding-bottom: 16px;
-  border-bottom: 2px solid #daf1de;
+  border-bottom: 2px solid var(--border);
 }
 
 .sectionContent {
-  color: #333;
+  color: var(--muted-foreground);
 }
 
 .text {
   font-size: 1.125rem;
   line-height: 1.7;
   margin-bottom: 32px;
-  color: #333;
+  color: var(--muted-foreground);
 }
 
 /* Benefits Grid */
@@ -112,7 +113,7 @@
 }
 
 .benefitCard {
-  background: #f8faf9;
+  background: var(--muted);
   border-radius: 16px;
   padding: 24px;
   text-align: center;
@@ -121,9 +122,9 @@
 }
 
 .benefitCard:hover {
-  border-color: #8eb69b;
+  border-color: var(--primary);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(139, 182, 155, 0.15);
+  box-shadow: 0 8px 25px rgba(109, 129, 150, 0.2);
 }
 
 .benefitIcon {
@@ -134,13 +135,13 @@
 .benefitTitle {
   font-size: 1.125rem;
   font-weight: 600;
-  color: #051f20;
+  color: var(--foreground);
   margin: 0 0 8px 0;
 }
 
 .benefitText {
   font-size: 0.875rem;
-  color: #666;
+  color: var(--muted-foreground);
   margin: 0;
   line-height: 1.5;
 }
@@ -161,7 +162,7 @@
 .label {
   font-size: 0.875rem;
   font-weight: 600;
-  color: #051f20;
+  color: var(--foreground);
   margin-bottom: 8px;
 }
 
@@ -169,20 +170,21 @@
 .select,
 .textarea {
   padding: 12px 16px;
-  border: 2px solid #e0e0e0;
+  border: 2px solid var(--border);
   border-radius: 8px;
   font-size: 1rem;
   font-family: inherit;
   transition: all 0.3s ease;
-  background: white;
+  background: var(--background);
+  color: var(--foreground);
 }
 
 .input:focus,
 .select:focus,
 .textarea:focus {
   outline: none;
-  border-color: #8eb69b;
-  box-shadow: 0 0 0 3px rgba(139, 182, 155, 0.1);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(109, 129, 150, 0.2);
 }
 
 .textarea {
@@ -192,7 +194,7 @@
 
 .select {
   cursor: pointer;
-  background-image: url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'><path fill='%23666' d='M2 0L0 2h4zm0 5L0 3h4z'/></svg>");
+  background-image: url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'><path fill='%23ffffe3' d='M2 0L0 2h4zm0 5L0 3h4z'/></svg>");
   background-repeat: no-repeat;
   background-position: right 12px center;
   background-size: 12px;
@@ -201,8 +203,8 @@
 }
 
 .submitBtn {
-  background: linear-gradient(135deg, #8eb69b 0%, #6a9c7e 100%);
-  color: white;
+  background: var(--primary);
+  color: var(--primary-foreground);
   border: none;
   padding: 16px 32px;
   border-radius: 12px;
@@ -218,9 +220,9 @@
 }
 
 .submitBtn:hover:not(:disabled) {
-  background: linear-gradient(135deg, #6a9c7e 0%, #5a876e 100%);
+  background: var(--brand-dark);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(139, 182, 155, 0.3);
+  box-shadow: 0 8px 25px rgba(109, 129, 150, 0.3);
 }
 
 .submitBtn:disabled {
@@ -232,9 +234,9 @@
 .spinner {
   width: 16px;
   height: 16px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(245, 245, 245, 0.3);
   border-radius: 50%;
-  border-top-color: white;
+  border-top-color: var(--primary-foreground);
   animation: spin 1s ease-in-out infinite;
 }
 
@@ -252,13 +254,13 @@
 }
 
 .successMessage {
-  background: linear-gradient(135deg, #daf1de 0%, #c8e6cd 100%);
-  border: 2px solid #8eb69b;
+  background: rgba(139, 182, 155, 0.12);
+  border: 2px solid var(--primary);
 }
 
 .errorMessage {
-  background: linear-gradient(135deg, #ffe6e6 0%, #ffcccc 100%);
-  border: 2px solid #e57373;
+  background: rgba(239, 68, 68, 0.12);
+  border: 2px solid var(--destructive);
 }
 
 .successIcon {
@@ -266,7 +268,7 @@
 }
 
 .successMessage h3 {
-  color: #051f20;
+  color: var(--foreground);
   margin: 0;
   font-size: 1.5rem;
 }
@@ -274,19 +276,19 @@
 .successMessage p,
 .errorMessage p {
   margin: 0;
-  color: #333;
+  color: var(--muted-foreground);
   font-size: 1rem;
   line-height: 1.6;
 }
 
 .errorMessage p {
-  color: #d32f2f;
+  color: var(--destructive);
 }
 
 /* Disclaimer */
 .disclaimer {
   font-size: 0.75rem;
-  color: #666;
+  color: var(--muted-foreground);
   text-align: center;
   line-height: 1.5;
   margin: 16px 0 0 0;
@@ -397,4 +399,3 @@
     font-size: 1.25rem;
   }
 }
-

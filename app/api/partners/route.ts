@@ -3,24 +3,43 @@ import { auth } from "@clerk/nextjs/server"
 import { prisma } from "@/lib/db/prisma"
 import { isAdminUser } from "@/lib/admin"
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     const { userId } = await auth()
-    if (!userId) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
-    }
+    const isAdmin = userId ? isAdminUser(userId) : false
 
-    if (!isAdminUser(userId)) {
+    const adminParam = request.nextUrl.searchParams.get("admin")
+
+    if (adminParam === "true" && !isAdmin) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 })
     }
 
-    const partners = await prisma.partner.findMany({
-      orderBy: { createdAt: "desc" },
-      include: {
-        conversions_relation: {
-          orderBy: { createdAt: "desc" },
-          take: 10,
+    if (adminParam === "true") {
+      const partners = await prisma.partner.findMany({
+        orderBy: [{ order: "asc" }, { createdAt: "desc" }],
+        include: {
+          conversions_relation: {
+            orderBy: { createdAt: "desc" },
+            take: 10,
+          },
         },
+      })
+
+      return NextResponse.json(partners)
+    }
+
+    const partners = await prisma.partner.findMany({
+      where: { status: "active" },
+      orderBy: [{ order: "asc" }, { createdAt: "desc" }],
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        logoUrl: true,
+        website: true,
+        category: true,
+        featured: true,
+        order: true,
       },
     })
 

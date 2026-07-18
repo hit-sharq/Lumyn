@@ -280,15 +280,15 @@ export default function GetStartedPage() {
   }];
   return <>
       <Head>
-        <title>Get Started | Custom Web Development Services - Lumyn</title>
+        <title>Get Started | Lumyn</title>
         <meta name="description" content="Ready to start your project? Tell us about your needs and get custom web development, mobile apps, and digital solutions from Lumyn's expert team." />
         <meta name="keywords" content="web development, mobile apps, project inquiry, custom development, digital solutions" />
-        <meta property="og:title" content="Get Started | Custom Web Development Services - Lumyn" />
+        <meta property="og:title" content="Get Started | Lumyn" />
         <meta property="og:description" content="Ready to start your project? Tell us about your needs and get custom web development, mobile apps, and digital solutions from Lumyn's expert team." />
         <meta property="og:url" content="https://www.lumyn.co.ke/get-started" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Get Started | Custom Web Development Services - Lumyn" />
+        <meta name="twitter:title" content="Get Started | Lumyn" />
       </Head>
 
       <div className={styles.getStartedPage}>

@@ -50,7 +50,7 @@ export default function PartnersManager() {
 
   const fetchPartners = async () => {
     try {
-      const res = await fetch("/api/partners", { cache: "no-store" })
+      const res = await fetch("/api/partners?admin=true", { cache: "no-store" })
       if (res.ok) {
         const data = await res.json()
         setPartners(data)

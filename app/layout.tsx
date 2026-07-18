@@ -25,6 +25,8 @@ export const metadata: Metadata = {
   authors: [{ name: 'Lumyn Technologies' }],
   creator: 'Lumyn Technologies',
   publisher: 'Lumyn Technologies',
+  applicationName: 'Lumyn',
+  category: 'technology',
   metadataBase: new URL(BASE_URL),
   openGraph: {
     type: 'website',
