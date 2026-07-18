@@ -94,7 +94,7 @@ export default function CompanyProfilePage() {
     },
     {
       id: "services",
-      title: "What We Do",
+      title: "Our Capabilities",
       content: (
         <div className={styles.servicesWrapper}>
           <div className={styles.serviceCategory}>

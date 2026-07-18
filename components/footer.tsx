@@ -10,7 +10,7 @@ export default function Footer() {
           <div className={styles.footerSection}>
             <h3 className={styles.footerTitle}>Lumyn</h3>
             <p className={styles.footerText}>
-              Modern digital solutions company. Transforming businesses with innovative technology and exceptional user experiences.
+              A digital innovation studio engineering bespoke platforms, products, and experiences that move ambitious businesses forward.
             </p>
             <div className={styles.footerContact}>
               <a href="mailto:info@lumyn.co.ke" className={styles.footerContactItem}>
@@ -169,7 +169,7 @@ export default function Footer() {
           </div>
           <div className={styles.footerBadge}>
             <span className={styles.footerBadgeDot}></span>
-            Available for projects
+            Accepting new projects
           </div>
         </div>
       </div>

@@ -294,11 +294,10 @@ export default function GetStartedPage() {
       <div className={styles.getStartedPage}>
         <section className={styles.hero}>
           <div className={styles.heroContent}>
-            <h1 className={styles.heroTitle}>Get Started</h1>
-            <p className={styles.heroSubtitle}>Let&apos;s build something amazing together</p>
+            <h1 className={styles.heroTitle}>Start a Project</h1>
+            <p className={styles.heroSubtitle}>Let&apos;s bring your vision to life</p>
             <p className={styles.heroDescription}>
-              Share your project vision and requirements. We&apos;ll create a custom solution that brings your ideas to life
-              with our expert development team.
+              Tell us about your ambitions. Our senior engineering and design team will craft a bespoke solution engineered to scale with your business.
             </p>
           </div>
         </section>

@@ -8,6 +8,21 @@ const APP_DIR = join(process.cwd(), 'app')
 
 const EXCLUDED_DIRS = new Set(['api', 'admin', 'studio/admin', '_components', 'components'])
 
+// Routes that are private/auth-gated/dashboards and must never be indexed.
+// Kept in sync with the disallow list in app/robots.ts.
+const EXCLUDED_PATHS = new Set([
+  '/studio/admin',
+  '/market/dashboard',
+  '/launch/dashboard',
+  '/launch/builder',
+  '/studio/dashboard',
+  '/creators/dashboard',
+  '/notifications',
+  '/payment',
+  '/referrals',
+  '/sign-in',
+])
+
 const PRIORITY_RULES: Record<string, { priority: number; frequency: 'weekly' | 'monthly' | 'yearly' }> = {
   '/': { priority: 1, frequency: 'weekly' },
   '/ai-marketing': { priority: 0.8, frequency: 'weekly' },
@@ -55,23 +70,36 @@ async function discoverStaticPages(dir: string): Promise<MetadataRoute.Sitemap> 
   const hasPage = entries.some((entry) => entry.name === 'page.tsx' || entry.name === 'page.ts')
 
   if (hasPage) {
-    const relativePath = dir.slice(APP_DIR.length).replace(/\\/g, '/')
-    const urlPath = relativePath && relativePath !== '/' ? relativePath : '/'
+    // Strip route groups (parentheses) and dynamic segments (brackets) from the URL path.
+    const relativeParts = dir
+      .slice(APP_DIR.length)
+      .split(sep)
+      .filter(Boolean)
+      .filter((part) => !part.startsWith('(') && !part.startsWith('['))
+    const urlPath = relativeParts.length ? '/' + relativeParts.join('/') : '/'
     const filePath = join(dir, 'page.tsx')
     const lastModified = await getLastModified(filePath)
     const url = urlPath === '/' ? BASE_URL : `${BASE_URL}${urlPath}`
     const rules = PRIORITY_RULES[urlPath] || { priority: 0.6, frequency: 'monthly' as const }
 
-    pages.push({
-      url,
-      lastModified,
-      changeFrequency: rules.frequency,
-      priority: rules.priority,
-    })
+    if (!EXCLUDED_PATHS.has(urlPath)) {
+      pages.push({
+        url,
+        lastModified,
+        changeFrequency: rules.frequency,
+        priority: rules.priority,
+      })
+    }
   }
 
   for (const entry of entries) {
-    if (entry.isDirectory() && !entry.name.startsWith('.') && !EXCLUDED_DIRS.has(entry.name)) {
+    if (
+      entry.isDirectory() &&
+      !entry.name.startsWith('.') &&
+      !entry.name.startsWith('(') &&
+      !entry.name.startsWith('[') &&
+      !EXCLUDED_DIRS.has(entry.name)
+    ) {
       const childPages = await discoverStaticPages(join(dir, entry.name))
       pages.push(...childPages)
     }

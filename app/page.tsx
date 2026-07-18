@@ -252,13 +252,13 @@ export default function HomePage() {
             transition={{ delay: 0.7, duration: 1, ease: [0.16, 1, 0.3, 1] }}
           >
             <Link href="/get-started" className={styles.primaryButton}>
-              <span>Start Building</span>
+              <span>Start Your Project</span>
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                 <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </Link>
             <Link href="/projects" className={styles.secondaryButton}>
-              <span>View Our Work</span>
+              <span>Explore Our Work</span>
             </Link>
           </motion.div>
         </motion.div>
@@ -346,7 +346,7 @@ export default function HomePage() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <span className={styles.sectionLabel}>About Us</span>
+              <span className={styles.sectionLabel}>Who We Are</span>
               <h2 className={styles.sectionTitle}>
                 Pioneering the Future of
                 <br />
@@ -406,7 +406,7 @@ export default function HomePage() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <span className={styles.sectionLabel}>What We Do</span>
+            <span className={styles.sectionLabel}>Our Capabilities</span>
             <h2 className={styles.sectionTitle}>
               Comprehensive Technology
               <br />
@@ -481,7 +481,7 @@ export default function HomePage() {
                   <h3 className={styles.serviceTitle}>{service.title}</h3>
                   <p className={styles.serviceDescription}>{service.description}</p>
                   <Link href={`/${service.title.toLowerCase()}`} className={styles.serviceLink}>
-                    Explore <span>→</span>
+                    Discover <span>→</span>
                   </Link>
                 </div>
                 <div className={styles.serviceGlow} style={{ background: `${service.color}20` }} />
@@ -501,7 +501,7 @@ export default function HomePage() {
              viewport={{ once: true }}
              transition={{ duration: 0.8 }}
            >
-             <span className={styles.sectionLabel}>Latest News</span>
+             <span className={styles.sectionLabel}>Latest Insights</span>
              <h2 className={styles.sectionTitle}>
                Stay Updated
                <br />
@@ -633,7 +633,7 @@ export default function HomePage() {
                         : event.description}
                     </p>
                     <Link href={`/events?id=${event.id}`} className={styles.eventLink}>
-                      Learn More <span>→</span>
+                      Read More <span>→</span>
                     </Link>
                   </div>
                 </motion.div>
@@ -680,7 +680,7 @@ export default function HomePage() {
                 </svg>
               </Link>
               <Link href="/about" className={styles.ctaSecondaryButton}>
-                Learn About Us
+                Meet Lumyn
               </Link>
             </div>
           </motion.div>

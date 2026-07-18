@@ -2,6 +2,16 @@
 const isDev = process.env.NODE_ENV === 'development'
 
 const nextConfig = {
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'lumyn.co.ke' }],
+        destination: 'https://www.lumyn.co.ke/:path*',
+        permanent: true,
+      },
+    ]
+  },
   // Ensure build and type errors are surfaced in CI by not ignoring them.
   eslint: {},
   typescript: {},

@@ -127,7 +127,7 @@ export default function Header() {
             className={styles.navLink}
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            Services
+            Capabilities
           </Link>
 
           <Link
@@ -135,7 +135,7 @@ export default function Header() {
             className={styles.navLink}
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            Projects
+            Work
           </Link>
           <Link
             href="/contact"

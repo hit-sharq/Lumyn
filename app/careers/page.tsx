@@ -99,13 +99,13 @@ function CareersPageContent() {
   return (
     <>
       <Head>
-        <title>Careers | Lumyn - Join Our Team</title>
+        <title>Careers | Lumyn - Build Your Career With Us</title>
         <meta
           name="description"
-          content="Explore career opportunities at Lumyn. Join our team and work on innovative digital solutions."
+          content="Discover career opportunities at Lumyn. Join a team shaping the future of digital innovation across engineering, design, and growth."
         />
         <meta name="keywords" content="careers, jobs, employment, opportunities, digital solutions, technology" />
-        <meta property="og:title" content="Careers | Lumyn - Join Our Team" />
+        <meta property="og:title" content="Careers | Lumyn - Build Your Career With Us" />
         <meta
           property="og:description"
           content="Explore career opportunities at Lumyn. Join our team and work on innovative digital solutions."
@@ -116,7 +116,7 @@ function CareersPageContent() {
         
         {/* Twitter Card Meta Tags */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Careers | Lumyn - Join Our Team" />
+        <meta name="twitter:title" content="Careers | Lumyn - Build Your Career With Us" />
         <meta name="twitter:description" content="Explore career opportunities at Lumyn. Join our team and work on innovative digital solutions." />
         <meta name="twitter:image" content="/placeholder.svg" />
       </Head>
@@ -125,7 +125,7 @@ function CareersPageContent() {
         <section className={styles.hero}>
           <div className={styles.heroContent}>
             <h1 className={styles.heroTitle}>Career Opportunities</h1>
-            <p className={styles.heroSubtitle}>Join our team and shape the future of digital solutions</p>
+            <p className={styles.heroSubtitle}>Build your career and shape the future of digital innovation</p>
           </div>
         </section>
 

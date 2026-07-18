@@ -177,7 +177,7 @@ export default function AboutPage() {
         </div>
   }, {
     id: "services",
-    title: "What We Do",
+    title: "Our Capabilities",
     content: <motion.div className={styles.servicesGrid} initial="hidden" whileInView="visible" viewport={{
       once: true
     }}>
