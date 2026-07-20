@@ -1,124 +1,146 @@
-"use client"
-
-import { useEffect, useState } from "react"
-import { useParams, useRouter } from "next/navigation"
-import Head from "next/head"
+import { Metadata } from "next"
+import { notFound } from "next/navigation"
 import Image from "next/image"
-import styles from "./post.module.css"
+import Link from "next/link"
 import ShareButton from "@/components/ShareButton"
+import styles from "./post.module.css"
 
-interface BlogPost {
-  id: string
-  title: string
-  content: string
-  image: string
-  author: string
-  createdAt: string
-  category: string
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.lumyn.co.ke"
+
+interface PageProps {
+  params: Promise<{ id: string }>
 }
 
-export default function BlogPostPage() {
-  const params = useParams()
-  const router = useRouter()
-  const [post, setPost] = useState<BlogPost | null>(null)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    if (params.id) {
-      fetchPost(params.id as string)
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { id } = await params
+  try {
+    const res = await fetch(`${BASE_URL}/api/blog/${id}`, { next: { revalidate: 3600 } })
+    if (!res.ok) return { title: "Blog Post | Lumyn" }
+    const post: any = await res.json()
+    const url = `${BASE_URL}/blog/${id}`
+    return {
+      title: `${post.title} | Lumyn Blog`,
+      description: post.excerpt || `Read this blog post: ${post.title} by ${post.author}`,
+      authors: [{ name: post.author }],
+      openGraph: {
+        title: post.title,
+        description: post.excerpt || `Read this blog post: ${post.title} by ${post.author}`,
+        url,
+        siteName: "Lumyn",
+        type: "article",
+        images: post.image ? [{ url: post.image, width: 1200, height: 630, alt: post.title }] : undefined,
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: post.title,
+        description: post.excerpt || `Read this blog post: ${post.title} by ${post.author}`,
+        images: post.image ? [post.image] : undefined,
+        creator: "@LumynTec",
+      },
+      alternates: { canonical: url },
     }
-  }, [params.id])
-
-  const fetchPost = async (id: string) => {
-    try {
-      const response = await fetch(`/api/blog/${id}`)
-      if (response.ok) {
-        const data = await response.json()
-        setPost(data)
-      } else {
-        router.push("/blog")
-      }
-    } catch (error) {
-      console.error("Error fetching blog post:", error)
-      router.push("/blog")
-    } finally {
-      setLoading(false)
-    }
+  } catch {
+    return { title: "Blog Post | Lumyn" }
   }
+}
 
-  if (loading) {
-    return (
-      <div className={styles.loading}>
-        <div className={styles.spinner}></div>
-        <p>Loading post...</p>
-      </div>
-    )
-  }
-
-  if (!post) {
+async function getPost(id: string) {
+  try {
+    const res = await fetch(`${BASE_URL}/api/blog/${id}`, { next: { revalidate: 3600 } })
+    if (!res.ok) return null
+    return res.json()
+  } catch {
     return null
   }
+}
 
-  const currentUrl = typeof window !== "undefined" ? window.location.href : ""
+function BlogPostJsonLd({ post, url }: { post: any; url: string }) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.excerpt || `Read this blog post: ${post.title} by ${post.author}`,
+    image: post.image || `${BASE_URL}/og-image.png`,
+    datePublished: post.createdAt,
+    author: {
+      "@type": "Person",
+      name: post.author,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Lumyn Technologies",
+      logo: {
+        "@type": "ImageObject",
+        url: `${BASE_URL}/placeholder-logo.png`,
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": url,
+    },
+  }
 
   return (
-    <>
-      <Head>
-        <title>{post.title} | Lumyn Blog</title>
-        <meta name="description" content={`Check out this blog post: ${post.title} by ${post.author}`} />
-        <meta property="og:title" content={post.title} />
-        <meta property="og:description" content={`Check out this blog post: ${post.title} by ${post.author}`} />
-        <meta property="og:image" content={post.image || "/placeholder.svg"} />
-        <meta property="og:url" content={currentUrl} />
-        <meta property="og:type" content="article" />
-        <meta property="og:site_name" content="Lumyn" />
-        
-        {/* Twitter Card Meta Tags */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={post.title} />
-        <meta name="twitter:description" content={`Check out this blog post: ${post.title} by ${post.author}`} />
-        <meta name="twitter:image" content={post.image || "/placeholder.svg"} />
-      </Head>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+  )
+}
 
-      <div className={styles.postPage}>
-        <article className={styles.post}>
-          <div className={styles.postHeader}>
-            <div className={styles.postMeta}>
-              <span className={styles.author}>By {post.author}</span>
-              <span className={styles.date}>{new Date(post.createdAt).toLocaleDateString()}</span>
-            </div>
-            <h1 className={styles.title}>{post.title}</h1>
-          </div>
+export default async function BlogPostPage({ params }: PageProps) {
+  const { id } = await params
+  const post = await getPost(id)
 
-          <div className={styles.imageWrapper}>
-            <Image
-              src={post.image || "/placeholder.svg?height=600&width=1200&query=blog post"}
-              alt={post.title}
-              fill
-              className={styles.image}
-              priority
-            />
-          </div>
+  if (!post) {
+    notFound()
+  }
 
-          <div className={styles.content}>
-            <div className={styles.contentInner} dangerouslySetInnerHTML={{ __html: post.content }} />
-          </div>
+  const url = `${BASE_URL}/blog/${id}`
 
-          <div className={styles.shareSection}>
-            <ShareButton
-              title={post.title}
-              text={`Check out this blog post: ${post.title} by ${post.author}`}
-              image={post.image}
-            />
-          </div>
+  return (
+    <div className={styles.postPage}>
+      <BlogPostJsonLd post={post} url={url} />
+      <article className={styles.post} itemScope itemType="https://schema.org/Article">
+        <meta itemProp="author" content={post.author} />
+        <meta itemProp="datePublished" content={post.createdAt} />
 
-          <div className={styles.backButton}>
-            <button onClick={() => router.back()} className={styles.backBtn}>
-              ← Back to Blog
-            </button>
+        <div className={styles.postHeader}>
+          <div className={styles.postMeta}>
+            <span className={styles.author}>By {post.author}</span>
+            <span className={styles.date}>{new Date(post.createdAt).toLocaleDateString()}</span>
           </div>
-        </article>
-      </div>
-    </>
+          <h1 className={styles.title} itemProp="headline">{post.title}</h1>
+        </div>
+
+        <div className={styles.imageWrapper}>
+          <Image
+            src={post.image || "/placeholder.svg?height=600&width=1200&query=blog post"}
+            alt={post.title}
+            fill
+            className={styles.image}
+            priority
+          />
+        </div>
+
+        <div className={styles.content}>
+          <div className={styles.contentInner} dangerouslySetInnerHTML={{ __html: post.content }} itemProp="articleBody" />
+        </div>
+
+        <div className={styles.shareSection}>
+          <ShareButton
+            title={post.title}
+            text={`Check out this blog post: ${post.title} by ${post.author}`}
+            image={post.image}
+          />
+        </div>
+
+        <div className={styles.backButton}>
+          <Link href="/blog" className={styles.backBtn}>
+            ← Back to Blog
+          </Link>
+        </div>
+      </article>
+    </div>
   )
 }

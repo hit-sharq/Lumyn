@@ -1,125 +1,147 @@
-"use client"
-
-import { useEffect, useState } from "react"
-import { useParams, useRouter } from "next/navigation"
-import Head from "next/head"
+import { Metadata } from "next"
+import { notFound } from "next/navigation"
 import Image from "next/image"
-import styles from "./article.module.css"
+import Link from "next/link"
 import ShareButton from "@/components/ShareButton"
+import styles from "./article.module.css"
 
-interface NewsItem {
-  id: string
-  title: string
-  content: string
-  image: string
-  author: string
-  createdAt: string
-  category: string
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.lumyn.co.ke"
+
+interface PageProps {
+  params: Promise<{ id: string }>
 }
 
-export default function NewsArticlePage() {
-  const params = useParams()
-  const router = useRouter()
-  const [article, setArticle] = useState<NewsItem | null>(null)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    if (params.id) {
-      fetchArticle(params.id as string)
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { id } = await params
+  try {
+    const res = await fetch(`${BASE_URL}/api/news/${id}`, { next: { revalidate: 3600 } })
+    if (!res.ok) return { title: "News Article | Lumyn" }
+    const article: any = await res.json()
+    const url = `${BASE_URL}/news/${id}`
+    return {
+      title: `${article.title} | Lumyn News`,
+      description: `Read this news article: ${article.title} by ${article.author}`,
+      authors: [{ name: article.author }],
+      openGraph: {
+        title: article.title,
+        description: `Read this news article: ${article.title} by ${article.author}`,
+        url,
+        siteName: "Lumyn",
+        type: "article",
+        images: article.image ? [{ url: article.image, width: 1200, height: 630, alt: article.title }] : undefined,
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: article.title,
+        description: `Read this news article: ${article.title} by ${article.author}`,
+        images: article.image ? [article.image] : undefined,
+        creator: "@LumynTec",
+      },
+      alternates: { canonical: url },
     }
-  }, [params.id])
-
-  const fetchArticle = async (id: string) => {
-    try {
-      const response = await fetch(`/api/news/${id}`)
-      if (response.ok) {
-        const data = await response.json()
-        setArticle(data)
-      } else {
-        router.push("/news")
-      }
-    } catch (error) {
-      console.error("Error fetching article:", error)
-      router.push("/news")
-    } finally {
-      setLoading(false)
-    }
+  } catch {
+    return { title: "News Article | Lumyn" }
   }
+}
 
-  if (loading) {
-    return (
-      <div className={styles.loading}>
-        <div className={styles.spinner}></div>
-        <p>Loading article...</p>
-      </div>
-    )
-  }
-
-  if (!article) {
+async function getArticle(id: string) {
+  try {
+    const res = await fetch(`${BASE_URL}/api/news/${id}`, { next: { revalidate: 3600 } })
+    if (!res.ok) return null
+    return res.json()
+  } catch {
     return null
   }
+}
 
-  const currentUrl = typeof window !== "undefined" ? window.location.href : ""
+function NewsArticleJsonLd({ article, url }: { article: any; url: string }) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    headline: article.title,
+    description: `Read this news article: ${article.title} by ${article.author}`,
+    image: article.image || `${BASE_URL}/og-image.png`,
+    datePublished: article.createdAt,
+    author: {
+      "@type": "Person",
+      name: article.author,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Lumyn Technologies",
+      logo: {
+        "@type": "ImageObject",
+        url: `${BASE_URL}/placeholder-logo.png`,
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": url,
+    },
+  }
 
   return (
-    <>
-      <Head>
-        <title>{article.title} | Lumyn News</title>
-        <meta name="description" content={`Read this news article: ${article.title} by ${article.author}`} />
-        <meta property="og:title" content={article.title} />
-        <meta property="og:description" content={`Read this news article: ${article.title} by ${article.author}`} />
-        <meta property="og:image" content={article.image || "/placeholder.svg"} />
-        <meta property="og:url" content={currentUrl} />
-        <meta property="og:type" content="article" />
-        <meta property="og:site_name" content="Lumyn" />
-        
-        {/* Twitter Card Meta Tags */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={article.title} />
-        <meta name="twitter:description" content={`Read this news article: ${article.title} by ${article.author}`} />
-        <meta name="twitter:image" content={article.image || "/placeholder.svg"} />
-      </Head>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+  )
+}
 
-      <div className={styles.articlePage}>
-        <article className={styles.article}>
-          <div className={styles.articleHeader}>
-            <div className={styles.articleMeta}>
-              <span className={styles.category}>{article.category}</span>
-              <span className={styles.date}>{new Date(article.createdAt).toLocaleDateString()}</span>
-            </div>
-            <h1 className={styles.title}>{article.title}</h1>
-            <div className={styles.author}>By {article.author}</div>
-          </div>
+export default async function NewsArticlePage({ params }: PageProps) {
+  const { id } = await params
+  const article = await getArticle(id)
 
-          <div className={styles.imageWrapper}>
-            <Image
-              src={article.image || "/placeholder.svg?height=600&width=1200&query=news article"}
-              alt={article.title}
-              fill
-              className={styles.image}
-              priority
-            />
-          </div>
+  if (!article) {
+    notFound()
+  }
 
-          <div className={styles.content}>
-            <div className={styles.contentInner} dangerouslySetInnerHTML={{ __html: article.content }} />
-          </div>
+  const url = `${BASE_URL}/news/${id}`
 
-          <div className={styles.shareSection}>
-            <ShareButton
-              title={article.title}
-              text={`Read this news article: ${article.title} by ${article.author}`}
-              image={article.image}
-            />
-          </div>
+  return (
+    <div className={styles.articlePage}>
+      <NewsArticleJsonLd article={article} url={url} />
+      <article className={styles.article} itemScope itemType="https://schema.org/NewsArticle">
+        <meta itemProp="author" content={article.author} />
+        <meta itemProp="datePublished" content={article.createdAt} />
 
-          <div className={styles.backButton}>
-            <button onClick={() => router.back()} className={styles.backBtn}>
-              ← Back to News
-            </button>
+        <div className={styles.articleHeader}>
+          <div className={styles.articleMeta}>
+            <span className={styles.category}>{article.category}</span>
+            <span className={styles.date}>{new Date(article.createdAt).toLocaleDateString()}</span>
           </div>
-        </article>
-      </div>
-    </>
+          <h1 className={styles.title} itemProp="headline">{article.title}</h1>
+          <div className={styles.author}>By {article.author}</div>
+        </div>
+
+        <div className={styles.imageWrapper}>
+          <Image
+            src={article.image || "/placeholder.svg?height=600&width=1200&query=news article"}
+            alt={article.title}
+            fill
+            className={styles.image}
+            priority
+          />
+        </div>
+
+        <div className={styles.content}>
+          <div className={styles.contentInner} dangerouslySetInnerHTML={{ __html: article.content }} itemProp="articleBody" />
+        </div>
+
+        <div className={styles.shareSection}>
+          <ShareButton
+            title={article.title}
+            text={`Read this news article: ${article.title} by ${article.author}`}
+            image={article.image}
+          />
+        </div>
+
+        <div className={styles.backButton}>
+          <Link href="/news" className={styles.backBtn}>
+            ← Back to News
+          </Link>
+        </div>
+      </article>
+    </div>
   )
 }

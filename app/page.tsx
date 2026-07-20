@@ -632,7 +632,7 @@ export default function HomePage() {
                         ? event.description.substring(0, 100) + "..."
                         : event.description}
                     </p>
-                    <Link href={`/events?id=${event.id}`} className={styles.eventLink}>
+                    <Link href={`/events/${event.id}`} className={styles.eventLink}>
                       Read More <span>→</span>
                     </Link>
                   </div>
@@ -727,7 +727,7 @@ function EventCard({ event }: { event?: Event }) {
         <p className={styles.eventExcerpt}>
           {event.description.length > 100 ? event.description.substring(0, 100) + "..." : event.description}
         </p>
-        <Link href={`/events?id=${event.id}`} className={styles.eventLink}>Learn More</Link>
+        <Link href={`/events/${event.id}`} className={styles.eventLink}>Learn More</Link>
       </div>
     </div>
   )

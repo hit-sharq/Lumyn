@@ -1,6 +1,4 @@
-'use client'
-
-import Script from 'next/script'
+import React from 'react'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.lumyn.co.ke'
 
@@ -11,7 +9,8 @@ export default function JsonLd() {
       '@type': 'Organization',
       name: 'Lumyn Technologies',
       alternateName: 'Lumyn',
-      description: 'The complete creative platform for African creators. Build portfolios, sell products, find jobs, and access premium templates.',
+      description:
+        'The complete creative platform for African creators. Build portfolios, sell products, find jobs, and access premium templates.',
       url: BASE_URL,
       logo: `${BASE_URL}/placeholder-logo.png`,
       sameAs: [
@@ -78,7 +77,7 @@ export default function JsonLd() {
       '@context': 'https://schema.org',
       '@type': 'WebApplication',
       name: 'Lumyn Market',
-      description: 'Buy and sell digital products in Africa\'s largest marketplace',
+      description: "Buy and sell digital products in Africa's largest marketplace",
       url: `${BASE_URL}/market`,
       applicationCategory: 'BusinessApplication',
       operatingSystem: 'Web Browser',
@@ -97,13 +96,15 @@ export default function JsonLd() {
   return (
     <>
       {schemas.map((schema, index) => (
-        <Script
+        <script
+          // Next/React requires deterministic keys for list rendering
           key={index}
-          id={`schema-${index}`}
           type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
       ))}
     </>
   )
 }
+

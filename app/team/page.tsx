@@ -3,6 +3,7 @@ import Link from "next/link"
 import type { Metadata } from "next"
 import styles from "../about/about.module.css"
 import TeamCard from "./TeamCard"
+import { breadcrumbJsonLd } from "@/lib/seo"
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.lumyn.co.ke"
 
@@ -74,6 +75,10 @@ export default async function TeamPage() {
 
   return (
     <>
+      {breadcrumbJsonLd([
+        { name: "Home", url: BASE_URL },
+        { name: "Team", url: `${BASE_URL}/team` },
+      ])}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

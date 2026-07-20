@@ -49,14 +49,13 @@ export const metadata: Metadata = {
     title: 'Lumyn - The Complete Creative Platform',
     description: 'Build portfolios, sell products, find jobs, access templates. The all-in-one platform for African creators.',
     images: ['/og-image.png'],
-    creator: '@lumyn',
+    creator: '@LumynTec',
   },
   robots: {
     index: true,
     follow: true,
   },
   alternates: {
-    canonical: BASE_URL,
     languages: {
       'en': BASE_URL,
     },
