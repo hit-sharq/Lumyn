@@ -26,7 +26,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         description: event.description.length > 160 ? event.description.substring(0, 157) + "..." : event.description,
         url,
         siteName: "Lumyn Technologies",
-        type: "event",
         images: event.image ? [{ url: event.image, width: 1200, height: 630, alt: event.title }] : undefined,
       },
       twitter: {
@@ -44,7 +43,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 function EventJsonLd({ event, url }: { event: any; url: string }) {
-  const jsonLd = {
+  const jsonLd: any = {
     "@context": "https://schema.org",
     "@type": "Event",
     name: event.title,
@@ -52,6 +51,7 @@ function EventJsonLd({ event, url }: { event: any; url: string }) {
     startDate: new Date(event.date).toISOString(),
     eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
     eventStatus: "https://schema.org/EventScheduled",
+    image: event.image,
     location: {
       "@type": "Place",
       name: event.location,
@@ -62,10 +62,6 @@ function EventJsonLd({ event, url }: { event: any; url: string }) {
       url: BASE_URL,
     },
     url,
-  }
-
-  if (event.image) {
-    jsonLd.image = event.image
   }
 
   if (event.registrationLink) {
