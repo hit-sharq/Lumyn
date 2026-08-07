@@ -273,11 +273,23 @@
 }
 
 .statsGrid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
   gap: 24px;
-  max-width: 1200px;
-  margin: 0 auto;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 16px;
+  scrollbar-width: none;
+  max-width: 100%;
+}
+
+.statsGrid::-webkit-scrollbar {
+  display: none;
+}
+
+.statsGrid > * {
+  flex: 0 0 280px;
+  scroll-snap-align: start;
 }
 
 .statCard {
@@ -289,6 +301,7 @@
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   overflow: hidden;
+  min-width: 280px;
 }
 
 .statCard::before {
@@ -398,10 +411,23 @@
 }
 
 .aboutFeatures {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
   gap: 32px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 16px;
+  scrollbar-width: none;
   margin-top: 80px;
+}
+
+.aboutFeatures::-webkit-scrollbar {
+  display: none;
+}
+
+.aboutFeatures > * {
+  flex: 0 0 340px;
+  scroll-snap-align: start;
 }
 
 .featureCard {
@@ -412,6 +438,7 @@
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   overflow: hidden;
+  min-width: 340px;
 }
 
 .featureCard::before {
@@ -1042,9 +1069,9 @@
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
-  .statsGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+  .statsGrid > * {
+    flex: 0 0 85%;
+    scroll-snap-align: start;
   }
 
   .projectsGrid {
@@ -1059,8 +1086,9 @@
     grid-template-columns: 1fr;
   }
 
-  .aboutFeatures {
-    grid-template-columns: 1fr;
+  .aboutFeatures > * {
+    flex: 0 0 85%;
+    scroll-snap-align: start;
   }
 }
 
@@ -1096,9 +1124,9 @@
     padding: 100px 20px 80px 20px;
   }
 
-  .statsGrid {
-    grid-template-columns: 1fr;
-    gap: 16px;
+  .statsGrid > * {
+    flex: 0 0 88%;
+    scroll-snap-align: start;
   }
 
   .statCard {
@@ -1109,38 +1137,9 @@
     font-size: 2.5rem;
   }
 
-  .projectsGrid,
-  .eventsGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .mobileSwipeGrid {
-    display: flex;
-    gap: 16px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x mandatory;
-    padding-bottom: 12px;
-    scrollbar-width: none;
-  }
-
-  .mobileSwipeGrid::-webkit-scrollbar {
-    display: none;
-  }
-
-  /* Make each card act like a swipe "page" */
-  .mobileSwipeGrid > * {
+  .aboutFeatures > * {
     flex: 0 0 88%;
     scroll-snap-align: start;
-  }
-
-  .projectImageWrapper,
-  .eventImageWrapper {
-    height: 220px;
-  }
-
-  .serviceCardInner {
-    padding: 32px 24px;
   }
 
   .featureCard {
