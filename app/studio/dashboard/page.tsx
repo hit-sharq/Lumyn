@@ -76,7 +76,7 @@ export default function StudioDashboardPage() {
           {purchases.length === 0 ? (
             <div className={styles.emptyState}>
               <h3>No templates yet</h3>
-              <p>Browse Lumyn Studio and download your first template.</p>
+              <p>Browse Lumyn Technologies Studio and download your first template.</p>
               <Link
                 href="/studio"
                 style={{

@@ -103,7 +103,7 @@ export default function AdminPage() {
 
       <div className={`${styles.sidebar} ${mobileMenuOpen ? styles.sidebarOpen : ""}`}>
         <div className={styles.sidebarHeader}>
-          <h2 className={styles.sidebarTitle}>Lumyn Admin</h2>
+          <h2 className={styles.sidebarTitle}>Lumyn Technologies Admin</h2>
           <p className={styles.adminName}>{user?.fullName || user?.emailAddresses?.[0]?.emailAddress || ''}</p>
           <button
             className={styles.logoutBtn}
@@ -183,13 +183,13 @@ export default function AdminPage() {
             className={`${styles.navBtn} ${activeTab === "studio" ? styles.navBtnActive : ""}`}
             onClick={() => handleTabChange("studio")}
           >
-            Lumyn Studio
+            Lumyn Technologies Studio
           </button>
           <button
             className={`${styles.navBtn} ${activeTab === "market" ? styles.navBtnActive : ""}`}
             onClick={() => handleTabChange("market")}
           >
-            Lumyn Market
+            Lumyn Technologies Market
           </button>
           <div className={styles.navSection}>
             <h3 className={styles.navSectionTitle}>GROWTH</h3>

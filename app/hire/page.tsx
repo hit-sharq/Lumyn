@@ -111,7 +111,7 @@ export default function HirePage() {
           itemId: job.id,
           amount: plan.price,
           currency: "KES",
-          description: `Lumyn Hire — ${plan.name} job posting: ${form.jobTitle} at ${form.companyName}`
+          description: `Lumyn Technologies Hire — ${plan.name} job posting: ${form.jobTitle} at ${form.companyName}`
         })
       });
       const payment = await payRes.json();
@@ -126,7 +126,7 @@ export default function HirePage() {
   return <div className={styles.page}>
       <div className={styles.hero}>
         <div className={styles.heroInner}>
-          <span className={styles.heroBadge}>Lumyn Hire</span>
+          <span className={styles.heroBadge}>Lumyn Technologies Hire</span>
           <h1 className={styles.heroTitle}>
             Find Kenya&apos;s Best <span>Tech Talent</span>
           </h1>
@@ -169,7 +169,7 @@ export default function HirePage() {
               </div> : jobs.length === 0 ? <div className={styles.emptyState}>
                 <div className={styles.emptyIcon}>💼</div>
                 <h3>No jobs posted yet</h3>
-                <p>Be the first company to reach Lumyn&apos;s audience.</p>
+                <p>Be the first company to reach Lumyn Technologies&apos;s audience.</p>
                 <button className={styles.ctaBtn} onClick={() => setView("post")}>Post a Job</button>
               </div> : <div className={styles.jobGrid}>
                 {jobs.map(job => <div key={job.id} className={`${styles.jobCard} ${job.isFeatured ? styles.featured : ""}`} onClick={() => setSelectedJob(job)}>
@@ -224,7 +224,7 @@ export default function HirePage() {
       {view === "post" && <div className={styles.postSection}>
           <div className={styles.container}>
             <div className={styles.postHeader}>
-              <h2 className={styles.sectionTitle}>Post a Job on Lumyn</h2>
+              <h2 className={styles.sectionTitle}>Post a Job on Lumyn Technologies</h2>
               <p className={styles.sectionSub}>Choose a plan, fill in your listing, and pay via M-Pesa, card, or bank transfer through Pesapal.</p>
             </div>
 

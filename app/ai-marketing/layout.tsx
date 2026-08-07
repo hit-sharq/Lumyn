@@ -2,11 +2,11 @@ import type { Metadata } from "next"
 import { pageMetadata, breadcrumbJsonLd } from "@/lib/seo"
 
 export const metadata: Metadata = pageMetadata({
-  title: "AI Marketing Suite | Lumyn",
+  title: "AI Marketing Suite | Lumyn Technologies",
   description:
     "Generate marketing copy, build multi-channel campaigns, and optimize content with AI. The all-in-one AI marketing toolkit for African creators and businesses.",
   path: "/ai-marketing",
-  keywords: ["AI marketing", "content generator", "campaign builder", "marketing automation", "Lumyn AI"],
+  keywords: ["AI marketing", "content generator", "campaign builder", "marketing automation", "Lumyn Technologies AI"],
 })
 
 export default function Layout({ children }: { children: React.ReactNode }) {

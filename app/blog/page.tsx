@@ -48,7 +48,7 @@ export default function BlogPage() {
       <div className={styles.blogPage}>
         <section className={styles.hero}>
           <div className={styles.heroContent}>
-            <h1 className={styles.heroTitle}>Lumyn Blog</h1>
+            <h1 className={styles.heroTitle}>Lumyn Technologies Blog</h1>
             <p className={styles.heroSubtitle}>Stories, insights, and experiences from our community</p>
           </div>
         </section>

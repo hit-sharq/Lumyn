@@ -12,14 +12,14 @@ export async function generateMetadata({
       where: { id: params.id },
       select: { title: true, excerpt: true },
     })
-    if (!item) return { title: "News not found | Lumyn" }
+    if (!item) return { title: "News not found | Lumyn Technologies" }
     return pageMetadata({
-      title: `${item.title} | Lumyn News`,
+      title: `${item.title} | Lumyn Technologies News`,
       description: item.excerpt,
       path: `/news/${params.id}`,
     })
   } catch {
-    return { title: "News | Lumyn" }
+    return { title: "News | Lumyn Technologies" }
   }
 }
 

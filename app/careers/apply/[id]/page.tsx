@@ -221,7 +221,7 @@ export default function JobApplicationPage() {
   const currentUrl = typeof window !== "undefined" ? window.location.href : "";
   return <>
       <Head>
-        <title>Apply for {career.title} | Lumyn Careers</title>
+        <title>Apply for {career.title} | Lumyn Technologies Careers</title>
         <meta name="description" content={`Apply for the ${career.title} position at ${career.company}. Join our team and shape the future of digital solutions.`} />
 
         {/* Open Graph Meta Tags for Social Media Sharing */}
@@ -230,7 +230,7 @@ export default function JobApplicationPage() {
         <meta property="og:image" content={career.image || "/placeholder.svg"} />
         <meta property="og:url" content={currentUrl} />
         <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="Lumyn" />
+        <meta property="og:site_name" content="Lumyn Technologies" />
 
         {/* Twitter Card Meta Tags */}
         <meta name="twitter:card" content="summary_large_image" />

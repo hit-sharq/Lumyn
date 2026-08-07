@@ -8,7 +8,7 @@ export default function JsonLd() {
       '@context': 'https://schema.org',
       '@type': 'Organization',
       name: 'Lumyn Technologies',
-      alternateName: 'Lumyn',
+      alternateName: 'Lumyn Technologies',
       description:
         'The complete creative platform for African creators. Build portfolios, sell products, find jobs, and access premium templates.',
       url: BASE_URL,
@@ -34,7 +34,7 @@ export default function JsonLd() {
     {
       '@context': 'https://schema.org',
       '@type': 'WebSite',
-      name: 'Lumyn',
+      name: 'Lumyn Technologies',
       url: BASE_URL,
       potentialAction: {
         '@type': 'SearchAction',
@@ -48,7 +48,7 @@ export default function JsonLd() {
     {
       '@context': 'https://schema.org',
       '@type': 'WebApplication',
-      name: 'Lumyn Studio',
+      name: 'Lumyn Technologies Studio',
       description: 'Premium templates and assets for creative projects',
       url: `${BASE_URL}/studio`,
       applicationCategory: 'BusinessApplication',
@@ -62,7 +62,7 @@ export default function JsonLd() {
     {
       '@context': 'https://schema.org',
       '@type': 'WebApplication',
-      name: 'Lumyn Launch',
+      name: 'Lumyn Technologies Launch',
       description: 'Build and launch your professional portfolio in minutes',
       url: `${BASE_URL}/launch`,
       applicationCategory: 'BusinessApplication',
@@ -76,7 +76,7 @@ export default function JsonLd() {
     {
       '@context': 'https://schema.org',
       '@type': 'WebApplication',
-      name: 'Lumyn Market',
+      name: 'Lumyn Technologies Market',
       description: "Buy and sell digital products in Africa's largest marketplace",
       url: `${BASE_URL}/market`,
       applicationCategory: 'BusinessApplication',
@@ -85,7 +85,7 @@ export default function JsonLd() {
     {
       '@context': 'https://schema.org',
       '@type': 'WebApplication',
-      name: 'Lumyn Hire',
+      name: 'Lumyn Technologies Hire',
       description: 'Find jobs or hire top creative talent in Africa',
       url: `${BASE_URL}/hire`,
       applicationCategory: 'BusinessApplication',

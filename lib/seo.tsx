@@ -35,20 +35,20 @@ export function pageMetadata({
     authors: [{ name: "Lumyn Technologies" }],
     creator: "Lumyn Technologies",
     publisher: "Lumyn Technologies",
-    applicationName: "Lumyn",
+    applicationName: "Lumyn Technologies",
     alternates: { canonical: url },
     openGraph: {
       title,
       description,
       url,
-      siteName: "Lumyn",
+      siteName: "Lumyn Technologies",
       type: "website",
       images: [
         {
           url: "/og-image.png",
           width: 1200,
           height: 630,
-          alt: "Lumyn - Creative Platform for African Creators",
+          alt: "Lumyn Technologies - Creative Platform for African Creators",
         },
       ],
     },

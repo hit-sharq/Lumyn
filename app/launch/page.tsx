@@ -79,7 +79,7 @@ export default function LaunchPage() {
     <div className={styles.page}>
       <section className={styles.hero}>
         <div className={styles.heroInner}>
-          <span className={styles.heroBadge}>Lumyn Launch</span>
+          <span className={styles.heroBadge}>Lumyn Technologies Launch</span>
           <h1 className={styles.heroTitle}>
             Build Your <span>Portfolio</span> Website
           </h1>
@@ -215,7 +215,7 @@ export default function LaunchPage() {
 
       <section className={styles.ctaSection}>
         <h2 className={styles.ctaTitle}>Your portfolio is waiting.</h2>
-        <p className={styles.ctaSubtitle}>Join creators building their online presence with Lumyn Launch.</p>
+        <p className={styles.ctaSubtitle}>Join creators building their online presence with Lumyn Technologies Launch.</p>
         {isSignedIn ? (
           <Link href="/launch/builder" className={styles.ctaBtn}>
             Start Building Free →

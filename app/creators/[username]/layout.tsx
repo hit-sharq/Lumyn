@@ -12,15 +12,15 @@ export async function generateMetadata({
       where: { username: params.username },
       select: { displayName: true, title: true, about: true, isPublished: true },
     })
-    if (!portfolio || !portfolio.isPublished) return { title: "Portfolio not found | Lumyn" }
+    if (!portfolio || !portfolio.isPublished) return { title: "Portfolio not found | Lumyn Technologies" }
     const name = portfolio.displayName || params.username
     return pageMetadata({
-      title: `${name} | Lumyn Creator`,
-      description: portfolio.title || portfolio.about || `View ${name}'s portfolio on Lumyn.`,
+      title: `${name} | Lumyn Technologies Creator`,
+      description: portfolio.title || portfolio.about || `View ${name}'s portfolio on Lumyn Technologies.`,
       path: `/creators/${params.username}`,
     })
   } catch {
-    return { title: "Creators | Lumyn" }
+    return { title: "Creators | Lumyn Technologies" }
   }
 }
 

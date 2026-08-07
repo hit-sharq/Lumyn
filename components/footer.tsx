@@ -8,7 +8,7 @@ export default function Footer() {
         <div className={styles.footerGrid}>
           {/* Brand */}
           <div className={styles.footerSection}>
-            <h3 className={styles.footerTitle}>Lumyn</h3>
+            <h3 className={styles.footerTitle}>Lumyn Technologies</h3>
             <p className={styles.footerText}>
               A digital innovation studio engineering bespoke platforms, products, and experiences that move ambitious businesses forward.
             </p>
@@ -72,19 +72,19 @@ export default function Footer() {
             <nav className={styles.footerLinks}>
               <Link href="/studio" className={styles.footerLink}>
                 <span className={styles.productDot} style={{ background: "#6d8196" }} />
-                Lumyn Studio
+                Lumyn Technologies Studio
               </Link>
               <Link href="/launch" className={styles.footerLink}>
                 <span className={styles.productDot} style={{ background: "#2d6a9f" }} />
-                Lumyn Launch
+                Lumyn Technologies Launch
               </Link>
               <Link href="/market" className={styles.footerLink}>
                 <span className={styles.productDot} style={{ background: "#c0622a" }} />
-                Lumyn Market
+                Lumyn Technologies Market
               </Link>
               <Link href="/hire" className={styles.footerLink}>
                 <span className={styles.productDot} style={{ background: "#1a5c3a" }} />
-                Lumyn Hire
+                Lumyn Technologies Hire
               </Link>
               <Link href="/ai-marketing" className={styles.footerLink}>
                 <span className={styles.productDot} style={{ background: "#a259f7" }} />
@@ -160,7 +160,7 @@ export default function Footer() {
 
         <div className={styles.footerBottom}>
           <p className={styles.copyright}>
-            © {new Date().getFullYear()} Lumyn. All rights reserved.
+            © {new Date().getFullYear()} Lumyn Technologies. All rights reserved.
           </p>
           <div className={styles.legalLinks}>
             <Link href="/privacy" className={styles.legalLink}>Privacy</Link>

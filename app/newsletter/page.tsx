@@ -39,7 +39,7 @@ export default function NewsletterPage() {
 
       <div className={styles.container}>
         <div className={styles.content}>
-          <h1 className={styles.title}>Stay Connected with Lumyn</h1>
+          <h1 className={styles.title}>Stay Connected with Lumyn Technologies</h1>
           <p className={styles.subtitle}>
             Subscribe to our newsletter and never miss an update about upcoming events, news, and community activities.
           </p>
@@ -68,7 +68,7 @@ export default function NewsletterPage() {
         </form>
 
         <p className={styles.privacy}>
-          We respect your privacy. Your email will only be used for Lumyn updates. You can unsubscribe at any time.
+          We respect your privacy. Your email will only be used for Lumyn Technologies updates. You can unsubscribe at any time.
         </p>
       </div>
     </div>

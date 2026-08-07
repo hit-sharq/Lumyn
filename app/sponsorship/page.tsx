@@ -16,7 +16,7 @@ const sponsorshipTiers: SponsorshipTier[] = [{
   name: "Supporter",
   amount: "$100",
   color: "#051F20",
-  benefits: ["Recognition on Lumyn's social media platforms", "A personalized thank-you email from the Lumyn team", "Invitation to attend one of our tech events or webinars"]
+  benefits: ["Recognition on Lumyn Technologies's social media platforms", "A personalized thank-you email from the Lumyn Technologies team", "Invitation to attend one of our tech events or webinars"]
 }, {
   id: "advocate",
   name: "Advocate",
@@ -28,13 +28,13 @@ const sponsorshipTiers: SponsorshipTier[] = [{
   name: "Partner",
   amount: "$500",
   color: "#163832",
-  benefits: ["All benefits from the Advocate level", "Logo or name featured on Lumyn's website and newsletters", "Opportunity to showcase your business or organization at a Lumyn event", "Special recognition at our annual tech conferences"]
+  benefits: ["All benefits from the Advocate level", "Logo or name featured on Lumyn Technologies's website and newsletters", "Opportunity to showcase your business or organization at a Lumyn Technologies event", "Special recognition at our annual tech conferences"]
 }, {
   id: "custom",
   name: "Custom Sponsorship",
   amount: "Open",
   color: "#235347",
-  benefits: ["Open contributions of any amount", "Discussion of aligned sponsorship opportunities", "In-kind donations, services, or monetary contributions", "Support to help Lumyn innovate and grow"]
+  benefits: ["Open contributions of any amount", "Discussion of aligned sponsorship opportunities", "In-kind donations, services, or monetary contributions", "Support to help Lumyn Technologies innovate and grow"]
 }];
 export default function SponsorshipPage() {
   const [visibleCards, setVisibleCards] = useState<Set<string>>(new Set());
@@ -58,23 +58,23 @@ export default function SponsorshipPage() {
   }, []);
   return <>
       <Head>
-        <title>Sponsorship Opportunities | Lumyn - Tech Company</title>
-        <meta name="description" content="Partner with Lumyn, a forward-thinking tech company. Support our digital solutions and gain recognition through various sponsorship levels." />
-        <meta name="keywords" content="Lumyn, tech company, sponsorship, partner, support, digital solutions, web development" />
-        <meta property="og:title" content="Sponsorship Opportunities | Lumyn - Tech Company" />
-        <meta property="og:description" content="Partner with Lumyn, a forward-thinking tech company. Support our digital solutions and gain recognition through various sponsorship levels." />
+        <title>Sponsorship Opportunities | Lumyn Technologies - Tech Company</title>
+        <meta name="description" content="Partner with Lumyn Technologies, a forward-thinking tech company. Support our digital solutions and gain recognition through various sponsorship levels." />
+        <meta name="keywords" content="Lumyn Technologies, tech company, sponsorship, partner, support, digital solutions, web development" />
+        <meta property="og:title" content="Sponsorship Opportunities | Lumyn Technologies - Tech Company" />
+        <meta property="og:description" content="Partner with Lumyn Technologies, a forward-thinking tech company. Support our digital solutions and gain recognition through various sponsorship levels." />
         <meta property="og:url" content="https://www.lumyn.co.ke/sponsorship" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Sponsorship Opportunities | Lumyn - Tech Company" />
-        <meta name="twitter:description" content="Partner with Lumyn, a forward-thinking tech company. Support our digital solutions and gain recognition through various sponsorship levels." />
+        <meta name="twitter:title" content="Sponsorship Opportunities | Lumyn Technologies - Tech Company" />
+        <meta name="twitter:description" content="Partner with Lumyn Technologies, a forward-thinking tech company. Support our digital solutions and gain recognition through various sponsorship levels." />
         <link rel="canonical" href="https://www.lumyn.co.ke/sponsorship" />
       </Head>
       <div className={styles.sponsorshipPage}>
         {/* Hero Section */}
         <section className={styles.hero}>
           <div className={styles.heroContent}>
-            <h1 className={styles.heroTitle}>Partner With Lumyn</h1>
+            <h1 className={styles.heroTitle}>Partner With Lumyn Technologies</h1>
             <p className={styles.heroSubtitle}>
               Support our mission of creating innovative digital solutions and empowering businesses
             </p>
@@ -179,7 +179,7 @@ export default function SponsorshipPage() {
             <div className={styles.contactCard}>
               <h3 className={styles.contactTitle}>Payment Options</h3>
               <p className={styles.contactText}>
-                <strong>Important:</strong> Payments are made after discussions with founders and Lumyn leaders. Please do not make any payments until you have spoken with us.
+                <strong>Important:</strong> Payments are made after discussions with founders and Lumyn Technologies leaders. Please do not make any payments until you have spoken with us.
               </p>
                <p className={styles.contactText}>
                  <strong>Instagram:</strong>{" "}

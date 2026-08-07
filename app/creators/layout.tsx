@@ -2,11 +2,11 @@ import type { Metadata } from "next"
 import { pageMetadata, breadcrumbJsonLd } from "@/lib/seo"
 
 export const metadata: Metadata = pageMetadata({
-  title: "Creators | Discover African Creators on Lumyn",
+  title: "Creators | Discover African Creators on Lumyn Technologies",
   description:
-    "Discover and connect with talented African creators across design, development, photography, writing, and more on Lumyn.",
+    "Discover and connect with talented African creators across design, development, photography, writing, and more on Lumyn Technologies.",
   path: "/creators",
-  keywords: ["creators", "African creators", "creative directory", "designers", "developers", "Lumyn creators"],
+  keywords: ["creators", "African creators", "creative directory", "designers", "developers", "Lumyn Technologies creators"],
 })
 
 export default function Layout({ children }: { children: React.ReactNode }) {

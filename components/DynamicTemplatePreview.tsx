@@ -183,7 +183,7 @@ export default function DynamicTemplatePreview({
           style={getTextStyle(themeConfig.accentColor)}
         >
           <p className="text-sm opacity-60">
-            AI-Generated Design Preview • Lumyn Template Engine
+            AI-Generated Design Preview • Lumyn Technologies Template Engine
           </p>
         </motion.footer>
       </div>

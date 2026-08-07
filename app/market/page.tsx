@@ -52,7 +52,7 @@ export default function MarketPage() {
     <div className={styles.page}>
       <section className={styles.hero}>
         <div className={styles.heroInner}>
-          <p className={styles.heroEyebrow}>Lumyn Market</p>
+          <p className={styles.heroEyebrow}>Lumyn Technologies Market</p>
           <h1 className={styles.heroTitle}>
             Digital Products <span>Marketplace</span>
           </h1>

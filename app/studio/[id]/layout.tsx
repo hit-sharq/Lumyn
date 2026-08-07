@@ -12,14 +12,14 @@ export async function generateMetadata({
       where: { id: params.id },
       select: { title: true, description: true, isPublished: true },
     })
-    if (!template || !template.isPublished) return { title: "Template not found | Lumyn" }
+    if (!template || !template.isPublished) return { title: "Template not found | Lumyn Technologies" }
     return pageMetadata({
-      title: `${template.title} | Lumyn Studio`,
+      title: `${template.title} | Lumyn Technologies Studio`,
       description: template.description,
       path: `/studio/${params.id}`,
     })
   } catch {
-    return { title: "Studio | Lumyn" }
+    return { title: "Studio | Lumyn Technologies" }
   }
 }
 

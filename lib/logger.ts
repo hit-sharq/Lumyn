@@ -7,7 +7,7 @@ const logger = winston.createLogger({
     winston.format.errors({ stack: true }),
     winston.format.json()
   ),
-  defaultMeta: { service: 'lumyn-app' },
+  defaultMeta: { service: 'lumyn-technologies-app' },
   transports: [
     // Write all logs with importance level of `error` or less to `error.log`
     new winston.transports.File({ filename: 'error.log', level: 'error' }),

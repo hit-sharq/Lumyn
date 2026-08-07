@@ -89,7 +89,7 @@ export default function TemplateDetailPage() {
             itemId: id,
             amount: template.price,
             currency: "KES",
-            description: `Lumyn Studio — ${template.title}`,
+            description: `Lumyn Technologies Studio — ${template.title}`,
           }),
         })
         const data = await res.json()
@@ -205,7 +205,7 @@ export default function TemplateDetailPage() {
               )}
 
               <Link href="/launch" className={styles.detailBtnSecondary}>
-                Build a Portfolio with Lumyn Launch →
+                Build a Portfolio with Lumyn Technologies Launch →
               </Link>
 
               <div className={styles.detailMeta}>

@@ -85,12 +85,12 @@ export default function StudioClient({ initialTemplates = [] }: { initialTemplat
       {/* ── Hero ── */}
       <section className={styles.hero}>
         <div className={styles.heroInner}>
-          <span className={styles.heroBadge}>Lumyn Studio</span>
+          <span className={styles.heroBadge}>Lumyn Technologies Studio</span>
           <h1 className={styles.heroHeadline}>
             Professional Templates,<br />Built to Launch
           </h1>
           <p className={styles.heroSub}>
-            Pixel-perfect designs crafted by the Lumyn team. Download, customise, and ship.
+            Pixel-perfect designs crafted by the Lumyn Technologies team. Download, customise, and ship.
           </p>
           <div className={styles.heroStats}>
             <div className={styles.heroStat}>
@@ -223,7 +223,7 @@ export default function StudioClient({ initialTemplates = [] }: { initialTemplat
         <div className={styles.ctaBannerInner}>
           <h2 className={styles.ctaTitle}>Need something custom?</h2>
           <p className={styles.ctaText}>
-            Work with the Lumyn team to build a bespoke digital experience tailored to your brand.
+            Work with the Lumyn Technologies team to build a bespoke digital experience tailored to your brand.
           </p>
           <Link href="/contact" className={styles.ctaBtn}>Get in touch →</Link>
         </div>

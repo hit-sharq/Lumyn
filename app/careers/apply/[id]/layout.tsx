@@ -12,14 +12,14 @@ export async function generateMetadata({
       where: { id: params.id },
       select: { title: true, company: true, description: true },
     })
-    if (!job) return { title: "Job not found | Lumyn" }
+    if (!job) return { title: "Job not found | Lumyn Technologies" }
     return pageMetadata({
-      title: `Apply: ${job.title} at ${job.company} | Lumyn Careers`,
+      title: `Apply: ${job.title} at ${job.company} | Lumyn Technologies Careers`,
       description: job.description,
       path: `/careers/apply/${params.id}`,
     })
   } catch {
-    return { title: "Careers | Lumyn" }
+    return { title: "Careers | Lumyn Technologies" }
   }
 }
 

@@ -118,7 +118,7 @@ export function renderBrandedTemplate({
 <body>
   <div class="container">
     <div class="header">
-      <div class="logo">Lumyn<span>.</span></div>
+      <div class="logo">Lumyn Technologies<span>.</span></div>
     </div>
     <div class="content">
       ${preheader ? `<p style="color: #64748b; font-size: 14px; margin-top: 0;">${preheader}</p>` : ""}

@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
     const result = await new Promise((resolve, reject) => {
       cloudinary.uploader.upload_stream(
         {
-          folder: 'lumyn-uploads',
+          folder: 'lumyn-technologies-uploads',
           resource_type: 'image',
           timeout: 60000, // 60 seconds timeout
         },

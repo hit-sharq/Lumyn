@@ -33,7 +33,7 @@ export default function PrivacyPage() {
     id: "introduction",
     title: "Introduction",
     content: <p className={styles.text}>
-          Lumyn (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) is committed to
+          Lumyn Technologies (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) is committed to
           protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your
           information when you visit our website or use our services.
         </p>
@@ -143,16 +143,16 @@ export default function PrivacyPage() {
   }];
   return <>
       <Head>
-        <title>Privacy Policy | Lumyn - Modern Digital Solutions</title>
-        <meta name="description" content="Learn about how Lumyn collects, uses, and protects your personal information in our digital solutions services." />
-        <meta name="keywords" content="Lumyn, digital solutions, privacy policy, data protection, personal information, tech company" />
-        <meta property="og:title" content="Privacy Policy | Lumyn - Modern Digital Solutions" />
-        <meta property="og:description" content="Learn about how Lumyn collects, uses, and protects your personal information in our digital solutions services." />
+        <title>Privacy Policy | Lumyn Technologies - Modern Digital Solutions</title>
+        <meta name="description" content="Learn about how Lumyn Technologies collects, uses, and protects your personal information in our digital solutions services." />
+        <meta name="keywords" content="Lumyn Technologies, digital solutions, privacy policy, data protection, personal information, tech company" />
+        <meta property="og:title" content="Privacy Policy | Lumyn Technologies - Modern Digital Solutions" />
+        <meta property="og:description" content="Learn about how Lumyn Technologies collects, uses, and protects your personal information in our digital solutions services." />
         <meta property="og:url" content="https://www.lumyn.co.ke/privacy" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Privacy Policy | Lumyn - Modern Digital Solutions" />
-        <meta name="twitter:description" content="Learn about how Lumyn collects, uses, and protects your personal information in our digital solutions services." />
+        <meta name="twitter:title" content="Privacy Policy | Lumyn Technologies - Modern Digital Solutions" />
+        <meta name="twitter:description" content="Learn about how Lumyn Technologies collects, uses, and protects your personal information in our digital solutions services." />
         <link rel="canonical" href="https://www.lumyn.co.ke/privacy" />
       </Head>
       <div className={styles.privacyPage}>

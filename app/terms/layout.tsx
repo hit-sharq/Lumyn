@@ -2,11 +2,11 @@ import type { Metadata } from "next"
 import { pageMetadata, breadcrumbJsonLd } from "@/lib/seo"
 
 export const metadata: Metadata = pageMetadata({
-  title: "Terms of Service | Lumyn",
+  title: "Terms of Service | Lumyn Technologies",
   description:
-    "The terms and conditions governing your use of the Lumyn platform. Read our terms of service to understand your obligations.",
+    "The terms and conditions governing your use of the Lumyn Technologies platform. Read our terms of service to understand your obligations.",
   path: "/terms",
-  keywords: ["terms of service", "terms and conditions", "Lumyn terms"],
+  keywords: ["terms of service", "terms and conditions", "Lumyn Technologies terms"],
 })
 
 export default function Layout({ children }: { children: React.ReactNode }) {

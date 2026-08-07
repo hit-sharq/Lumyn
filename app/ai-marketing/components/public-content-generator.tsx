@@ -218,7 +218,7 @@ export function PublicContentGenerator({
                       itemId: "pro",
                       amount: "2900",
                       currency: "KES",
-                      description: "Lumyn AI Marketing — Pro plan",
+                      description: "Lumyn Technologies AI Marketing — Pro plan",
                     }),
                   });
                   const data = await res.json();

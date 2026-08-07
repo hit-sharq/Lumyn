@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         title: `${name} | Portfolio`,
         description: fullDescription,
         url: `${BASE_URL}/portfolio/${params.username}`,
-        siteName: "Lumyn",
+        siteName: "Lumyn Technologies",
         type: "profile",
         images: portfolio.avatarUrl ? [{ url: portfolio.avatarUrl, width: 1200, height: 630, alt: name }] : undefined,
       },

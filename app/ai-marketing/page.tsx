@@ -11,7 +11,7 @@ import ErrorMessage from "@/components/ErrorMessage";
 const SITE_URL = process.env.NEXT_PUBLIC_APP_URL || "https://www.lumyn.co.ke"
 
   const pageMetadata = {
-  title: "AI Marketing Suite | Lumyn — AI-Powered Content Generator & Campaign Builder",
+  title: "AI Marketing Suite | Lumyn Technologies — AI-Powered Content Generator & Campaign Builder",
   description: "Generate marketing copy, build multi-channel campaigns, and optimize content with AI. Start free, upgrade for unlimited access.",
   url: `${SITE_URL}/ai-marketing`,
   ogImage: `${SITE_URL}/og-image.png`,
@@ -65,7 +65,7 @@ export default function AIMarketingPage() {
           itemId: plan,
           amount: amount.toString(),
           currency: "KES",
-          description: `Lumyn AI Marketing — ${plan} plan`,
+          description: `Lumyn Technologies AI Marketing — ${plan} plan`,
         }),
       });
 
@@ -80,7 +80,7 @@ export default function AIMarketingPage() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Lumyn AI Marketing",
+    name: "Lumyn Technologies AI Marketing",
     description: pageMetadata.description,
     url: pageMetadata.url,
     applicationCategory: "BusinessApplication",

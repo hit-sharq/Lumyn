@@ -116,7 +116,7 @@ export default function ReferralDashboard() {
             Referral Program
           </h1>
           <p className="mt-2 text-lg text-slate-600">
-            Share Lumyn with friends and earn rewards
+            Share Lumyn Technologies with friends and earn rewards
           </p>
         </header>
 

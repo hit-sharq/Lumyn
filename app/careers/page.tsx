@@ -99,25 +99,25 @@ function CareersPageContent() {
   return (
     <>
       <Head>
-        <title>Careers | Lumyn - Build Your Career With Us</title>
+        <title>Careers | Lumyn Technologies - Build Your Career With Us</title>
         <meta
           name="description"
-          content="Discover career opportunities at Lumyn. Join a team shaping the future of digital innovation across engineering, design, and growth."
+          content="Discover career opportunities at Lumyn Technologies. Join a team shaping the future of digital innovation across engineering, design, and growth."
         />
         <meta name="keywords" content="careers, jobs, employment, opportunities, digital solutions, technology" />
-        <meta property="og:title" content="Careers | Lumyn - Build Your Career With Us" />
+        <meta property="og:title" content="Careers | Lumyn Technologies - Build Your Career With Us" />
         <meta
           property="og:description"
-          content="Explore career opportunities at Lumyn. Join our team and work on innovative digital solutions."
+          content="Explore career opportunities at Lumyn Technologies. Join our team and work on innovative digital solutions."
         />
         <meta property="og:image" content="/placeholder.svg" />
         <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="Lumyn" />
+        <meta property="og:site_name" content="Lumyn Technologies" />
         
         {/* Twitter Card Meta Tags */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Careers | Lumyn - Build Your Career With Us" />
-        <meta name="twitter:description" content="Explore career opportunities at Lumyn. Join our team and work on innovative digital solutions." />
+        <meta name="twitter:title" content="Careers | Lumyn Technologies - Build Your Career With Us" />
+        <meta name="twitter:description" content="Explore career opportunities at Lumyn Technologies. Join our team and work on innovative digital solutions." />
         <meta name="twitter:image" content="/placeholder.svg" />
       </Head>
 

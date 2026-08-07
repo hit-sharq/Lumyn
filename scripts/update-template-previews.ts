@@ -16,7 +16,7 @@ cloudinary.config({
 })
 
 const templates = [
-  { title: "Lumyn Creator Portfolio", category: "Portfolio", bg: "#0a0a0f", fg: "#f59e0b" },
+  { title: "Lumyn Technologies Creator Portfolio", category: "Portfolio", bg: "#0a0a0f", fg: "#f59e0b" },
   { title: "SaaS Landing Kit", category: "SaaS", bg: "#0b0d14", fg: "#6366f1" },
   { title: "Minimal Blog Theme", category: "Blog", bg: "#fdfcf8", fg: "#1c1917" },
   { title: "Shop Minimal E-Commerce", category: "E-Commerce", bg: "#0f0f12", fg: "#f59e0b" },
@@ -55,14 +55,14 @@ async function uploadPreviewImage(slug: string, title: string, bg: string, fg: s
     <rect width="1200" height="630" fill="url(#g)"/>
     <rect x="60" y="60" width="1080" height="510" fill="none" stroke="${fg}" stroke-opacity="0.25" stroke-width="1"/>
     <text x="600" y="315" font-family="ui-sans-serif, system-ui, sans-serif" font-size="42" font-weight="600" fill="${fg}" text-anchor="middle" dominant-baseline="middle" opacity="0.95">${title.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</text>
-    <text x="600" y="375" font-family="ui-sans-serif, system-ui, sans-serif" font-size="20" font-weight="400" fill="${fg}" text-anchor="middle" dominant-baseline="middle" opacity="0.65">Lumyn Studio Template</text>
+    <text x="600" y="375" font-family="ui-sans-serif, system-ui, sans-serif" font-size="20" font-weight="400" fill="${fg}" text-anchor="middle" dominant-baseline="middle" opacity="0.65">Lumyn Technologies Studio Template</text>
   </svg>`
 
   const filePath = join(TMP_DIR, `${slug}.svg`)
   writeFileSync(filePath, svg, "utf-8")
 
   const result = await cloudinary.uploader.upload(filePath, {
-    folder: "lumyn/templates",
+    folder: "lumyn-technologies/templates",
     public_id: slug,
     overwrite: true,
     resource_type: "image",

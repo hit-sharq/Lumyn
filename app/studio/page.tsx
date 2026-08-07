@@ -6,7 +6,7 @@ export const metadata: Metadata = pageMetadata({
   title: "Studio — Premium Templates & Digital Assets",
   description: "Premium templates marketplace. Pixel-perfect designs built to launch. Browse UI kits, themes, and creative assets from African creators.",
   path: "/studio",
-  keywords: ["templates", "UI kits", "digital assets", "premium designs", "Lumyn Studio", "creative tools"],
+  keywords: ["templates", "UI kits", "digital assets", "premium designs", "Lumyn Technologies Studio", "creative tools"],
 })
 
 async function getTemplates() {

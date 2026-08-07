@@ -68,7 +68,7 @@ export async function PATCH(
           </p>
           <p style="color: #64748b; line-height: 1.6; margin-top: 24px;">
             Best regards,<br />
-            Lumyn Team
+            Lumyn Technologies Team
           </p>
         </div>
       `,

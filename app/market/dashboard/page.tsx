@@ -170,7 +170,7 @@ export default function MarketDashboardPage() {
     return (
       <div className={styles.noAccess}>
         <h2 className={styles.noAccessTitle}>Sign in to access the creator dashboard</h2>
-        <p className={styles.noAccessText}>List and sell your digital products on Lumyn Market.</p>
+        <p className={styles.noAccessText}>List and sell your digital products on Lumyn Technologies Market.</p>
         <SignInButton mode="modal">
           <button style={{ padding: "12px 32px", background: "#7b3f00", color: "#ffffe3", border: "none", borderRadius: 8, fontWeight: 600, cursor: "pointer", fontSize: "1rem" }}>
             Sign In

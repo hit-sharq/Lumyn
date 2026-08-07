@@ -6,7 +6,7 @@ import { pageMetadata, breadcrumbJsonLd } from "@/lib/seo"
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = pageMetadata({
-  title: "Partners | Lumyn",
+  title: "Partners | Lumyn Technologies",
   description: "Our valued partners who support our mission to empower African creators through technology and innovation.",
   path: "/partners",
   keywords: ["partners", "collaborations", "African creators", "technology partners", "innovation"],

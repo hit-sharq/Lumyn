@@ -52,7 +52,7 @@ export default function EventsPage() {
       <div className={styles.eventsPage}>
         <section className={styles.hero}>
           <div className={styles.heroContent}>
-            <h1 className={styles.heroTitle}>Lumyn Events</h1>
+            <h1 className={styles.heroTitle}>Lumyn Technologies Events</h1>
             <p className={styles.heroSubtitle}>Join us for tech conferences, workshops, and innovation showcases</p>
           </div>
         </section>

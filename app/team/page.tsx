@@ -8,20 +8,20 @@ import { breadcrumbJsonLd } from "@/lib/seo"
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.lumyn.co.ke"
 
 export const metadata: Metadata = {
-  title: "Team | Lumyn - Meet Our Leadership and Creators",
+  title: "Team | Lumyn Technologies - Meet Our Leadership and Creators",
   description:
-    "Meet the Lumyn team — creative strategists, engineers, and digital leaders powering African creators with modern web solutions.",
+    "Meet the Lumyn Technologies team — creative strategists, engineers, and digital leaders powering African creators with modern web solutions.",
   openGraph: {
-    title: "Team | Lumyn - Meet Our Leadership and Creators",
+    title: "Team | Lumyn Technologies - Meet Our Leadership and Creators",
     description:
-      "Meet the Lumyn team — creative strategists, engineers, and digital leaders powering African creators with modern web solutions.",
+      "Meet the Lumyn Technologies team — creative strategists, engineers, and digital leaders powering African creators with modern web solutions.",
     url: `${BASE_URL}/team`,
     type: "website",
   },
   twitter: {
-    title: "Team | Lumyn - Meet Our Leadership and Creators",
+    title: "Team | Lumyn Technologies - Meet Our Leadership and Creators",
     description:
-      "Meet the Lumyn team — creative strategists, engineers, and digital leaders powering African creators with modern web solutions.",
+      "Meet the Lumyn Technologies team — creative strategists, engineers, and digital leaders powering African creators with modern web solutions.",
   },
   alternates: {
     canonical: `${BASE_URL}/team`,
@@ -41,7 +41,7 @@ export default async function TeamPage() {
     {
       "@context": "https://schema.org",
       "@type": "Organization",
-      name: "Lumyn",
+      name: "Lumyn Technologies",
       url: BASE_URL,
       logo: `${BASE_URL}/logo.png`,
       sameAs: [
@@ -67,7 +67,7 @@ export default async function TeamPage() {
       url: `${BASE_URL}/team`,
       worksFor: {
         "@type": "Organization",
-        name: "Lumyn",
+        name: "Lumyn Technologies",
         url: BASE_URL,
       },
     })),
@@ -93,9 +93,9 @@ export default async function TeamPage() {
           </div>
           <div className={styles.heroContent}>
             <h1 className={styles.heroTitle}>Meet the Team</h1>
-            <p className={styles.heroSubtitle}>The people shaping Lumyn</p>
+            <p className={styles.heroSubtitle}>The people shaping Lumyn Technologies</p>
             <p className={styles.heroDescription}>
-              Discover the creative leaders, engineers, and strategists behind Lumyn’s digital products and services.
+              Discover the creative leaders, engineers, and strategists behind Lumyn Technologies’s digital products and services.
             </p>
           </div>
         </section>
@@ -109,7 +109,7 @@ export default async function TeamPage() {
               </div>
               <div className={styles.sectionContent}>
                 <p className={styles.text}>
-                  Lumyn is powered by a diverse team of makers, designers, and product thinkers. Here you can explore their roles, backgrounds, and what they bring to our mission.
+                  Lumyn Technologies is powered by a diverse team of makers, designers, and product thinkers. Here you can explore their roles, backgrounds, and what they bring to our mission.
                 </p>
               </div>
             </div>

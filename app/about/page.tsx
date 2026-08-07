@@ -71,11 +71,11 @@ export default function AboutPage() {
   }, []);
   const sections: Section[] = [{
     id: "introduction",
-    title: "About Lumyn",
+    title: "About Lumyn Technologies",
     content: <div className={styles.introGrid}>
           <div className={styles.introText}>
             <p className={styles.text}>
-              Lumyn is a forward-thinking tech company that designs and develops modern, high-performance digital experiences.
+              Lumyn Technologies is a forward-thinking tech company that designs and develops modern, high-performance digital experiences.
               We blend creativity, strategy, and engineering to help brands shine online — from sleek websites to intelligent web applications.
             </p>
           </div>
@@ -220,7 +220,7 @@ export default function AboutPage() {
         </motion.div>
   }, {
     id: "why-choose",
-    title: "Why Choose Lumyn",
+    title: "Why Choose Lumyn Technologies",
     content: <div className={styles.featureList}>
           {[{
         icon: "✨",
@@ -331,16 +331,16 @@ export default function AboutPage() {
   }];
   return <>
       <Head>
-        <title>About Lumyn | Modern Digital Solutions Company</title>
-        <meta name="description" content="Learn about Lumyn, a forward-thinking tech company specializing in modern digital solutions, web development, and innovative technology." />
-        <meta name="keywords" content="Lumyn, digital solutions, web development, tech company, software engineering, digital strategy" />
-        <meta property="og:title" content="About Lumyn | Modern Digital Solutions Company" />
-        <meta name="og:description" content="Learn about Lumyn, a forward-thinking tech company specializing in modern digital solutions, web development, and innovative technology." />
+        <title>About Lumyn Technologies | Modern Digital Solutions Company</title>
+        <meta name="description" content="Learn about Lumyn Technologies, a forward-thinking tech company specializing in modern digital solutions, web development, and innovative technology." />
+        <meta name="keywords" content="Lumyn Technologies, digital solutions, web development, tech company, software engineering, digital strategy" />
+        <meta property="og:title" content="About Lumyn Technologies | Modern Digital Solutions Company" />
+        <meta name="og:description" content="Learn about Lumyn Technologies, a forward-thinking tech company specializing in modern digital solutions, web development, and innovative technology." />
         <meta property="og:url" content="https://www.lumyn.co.ke/about" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="About Lumyn | Modern Digital Solutions Company" />
-        <meta name="twitter:description" content="Learn about Lumyn, a forward-thinking tech company specializing in modern digital solutions, web development, and innovative technology." />
+        <meta name="twitter:title" content="About Lumyn Technologies | Modern Digital Solutions Company" />
+        <meta name="twitter:description" content="Learn about Lumyn Technologies, a forward-thinking tech company specializing in modern digital solutions, web development, and innovative technology." />
         <link rel="canonical" href="https://www.lumyn.co.ke/about" />
       </Head>
 
@@ -368,7 +368,7 @@ export default function AboutPage() {
           }} transition={{
             duration: 0.6
           }}>
-              About Lumyn
+              About Lumyn Technologies
             </motion.h1>
             <motion.p className={styles.heroSubtitle} initial={{
             opacity: 0,

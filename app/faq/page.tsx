@@ -30,27 +30,27 @@ export default function FAQPage() {
     return () => observer.disconnect();
   }, []);
   const sections: Section[] = [{
-    id: "about-lumyn",
-    title: "About Lumyn",
+    id: "about-lumyn-technologies",
+    title: "About Lumyn Technologies",
     content: <>
           <details className={styles.faqItem}>
-            <summary className={styles.faqQuestion}>What is Lumyn?</summary>
+            <summary className={styles.faqQuestion}>What is Lumyn Technologies?</summary>
             <p className={styles.faqAnswer}>
-              Lumyn is a forward-thinking tech company specializing in modern digital solutions. We design and develop
+              Lumyn Technologies is a forward-thinking tech company specializing in modern digital solutions. We design and develop
               high-performance websites, web applications, and digital experiences that help businesses shine online.
             </p>
           </details>
           <details className={styles.faqItem}>
-            <summary className={styles.faqQuestion}>What is Lumyn&apos;s mission?</summary>
+            <summary className={styles.faqQuestion}>What is Lumyn Technologies&apos;s mission?</summary>
             <p className={styles.faqAnswer}>
               Our mission is to empower businesses with elegant, efficient, and scalable digital solutions that drive
               growth and success in the modern digital landscape.
             </p>
           </details>
           <details className={styles.faqItem}>
-            <summary className={styles.faqQuestion}>When was Lumyn founded?</summary>
+            <summary className={styles.faqQuestion}>When was Lumyn Technologies founded?</summary>
             <p className={styles.faqAnswer}>
-              Lumyn was founded by Joshua Mwendwa, a passionate software engineer dedicated to crafting seamless user
+              Lumyn Technologies was founded by Joshua Mwendwa, a passionate software engineer dedicated to crafting seamless user
               experiences and innovative digital solutions.
             </p>
           </details>
@@ -60,7 +60,7 @@ export default function FAQPage() {
     title: "Services",
     content: <>
           <details className={styles.faqItem}>
-            <summary className={styles.faqQuestion}>What services does Lumyn offer?</summary>
+            <summary className={styles.faqQuestion}>What services does Lumyn Technologies offer?</summary>
             <p className={styles.faqAnswer}>
               We offer comprehensive digital solutions including web design and development, branding and digital strategy,
               full-stack application development, cloud integration and hosting, and ongoing maintenance and security.
@@ -159,16 +159,16 @@ export default function FAQPage() {
     title: "Contact & Support",
     content: <>
           <details className={styles.faqItem}>
-            <summary className={styles.faqQuestion}>How do I contact Lumyn?</summary>
+            <summary className={styles.faqQuestion}>How do I contact Lumyn Technologies?</summary>
             <p className={styles.faqAnswer}>
               You can reach us through our contact form on the website or email us directly. We&apos;ll respond to all
               inquiries within 24 hours and schedule a free consultation to discuss your project needs.
             </p>
           </details>
           <details className={styles.faqItem}>
-            <summary className={styles.faqQuestion}>Where is Lumyn located?</summary>
+            <summary className={styles.faqQuestion}>Where is Lumyn Technologies located?</summary>
             <p className={styles.faqAnswer}>
-              Lumyn operates remotely, serving clients worldwide. Our founder Joshua Mwendwa is based in the Minneapolis area,
+              Lumyn Technologies operates remotely, serving clients worldwide. Our founder Joshua Mwendwa is based in the Minneapolis area,
               allowing us to serve local clients effectively while working with businesses globally.
             </p>
           </details>
@@ -187,7 +187,7 @@ export default function FAQPage() {
         <section className={styles.hero}>
           <div className={styles.heroContent}>
             <h1 className={styles.heroTitle}>Frequently Asked Questions</h1>
-            <p className={styles.heroSubtitle}>Everything you need to know about Lumyn</p>
+            <p className={styles.heroSubtitle}>Everything you need to know about Lumyn Technologies</p>
             <p className={styles.lastUpdated}>Last Updated: {new Date().toLocaleDateString()}</p>
           </div>
         </section>

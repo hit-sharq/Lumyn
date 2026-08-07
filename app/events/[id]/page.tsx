@@ -15,17 +15,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { id } = await params
   try {
     const res = await fetch(`${BASE_URL}/api/events/${id}`, { next: { revalidate: 3600 } })
-    if (!res.ok) return { title: "Event | Lumyn" }
+    if (!res.ok) return { title: "Event | Lumyn Technologies" }
     const event: any = await res.json()
     const url = `${BASE_URL}/events/${id}`
     return {
-      title: `${event.title} | Lumyn Events`,
+      title: `${event.title} | Lumyn Technologies Events`,
       description: event.description.length > 160 ? event.description.substring(0, 157) + "..." : event.description,
       openGraph: {
         title: event.title,
         description: event.description.length > 160 ? event.description.substring(0, 157) + "..." : event.description,
         url,
-        siteName: "Lumyn",
+        siteName: "Lumyn Technologies",
         type: "event",
         images: event.image ? [{ url: event.image, width: 1200, height: 630, alt: event.title }] : undefined,
       },
@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       alternates: { canonical: url },
     }
   } catch {
-    return { title: "Event | Lumyn" }
+    return { title: "Event | Lumyn Technologies" }
   }
 }
 

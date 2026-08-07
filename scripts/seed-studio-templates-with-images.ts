@@ -21,7 +21,7 @@ cloudinary.config({
 
 const templates = [
   {
-    title: "Lumyn Creator Portfolio",
+    title: "Lumyn Technologies Creator Portfolio",
     description:
       "A dark-mode-first portfolio for developers and designers. Features hero, project grid, skills, testimonials, and contact form. Built with clean semantic HTML and modern CSS.",
     category: "Portfolio",
@@ -229,14 +229,14 @@ async function uploadPreviewImage(slug: string, title: string, bg: string, fg: s
     <rect width="1200" height="630" fill="url(#g)"/>
     <rect x="60" y="60" width="1080" height="510" fill="none" stroke="${fg}" stroke-opacity="0.25" stroke-width="1"/>
     <text x="600" y="315" font-family="ui-sans-serif, system-ui, sans-serif" font-size="42" font-weight="600" fill="${fg}" text-anchor="middle" dominant-baseline="middle" opacity="0.95">${title}</text>
-    <text x="600" y="375" font-family="ui-sans-serif, system-ui, sans-serif" font-size="20" font-weight="400" fill="${fg}" text-anchor="middle" dominant-baseline="middle" opacity="0.65">Lumyn Studio Template</text>
+    <text x="600" y="375" font-family="ui-sans-serif, system-ui, sans-serif" font-size="20" font-weight="400" fill="${fg}" text-anchor="middle" dominant-baseline="middle" opacity="0.65">Lumyn Technologies Studio Template</text>
   </svg>`
 
   const dataUri = `data:image/svg+xml;base64,${Buffer.from(svg).toString("base64")}`
 
   try {
     const result = await cloudinary.uploader.upload(dataUri, {
-      folder: "lumyn/templates",
+      folder: "lumyn-technologies/templates",
       public_id: slug,
       overwrite: true,
       resource_type: "image",
@@ -244,7 +244,7 @@ async function uploadPreviewImage(slug: string, title: string, bg: string, fg: s
     return result.secure_url
   } catch (err) {
     console.error(`  ⚠️ Cloudinary upload failed for "${title}" (${slug}):`, (err as Error).message)
-    return `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME || "dtkadempd"}/image/upload/lumyn/templates/${slug}`
+    return `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME || "dtkadempd"}/image/upload/lumyn-technologies/templates/${slug}`
   }
 }
 
@@ -264,7 +264,7 @@ async function main() {
     const htmlContent = readTemplateHtml(tpl.htmlFile)
     const slug = slugify(tpl.title)
 
-    let previewImage = `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME || "dtkadempd"}/image/upload/lumyn/templates/${slug}`
+    let previewImage = `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME || "dtkadempd"}/image/upload/lumyn-technologies/templates/${slug}`
 
     console.log(`  🖼 Uploading preview for "${tpl.title}" (${tpl.category})…`)
     try {

@@ -49,7 +49,7 @@ export async function sendWhatsAppSupportAutoReply({
   to: string
   userName?: string
 }) {
-  const message = `Hi ${userName || "there"}, thanks for contacting Lumyn Support. Our team will get back to you within 24 hours. For urgent issues, email support@lumyn.com.`
+  const message = `Hi ${userName || "there"}, thanks for contacting Lumyn Technologies Support. Our team will get back to you within 24 hours. For urgent issues, email support@lumyn.com.`
 
   return sendWhatsApp({ to, message })
 }
@@ -61,7 +61,7 @@ export async function sendWeeklyJobDigest({
   to: string
   jobs: Array<{ title: string; company: string; location: string; applyUrl: string }>
 }) {
-  let message = `Lumyn Weekly Job Digest\n\n`
+  let message = `Lumyn Technologies Weekly Job Digest\n\n`
   jobs.slice(0, 5).forEach((job, i) => {
     message += `${i + 1}. ${job.title} at ${job.company} (${job.location})\n   Apply: ${job.applyUrl}\n\n`
   })

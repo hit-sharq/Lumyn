@@ -45,7 +45,7 @@
 │    Building Tomorrow's                     │
 │    Technology ← Gradient text              │
 │                                             │
-│    Lumyn is a global technology company    │
+│    Lumyn Technologies is a global technology company    │
 │    crafting enterprise-grade solutions...  │
 │                                             │
 │    [Start Building →] [View Our Work ←]   │
@@ -451,8 +451,8 @@ Every page has SEO metadata:
 ```tsx
 export const metadata: Metadata = {
   title: {
-    default: 'Lumyn - The Complete Creative Platform',
-    template: '%s | Lumyn',
+    default: 'Lumyn Technologies - The Complete Creative Platform',
+    template: '%s | Lumyn Technologies',
   },
   description: '...',
   keywords: ['...'],
@@ -606,11 +606,11 @@ refactor: extract animation variants to utils
 |----------|------|
 | Design System | `/DESIGN_SYSTEM.md` |
 | Components Guide | `/COMPONENTS.md` |
-| Project Board | [Linear → Lumyn](https://linear.app/lumyn) |
-| Figma Mockups | [Lumyn – Figma](https://figma.com/@lumyn) |
-| Deploy Preview | [Vercel → Lumyn](https://lumyn.vercel.app) |
+| Project Board | [Linear → Lumyn Technologies](https://linear.app/lumyn) |
+| Figma Mockups | [Lumyn Technologies – Figma](https://figma.com/@lumyn) |
+| Deploy Preview | [Vercel → Lumyn Technologies](https://lumyn.vercel.app) |
 | Analytics Dashboard | [Vercel Analytics](https://vercel.com/lumyn) |
 
 ---
 
-*Built with ❤️ by the Lumyn Engineering Team*
+*Built with ❤️ by the Lumyn Technologies Engineering Team*

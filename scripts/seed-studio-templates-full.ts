@@ -11,7 +11,7 @@ const prisma = new PrismaClient()
 
 const templates = [
   {
-    title: "Lumyn Creator Portfolio",
+    title: "Lumyn Technologies Creator Portfolio",
     description:
       "A dark-mode-first portfolio for developers and designers. Features hero, project grid, skills, testimonials, and contact form. Built with clean semantic HTML and modern CSS.",
     category: "Portfolio",

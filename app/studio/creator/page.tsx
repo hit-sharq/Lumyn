@@ -128,7 +128,7 @@ export default function CreatorDashboardPage() {
             {templates.length === 0 ? (
               <div className={styles.emptyState}>
                 <h3>No templates yet</h3>
-                <p>Contact the Lumyn team to publish your first template on Studio.</p>
+                <p>Contact the Lumyn Technologies team to publish your first template on Studio.</p>
               </div>
             ) : (
               <div className={styles.dashboardGrid}>

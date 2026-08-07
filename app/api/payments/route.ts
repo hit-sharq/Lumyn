@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
     }
 
     // ── Free-launch waiver ───────────────────────────────────────────────
-    // During FREE_LAUNCH, Lumyn-owned products (Hire posts, AI Pro) are free.
+    // During FREE_LAUNCH, Lumyn Technologies-owned products (Hire posts, AI Pro) are free.
     // No charge is made; the asset is activated the same way a paid IPN would.
     // This runs FIRST so free users are never blocked by gateway config.
     const freeLaunch = await isFreeLaunch()
@@ -107,7 +107,7 @@ export async function POST(request: NextRequest) {
       id: merchantReference,
       currency,
       amount: parseFloat(amount),
-      description: description || `Lumyn payment for ${type}`,
+      description: description || `Lumyn Technologies payment for ${type}`,
       callback_url: callbackUrl,
       notification_id: ipnId,
       billing_address: { email_address: email, first_name: firstName, last_name: lastName },

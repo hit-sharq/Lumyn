@@ -238,7 +238,7 @@ export default function HomePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 1, ease: [0.16, 1, 0.3, 1] }}
           >
-            Lumyn is a global technology company crafting
+            Lumyn Technologies is a global technology company crafting
             <br />
             <span className={styles.highlight}>enterprise-grade solutions</span> that
             <br />
@@ -505,7 +505,7 @@ export default function HomePage() {
              <h2 className={styles.sectionTitle}>
                Stay Updated
                <br />
-               <span className={styles.titleLight}>With Lumyn</span>
+               <span className={styles.titleLight}>With Lumyn Technologies</span>
              </h2>
            </motion.div>
 
@@ -668,7 +668,7 @@ export default function HomePage() {
               <span className={styles.titleLight}>Your Vision?</span>
             </h2>
             <p className={styles.ctaText}>
-              Partner with Lumyn and let&apos;s build the future together.
+              Partner with Lumyn Technologies and let&apos;s build the future together.
               <br />
               <span className={styles.ctaHighlight}>We turn ambitious ideas into reality.</span>
             </p>
@@ -680,7 +680,7 @@ export default function HomePage() {
                 </svg>
               </Link>
               <Link href="/about" className={styles.ctaSecondaryButton}>
-                Meet Lumyn
+                Meet Lumyn Technologies
               </Link>
             </div>
           </motion.div>

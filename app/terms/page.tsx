@@ -34,7 +34,7 @@ export default function TermsPage() {
     id: "acceptance",
     title: "1. Acceptance of Terms",
     content: <p className={styles.text}>
-          By accessing and using Lumyn&apos;s website and services, you accept and agree to be
+          By accessing and using Lumyn Technologies&apos;s website and services, you accept and agree to be
           bound by these Terms and Conditions. If you do not agree to these terms, please do not use our website or
           services.
         </p>
@@ -44,7 +44,7 @@ export default function TermsPage() {
     content: <>
           <h3 className={styles.subheading}>2.1 Service Description</h3>
           <p className={styles.text}>
-            Lumyn provides digital solutions including web design and development, branding, full-stack applications,
+            Lumyn Technologies provides digital solutions including web design and development, branding, full-stack applications,
             cloud integration, and ongoing maintenance services.
           </p>
 
@@ -59,7 +59,7 @@ export default function TermsPage() {
 
           <h3 className={styles.subheading}>2.3 Service Termination</h3>
           <p className={styles.text}>
-            Either party may terminate services with written notice. Lumyn reserves the right to terminate services
+            Either party may terminate services with written notice. Lumyn Technologies reserves the right to terminate services
             for non-payment or breach of these terms.
           </p>
         </>
@@ -70,7 +70,7 @@ export default function TermsPage() {
           <h3 className={styles.subheading}>3.1 Project Scope</h3>
           <p className={styles.text}>
             Project scope and deliverables will be defined in writing before work begins. Any changes to scope may
-            affect timeline and pricing. Lumyn reserves the right to modify project approach for technical reasons.
+            affect timeline and pricing. Lumyn Technologies reserves the right to modify project approach for technical reasons.
           </p>
 
           <h3 className={styles.subheading}>3.2 Project Conduct</h3>
@@ -84,7 +84,7 @@ export default function TermsPage() {
 
           <h3 className={styles.subheading}>3.3 Intellectual Property</h3>
           <p className={styles.text}>
-            Upon final payment, clients receive full ownership of deliverables. Lumyn retains rights to showcase work
+            Upon final payment, clients receive full ownership of deliverables. Lumyn Technologies retains rights to showcase work
             in portfolios unless otherwise agreed. Third-party assets remain subject to their original licenses.
           </p>
         </>
@@ -99,12 +99,12 @@ export default function TermsPage() {
             <li>Attempt to gain unauthorized access to any part of the website</li>
             <li>Interfere with or disrupt the website&apos;s functionality</li>
             <li>Upload malicious code, viruses, or harmful content</li>
-            <li>Impersonate others or misrepresent your affiliation with Lumyn</li>
+            <li>Impersonate others or misrepresent your affiliation with Lumyn Technologies</li>
           </ul>
 
           <h3 className={styles.subheading}>4.2 User Content</h3>
           <p className={styles.text}>
-            If you submit content to our website (contact forms, project inquiries, etc.), you grant Lumyn a non-exclusive, royalty-free
+            If you submit content to our website (contact forms, project inquiries, etc.), you grant Lumyn Technologies a non-exclusive, royalty-free
             license to use, reproduce, and display that content. You represent that you own or have permission to share
             any content you submit.
           </p>
@@ -113,8 +113,8 @@ export default function TermsPage() {
     id: "intellectual",
     title: "5. Intellectual Property",
     content: <p className={styles.text}>
-          All content on the Lumyn website, including text, graphics, logos, images, and software, is the property of
-          Lumyn or its content suppliers and is protected by copyright and intellectual property laws. You may not
+          All content on the Lumyn Technologies website, including text, graphics, logos, images, and software, is the property of
+          Lumyn Technologies or its content suppliers and is protected by copyright and intellectual property laws. You may not
           reproduce, distribute, or create derivative works without explicit permission.
         </p>
   }, {
@@ -131,36 +131,36 @@ export default function TermsPage() {
           <h3 className={styles.subheading}>6.2 Refund Policy</h3>
           <p className={styles.text}>
             Refunds for services are handled on a case-by-case basis. Requests must be submitted in writing.
-            Lumyn reserves the right to deny refund requests for completed work or services already rendered.
+            Lumyn Technologies reserves the right to deny refund requests for completed work or services already rendered.
           </p>
         </>
   }, {
     id: "disclaimer",
     title: "7. Disclaimer of Warranties",
     content: <p className={styles.text}>
-          The Lumyn website and services are provided &quot;as is&quot; without warranties of any kind, either express or implied.
+          The Lumyn Technologies website and services are provided &quot;as is&quot; without warranties of any kind, either express or implied.
           We do not guarantee that the website will be uninterrupted, secure, or error-free.
         </p>
   }, {
     id: "liability",
     title: "8. Limitation of Liability",
     content: <p className={styles.text}>
-          To the fullest extent permitted by law, Lumyn shall not be liable for any indirect, incidental, special, or
+          To the fullest extent permitted by law, Lumyn Technologies shall not be liable for any indirect, incidental, special, or
           consequential damages arising from your use of the website or engagement of our services.
         </p>
   }];
   return <>
       <Head>
-        <title>Terms and Conditions | Lumyn - Modern Digital Solutions</title>
-        <meta name="description" content="Read the terms and conditions for using Lumyn's digital solutions services and website." />
-        <meta name="keywords" content="Lumyn, digital solutions, terms and conditions, terms of use, tech company" />
-        <meta property="og:title" content="Terms and Conditions | Lumyn - Modern Digital Solutions" />
-        <meta property="og:description" content="Read the terms and conditions for using Lumyn's digital solutions services and website." />
+        <title>Terms and Conditions | Lumyn Technologies - Modern Digital Solutions</title>
+        <meta name="description" content="Read the terms and conditions for using Lumyn Technologies's digital solutions services and website." />
+        <meta name="keywords" content="Lumyn Technologies, digital solutions, terms and conditions, terms of use, tech company" />
+        <meta property="og:title" content="Terms and Conditions | Lumyn Technologies - Modern Digital Solutions" />
+        <meta property="og:description" content="Read the terms and conditions for using Lumyn Technologies's digital solutions services and website." />
         <meta property="og:url" content="https://www.lumyn.co.ke/terms" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Terms and Conditions | Lumyn - Modern Digital Solutions" />
-        <meta name="twitter:description" content="Read the terms and conditions for using Lumyn's digital solutions services and website." />
+        <meta name="twitter:title" content="Terms and Conditions | Lumyn Technologies - Modern Digital Solutions" />
+        <meta name="twitter:description" content="Read the terms and conditions for using Lumyn Technologies's digital solutions services and website." />
         <link rel="canonical" href="https://www.lumyn.co.ke/terms" />
       </Head>
       <div className={styles.termsPage}>

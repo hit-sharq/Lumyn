@@ -279,7 +279,7 @@ model JobApplication {
   @@index([email])
 }
 
-// ─── Lumyn Studio ───────────────────────────────��────────────────────────────
+// ─── Lumyn Technologies Studio ───────────────────────────────��────────────────────────────
 
 model StudioTemplate {
   id             String   @id @default(cuid())
@@ -361,7 +361,7 @@ model StudioReview {
   @@index([userId])
 }
 
-// ─── Lumyn Launch ────────────────────────────────────────────────────────────
+// ─── Lumyn Technologies Launch ────────────────────────────────────────────────────────────
 
 model LaunchPortfolio {
   id          String   @id @default(cuid())
@@ -402,7 +402,7 @@ model LaunchProject {
   @@index([portfolioId])
 }
 
-// ─── Lumyn Market ────────────────────────────────────────────────────────────
+// ─── Lumyn Technologies Market ────────────────────────────────────────────────────────────
 
 model MarketCreatorProfile {
   id          String          @id @default(cuid())
@@ -510,7 +510,7 @@ model Subscription {
   @@index([status])
 }
 
-// ─── Lumyn Hire (Paid Job Board) ─────────────────────────────────────────────
+// ─── Lumyn Technologies Hire (Paid Job Board) ─────────────────────────────────────────────
 
 model PaidJobPost {
   id               String   @id @default(cuid())

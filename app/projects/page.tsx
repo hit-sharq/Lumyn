@@ -60,16 +60,16 @@ export default function ProjectsPage() {
   const featuredProjects = projects.filter(project => project.featured);
   return <>
       <Head>
-        <title>Our Projects | Lumyn - Digital Solutions Portfolio</title>
-        <meta name="description" content="Explore our portfolio of successful projects. From web applications to mobile apps, see how Lumyn delivers innovative digital solutions." />
+        <title>Our Projects | Lumyn Technologies - Digital Solutions Portfolio</title>
+        <meta name="description" content="Explore our portfolio of successful projects. From web applications to mobile apps, see how Lumyn Technologies delivers innovative digital solutions." />
         <meta name="keywords" content="projects, portfolio, web development, mobile apps, digital solutions, case studies" />
-        <meta property="og:title" content="Our Projects | Lumyn - Digital Solutions Portfolio" />
-        <meta name="og:description" content="Explore our portfolio of successful projects. From web applications to mobile apps, see how Lumyn delivers innovative digital solutions." />
+        <meta property="og:title" content="Our Projects | Lumyn Technologies - Digital Solutions Portfolio" />
+        <meta name="og:description" content="Explore our portfolio of successful projects. From web applications to mobile apps, see how Lumyn Technologies delivers innovative digital solutions." />
         <meta property="og:url" content="https://www.lumyn.co.ke/projects" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Our Projects | Lumyn - Digital Solutions Portfolio" />
-        <meta name="twitter:description" content="Explore our portfolio of successful projects. From web applications to mobile apps, see how Lumyn delivers innovative digital solutions." />
+        <meta name="twitter:title" content="Our Projects | Lumyn Technologies - Digital Solutions Portfolio" />
+        <meta name="twitter:description" content="Explore our portfolio of successful projects. From web applications to mobile apps, see how Lumyn Technologies delivers innovative digital solutions." />
         <link rel="canonical" href="https://www.lumyn.co.ke/projects" />
       </Head>
 

@@ -171,15 +171,15 @@ export default function ServicesPage() {
   }, []);
   return <>
       <Head>
-        <title>Services | Lumyn — Full-Stack Development & Digital Solutions</title>
+        <title>Services | Lumyn Technologies — Full-Stack Development & Digital Solutions</title>
         <meta name="description" content="Comprehensive technology services: full-stack development, cloud infrastructure, product strategy, UI/UX design, security & compliance. End-to-end solutions for modern businesses." />
-        <meta name="keywords" content="Lumyn services, full-stack development, cloud infrastructure, product strategy, UI UX design, security compliance, software engineering, DevOps, API development" />
-        <meta property="og:title" content="Services | Lumyn — Full-Stack Development & Digital Solutions" />
+        <meta name="keywords" content="Lumyn Technologies services, full-stack development, cloud infrastructure, product strategy, UI UX design, security compliance, software engineering, DevOps, API development" />
+        <meta property="og:title" content="Services | Lumyn Technologies — Full-Stack Development & Digital Solutions" />
         <meta name="og:description" content="Comprehensive technology services: full-stack development, cloud infrastructure, product strategy, UI/UX design, security & compliance. End-to-end solutions for modern businesses." />
         <meta property="og:url" content="https://www.lumyn.co.ke/services" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Services | Lumyn — Full-Stack Development & Digital Solutions" />
+        <meta name="twitter:title" content="Services | Lumyn Technologies — Full-Stack Development & Digital Solutions" />
         <meta name="twitter:description" content="Comprehensive technology services: full-stack development, cloud infrastructure, product strategy, UI/UX design, security & compliance." />
         <link rel="canonical" href="https://www.lumyn.co.ke/services" />
       </Head>

@@ -141,7 +141,7 @@ export default function GetStartedPage() {
     title: "Start Your Project Today",
     content: <>
           <p className={styles.text}>
-            Ready to transform your business with custom digital solutions? Our expert team at Lumyn specializes in creating 
+            Ready to transform your business with custom digital solutions? Our expert team at Lumyn Technologies specializes in creating 
             professional websites, web applications, and mobile apps that drive results. From concept to launch, we&apos;re here to 
             make your project a success.
           </p>
@@ -272,7 +272,7 @@ export default function GetStartedPage() {
             </button>
 
             <p className={styles.disclaimer}>
-              By submitting this project inquiry, you agree to receive communications from Lumyn about your project.
+              By submitting this project inquiry, you agree to receive communications from Lumyn Technologies about your project.
               We respect your privacy and will never share your information without permission.
             </p>
           </form>
@@ -280,15 +280,15 @@ export default function GetStartedPage() {
   }];
   return <>
       <Head>
-        <title>Get Started | Lumyn</title>
-        <meta name="description" content="Ready to start your project? Tell us about your needs and get custom web development, mobile apps, and digital solutions from Lumyn's expert team." />
+        <title>Get Started | Lumyn Technologies</title>
+        <meta name="description" content="Ready to start your project? Tell us about your needs and get custom web development, mobile apps, and digital solutions from Lumyn Technologies's expert team." />
         <meta name="keywords" content="web development, mobile apps, project inquiry, custom development, digital solutions" />
-        <meta property="og:title" content="Get Started | Lumyn" />
-        <meta property="og:description" content="Ready to start your project? Tell us about your needs and get custom web development, mobile apps, and digital solutions from Lumyn's expert team." />
+        <meta property="og:title" content="Get Started | Lumyn Technologies" />
+        <meta property="og:description" content="Ready to start your project? Tell us about your needs and get custom web development, mobile apps, and digital solutions from Lumyn Technologies's expert team." />
         <meta property="og:url" content="https://www.lumyn.co.ke/get-started" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Get Started | Lumyn" />
+        <meta name="twitter:title" content="Get Started | Lumyn Technologies" />
       </Head>
 
       <div className={styles.getStartedPage}>

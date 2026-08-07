@@ -80,7 +80,7 @@ export async function POST(request: Request) {
       })
 
       await transporter.sendMail({
-        from: `"Lumyn Careers" <${process.env.SMTP_USER}>`,
+        from: `"Lumyn Technologies Careers" <${process.env.SMTP_USER}>`,
         replyTo: validatedData.email,
         to: process.env.ADMIN_EMAIL || process.env.SMTP_USER,
         subject: `New Job Application: ${validatedData.jobTitle} at ${validatedData.jobCompany}`,
@@ -172,7 +172,7 @@ export async function POST(request: Request) {
 
       // Send confirmation email to applicant
       await transporter.sendMail({
-        from: `"Lumyn Careers" <${process.env.SMTP_USER}>`,
+        from: `"Lumyn Technologies Careers" <${process.env.SMTP_USER}>`,
         to: validatedData.email,
         subject: `Application Received - ${validatedData.jobTitle} at ${validatedData.jobCompany}`,
         html: `
@@ -223,7 +223,7 @@ export async function POST(request: Request) {
               <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;">
               <p style="text-align: center; color: #666; font-size: 14px; margin: 0;">
                 Best regards,<br>
-                <strong>The Lumyn Team</strong>
+                <strong>The Lumyn Technologies Team</strong>
               </p>
             </div>
           </div>

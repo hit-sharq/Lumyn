@@ -88,7 +88,7 @@ export default function Header() {
     >
       <div className={styles.container}>
         <Link href="/" className={styles.logo}>
-          <span className={styles.logoText}>Lumyn</span>
+          <span className={styles.logoText}>Lumyn Technologies</span>
           <span className={styles.logoSubtext}>lym</span>
         </Link>
 

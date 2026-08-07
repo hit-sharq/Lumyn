@@ -38,7 +38,7 @@ export default function CompanyProfilePage() {
   const sections: Section[] = [
     {
       id: "about",
-      title: "About Lumyn",
+      title: "About Lumyn Technologies",
       content: (
         <div className={styles.aboutContent}>
           <p className={styles.aboutText}>
@@ -166,7 +166,7 @@ export default function CompanyProfilePage() {
     },
     {
       id: "why-us",
-      title: "Why Choose Lumyn",
+      title: "Why Choose Lumyn Technologies",
       content: (
         <div className={styles.featuresWrapper}>
           {[
@@ -211,7 +211,7 @@ export default function CompanyProfilePage() {
       <div className={styles.page}>
         <div className={styles.container}>
           <div className={styles.toolbar}>
-            <h1 className={styles.brandName}>Lumyn</h1>
+            <h1 className={styles.brandName}>Lumyn Technologies</h1>
             <button
               type="button"
               className={styles.printButton}
@@ -269,7 +269,7 @@ export default function CompanyProfilePage() {
               <p>Web Development &middot; Cloud &middot; Security &middot; Strategy</p>
             </div>
             <div className={styles.footerBrand}>
-              <Image src="/favicon.ico" alt="Lumyn" width={32} height={32} />
+              <Image src="/favicon.ico" alt="Lumyn Technologies" width={32} height={32} />
               <span>&copy; {new Date().getFullYear()} Lumyn Technologies</span>
             </div>
           </footer>

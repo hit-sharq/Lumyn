@@ -151,9 +151,9 @@ export async function sendWelcomeEmail({
   dashboardUrl: string
 }) {
   const body = `
-    <h1 style="margin: 0 0 16px; font-size: 22px; color: #0f172a;">Welcome to Lumyn</h1>
+    <h1 style="margin: 0 0 16px; font-size: 22px; color: #0f172a;">Welcome to Lumyn Technologies</h1>
     <p style="margin: 0 0 16px; line-height: 1.6;">Hi ${name},</p>
-    <p style="margin: 0 0 16px; line-height: 1.6;">Thanks for joining Lumyn. You now have access to templates, job listings, and a global creator marketplace.</p>
+    <p style="margin: 0 0 16px; line-height: 1.6;">Thanks for joining Lumyn Technologies. You now have access to templates, job listings, and a global creator marketplace.</p>
     ${referralCode ? `
     <div style="background: #f8fafc; border-radius: 8px; padding: 16px; margin: 16px 0; text-align: center;">
       <p style="margin: 0 0 8px; font-size: 14px; color: #64748b;">Your referral code</p>
@@ -164,14 +164,14 @@ export async function sendWelcomeEmail({
   `
 
   const html = renderBrandedTemplate({
-    title: "Welcome to Lumyn",
-    preheader: "Get started with Lumyn templates, jobs, and marketplace.",
+    title: "Welcome to Lumyn Technologies",
+    preheader: "Get started with Lumyn Technologies templates, jobs, and marketplace.",
     body,
     ctaText: "Go to Dashboard",
     ctaUrl: dashboardUrl,
   })
 
-  return sendEmail({ to, subject: "Welcome to Lumyn", html })
+  return sendEmail({ to, subject: "Welcome to Lumyn Technologies", html })
 }
 
 export async function sendOnboardingDrip({
@@ -186,9 +186,9 @@ export async function sendOnboardingDrip({
   dashboardUrl: string
 }) {
   const titles: Record<number, string> = {
-    1: "Getting started with Lumyn",
-    3: "3 tips to make the most of Lumyn",
-    7: "Your first week on Lumyn — what's next?",
+    1: "Getting started with Lumyn Technologies",
+    3: "3 tips to make the most of Lumyn Technologies",
+    7: "Your first week on Lumyn Technologies — what's next?",
   }
 
   const bodies: Record<number, string> = {
@@ -220,9 +220,9 @@ export async function sendNewsletter({
 }) {
   const html = renderBrandedTemplate({
     title: subject,
-    preheader: "Weekly updates from Lumyn.",
+    preheader: "Weekly updates from Lumyn Technologies.",
     body,
-    footerText: "You're receiving this because you signed up for Lumyn updates.",
+    footerText: "You're receiving this because you signed up for Lumyn Technologies updates.",
   })
 
   return sendEmail({ to, subject, html, replyTo: process.env.SMTP_FROM })
@@ -284,7 +284,7 @@ export async function sendUpsellEmail({
 
   const html = renderBrandedTemplate({
     title: `Upgrade to ${recommendedPlan}`,
-    preheader: "Unlock more with Lumyn Pro.",
+    preheader: "Unlock more with Lumyn Technologies Pro.",
     body,
     ctaText: "Upgrade Now",
     ctaUrl: upgradeUrl,

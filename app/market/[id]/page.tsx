@@ -94,7 +94,7 @@ export default function MarketProductPage() {
             itemId: id,
             amount: product.price,
             currency: "KES",
-            description: `Lumyn Market — ${product.title}`,
+            description: `Lumyn Technologies Market — ${product.title}`,
           }),
         })
         const data = await res.json()
