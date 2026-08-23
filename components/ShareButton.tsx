@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import styles from "./share-button.module.css"
 
 interface ShareButtonProps {
@@ -112,28 +112,164 @@ const EmailIcon = () => (
 
 export default function ShareButton({ title, url, text, image, className = "" }: ShareButtonProps) {
   const [copied, setCopied] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
+  const containerRef = useRef<HTMLDivElement>(null)
 
   const shareUrl = url || (typeof window !== "undefined" ? window.location.href : "")
+  const shareText = text || title
+
+  const encodedUrl = encodeURIComponent(shareUrl)
+  const encodedText = encodeURIComponent(shareText)
+
+  const shareOptions: ShareOption[] = [
+    {
+      name: "Copy Link",
+      icon: <LinkIcon />,
+      action: async () => {
+        try {
+          await navigator.clipboard.writeText(shareUrl)
+          setCopied(true)
+          setTimeout(() => setCopied(false), 2000)
+        } catch (err) {
+          console.error("Failed to copy: ", err)
+        }
+      },
+      color: "#6366f1",
+    },
+    {
+      name: "X / Twitter",
+      icon: <TwitterIcon />,
+      action: () => {
+        window.open(
+          `https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}`,
+          "_blank",
+          "width=550,height=420"
+        )
+      },
+      color: "#000000",
+    },
+    {
+      name: "LinkedIn",
+      icon: <LinkedInIcon />,
+      action: () => {
+        window.open(
+          `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
+          "_blank",
+          "width=550,height=420"
+        )
+      },
+      color: "#0a66c2",
+    },
+    {
+      name: "WhatsApp",
+      icon: <WhatsAppIcon />,
+      action: () => {
+        window.open(
+          `https://api.whatsapp.com/send?text=${encodedText}%20${encodedUrl}`,
+          "_blank"
+        )
+      },
+      color: "#25d366",
+    },
+    {
+      name: "Facebook",
+      icon: <FacebookIcon />,
+      action: () => {
+        window.open(
+          `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
+          "_blank",
+          "width=550,height=420"
+        )
+      },
+      color: "#1877f2",
+    },
+    {
+      name: "Email",
+      icon: <EmailIcon />,
+      action: () => {
+        window.location.href = `mailto:?subject=${encodedText}&body=${encodedText}%0A%0A${encodedUrl}`
+      },
+      color: "#6b7280",
+    },
+  ]
 
   const handleShare = async () => {
-    try {
-      await navigator.clipboard.writeText(shareUrl)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
-    } catch (err) {
-      console.error("Failed to copy: ", err)
-    }
+    const option = shareOptions[0]
+    await option.action()
   }
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setIsOpen(false)
+      }
+    }
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [isOpen])
+
   return (
-    <button
-      className={`${styles.shareButton} ${copied ? styles.copied : ""} ${className}`}
-      onClick={handleShare}
-      title={copied ? "Link copied!" : "Copy link"}
-      aria-label={copied ? "Link copied" : "Share - Copy link"}
-    >
-      {copied ? <CheckIcon /> : <ShareIcon />}
-      <span>{copied ? "Copied!" : "Share"}</span>
-    </button>
+    <div className={`${styles.shareContainer} ${className}`} ref={containerRef}>
+      <button
+        className={`${styles.shareButton} ${copied ? styles.copied : ""}`}
+        onClick={handleShare}
+        title={copied ? "Link copied!" : "Share"}
+        aria-label={copied ? "Link copied" : "Share"}
+      >
+        {copied ? <CheckIcon /> : <ShareIcon />}
+        <span>{copied ? "Copied!" : "Share"}</span>
+      </button>
+
+      <button
+        className={styles.shareDropdownBtn}
+        onClick={() => setIsOpen(!isOpen)}
+        aria-label="More share options"
+        title="More share options"
+      >
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      </button>
+
+      {isOpen && (
+        <>
+          <div className={styles.overlay} onClick={() => setIsOpen(false)} />
+          <div className={styles.dropdown}>
+            <div className={styles.dropdownTitle}>Share this</div>
+            <div className={styles.dropdownOptions}>
+              {shareOptions.map((option, index) => (
+                <button
+                  key={index}
+                  className={styles.dropdownOption}
+                  onClick={() => {
+                    option.action()
+                    setIsOpen(false)
+                  }}
+                  style={{ "--option-color": option.color } as React.CSSProperties}
+                >
+                  <div className={styles.optionIcon}>{option.icon}</div>
+                  <span className={styles.optionLabel}>{option.name}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </>
+      )}
+    </div>
   )
 }

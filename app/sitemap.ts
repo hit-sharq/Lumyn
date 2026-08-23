@@ -113,7 +113,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const dynamicUrls: MetadataRoute.Sitemap = []
 
   try {
-    const [blogs, news, events, projects, portfolios, templates, marketProducts] = await Promise.all([
+    const [blogs, news, events, projects, portfolios, templates, marketProducts, careers] = await Promise.all([
       prisma.blog.findMany({ where: { isPublished: true }, select: { id: true, updatedAt: true } }),
       prisma.news.findMany({ select: { id: true, publishedAt: true } }),
       prisma.event.findMany({ select: { id: true, date: true } }),
@@ -121,6 +121,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       prisma.launchPortfolio.findMany({ where: { isPublished: true }, select: { username: true, updatedAt: true } }),
       prisma.studioTemplate.findMany({ where: { isPublished: true }, select: { id: true, updatedAt: true } }),
       prisma.marketProduct.findMany({ where: { isPublished: true }, select: { id: true, updatedAt: true } }),
+      prisma.career.findMany({ select: { id: true, updatedAt: true } }),
     ])
 
     blogs.forEach((blog) => {
@@ -149,6 +150,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     marketProducts.forEach((product) => {
       dynamicUrls.push({ url: `${BASE_URL}/market/${product.id}`, lastModified: product.updatedAt, changeFrequency: 'monthly', priority: 0.7 })
+    })
+
+    careers.forEach((career) => {
+      dynamicUrls.push({ url: `${BASE_URL}/careers/${career.id}`, lastModified: career.updatedAt, changeFrequency: 'weekly', priority: 0.8 })
     })
   } catch (error) {
     console.error('Error fetching dynamic content for sitemap:', error)

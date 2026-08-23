@@ -16,7 +16,7 @@ interface Career {
   type: string;
   salary?: string;
   applicationDeadline?: string;
-  applicationLink?: string;
+  applicationUrl?: string;
   contactEmail?: string;
   featured: boolean;
   image?: string;
@@ -67,10 +67,15 @@ export default function JobApplicationPage() {
   }, [jobId]);
   const fetchCareer = async () => {
     try {
-      const response = await fetch(`/api/careers/${jobId}`);
+      const response = await fetch(`/api/careers/${jobId}`, {
+        cache: "no-store",
+      })
       if (response.ok) {
         const data = await response.json();
         setCareer(data);
+        if (data.applicationUrl) {
+          window.location.href = data.applicationUrl;
+        }
       } else {
         console.error("Career not found");
         router.push("/careers");
@@ -191,7 +196,7 @@ export default function JobApplicationPage() {
           <div className={styles.shareSection}>
             <h3>Share this opportunity</h3>
             <p>Know someone who might be interested? Share this job posting:</p>
-            <ShareButton title={`${career.title} at ${career.company}`} text={`Check out this job opportunity: ${career.title} at ${career.company}`} url={`${typeof window !== "undefined" ? window.location.origin : ""}/careers/apply/${career.id}`} image={career.image} />
+             <ShareButton title={`${career.title} at ${career.company}`} text={`Check out this job opportunity: ${career.title} at ${career.company}`} url={`${typeof window !== "undefined" ? window.location.origin : ""}/careers/${career.id}`} image={career.image} />
           </div>
 
           <div className={styles.successActions}>

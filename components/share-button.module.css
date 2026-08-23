@@ -1,6 +1,8 @@
 .shareContainer {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
 /* Modern, clean single button design */
@@ -39,6 +41,30 @@
 .shareButton.copied:hover {
   background: #059669;
   border-color: #047857;
+}
+
+/* Dropdown toggle button */
+.shareDropdownBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.625rem;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.shareDropdownBtn:hover {
+  background: #e5e7eb;
+  border-color: #d1d5db;
+}
+
+.shareDropdownBtn svg {
+  width: 16px;
+  height: 16px;
 }
 
 /* Cleaner minimal variant */
@@ -144,7 +170,7 @@
   letter-spacing: -0.01em;
 }
 
-/* Clean overlay for tooltip */
+/* Overlay */
 .overlay {
   position: fixed;
   top: 0;
@@ -155,90 +181,90 @@
   z-index: 1000;
 }
 
-/* Modern tooltip design with 4 options */
-.tooltip {
+/* Dropdown styles */
+.dropdown {
   position: absolute;
-  top: calc(100% + 0.5rem);
+  top: calc(100% + 8px);
   right: 0;
-  display: flex;
-  gap: 0.5rem;
-  padding: 0.5rem;
+  min-width: 320px;
   background: white;
-  border-radius: 0.75rem;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
   border: 1px solid #e5e7eb;
   z-index: 1001;
-  animation: slideIn 0.2s ease-out;
+  animation: dropdownSlideIn 0.2s ease-out;
+  overflow: hidden;
 }
 
-@keyframes slideIn {
+@keyframes dropdownSlideIn {
   from {
     opacity: 0;
-    transform: translateY(-8px);
+    transform: translateY(-8px) scale(0.96);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
-/* Compact tooltip option buttons */
-.tooltipOption {
+.dropdownTitle {
+  padding: 14px 18px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #1f2937;
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+  letter-spacing: -0.01em;
+}
+
+.dropdownOptions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 12px;
+}
+
+.dropdownOption {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.375rem;
-  padding: 0.75rem;
+  gap: 6px;
+  padding: 14px 8px;
   background: #f9fafb;
-  border: 1px solid transparent;
-  border-radius: 0.5rem;
+  border: 2px solid transparent;
+  border-radius: 10px;
   cursor: pointer;
   transition: all 0.2s ease;
-  min-width: 64px;
   color: #6b7280;
 }
 
-.tooltipOption:hover {
-  background: #f3f4f6;
-  border-color: #e5e7eb;
-  color: #111827;
+.dropdownOption:hover {
+  background: white;
+  border-color: var(--option-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-.tooltipOption svg {
-  width: 20px;
-  height: 20px;
+.dropdownOption .optionIcon {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.5rem;
+  background: white;
+  transition: all 0.2s ease;
 }
 
-.tooltipOption span {
+.dropdownOption:hover .optionIcon {
+  background: var(--option-color);
+  color: white;
+}
+
+.dropdownOption .optionLabel {
   font-size: 0.75rem;
-  font-weight: 500;
+  font-weight: 600;
+  text-align: center;
+  color: #4b5563;
   white-space: nowrap;
-}
-
-/* Platform-specific hover colors */
-.tooltipOption:nth-child(1):hover {
-  /* Copy Link */
-  border-color: #6366f1;
-  color: #6366f1;
-}
-
-.tooltipOption:nth-child(2):hover {
-  /* X/Twitter */
-  border-color: #000000;
-  color: #000000;
-}
-
-.tooltipOption:nth-child(3):hover {
-  /* LinkedIn */
-  border-color: #0a66c2;
-  color: #0a66c2;
-}
-
-.tooltipOption:nth-child(4):hover {
-  /* WhatsApp */
-  border-color: #25d366;
-  color: #25d366;
 }
 
 /* Smooth animations */
@@ -315,6 +341,17 @@
     border-color: #065f46;
   }
 
+  .shareDropdownBtn {
+    background: #374151;
+    border-color: #4b5563;
+    color: #f3f4f6;
+  }
+
+  .shareDropdownBtn:hover {
+    background: #4b5563;
+    border-color: #6b7280;
+  }
+
   .minimal .shareButton {
     background: rgba(102, 126, 234, 0.15);
     color: #818cf8;
@@ -332,6 +369,8 @@
   .shareTitle,
   .dropdownTitle {
     color: #f9fafb;
+    background: #111827;
+    border-color: #374151;
   }
 
   .shareOption {
@@ -344,7 +383,7 @@
   }
 
   .optionIcon {
-    background: #1f2937;
+    background: #111827;
   }
 
   .shareOption:hover .optionIcon {
@@ -364,8 +403,14 @@
     background: linear-gradient(180deg, #111827 0%, #1f2937 100%);
   }
 
-  .dropdownOption:hover {
+  .dropdownOption {
     background: #111827;
+    color: #9ca3af;
+  }
+
+  .dropdownOption:hover {
+    background: #374151;
+    border-color: #4b5563;
   }
 
   .dropdownOption .optionIcon {

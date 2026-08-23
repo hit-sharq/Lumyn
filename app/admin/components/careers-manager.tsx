@@ -53,7 +53,9 @@ export default function CareersManager() {
   }, []);
   const fetchItems = async () => {
     try {
-      const response = await fetch("/api/careers");
+      const response = await fetch("/api/careers", {
+        cache: "no-store",
+      });
       if (!response.ok) {
         const error = await response.json();
         throw new Error(error.message || "Failed to fetch careers");

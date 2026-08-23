@@ -19,7 +19,7 @@ interface Career {
   type: string
   salary?: string
   applicationDeadline?: string
-  applicationLink?: string
+  applicationUrl?: string
   contactEmail?: string
   featured: boolean
   image?: string
@@ -35,7 +35,6 @@ function CareersPageContent() {
   const [careers, setCareers] = useState<Career[]>([])
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState<string>("all")
-  const [selectedCareer, setSelectedCareer] = useState<Career | null>(null)
 
   useEffect(() => {
     fetchCareers()
@@ -43,7 +42,9 @@ function CareersPageContent() {
 
   const fetchCareers = async () => {
     try {
-      const response = await fetch("/api/careers")
+      const response = await fetch("/api/careers", {
+        cache: "no-store",
+      })
       if (response.ok) {
         const data = await response.json()
         setCareers(data)
@@ -60,7 +61,14 @@ function CareersPageContent() {
   const filteredCareers = filter === "all" ? careers : careers.filter((career) => career.type === filter)
 
   const handleApplyNow = (career: Career) => {
-    if (career.jobType === "formal" || !career.jobType) {
+    if (career.applicationUrl) {
+      window.open(career.applicationUrl, "_blank")
+      showToast({
+        type: "success",
+        title: "Redirecting to Application",
+        message: "Opening external application link...",
+      })
+    } else if (career.jobType === "formal" || !career.jobType) {
       router.push(`/careers/apply/${career.id}`)
     } else {
       showToast({
@@ -177,106 +185,46 @@ function CareersPageContent() {
                           ? `${career.description.substring(0, 120)}...`
                           : career.description}
                       </p>
-                      <button className={styles.readMoreBtn} onClick={() => setSelectedCareer(career)}>
+                      <button
+                        className={styles.readMoreBtn}
+                        onClick={() => router.push(`/careers/${career.id}`)}
+                      >
                         View Details →
                       </button>
+                      <div className={styles.careerActions}>
+                        {career.jobType === "formal" || !career.jobType ? (
+                          <button
+                            className={styles.callBtn}
+                            onClick={() => handleApplyNow(career)}
+                          >
+                            Apply Now
+                          </button>
+                        ) : (
+                          <>
+                            <button
+                              className={styles.whatsAppBtn}
+                              onClick={() => handleWhatsApp(career)}
+                            >
+                              WhatsApp
+                            </button>
+                            <button
+                              className={styles.callBtn}
+                              onClick={() => handlePhoneCall(career)}
+                            >
+                              Call
+                            </button>
+                          </>
+                        )}
+                        <ShareButton
+                          title={`${career.title} at ${career.company}`}
+                          text={`Check out this job opportunity: ${career.title} at ${career.company}`}
+                          url={`${typeof window !== 'undefined' ? window.location.origin : ''}/careers/${career.id}`}
+                          image={career.image}
+                        />
+                      </div>
                     </div>
                   </article>
                 ))}
-              </div>
-            )}
-
-            {selectedCareer && (
-              <div className={styles.modalOverlay} onClick={() => setSelectedCareer(null)}>
-                <div className={styles.detailCard} onClick={(e) => e.stopPropagation()}>
-                  <button className={styles.detailClose} onClick={() => setSelectedCareer(null)}>
-                    ×
-                  </button>
-                  <div className={styles.detailImageWrapper}>
-                    <Image
-                      src={selectedCareer.image || "/placeholder.svg?height=300&width=500&query=career"}
-                      alt={selectedCareer.title}
-                      fill
-                      className={styles.detailImage}
-                    />
-                  </div>
-                  <div className={styles.detailBody}>
-                    <h3 className={styles.detailTitle}>{selectedCareer.title}</h3>
-                    <div className={styles.detailMeta}>
-                      <span className={styles.detailBadge}>{selectedCareer.company}</span>
-                      <span className={styles.detailBadge}>{selectedCareer.type.replace("-", " ")}</span>
-                      {selectedCareer.featured && <span className={styles.featuredBadge}>Featured</span>}
-                    </div>
-                    <div className={styles.detailDescription}>
-                      <p>{selectedCareer.description}</p>
-                    </div>
-                    <div className={styles.detailDetails}>
-                      <div className={styles.detailDetail}>
-                        <span className={styles.detailIcon}>📍</span>
-                        <span>{selectedCareer.location}</span>
-                      </div>
-                      {selectedCareer.salary && (
-                        <div className={styles.detailDetail}>
-                          <span className={styles.detailIcon}>💰</span>
-                          <span>{selectedCareer.salary}</span>
-                        </div>
-                      )}
-                      {selectedCareer.applicationDeadline && (
-                        <div className={styles.detailDetail}>
-                          <span className={styles.detailIcon}>📅</span>
-                          <span>Deadline: {selectedCareer.applicationDeadline}</span>
-                        </div>
-                      )}
-                    </div>
-                    {selectedCareer.requirements && (
-                      <div className={styles.detailRequirements}>
-                        <h4>Requirements</h4>
-                        <p>{selectedCareer.requirements}</p>
-                      </div>
-                    )}
-                    <div className={styles.detailActions}>
-                      {selectedCareer.jobType === "formal" || !selectedCareer.jobType ? (
-                        <button
-                          className={styles.detailApplyBtn}
-                          onClick={() => {
-                            setSelectedCareer(null)
-                            handleApplyNow(selectedCareer)
-                          }}
-                        >
-                          Apply Now →
-                        </button>
-                      ) : (
-                        <>
-                          <button
-                            className={styles.detailWhatsAppBtn}
-                            onClick={() => {
-                              setSelectedCareer(null)
-                              handleWhatsApp(selectedCareer)
-                            }}
-                          >
-                            WhatsApp 📱
-                          </button>
-                          <button
-                            className={styles.detailCallBtn}
-                            onClick={() => {
-                              setSelectedCareer(null)
-                              handlePhoneCall(selectedCareer)
-                            }}
-                          >
-                            Call 📞
-                          </button>
-                        </>
-                      )}
-
-                      <ShareButton
-                        title={`${selectedCareer.title} at ${selectedCareer.company}`}
-                        text={`Check out this job opportunity: ${selectedCareer.title} at ${selectedCareer.company}`}
-                        url={`${typeof window !== 'undefined' ? window.location.origin : ''}/careers/apply/${selectedCareer.id}`}
-                        image={selectedCareer.image}
-                      />
-                    </div>
-                  </div>
-                </div>
               </div>
             )}
           </div>
