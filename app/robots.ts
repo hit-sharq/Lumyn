@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.lumyn.co.ke'
+const PORTFOLIO_BASE_URL = process.env.NEXT_PUBLIC_PORTFOLIO_BASE_URL || 'https://mutukujoshua.lumyn.co.ke'
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -25,6 +26,6 @@ export default function robots(): MetadataRoute.Robots {
         ],
       },
     ],
-    sitemap: `${BASE_URL}/sitemap.xml`,
+    sitemap: [`${BASE_URL}/sitemap.xml`, `${PORTFOLIO_BASE_URL}/sitemap.xml`],
   }
 }

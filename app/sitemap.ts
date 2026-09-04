@@ -4,7 +4,10 @@ import { readdirSync, statSync } from 'fs'
 import { join, sep } from 'path'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.lumyn.co.ke'
+const PORTFOLIO_BASE_URL = process.env.NEXT_PUBLIC_PORTFOLIO_BASE_URL || 'https://mutukujoshua.lumyn.co.ke'
 const APP_DIR = join(process.cwd(), 'app')
+
+export const revalidate = 3600
 
 const EXCLUDED_DIRS = new Set(['api', 'admin', 'studio/admin', '_components', 'components'])
 
@@ -159,5 +162,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error('Error fetching dynamic content for sitemap:', error)
   }
 
-  return [...staticPages, ...dynamicUrls]
+  const crossDomainReference: MetadataRoute.Sitemap = [
+    {
+      url: PORTFOLIO_BASE_URL,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+  ]
+
+  return [...staticPages, ...dynamicUrls, ...crossDomainReference]
 }
