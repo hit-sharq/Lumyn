@@ -109,6 +109,39 @@
   color: var(--black);
 }
 
+.contentInner > * {
+  margin: 0 0 1em;
+}
+
+.contentInner > :last-child {
+  margin-bottom: 0;
+}
+
+.contentInner div {
+  margin: 0 0 1em;
+}
+
+.contentInner br {
+  display: block;
+  content: '';
+  margin: 0;
+}
+
+.contentInner i,
+.contentInner em {
+  font-style: italic;
+}
+
+.contentInner strong,
+.contentInner b {
+  font-weight: 700;
+}
+
+.contentInner a {
+  color: var(--signal);
+  text-decoration: underline;
+}
+
 .contentInner p {
   margin: 0 0 24px 0;
 }

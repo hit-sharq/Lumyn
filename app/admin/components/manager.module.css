@@ -370,6 +370,38 @@
   line-height: 1.6;
 }
 
+.richText > * {
+  margin: 0 0 0.75em;
+}
+
+.richText > :last-child {
+  margin-bottom: 0;
+}
+
+.richText div {
+  margin: 0 0 0.75em;
+}
+
+.richText br {
+  display: block;
+  content: '';
+}
+
+.richText i,
+.richText em {
+  font-style: italic;
+}
+
+.richText strong,
+.richText b {
+  font-weight: 700;
+}
+
+.richText a {
+  color: var(--signal-deep);
+  text-decoration: underline;
+}
+
 .cardMeta,
 .gridMeta {
   display: flex;

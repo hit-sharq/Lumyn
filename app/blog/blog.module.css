@@ -312,6 +312,39 @@
   margin: 0 0 24px 0;
 }
 
+.richText > * {
+  margin: 0 0 1em;
+}
+
+.richText > :last-child {
+  margin-bottom: 0;
+}
+
+.richText div {
+  margin: 0 0 1em;
+}
+
+.richText br {
+  display: block;
+  content: '';
+  margin: 0;
+}
+
+.richText i,
+.richText em {
+  font-style: italic;
+}
+
+.richText strong,
+.richText b {
+  font-weight: 700;
+}
+
+.richText a {
+  color: var(--signal);
+  text-decoration: underline;
+}
+
 .blogMeta {
   display: flex;
   flex-wrap: wrap;

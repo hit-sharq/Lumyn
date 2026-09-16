@@ -86,7 +86,7 @@ export default function BlogPage() {
                     </div>
                     <div className={styles.blogContent}>
                       <h3 className={styles.blogTitle}>{post.title}</h3>
-                      <p className={styles.blogDescription}>{post.excerpt}</p>
+                      <div className={`${styles.blogDescription} ${styles.richText}`} dangerouslySetInnerHTML={{ __html: post.excerpt }} />
                       <div className={styles.blogMeta}>
                         <span className={styles.blogAuthor}>By {post.author}</span>
                         <span className={styles.blogDate}>
@@ -127,7 +127,7 @@ export default function BlogPage() {
                   </div>
                   <div className={styles.modalBody}>
                     <h3 className={styles.modalTitle}>{selectedPost.title}</h3>
-                    <p className={styles.modalDescription}>{selectedPost.content}</p>
+                    <div className={`${styles.modalDescription} ${styles.richText}`} dangerouslySetInnerHTML={{ __html: selectedPost.content }} />
                       <div className={styles.blogMeta}>
                         <div className={styles.blogMetaItem}>
                           <span className={styles.blogMetaIcon}>👤</span>

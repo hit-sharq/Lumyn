@@ -50,8 +50,12 @@ export async function GET(request: NextRequest) {
       ],
       take: limit,
     })
-    
-    return NextResponse.json(posts, {
+
+    return NextResponse.json(posts.map((post) => ({
+      ...post,
+      excerpt: sanitizeHtml(post.excerpt),
+      content: sanitizeHtml(post.content),
+    })), {
       headers: {
         "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600",
       },

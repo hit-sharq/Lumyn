@@ -288,7 +288,7 @@ export default function BlogManager() {
             {items.length === 0 ? <p className={styles.empty}>No blog posts yet. Click &quot;Add Blog Post&quot; to create one.</p> : items.map(item => <div key={item.id} className={styles.card}>
                   <div className={styles.cardContent}>
                     <h3 className={styles.cardTitle}>{item.title}</h3>
-                    <p className={styles.cardExcerpt}>{item.excerpt}</p>
+                    <div className={`${styles.cardExcerpt} ${styles.richText}`} dangerouslySetInnerHTML={{ __html: item.excerpt }} />
 
                     <div className={styles.cardMeta}>
                       <span className={styles.cardCategory}>{item.category}</span>
