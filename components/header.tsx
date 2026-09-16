@@ -8,6 +8,7 @@ import styles from "./header.module.css"
 import SearchComponent from "./search"
 import { motion } from "framer-motion"
 import NotificationBell from "./NotificationBell"
+import { Menu, X, ChevronDown } from "lucide-react"
 
 
 export default function Header() {
@@ -15,8 +16,10 @@ export default function Header() {
   const { user, isSignedIn } = useUser()
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-
   const [isAdmin, setIsAdmin] = useState(false)
+  const [isServicesOpen, setIsServicesOpen] = useState(false)
+
+  const isAdminRoute = pathname?.startsWith("/admin")
 
   useEffect(() => {
     if (!isSignedIn) {
@@ -39,7 +42,6 @@ export default function Header() {
       mounted = false
     }
   }, [isSignedIn])
-  const isAdminRoute = pathname?.startsWith("/admin")
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,9 +59,9 @@ export default function Header() {
       const target = e.target as HTMLElement | null
       if (!target) return
 
-      // Close if the click is outside the header area (i.e., any "system" click)
       if (target.closest(`.${styles.container}`) === null) {
         setIsMobileMenuOpen(false)
+        setIsServicesOpen(false)
       }
     }
 
@@ -73,11 +75,28 @@ export default function Header() {
     }
   }, [isAdminRoute, isMobileMenuOpen])
 
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = ""
+    }
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [isMobileMenuOpen])
+
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen((prev) => !prev)
+    if (!isMobileMenuOpen) {
+      setIsServicesOpen(false)
+    }
   }
 
-
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false)
+    setIsServicesOpen(false)
+  }
 
   return (
     <motion.header
@@ -87,9 +106,9 @@ export default function Header() {
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
     >
       <div className={styles.container}>
-        <Link href="/" className={styles.logo}>
-          <span className={styles.logoText}>Lumyn Technologies</span>
-          <span className={styles.logoSubtext}>lym</span>
+        <Link href="/" className={styles.brand} aria-label="Lumyn Technologies home">
+          <span className={styles.brandMark} aria-hidden="true">L</span>
+          <span className={styles.brandText}>Lumyn</span>
         </Link>
 
         {/* Mobile Menu Toggle */}
@@ -101,46 +120,94 @@ export default function Header() {
             tabIndex={0}
             aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
             onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") toggleMobileMenu()
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault()
+                toggleMobileMenu()
+              }
             }}
           >
-            <span></span>
-            <span></span>
-            <span></span>
+            {isMobileMenuOpen ? (
+              <X size={22} />
+            ) : (
+              <Menu size={22} />
+            )}
           </div>
         )}
-
 
         <nav className={`${styles.nav} ${isMobileMenuOpen ? styles.open : ""}`}>
           {isAdmin && (
             <Link
               href="/admin"
               className={styles.navLinkAdmin}
-              onClick={() => setIsMobileMenuOpen(false)}
+              onClick={closeMobileMenu}
             >
               Admin
             </Link>
           )}
 
-          <Link
-            href="/services"
-            className={styles.navLink}
-            onClick={() => setIsMobileMenuOpen(false)}
+          {/* Services dropdown (desktop) */}
+          <div
+            className={styles.navItem}
+            onMouseEnter={() => setIsServicesOpen(true)}
+            onMouseLeave={() => setIsServicesOpen(false)}
+            onFocus={() => setIsServicesOpen(true)}
+            onBlur={() => setIsServicesOpen(false)}
           >
-            Capabilities
-          </Link>
+            <button
+              className={styles.navLink}
+              aria-haspopup="true"
+              aria-expanded={isServicesOpen}
+              onClick={() => setIsServicesOpen((prev) => !prev)}
+            >
+              Capabilities <ChevronDown size={14} />
+            </button>
+            <div
+              className={`${styles.dropdown} ${isServicesOpen ? styles.dropdownOpen : ""}`}
+              role="menu"
+            >
+              <Link href="/launch" className={styles.dropdownItem} role="menuitem" onClick={closeMobileMenu}>
+                Launch
+              </Link>
+              <Link href="/market" className={styles.dropdownItem} role="menuitem" onClick={closeMobileMenu}>
+                Market
+              </Link>
+              <Link href="/studio" className={styles.dropdownItem} role="menuitem" onClick={closeMobileMenu}>
+                Studio
+              </Link>
+              <Link href="/hire" className={styles.dropdownItem} role="menuitem" onClick={closeMobileMenu}>
+                Hire
+              </Link>
+              <Link href="/services" className={styles.dropdownItem} role="menuitem" onClick={closeMobileMenu}>
+                All Services
+              </Link>
+            </div>
+          </div>
 
           <Link
             href="/projects"
             className={styles.navLink}
-            onClick={() => setIsMobileMenuOpen(false)}
+            onClick={closeMobileMenu}
           >
             Work
           </Link>
           <Link
+            href="/about"
+            className={styles.navLink}
+            onClick={closeMobileMenu}
+          >
+            About
+          </Link>
+          <Link
+            href="/blog"
+            className={styles.navLink}
+            onClick={closeMobileMenu}
+          >
+            Blog
+          </Link>
+          <Link
             href="/contact"
             className={styles.navLink}
-            onClick={() => setIsMobileMenuOpen(false)}
+            onClick={closeMobileMenu}
           >
             Contact
           </Link>
@@ -152,7 +219,7 @@ export default function Header() {
                 <UserButton afterSignOutUrl="/" appearance={{
                   elements: {
                     userButtonAvatarBox: {
-                      boxShadow: '0 0 0 2px rgba(109, 129, 150, 0.6)',
+                      boxShadow: '0 0 0 2px var(--signal)',
                     }
                   }
                 }} />

@@ -1,30 +1,30 @@
-/* Career Detail Page Styles */
+/* ──────────────────────────────────────────────
+   Lumyn Technologies Career Detail — Swiss Editorial
+────────────────────────────────────────────── */
+
 .careerDetailPage {
   width: 100%;
   min-height: 100vh;
-  background: var(--background);
+  background: var(--white);
 }
 
-/* Header Section */
 .careerDetailHeader {
   position: relative;
-  padding: 120px 20px 80px;
-  background: linear-gradient(135deg, rgba(109, 129, 150, 0.15), rgba(10, 10, 10, 0.9));
+  padding: 120px 32px 80px;
+  background: var(--black);
   overflow: hidden;
 }
 
 .careerDetailHeaderBg {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(circle at 20% 50%, rgba(109, 129, 150, 0.1), transparent 50%);
+  inset: 0;
   pointer-events: none;
+  background: none;
 }
 
 .careerDetailHeaderContent {
   position: relative;
+  z-index: 1;
   max-width: 900px;
   margin: 0 auto;
   text-align: center;
@@ -42,43 +42,44 @@
 .careerDetailJobType,
 .careerDetailFeatured {
   display: inline-block;
-  padding: 8px 20px;
-  border-radius: 50px;
-  font-size: 0.875rem;
-  font-weight: 600;
+  padding: 6px 14px;
+  font-size: 0.75rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.08em;
+  border: none;
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
 }
 
 .careerDetailType {
-  background: var(--primary);
-  color: var(--primary-foreground);
+  background: var(--signal);
+  color: var(--white);
 }
 
 .careerDetailJobType {
-  background: rgba(109, 129, 150, 0.2);
-  color: var(--foreground);
-  border: 1px solid var(--border);
+  background: var(--white);
+  color: var(--black);
 }
 
 .careerDetailFeatured {
-  background: rgba(245, 158, 11, 0.15);
-  color: #fbbf24;
-  border: 1px solid rgba(245, 158, 11, 0.3);
+  background: var(--white);
+  color: var(--black);
 }
 
 .careerDetailTitle {
-  font-size: 3rem;
-  font-weight: 800;
-  color: var(--foreground);
-  margin: 0 0 16px 0;
-  line-height: 1.2;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: var(--white);
+  margin: 0 0 16px;
+  line-height: 1.1;
+  text-transform: uppercase;
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
 }
 
 .careerDetailCompany {
   font-size: 1.25rem;
-  color: var(--muted-foreground);
-  margin: 0 0 32px 0;
+  color: #9ca3af;
+  margin: 0 0 32px;
 }
 
 .careerDetailActions {
@@ -88,11 +89,10 @@
   flex-wrap: wrap;
 }
 
-/* Body Section */
 .careerDetailBody {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 60px 20px;
+  padding: 60px 32px;
 }
 
 .careerDetailGrid {
@@ -108,10 +108,9 @@
 
 .careerDetailImageWrapper {
   width: 100%;
-  border-radius: 16px;
   overflow: hidden;
   margin-bottom: 40px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--line);
 }
 
 .careerDetailImage {
@@ -128,17 +127,19 @@
 .careerDetailSection h2 {
   font-size: 1.75rem;
   font-weight: 700;
-  color: var(--foreground);
-  margin: 0 0 20px 0;
+  color: var(--black);
+  margin: 0 0 20px;
   padding-bottom: 12px;
-  border-bottom: 2px solid var(--border);
+  border-bottom: 1px solid var(--line);
+  text-transform: uppercase;
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
 }
 
 .careerDetailDescription,
 .careerDetailRequirements {
   font-size: 1.05rem;
   line-height: 1.8;
-  color: var(--muted-foreground);
+  color: var(--ink-dim);
 }
 
 .careerDetailDescription p,
@@ -150,6 +151,7 @@
 .careerDetailRequirements ul {
   margin: 0 0 16px 0;
   padding-left: 24px;
+  list-style: disc;
 }
 
 .careerDetailDescription li,
@@ -157,7 +159,6 @@
   margin-bottom: 8px;
 }
 
-/* Sidebar */
 .careerDetailSidebar {
   position: sticky;
   top: 24px;
@@ -168,19 +169,19 @@
 
 .careerDetailCard {
   background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
+  border: 1px solid var(--line);
   padding: 24px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .careerDetailCard h3 {
   font-size: 1.125rem;
   font-weight: 700;
-  color: var(--foreground);
-  margin: 0 0 20px 0;
+  color: var(--black);
+  margin: 0 0 20px;
   padding-bottom: 12px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--line);
+  text-transform: uppercase;
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
 }
 
 .careerDetailInfoList {
@@ -198,71 +199,69 @@
 .careerDetailInfoLabel {
   font-size: 0.75rem;
   font-weight: 600;
-  color: var(--muted-foreground);
+  color: var(--ink-dim);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.08em;
 }
 
 .careerDetailInfoValue {
   font-size: 1rem;
-  color: var(--foreground);
+  color: var(--black);
   font-weight: 500;
 }
 
 .careerDetailInfoLink {
   font-size: 1rem;
-  color: var(--primary);
+  color: var(--signal);
   text-decoration: none;
-  font-weight: 500;
-  transition: color 0.2s ease;
+  font-weight: 600;
 }
 
 .careerDetailInfoLink:hover {
-  color: var(--brand-dark);
   text-decoration: underline;
 }
 
 .careerDetailApplicationType {
   font-size: 1rem;
-  color: var(--muted-foreground);
+  color: var(--ink-dim);
   line-height: 1.6;
-  margin: 0 0 16px 0;
+  margin: 0 0 16px;
 }
 
 .careerDetailWhatsappLink,
 .careerDetailPhoneLink {
   display: block;
   padding: 12px 16px;
-  border-radius: 8px;
   font-size: 0.95rem;
   font-weight: 600;
   text-decoration: none;
   text-align: center;
   margin-bottom: 8px;
-  transition: all 0.3s ease;
+  transition: background 0.15s;
+  border: none;
+  text-transform: uppercase;
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  letter-spacing: 0.04em;
 }
 
 .careerDetailWhatsappLink {
-  background: #25d366;
-  color: white;
+  background: var(--black);
+  color: var(--white);
 }
 
 .careerDetailWhatsappLink:hover {
-  background: #1fb855;
-  transform: translateY(-2px);
+  background: var(--signal);
 }
 
 .careerDetailPhoneLink {
-  background: var(--primary);
-  color: var(--primary-foreground);
+  background: var(--black);
+  color: var(--white);
 }
 
 .careerDetailPhoneLink:hover {
-  background: var(--brand-dark);
-  transform: translateY(-2px);
+  background: var(--signal);
 }
 
-/* Share Button Overrides */
 .careerDetailShare {
   min-width: 160px;
 }
@@ -272,23 +271,24 @@
   justify-content: center;
 }
 
-/* Not Found */
 .notFound {
   text-align: center;
-  padding: 120px 20px;
+  padding: 120px 32px;
 }
 
 .notFound h1 {
-  font-size: 3rem;
-  font-weight: 800;
-  color: var(--foreground);
-  margin: 0 0 16px 0;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  color: var(--black);
+  margin: 0 0 16px;
+  text-transform: uppercase;
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
 }
 
 .notFound p {
   font-size: 1.25rem;
-  color: var(--muted-foreground);
-  margin: 0 0 32px 0;
+  color: var(--ink-dim);
+  margin: 0 0 32px;
 }
 
 .backButton {
@@ -296,20 +296,20 @@
   align-items: center;
   gap: 8px;
   padding: 12px 24px;
-  background: var(--primary);
-  color: var(--primary-foreground);
+  background: var(--black);
+  color: var(--white);
   text-decoration: none;
-  border-radius: 8px;
   font-weight: 600;
-  transition: all 0.3s ease;
+  transition: background 0.15s;
+  text-transform: uppercase;
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  letter-spacing: 0.04em;
 }
 
 .backButton:hover {
-  background: var(--brand-dark);
-  transform: translateY(-2px);
+  background: var(--signal);
 }
 
-/* Responsive */
 @media (max-width: 1024px) {
   .careerDetailGrid {
     grid-template-columns: 1fr;
@@ -321,17 +321,17 @@
   }
 
   .careerDetailTitle {
-    font-size: 2.25rem;
+    font-size: 2rem;
   }
 }
 
 @media (max-width: 768px) {
   .careerDetailHeader {
-    padding: 80px 20px 60px;
+    padding: 80px 16px 60px;
   }
 
   .careerDetailTitle {
-    font-size: 1.875rem;
+    font-size: 1.75rem;
   }
 
   .careerDetailCompany {
@@ -339,7 +339,7 @@
   }
 
   .careerDetailBody {
-    padding: 40px 20px;
+    padding: 40px 16px;
   }
 
   .careerDetailActions {

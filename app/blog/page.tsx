@@ -35,7 +35,9 @@ export default function BlogPage() {
       // Fetch only published posts
       const response = await fetch("/api/blog?isPublished=true")
       const data = await response.json()
-      setPosts(data)
+      if (Array.isArray(data)) {
+        setPosts(data)
+      }
     } catch (error) {
       console.error("Error fetching blog posts:", error)
     } finally {

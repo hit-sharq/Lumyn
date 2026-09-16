@@ -1,82 +1,71 @@
+/* ──────────────────────────────────────────────
+   Lumyn Technologies Sponsorship — Swiss Editorial
+────────────────────────────────────────────── */
+
 .sponsorshipPage {
   min-height: 100vh;
+  background: var(--white);
 }
 
-/* Hero Section */
 .hero {
-  background: linear-gradient(135deg, #051f20 0%, #163832 50%, #235347 100%);
-  color: white;
-  padding: 120px 20px 80px;
+  background: var(--black);
+  color: var(--white);
+  padding: 120px 32px 80px;
   text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.hero::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(circle at 30% 50%, rgba(139, 182, 155, 0.1) 0%, transparent 50%);
-  pointer-events: none;
 }
 
 .heroContent {
   max-width: 800px;
   margin: 0 auto;
-  position: relative;
-  z-index: 1;
 }
 
 .heroTitle {
-  font-size: 3.5rem;
-  font-weight: 800;
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 700;
   margin: 0 0 24px 0;
   line-height: 1.1;
-  animation: fadeInUp 0.8s ease-out;
+  text-transform: uppercase;
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
 }
 
 .heroSubtitle {
   font-size: 1.5rem;
   font-weight: 600;
   margin: 0 0 16px 0;
-  color: #8eb69b;
-  animation: fadeInUp 0.8s ease-out 0.2s backwards;
+  color: var(--signal);
 }
 
 .heroDescription {
   font-size: 1.125rem;
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.9);
+  color: #9ca3af;
   margin: 0;
-  animation: fadeInUp 0.8s ease-out 0.4s backwards;
 }
 
-/* Tiers Section */
 .tiersSection {
-  padding: 100px 20px;
-  background: linear-gradient(to bottom, #f8faf9, #ffffff);
+  padding: 80px 32px;
+  background: var(--white);
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
 }
 
 .sectionTitle {
   font-size: 2.5rem;
-  font-weight: 800;
+  font-weight: 700;
   text-align: center;
   margin: 0 0 16px 0;
-  color: #051f20;
+  color: var(--black);
+  text-transform: uppercase;
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
 }
 
 .sectionDescription {
   font-size: 1.125rem;
   text-align: center;
-  color: #666;
+  color: var(--ink-dim);
   margin: 0 0 60px 0;
   max-width: 600px;
   margin-left: auto;
@@ -89,34 +78,16 @@
   gap: 24px;
   max-width: 800px;
   margin: 0 auto;
-  perspective: 1000px;
 }
 
 .tierCard {
-  background: #051f20;
-  border-radius: 32px;
+  background: var(--black);
   padding: 40px;
-  color: white;
-  box-shadow: 0 10px 40px rgba(5, 31, 32, 0.2);
-  transform: translateY(50px) rotateX(10deg);
-  opacity: 0;
-  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-  position: relative;
-  overflow: hidden;
-}
-
-.tierCard::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #8eb69b, #daf1de);
+  color: var(--white);
+  border: 1px solid var(--black);
 }
 
 .tierCard.visible {
-  transform: translateY(0) rotateX(0);
   opacity: 1;
 }
 
@@ -131,16 +102,18 @@
 
 .tierName {
   font-size: 2rem;
-  font-weight: 800;
+  font-weight: 700;
   margin: 0;
-  color: #daf1de;
+  color: var(--white);
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  text-transform: uppercase;
 }
 
 .tierAmount {
   font-size: 2.5rem;
-  font-weight: 800;
+  font-weight: 700;
   margin: 0;
-  color: #8eb69b;
+  color: var(--signal);
 }
 
 .benefitsList {
@@ -158,27 +131,25 @@
   gap: 12px;
   font-size: 1rem;
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .checkmark {
   flex-shrink: 0;
-  width: 24px;
-  height: 24px;
-  background: #8eb69b;
-  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  background: var(--signal);
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  color: #051f20;
-  font-size: 0.875rem;
+  color: var(--white);
+  font-size: 0.75rem;
 }
 
-/* How To Section */
 .howToSection {
-  padding: 100px 20px;
-  background: white;
+  padding: 80px 32px;
+  background: var(--white);
 }
 
 .stepsGrid {
@@ -191,43 +162,41 @@
 .stepCard {
   text-align: center;
   padding: 40px 24px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, #f8faf9 0%, #ffffff 100%);
-  border: 2px solid #daf1de;
-  transition: all 0.3s ease;
+  border: 1px solid var(--line);
+  transition: border-color 0.15s;
 }
 
 .stepCard:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 40px rgba(5, 31, 32, 0.15);
-  border-color: #8eb69b;
+  border-color: var(--black);
 }
 
 .stepNumber {
   width: 64px;
   height: 64px;
-  background: linear-gradient(135deg, #163832, #235347);
-  color: white;
-  border-radius: 50%;
+  background: var(--black);
+  color: var(--white);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 2rem;
-  font-weight: 800;
+  font-weight: 700;
   margin: 0 auto 24px;
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
 }
 
 .stepTitle {
   font-size: 1.5rem;
   font-weight: 700;
   margin: 0 0 12px 0;
-  color: #051f20;
+  color: var(--black);
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  text-transform: uppercase;
 }
 
 .stepDescription {
   font-size: 1rem;
   line-height: 1.6;
-  color: #666;
+  color: var(--ink-dim);
   margin: 0;
 }
 
@@ -237,27 +206,25 @@
 
 .primaryButton {
   display: inline-block;
-  background: linear-gradient(135deg, #163832, #235347);
-  color: white;
+  background: var(--signal);
+  color: var(--white);
   padding: 16px 48px;
-  border-radius: 50px;
   font-size: 1.125rem;
   font-weight: 700;
   text-decoration: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(5, 31, 32, 0.3);
+  transition: background 0.15s;
+  text-transform: uppercase;
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  letter-spacing: 0.04em;
 }
 
 .primaryButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(5, 31, 32, 0.4);
-  background: linear-gradient(135deg, #235347, #163832);
+  background: var(--signal-deep);
 }
 
-/* Contact Section */
 .contactSection {
-  padding: 100px 20px;
-  background: linear-gradient(to bottom, #f8faf9, #daf1de);
+  padding: 80px 32px;
+  background: var(--off);
 }
 
 .contactGrid {
@@ -267,23 +234,24 @@
 }
 
 .contactCard {
-  background: white;
+  background: var(--white);
   padding: 32px;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(5, 31, 32, 0.1);
+  border: 1px solid var(--line);
 }
 
 .contactTitle {
   font-size: 1.25rem;
   font-weight: 700;
   margin: 0 0 16px 0;
-  color: #051f20;
+  color: var(--black);
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  text-transform: uppercase;
 }
 
 .contactText {
   font-size: 1rem;
   line-height: 1.8;
-  color: #333;
+  color: var(--ink-dim);
   margin: 0 0 12px 0;
 }
 
@@ -292,35 +260,34 @@
 }
 
 .contactLink {
-  color: #235347;
+  color: var(--signal);
   text-decoration: none;
   font-weight: 600;
-  transition: color 0.3s ease;
 }
 
 .contactLink:hover {
-  color: #163832;
   text-decoration: underline;
 }
 
-/* Final CTA Section */
 .finalCta {
-  padding: 100px 20px;
-  background: linear-gradient(135deg, #051f20 0%, #163832 50%, #235347 100%);
-  color: white;
+  padding: 80px 32px;
+  background: var(--black);
+  color: var(--white);
   text-align: center;
 }
 
 .ctaTitle {
   font-size: 2.5rem;
-  font-weight: 800;
+  font-weight: 700;
   margin: 0 0 16px 0;
+  text-transform: uppercase;
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
 }
 
 .ctaDescription {
   font-size: 1.25rem;
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.9);
+  color: #9ca3af;
   margin: 0 0 40px 0;
   max-width: 700px;
   margin-left: auto;
@@ -337,36 +304,27 @@
 .secondaryButton {
   display: inline-block;
   background: transparent;
-  color: white;
+  color: var(--white);
   padding: 16px 48px;
-  border-radius: 50px;
   font-size: 1.125rem;
   font-weight: 700;
   text-decoration: none;
-  border: 2px solid white;
-  transition: all 0.3s ease;
+  border: 1px solid var(--white);
+  transition: background 0.15s, color 0.15s;
+  text-transform: uppercase;
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
 }
 
 .secondaryButton:hover {
-  background: white;
-  color: #051f20;
-  transform: translateY(-2px);
+  background: var(--white);
+  color: var(--black);
 }
 
-/* Animations */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Responsive Design */
 @media (max-width: 768px) {
+  .hero {
+    padding: 100px 16px 60px;
+  }
+
   .heroTitle {
     font-size: 2.5rem;
   }
@@ -375,8 +333,10 @@
     font-size: 1.25rem;
   }
 
-  .sectionTitle {
-    font-size: 2rem;
+  .tiersSection,
+  .howToSection,
+  .contactSection {
+    padding: 60px 16px;
   }
 
   .tierCard {

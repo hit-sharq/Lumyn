@@ -9,6 +9,7 @@ import JsonLd from "@/components/json-ld"
 import "./globals.css"
 import { GeistSans } from 'geist/font/sans';
 import { cn } from "@/lib/utils";
+import { ThemeProvider } from "@/components/theme-provider"
 
 // GeistSans is already an object, no need to call it as a function
 const geist = GeistSans;
@@ -72,10 +73,16 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en" className={cn("font-sans", geist.variable)}>
+      <html lang="en" className={cn("font-sans", geist.variable)} suppressHydrationWarning>
         <head>
-          <Script 
-            async 
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+          />
+          <Script
+            async
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6640250879995161"
             crossOrigin="anonymous"
           />
@@ -111,7 +118,7 @@ export default function RootLayout({
                   n.callMethod.apply(n,arguments):n.queue.push(arguments)};
                   if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
                   n.queue=[];t=b.createElement(e);t.async=!0;
-                  t.src=v;s=b.getElementsByTagName(e)[0];
+                  t.src=v;s=b.getElementsByTagName('head')[0];
                   s.parentNode.insertBefore(t,s)}(window, document,'script',
                   'https://connect.facebook.net/en_US/fbevents.js');
                   fbq('init', '${process.env.NEXT_PUBLIC_FB_PIXEL_ID}');
@@ -139,11 +146,13 @@ export default function RootLayout({
           )}
         </head>
         <body>
-          <JsonLd />
-          <Header />
-          <main style={{ marginTop: "80px" }}>{children}</main>
-          <Footer />
-          <CookieConsentBanner />
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+            <JsonLd />
+            <Header />
+            <main>{children}</main>
+            <Footer />
+            <CookieConsentBanner />
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>

@@ -1,25 +1,33 @@
+/* ──────────────────────────────────────────────
+   Lumyn Technologies Partners — Swiss Editorial
+────────────────────────────────────────────── */
+
 .container {
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 80px 1rem;
+  padding: 80px 32px;
 }
 
 .hero {
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 64px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid var(--line);
 }
 
 .title {
   font-size: 3rem;
-  font-weight: 800;
-  color: var(--foreground);
-  margin-bottom: 1rem;
-  letter-spacing: -0.02em;
+  font-weight: 700;
+  color: var(--black);
+  margin-bottom: 16px;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
 }
 
 .subtitle {
   font-size: 1.25rem;
-  color: var(--muted-foreground);
+  color: var(--ink-dim);
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.6;
@@ -27,43 +35,37 @@
 
 .partnersGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 24px;
 }
 
 .partnerCard {
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
+  transition: border-color 0.15s;
   position: relative;
 }
 
 .partnerCard:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
-  border-color: rgba(109, 129, 150, 0.4);
+  border-color: var(--black);
 }
 
 .partnerCard.featured {
-  border: 2px solid var(--primary);
-  position: relative;
+  border-color: var(--black);
 }
 
 .partnerCard.featured::before {
-  content: "★ Featured";
+  content: "FEATURED";
   position: absolute;
-  top: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--primary);
-  color: var(--primary-foreground);
+  top: -1px;
+  left: -1px;
+  background: var(--black);
+  color: var(--white);
   padding: 4px 12px;
-  border-radius: 12px;
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
   z-index: 2;
 }
 
@@ -74,7 +76,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 227, 0.04);
+  background: var(--off);
   border-bottom: 1px solid var(--border);
 }
 
@@ -82,68 +84,63 @@
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
-  transition: transform 0.3s ease;
-}
-
-.partnerCard:hover .partnerLogo img {
-  transform: scale(1.05);
 }
 
 .partnerCategory {
   position: absolute;
   top: 16px;
   right: 16px;
-  padding: 8px 16px;
-  background: var(--primary);
-  color: var(--primary-foreground);
-  font-size: 0.8125rem;
+  padding: 6px 12px;
+  background: var(--black);
+  color: var(--white);
+  font-size: 0.7rem;
   font-weight: 700;
-  border-radius: 20px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.08em;
 }
 
 .partnerInfo {
   padding: 28px;
-  position: relative;
 }
 
 .partnerName {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--foreground);
+  color: var(--black);
   margin: 0 0 12px 0;
   line-height: 1.3;
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
 }
 
 .partnerDescription {
   font-size: 1rem;
   line-height: 1.6;
-  color: var(--muted-foreground);
+  color: var(--ink-dim);
   margin: 0 0 24px 0;
 }
 
 .partnerLink {
-  color: var(--primary);
+  color: var(--signal);
   text-decoration: none;
   font-weight: 600;
-  transition: color 0.3s ease;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .partnerLink:hover {
-  color: var(--foreground);
   text-decoration: underline;
 }
 
 .placeholderLogo {
   width: 100px;
   height: 100px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--primary), var(--brand-dark));
+  background: var(--off);
+  border: 1px solid var(--line);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--primary-foreground);
+  color: var(--black);
   font-size: 2rem;
   font-weight: 700;
 }
@@ -153,23 +150,24 @@
   padding: 4rem 2rem;
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 12px;
 }
 
 .emptyState h2 {
   font-size: 2rem;
-  color: var(--foreground);
+  color: var(--black);
   margin-bottom: 1rem;
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  text-transform: uppercase;
 }
 
 .emptyState p {
-  color: var(--muted-foreground);
+  color: var(--ink-dim);
   font-size: 1.125rem;
 }
 
 @media (max-width: 768px) {
   .container {
-    padding: 60px 1rem;
+    padding: 60px 16px;
   }
 
   .title {
@@ -178,9 +176,5 @@
 
   .partnersGrid {
     grid-template-columns: 1fr;
-  }
-
-  .partnerCard {
-    padding: 1.5rem;
   }
 }

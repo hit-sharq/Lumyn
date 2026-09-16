@@ -1,14 +1,17 @@
-/* Careers Page Styles — aligned to Lumyn Technologies dark premium theme */
+/* ===== LUMYN SWISS EDITORIAL CAREERS PAGE ===== */
+
 .careersPage {
   width: 100%;
+  background: var(--white);
+  color: var(--black);
 }
 
-/* Hero Section */
+/* ===== HERO ===== */
 .hero {
-  background: linear-gradient(135deg, rgba(109, 129, 150, 0.2), rgba(10, 10, 10, 0.95));
-  padding: 120px 20px 80px 20px;
+  padding: 80px 24px 64px;
+  border-bottom: 2px solid var(--black);
+  background: var(--off);
   text-align: center;
-  color: var(--foreground);
 }
 
 .heroContent {
@@ -17,267 +20,164 @@
 }
 
 .heroTitle {
-  font-size: 3.5rem;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: clamp(2.5rem, 7vw, 4rem);
   font-weight: 800;
   margin: 0 0 20px 0;
-  animation: fadeInUp 0.8s ease-out;
+  color: var(--black);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 0.95;
 }
 
 .heroSubtitle {
-  font-size: 1.25rem;
-  margin: 0;
-  opacity: 0.9;
-  animation: fadeInUp 0.8s ease-out 0.2s backwards;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  color: var(--ink-dim);
+  margin: 0 auto;
+  max-width: 44ch;
+  line-height: 1.5;
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* ===== CAREERS SECTION ===== */
+.careersSection {
+  padding: 80px 24px;
+  background: var(--white);
 }
 
-/* Container */
 .container {
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
 }
 
-/* Section Titles */
-.sectionTitle {
-  font-size: 2.5rem;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 3rem;
-  color: var(--foreground);
-}
-
-/* Featured Careers Section */
-.featuredSection {
-  padding: 5rem 0;
-  background: var(--background);
-}
-
-.featuredGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 24px;
-  margin-top: 3rem;
-}
-
-.featuredCard {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  will-change: transform, box-shadow;
-}
-
-.featuredCard:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-}
-
-.featuredImage {
-  position: relative;
-  height: 250px;
-  width: 100%;
-}
-
-.featuredContent {
-  padding: 2rem;
-}
-
-.featuredTitle {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: var(--foreground);
-}
-
-.featuredDescription {
-  color: var(--muted-foreground);
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
-}
-
-.featuredMeta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-  font-size: 0.9rem;
-  color: var(--muted-foreground);
-}
-
-.featuredCompany {
-  font-weight: 600;
-  color: var(--foreground);
-}
-
-.featuredType {
-  background: var(--primary);
-  color: var(--primary-foreground);
-  padding: 0.25rem 0.75rem;
-  border-radius: 15px;
-  font-size: 0.8rem;
-  font-weight: 600;
-}
-
-.featuredActions {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-top: 20px;
-}
-
-.featuredWhatsAppBtn,
-.featuredCallBtn {
-  background-color: #25d366;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 600;
-  transition: all 0.3s;
-  flex: 1;
-  min-width: 120px;
-  text-align: center;
-}
-
-.featuredCallBtn {
-  background-color: var(--primary);
-}
-
-.featuredWhatsAppBtn:hover {
-  background-color: #1fb855;
-  transform: translateY(-2px);
-}
-
-.featuredCallBtn:hover {
-  background-color: var(--brand-dark);
-  transform: translateY(-2px);
-}
-
-.featuredShareBtn {
-  background-color: transparent;
-  color: var(--primary);
-  border: 2px solid var(--primary);
-  padding: 8px 16px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: all 0.3s;
-  min-width: 80px;
-}
-
-.featuredShareBtn:hover {
-  background-color: var(--primary);
-  color: var(--primary-foreground);
-}
-
-/* Careers Section */
-.careersSection {
-  padding: 80px 20px;
-  background: var(--background);
-}
-
-/* Filter Bar */
 .filterBar {
   display: flex;
-  gap: 16px;
-  margin-bottom: 48px;
+  gap: 8px;
+  margin-bottom: 40px;
   flex-wrap: wrap;
-  justify-content: center;
 }
 
 .filterBtn {
-  padding: 12px 28px;
-  background: rgba(255, 255, 227, 0.04);
-  border: 2px solid var(--border);
-  border-radius: 50px;
+  padding: 8px 18px;
+  background: var(--white);
+  border: 2px solid var(--black);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
   font-weight: 600;
-  font-size: 1rem;
   cursor: pointer;
-  transition: all 0.3s ease;
-  color: var(--foreground);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--black);
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
 .filterBtn:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-  transform: translateY(-2px);
+  background: var(--black);
+  color: var(--white);
 }
 
 .filterBtnActive {
-  background: var(--primary);
-  color: var(--primary-foreground);
-  border-color: var(--primary);
+  background: var(--signal);
+  color: var(--white);
+  border-color: var(--signal);
 }
 
+.loading {
+  text-align: center;
+  padding: 80px 20px;
+  font-family: 'Inter', sans-serif;
+  color: var(--ink-dim);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--line);
+  border-top-color: var(--signal);
+  animation: spin 1s linear infinite;
+  margin: 0 auto 16px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.emptyState {
+  text-align: center;
+  padding: 80px 20px;
+  font-family: 'Inter', sans-serif;
+}
+
+.emptyState h3 {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--black);
+  margin: 0 0 10px 0;
+  text-transform: uppercase;
+}
+
+.emptyState p {
+  color: var(--ink-dim);
+  margin: 0;
+}
+
+/* ===== CAREERS GRID ===== */
 .careersGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 32px;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2px;
+  background: var(--black);
+  border: 2px solid var(--black);
 }
 
 .careerCard {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
-  height: 320px;
+  background: var(--white);
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  border: none;
+  border-bottom: 2px solid var(--black);
+  border-right: 2px solid var(--black);
+  text-align: left;
+  font-family: inherit;
   display: flex;
   flex-direction: column;
 }
 
 .careerCard:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
-  border-color: rgba(109, 129, 150, 0.4);
+  background: var(--off);
 }
 
 .careerImageWrapper {
   position: relative;
   height: 180px;
   overflow: hidden;
+  background: var(--black);
 }
 
 .careerImage {
   object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.careerCard:hover .careerImage {
-  transform: scale(1.05);
+  width: 100%;
+  height: 100%;
 }
 
 .careerCategory {
   position: absolute;
-  top: 16px;
-  right: 16px;
-  padding: 8px 16px;
-  background: var(--primary);
-  color: var(--primary-foreground);
-  font-size: 0.875rem;
+  bottom: 12px;
+  left: 12px;
+  background: var(--signal);
+  color: var(--white);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
   font-weight: 700;
-  border-radius: 20px;
+  padding: 4px 10px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.04em;
 }
 
 .careerContent {
-  padding: 24px;
+  padding: 20px;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -287,547 +187,131 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
-  font-size: 0.875rem;
-  color: var(--muted-foreground);
+  margin-bottom: 10px;
+  gap: 8px;
 }
 
 .careerCompany {
-  font-weight: 600;
-  color: var(--primary);
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--signal);
+  text-transform: uppercase;
 }
 
 .careerLocation {
-  color: var(--muted-foreground);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  color: var(--ink-dim);
+  white-space: nowrap;
 }
 
 .careerTitle {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin: 0 0 12px 0;
-  color: var(--foreground);
-  line-height: 1.3;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--black);
+  margin: 0 0 10px 0;
+  text-transform: uppercase;
+  line-height: 1.15;
 }
 
 .careerExcerpt {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: var(--muted-foreground);
-  margin: 0 0 20px 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  color: var(--ink-dim);
+  line-height: 1.5;
+  margin: 0 0 16px 0;
   flex: 1;
 }
 
 .readMoreBtn {
-  display: inline-block;
-  color: var(--primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: transparent;
+  color: var(--black);
+  font-family: 'Inter', sans-serif;
   font-weight: 700;
-  text-decoration: none;
-  background: none;
-  border: none;
-  padding: 0;
+  font-size: 0.78rem;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: all 0.3s ease;
-  text-align: left;
+  border: 2px solid var(--black);
+  padding: 8px 16px;
+  transition: background 0.25s ease, color 0.25s ease;
+  margin-bottom: 16px;
+  align-self: flex-start;
 }
 
 .readMoreBtn:hover {
-  color: var(--foreground);
-  transform: translateX(4px);
+  background: var(--black);
+  color: var(--white);
 }
 
-/* Career Actions */
 .careerActions {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-  margin-top: 15px;
+  align-items: center;
 }
 
-.whatsAppBtn,
-.callBtn {
-  background-color: #25d366;
-  color: white;
-  border: none;
+.callBtn,
+.whatsappBtn {
+  display: inline-flex;
+  align-items: center;
   padding: 8px 16px;
-  border-radius: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
   cursor: pointer;
-  font-size: 12px;
-  font-weight: 600;
-  transition: all 0.3s;
-  flex: 1;
-  min-width: 90px;
-}
-
-.callBtn {
-  background-color: var(--primary);
-}
-
-.whatsAppBtn:hover {
-  background-color: #1fb855;
-  transform: translateY(-1px);
+  border: 2px solid var(--black);
+  background: var(--white);
+  color: var(--black);
+  transition: background 0.25s ease, color 0.25s ease;
 }
 
 .callBtn:hover {
-  background-color: var(--brand-dark);
-  transform: translateY(-1px);
+  background: var(--signal);
+  border-color: var(--signal);
+  color: var(--white);
 }
 
-.shareBtn {
-  background-color: transparent;
-  color: var(--primary);
-  border: 2px solid var(--primary);
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 12px;
-  transition: all 0.3s;
-  min-width: 60px;
+.whatsappBtn {
+  border-color: #25d366;
+  color: #25d366;
 }
 
-.shareBtn:hover {
-  background-color: var(--primary);
-  color: var(--primary-foreground);
-}
-
-/* Modal Styles */
-.modalOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(10, 10, 10, 0.6);
-  z-index: 999;
-}
-
-/* Detail Card — slide-in side panel */
-.detailCard {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 500px;
-  height: 100vh;
-  background: var(--popover);
-  border-left: 1px solid var(--border);
-  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.5);
-  z-index: 1000;
-  overflow-y: auto;
-  animation: slideInFromRight 0.4s ease;
-}
-
-.detailClose {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background: rgba(255, 255, 227, 0.1);
-  border: none;
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  cursor: pointer;
-  color: var(--foreground);
-  z-index: 1;
-  transition: background 0.3s ease;
-}
-
-.detailClose:hover {
-  background: rgba(255, 255, 227, 0.2);
-}
-
-.detailImageWrapper {
-  position: relative;
-  height: 250px;
-  overflow: hidden;
-}
-
-.detailImage {
-  object-fit: cover;
-}
-
-.detailBody {
-  padding: 24px;
-}
-
-.detailTitle {
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: var(--foreground);
-  margin: 0 0 16px 0;
-}
-
-.detailMeta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 20px;
-}
-
-.detailBadge {
-  padding: 6px 14px;
-  background: var(--muted);
-  color: var(--foreground);
-  font-size: 0.875rem;
-  font-weight: 600;
-  border-radius: 20px;
-}
-
-.featuredBadge {
-  padding: 6px 14px;
-  background: var(--primary);
-  color: var(--primary-foreground);
-  font-size: 0.875rem;
-  font-weight: 600;
-  border-radius: 20px;
-}
-
-.detailDescription {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: var(--muted-foreground);
-  margin: 0 0 20px 0;
-}
-
-.detailDetails {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-bottom: 24px;
-}
-
-.detailDetail {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.9rem;
-  color: var(--muted-foreground);
-}
-
-.detailIcon {
-  font-size: 1.125rem;
-}
-
-.detailRequirements {
-  margin-bottom: 24px;
-}
-
-.detailRequirements h4 {
-  font-size: 1.125rem;
-  font-weight: 700;
-  color: var(--foreground);
-  margin: 0 0 12px 0;
-}
-
-.detailRequirements p {
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: var(--muted-foreground);
-  white-space: pre-line;
-}
-
-.detailActions {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 24px;
-}
-
-.detailApplyBtn,
-.detailWhatsAppBtn,
-.detailCallBtn {
-  padding: 14px 24px;
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  width: 100%;
-}
-
-.detailApplyBtn {
-  background: var(--primary);
-  color: var(--primary-foreground);
-}
-
-.detailApplyBtn:hover {
-  background: var(--brand-dark);
-}
-
-.detailWhatsAppBtn {
+.whatsappBtn:hover {
   background: #25d366;
-  color: white;
+  color: var(--white);
 }
 
-.detailWhatsAppBtn:hover {
-  background: #1fb855;
-}
-
-.detailCallBtn {
-  background: var(--primary);
-  color: var(--primary-foreground);
-}
-
-.detailCallBtn:hover {
-  background: var(--brand-dark);
-}
-
-.detailShareBtn {
-  padding: 12px 24px;
-  background: transparent;
-  border: 2px solid var(--primary);
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  color: var(--primary);
-  transition: all 0.3s ease;
-  width: 100%;
-}
-
-.detailShareBtn:hover {
-  background: var(--primary);
-  color: var(--primary-foreground);
-}
-
-@keyframes slideInFromRight {
-  from {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-/* Loading and Empty States */
-.loading {
-  text-align: center;
-  padding: 80px 20px;
-}
-
-.spinner {
-  width: 50px;
-  height: 50px;
-  border: 4px solid var(--border);
-  border-top-color: var(--primary);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin: 0 auto 20px auto;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.emptyState {
-  text-align: center;
-  padding: 80px 20px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-}
-
-.emptyState h3 {
-  font-size: 1.75rem;
-  color: var(--foreground);
-  margin: 0 0 12px 0;
-}
-
-.emptyState p {
-  font-size: 1.125rem;
-  color: var(--muted-foreground);
-  margin: 0;
-}
-
-/* CTA Section */
-.ctaSection {
-  position: relative;
-  padding: 5rem 0;
-  background: linear-gradient(135deg, var(--primary) 0%, var(--background) 100%);
-  color: var(--foreground);
-  text-align: center;
-}
-
-.ctaOverlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.1);
-}
-
-.ctaContainer {
-  position: relative;
-  z-index: 1;
-}
-
-.ctaTitle {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-
-.ctaText {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
-  opacity: 0.9;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.ctaButton {
-  display: inline-block;
-  background: var(--primary);
-  color: var(--primary-foreground);
-  padding: 1rem 2rem;
-  border-radius: 50px;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 1.1rem;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-}
-
-.ctaButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-}
-
-/* Responsive Design */
+/* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
+  .hero {
+    padding: 64px 20px 48px;
+  }
+
   .heroTitle {
-    font-size: 2.5rem;
+    font-size: clamp(1.8rem, 10vw, 2.8rem);
   }
 
-  .heroSubtitle {
-    font-size: 1.2rem;
-  }
-
-  .heroGif {
-    width: 150px;
-    height: 150px;
-    right: 5%;
-  }
-
-  .sectionTitle {
-    font-size: 2rem;
-  }
-
-  .sectionHeader {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .filterButtons {
-    width: 100%;
-    justify-content: center;
+  .careersSection {
+    padding: 56px 20px;
   }
 
   .careersGrid {
     grid-template-columns: 1fr;
   }
 
-  .featuredGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .featuredLinks {
-    flex-direction: column;
-  }
-
-  .modalBody {
-    padding: 1rem;
-  }
-
-  .modalHeader {
-    padding: 1rem;
-  }
-
-  .modalTitle {
-    font-size: 1.5rem;
-  }
-
-  .ctaTitle {
-    font-size: 2rem;
-  }
-
-  .detailCard {
+  .careerActions {
     width: 100%;
-    max-width: 100vw;
   }
 
-  .filterBar {
-    gap: 8px;
+  .callBtn,
+  .whatsappBtn {
+    flex: 1;
+    justify-content: center;
   }
-
-  .filterBtn {
-    padding: 10px 20px;
-    font-size: 0.9rem;
-  }
-}
-
-/* Modal Actions */
-.modalActions {
-  margin-top: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.informalActions {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.whatsappBtn,
-.phoneBtn,
-.emailBtn {
-  background-color: #25d366;
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 600;
-  text-decoration: none;
-  display: inline-block;
-  transition: all 0.3s;
-  flex: 1;
-  min-width: 100px;
-  text-align: center;
-}
-
-.phoneBtn {
-  background-color: var(--primary);
-}
-
-.emailBtn {
-  background-color: var(--muted);
-  color: var(--foreground);
-}
-
-.whatsappBtn:hover {
-  background-color: #1fb855;
-  transform: translateY(-2px);
-}
-
-.phoneBtn:hover {
-  background-color: var(--brand-dark);
-  transform: translateY(-2px);
-}
-
-.emailBtn:hover {
-  background-color: var(--accent);
-  transform: translateY(-2px);
 }

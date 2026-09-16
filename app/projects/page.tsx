@@ -76,11 +76,9 @@ export default function ProjectsPage() {
       <div className={styles.projectsPage}>
         {/* Hero Section */}
         <section className={styles.hero}>
-          <div className={styles.heroOverlay}></div>
-          <img src="https://media.giphy.com/media/qgQUggAC3Pfv687qPC/giphy.gif" alt="Developer Coding Animation" className={styles.heroGif} loading="lazy" />
           <div className={styles.heroContent}>
+            <p className={styles.heroSubtitle}>01 / Selected work</p>
             <h1 className={styles.heroTitle}>Our Projects</h1>
-            <p className={styles.heroSubtitle}>Showcasing Innovation Through Code</p>
             <p className={styles.heroDescription}>
               Discover our portfolio of successful digital solutions, from web applications to mobile experiences.
             </p>
