@@ -8,7 +8,7 @@ import styles from "./header.module.css"
 import SearchComponent from "./search"
 import { motion } from "framer-motion"
 import NotificationBell from "./NotificationBell"
-import { Menu, X, ChevronDown } from "lucide-react"
+import { Menu, X } from "lucide-react"
 
 
 export default function Header() {
@@ -17,7 +17,6 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isAdmin, setIsAdmin] = useState(false)
-  const [isServicesOpen, setIsServicesOpen] = useState(false)
 
   const isAdminRoute = pathname?.startsWith("/admin")
 
@@ -61,7 +60,6 @@ export default function Header() {
 
       if (target.closest(`.${styles.container}`) === null) {
         setIsMobileMenuOpen(false)
-        setIsServicesOpen(false)
       }
     }
 
@@ -88,14 +86,10 @@ export default function Header() {
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen((prev) => !prev)
-    if (!isMobileMenuOpen) {
-      setIsServicesOpen(false)
-    }
   }
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false)
-    setIsServicesOpen(false)
   }
 
   return (
@@ -145,43 +139,13 @@ export default function Header() {
             </Link>
           )}
 
-          {/* Services dropdown (desktop) */}
-          <div
-            className={styles.navItem}
-            onMouseEnter={() => setIsServicesOpen(true)}
-            onMouseLeave={() => setIsServicesOpen(false)}
-            onFocus={() => setIsServicesOpen(true)}
-            onBlur={() => setIsServicesOpen(false)}
+          <Link
+            href="/services"
+            className={styles.navLink}
+            onClick={closeMobileMenu}
           >
-            <button
-              className={styles.navLink}
-              aria-haspopup="true"
-              aria-expanded={isServicesOpen}
-              onClick={() => setIsServicesOpen((prev) => !prev)}
-            >
-              Capabilities <ChevronDown size={14} />
-            </button>
-            <div
-              className={`${styles.dropdown} ${isServicesOpen ? styles.dropdownOpen : ""}`}
-              role="menu"
-            >
-              <Link href="/launch" className={styles.dropdownItem} role="menuitem" onClick={closeMobileMenu}>
-                Launch
-              </Link>
-              <Link href="/market" className={styles.dropdownItem} role="menuitem" onClick={closeMobileMenu}>
-                Market
-              </Link>
-              <Link href="/studio" className={styles.dropdownItem} role="menuitem" onClick={closeMobileMenu}>
-                Studio
-              </Link>
-              <Link href="/hire" className={styles.dropdownItem} role="menuitem" onClick={closeMobileMenu}>
-                Hire
-              </Link>
-              <Link href="/services" className={styles.dropdownItem} role="menuitem" onClick={closeMobileMenu}>
-                All Services
-              </Link>
-            </div>
-          </div>
+            Services
+          </Link>
 
           <Link
             href="/projects"

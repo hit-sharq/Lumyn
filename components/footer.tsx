@@ -16,16 +16,6 @@ export default function Footer() {
             <p className={styles.footerText}>
               A digital innovation studio engineering bespoke platforms, products, and experiences that move ambitious businesses forward.
             </p>
-            <div className={styles.footerContact}>
-              <a href="mailto:info@lumyn.co.ke" className={styles.footerContactItem}>
-                <span className={styles.footerContactIcon} aria-hidden="true">✉</span>
-                <span>info@lumyn.co.ke</span>
-              </a>
-              <a href="mailto:support@lumyn.co.ke" className={styles.footerContactItem}>
-                <span className={styles.footerContactIcon} aria-hidden="true">🛟</span>
-                <span>support@lumyn.co.ke</span>
-              </a>
-            </div>
             <div className={styles.socialLinks} aria-label="Social media">
               <a href="https://x.com/LumynTec" target="_blank" rel="noopener noreferrer" className={styles.socialLink} aria-label="X">
                 <Twitter size={18} />
@@ -57,33 +47,6 @@ export default function Footer() {
             </nav>
           </div>
 
-          {/* Products */}
-          <div className={styles.footerCol}>
-            <h5>Products</h5>
-            <nav className={styles.footerLinks}>
-              <Link href="/studio" className={styles.footerLink}>
-                <span className={styles.productDot} aria-hidden="true" />
-                Lumyn Studio
-              </Link>
-              <Link href="/launch" className={styles.footerLink}>
-                <span className={styles.productDot} aria-hidden="true" />
-                Lumyn Launch
-              </Link>
-              <Link href="/market" className={styles.footerLink}>
-                <span className={styles.productDot} aria-hidden="true" />
-                Lumyn Market
-              </Link>
-              <Link href="/hire" className={styles.footerLink}>
-                <span className={styles.productDot} aria-hidden="true" />
-                Lumyn Hire
-              </Link>
-              <Link href="/ai-marketing" className={styles.footerLink}>
-                <span className={styles.productDot} aria-hidden="true" />
-                AI Marketing
-              </Link>
-            </nav>
-          </div>
-
           {/* Resources */}
           <div className={styles.footerCol}>
             <h5>Resources</h5>
@@ -93,45 +56,39 @@ export default function Footer() {
               <Link href="/news" className={styles.footerLink}>News</Link>
               <Link href="/gallery" className={styles.footerLink}>Gallery</Link>
               <Link href="/newsletter" className={styles.footerLink}>Newsletter</Link>
-              <Link href="/sponsorship" className={styles.footerLink}>Sponsorship</Link>
-              <Link href="/studio/dashboard" className={styles.footerLink}>My Downloads</Link>
-              <Link href="/launch/dashboard" className={styles.footerLink}>My Portfolios</Link>
             </nav>
           </div>
 
-          {/* Contact / Technologies */}
+          {/* Technologies */}
           <div className={styles.footerCol}>
-            <h5>Contact</h5>
-            <nav className={styles.footerLinks}>
-              <a href="mailto:info@lumyn.co.ke" className={styles.footerLink}>info@lumyn.co.ke</a>
-              <a href="mailto:support@lumyn.co.ke" className={styles.footerLink}>support@lumyn.co.ke</a>
-              <a href="https://www.google.com/maps?q=Nairobi,Kenya" target="_blank" rel="noopener noreferrer" className={styles.footerLink}>Nairobi, Kenya</a>
-            </nav>
-            <div className={styles.techCategories}>
-              <div className={styles.techCategory}>
-                <span className={styles.techCategoryTitle}>Frontend</span>
-                <div className={styles.techLinks}>
-                  <a href="https://react.dev" target="_blank" rel="noopener noreferrer" className={styles.techLink}>React</a>
-                  <a href="https://nextjs.org" target="_blank" rel="noopener noreferrer" className={styles.techLink}>Next.js</a>
-                  <a href="https://www.typescriptlang.org" target="_blank" rel="noopener noreferrer" className={styles.techLink}>TypeScript</a>
-                </div>
-              </div>
-              <div className={styles.techCategory}>
-                <span className={styles.techCategoryTitle}>Backend</span>
-                <div className={styles.techLinks}>
-                  <a href="https://nodejs.org" target="_blank" rel="noopener noreferrer" className={styles.techLink}>Node.js</a>
-                  <a href="https://www.python.org" target="_blank" rel="noopener noreferrer" className={styles.techLink}>Python</a>
-                  <a href="https://go.dev" target="_blank" rel="noopener noreferrer" className={styles.techLink}>Go</a>
-                </div>
-              </div>
-              <div className={styles.techCategory}>
-                <span className={styles.techCategoryTitle}>Cloud</span>
-                <div className={styles.techLinks}>
-                  <a href="https://aws.amazon.com" target="_blank" rel="noopener noreferrer" className={styles.techLink}>AWS</a>
-                  <a href="https://cloud.google.com" target="_blank" rel="noopener noreferrer" className={styles.techLink}>GCP</a>
-                  <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" className={styles.techLink}>Vercel</a>
-                </div>
-              </div>
+            <h5>Technologies</h5>
+            <div className={styles.technologyList}>
+              <a href="https://react.dev" target="_blank" rel="noopener noreferrer" className={styles.techLink}>React</a>
+              <a href="https://nextjs.org" target="_blank" rel="noopener noreferrer" className={styles.techLink}>Next.js</a>
+              <a href="https://www.typescriptlang.org" target="_blank" rel="noopener noreferrer" className={styles.techLink}>TypeScript</a>
+              <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noopener noreferrer" className={styles.techLink}>JavaScript</a>
+              <a href="https://nodejs.org" target="_blank" rel="noopener noreferrer" className={styles.techLink}>Node.js</a>
+              <a href="https://www.python.org" target="_blank" rel="noopener noreferrer" className={styles.techLink}>Python</a>
+              <a href="https://go.dev" target="_blank" rel="noopener noreferrer" className={styles.techLink}>Go</a>
+              <a href="https://tailwindcss.com" target="_blank" rel="noopener noreferrer" className={styles.techLink}>Tailwind CSS</a>
+              <a href="https://www.postgresql.org" target="_blank" rel="noopener noreferrer" className={styles.techLink}>PostgreSQL</a>
+              <a href="https://www.prisma.io" target="_blank" rel="noopener noreferrer" className={styles.techLink}>Prisma</a>
+              <a href="https://www.radix-ui.com" target="_blank" rel="noopener noreferrer" className={styles.techLink}>Radix UI</a>
+              <a href="https://www.framer.com/motion/" target="_blank" rel="noopener noreferrer" className={styles.techLink}>Framer Motion</a>
+              <a href="https://zod.dev" target="_blank" rel="noopener noreferrer" className={styles.techLink}>Zod</a>
+              <a href="https://clerk.com" target="_blank" rel="noopener noreferrer" className={styles.techLink}>Clerk</a>
+              <a href="https://cloudinary.com" target="_blank" rel="noopener noreferrer" className={styles.techLink}>Cloudinary</a>
+              <a href="https://resend.com" target="_blank" rel="noopener noreferrer" className={styles.techLink}>Resend</a>
+              <a href="https://onesignal.com" target="_blank" rel="noopener noreferrer" className={styles.techLink}>OneSignal</a>
+              <a href="https://developer.safaricom.co.ke/" target="_blank" rel="noopener noreferrer" className={styles.techLink}>M-Pesa Daraja</a>
+              <a href="https://www.pesapal.com/" target="_blank" rel="noopener noreferrer" className={styles.techLink}>PesaPal</a>
+              <a href="https://africastalking.com/" target="_blank" rel="noopener noreferrer" className={styles.techLink}>Africa&apos;s Talking</a>
+              <a href="https://openai.com" target="_blank" rel="noopener noreferrer" className={styles.techLink}>OpenAI</a>
+              <a href="https://www.anthropic.com" target="_blank" rel="noopener noreferrer" className={styles.techLink}>Anthropic</a>
+              <a href="https://ai.google/" target="_blank" rel="noopener noreferrer" className={styles.techLink}>Google AI</a>
+              <a href="https://aws.amazon.com" target="_blank" rel="noopener noreferrer" className={styles.techLink}>AWS</a>
+              <a href="https://cloud.google.com" target="_blank" rel="noopener noreferrer" className={styles.techLink}>Google Cloud</a>
+              <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" className={styles.techLink}>Vercel</a>
             </div>
           </div>
         </div>

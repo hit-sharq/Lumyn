@@ -1,7 +1,8 @@
 .growthPage {
   min-height: 100vh;
-  background: #0a0a0a;
-  padding: 40px;
+  padding: 36px;
+  background: var(--surface-soft);
+  color: var(--black);
 }
 
 .growthHeader {
@@ -12,202 +13,290 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 0;
-  background: none;
-  border: none;
-  color: rgba(255, 255, 227, 0.5);
-  font-size: 0.875rem;
-  font-weight: 500;
+  padding: 6px 0;
+  color: var(--ink-muted);
+  border: 0;
+  background: transparent;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: color 0.3s ease;
-  margin-bottom: 16px;
-  text-decoration: none;
 }
 
 .growthBack:hover {
-  color: #ffffe3;
+  color: var(--signal-deep);
 }
 
 .growthTitle {
-  font-size: 2rem;
+  margin: 0;
+  color: var(--black);
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 800;
-  margin: 0 0 8px 0;
-  color: #ffffe3;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.growthTitle::after {
+  content: "";
+  display: block;
+  width: 64px;
+  height: 5px;
+  margin-top: 16px;
+  background: var(--signal);
 }
 
 .growthSubtitle {
-  font-size: 1rem;
-  color: rgba(255, 255, 227, 0.5);
-  margin: 0;
+  max-width: 64ch;
+  margin: 14px 0 0;
+  color: var(--ink-muted);
+  line-height: 1.6;
 }
 
 .growthCard {
-  background: rgba(20, 20, 20, 0.85);
-  backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 227, 0.08);
-  border-radius: 16px;
-  padding: 32px;
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+  padding: 26px;
+  background: var(--surface);
+  border: 2px solid var(--black);
+  border-radius: 0 !important;
+  box-shadow: 6px 6px 0 var(--black);
 }
 
 .growthCardTitle {
+  margin: 0 0 10px;
+  color: var(--black);
+  font-family: "Bricolage Grotesque", sans-serif;
   font-size: 1.25rem;
-  font-weight: 700;
-  margin: 0 0 8px 0;
-  color: #ffffe3;
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
 }
 
 .growthCardSubtitle {
-  font-size: 0.875rem;
-  color: rgba(255, 255, 227, 0.5);
-  margin: 0 0 24px 0;
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: 0.88rem;
+  line-height: 1.6;
 }
 
 .growthInput {
   width: 100%;
-  padding: 14px 16px;
-  font-size: 1rem;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 227, 0.15);
-  border-radius: 8px;
-  color: #ffffe3;
-  transition: all 0.3s ease;
-  box-sizing: border-box;
+  min-height: 46px;
+  padding: 11px 14px;
+  background: var(--surface);
+  color: var(--black);
+  border: 2px solid var(--black);
+  border-radius: 0;
+  font: 500 0.95rem/1.5 "Inter", sans-serif;
 }
 
 .growthInput:focus {
   outline: none;
-  border-color: rgba(255, 255, 227, 0.3);
-  box-shadow: 0 0 0 3px rgba(255, 255, 227, 0.1);
+  border-color: var(--signal);
+  box-shadow: 4px 4px 0 var(--signal);
 }
 
 .growthLabel {
   display: block;
-  font-size: 0.875rem;
-  font-weight: 600;
-  margin: 0 0 8px 0;
-  color: rgba(255, 255, 227, 0.7);
+  margin-bottom: 8px;
+  color: var(--black);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.growthButton,
+.growthButtonSecondary {
+  min-height: 44px;
+  padding: 10px 18px;
+  border: 2px solid var(--black);
+  border-radius: 0;
+  font: 800 0.75rem/1 "Inter", sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
 }
 
 .growthButton {
-  width: 100%;
-  padding: 14px 24px;
-  background: linear-gradient(135deg, #6d8196, #4a5a6a);
-  color: #0a0a0a;
-  border: none;
-  border-radius: 50px;
-  font-size: 1rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  background: var(--black);
+  color: var(--white);
 }
 
-.growthButton:hover {
+.growthButton:hover:not(:disabled) {
+  background: var(--signal);
+  border-color: var(--signal);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(109, 129, 150, 0.4);
+}
+
+.growthButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
 }
 
 .growthButtonSecondary {
-  background: rgba(255, 255, 227, 0.05);
-  color: rgba(255, 255, 227, 0.8);
-  border: 1px solid rgba(255, 255, 227, 0.15);
-  text-transform: none;
-  letter-spacing: normal;
+  background: var(--surface);
+  color: var(--black);
 }
 
 .growthButtonSecondary:hover {
-  background: rgba(255, 255, 227, 0.1);
-  border-color: rgba(255, 255, 227, 0.3);
-  transform: translateX(4px);
-  box-shadow: none;
+  background: var(--surface-soft);
+  transform: translateY(-2px);
 }
 
 .growthStatLabel {
-  font-size: 0.875rem;
-  color: rgba(255, 255, 227, 0.5);
-  margin: 0 0 8px 0;
+  margin-bottom: 8px;
+  color: var(--ink-muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .growthStatValue {
-  font-size: 2rem;
-  font-weight: 800;
   margin: 0;
-  color: #ffffe3;
+  color: var(--black);
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 800;
+  line-height: 1;
 }
 
 .growthDivider {
-  border: none;
-  border-top: 1px solid rgba(255, 255, 227, 0.08);
-  margin: 0;
+  border: 0;
+  border-top: 2px solid var(--black);
+  margin: 28px 0;
 }
 
 .growthEmpty {
+  padding: 40px 24px;
+  color: var(--ink-muted);
+  font-size: 0.9rem;
   text-align: center;
-  padding: 48px 24px;
-  color: rgba(255, 255, 227, 0.4);
-  font-size: 0.875rem;
 }
 
 .growthTable {
   width: 100%;
   border-collapse: collapse;
+  border: 2px solid var(--black);
+}
+
+.growthTable th,
+.growthTable td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--black);
+  text-align: left;
 }
 
 .growthTable th {
-  text-align: left;
-  padding: 12px 16px;
-  font-size: 0.75rem;
-  font-weight: 600;
+  background: var(--black);
+  color: var(--white);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: rgba(255, 255, 227, 0.4);
-  border-bottom: 1px solid rgba(255, 255, 227, 0.08);
 }
 
 .growthTable td {
-  padding: 16px;
-  font-size: 0.875rem;
-  color: rgba(255, 255, 227, 0.8);
-  border-bottom: 1px solid rgba(255, 255, 227, 0.04);
+  color: var(--ink-muted);
+  font-size: 0.85rem;
+}
+
+.growthTable tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.growthTable tbody tr:hover {
+  background: var(--surface-soft);
 }
 
 .growthBadge {
   display: inline-flex;
-  padding: 4px 12px;
-  border-radius: 50px;
-  font-size: 0.75rem;
-  font-weight: 600;
+  align-items: center;
+  min-height: 26px;
+  padding: 4px 10px;
+  background: var(--surface-soft);
+  color: var(--black);
+  border: 1px solid var(--black);
+  border-radius: 0 !important;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .growthBadgeSuccess {
-  background: rgba(34, 197, 94, 0.1);
-  color: #4ade80;
+  background: #177245 !important;
+  color: var(--white) !important;
+  border-color: #177245 !important;
 }
 
 .growthBadgeWarning {
-  background: rgba(234, 179, 8, 0.1);
-  color: #facc15;
+  background: var(--signal) !important;
+  color: var(--white) !important;
+  border-color: var(--signal) !important;
 }
 
 .growthSectionTitle {
-  font-size: 1rem;
-  font-weight: 600;
-  margin: 0 0 16px 0;
-  color: rgba(255, 255, 227, 0.7);
+  margin: 0 0 16px;
+  color: var(--ink-muted);
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+@keyframes growthIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.growthCard {
+  animation: growthIn 0.28s ease both;
 }
 
 @media (max-width: 768px) {
   .growthPage {
-    padding: 24px;
+    padding: 24px 18px 32px;
   }
-  
+
   .growthTitle {
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
-  
+
   .growthCard {
-    padding: 24px;
+    padding: 20px 16px;
+    box-shadow: 4px 4px 0 var(--black);
+  }
+
+  .growthButton,
+  .growthButtonSecondary {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .growthPage {
+    padding: 18px 12px 28px;
+  }
+
+  .growthCard {
+    padding: 16px 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .growthCard,
+  .growthButton,
+  .growthButtonSecondary {
+    animation: none;
+    transition: none;
   }
 }

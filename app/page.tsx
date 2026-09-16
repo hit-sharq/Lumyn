@@ -9,11 +9,11 @@ interface Event { id: string; title: string; description: string; date: string; 
 interface News { id: string; title: string; excerpt: string; image?: string; publishedAt: string }
 interface Stats { members: number; events: number; news: number; yearsActive: number; projects: number }
 
-const capabilities = [
-  { number: "01", title: "Launch", description: "High-performance websites and digital products that move ideas into the world.", href: "/launch" },
-  { number: "02", title: "Studio", description: "Premium templates, assets, and practical tools for ambitious creators.", href: "/studio" },
-  { number: "03", title: "Market", description: "A focused marketplace for discovering, selling, and scaling digital work.", href: "/market" },
-  { number: "04", title: "Hire", description: "A better way for talented people and growing teams to find each other.", href: "/hire" },
+const services = [
+  { number: "01", title: "Strategy & Product", description: "Turn sharp ideas into clear roadmaps, useful experiences, and products people can actually use.", href: "/services" },
+  { number: "02", title: "Web & Digital Products", description: "Design and engineer fast, accessible websites and platforms that scale with your ambitions.", href: "/services" },
+  { number: "03", title: "Platforms & Infrastructure", description: "Build reliable cloud systems, APIs, data foundations, and operations for lasting growth.", href: "/services" },
+  { number: "04", title: "Growth & Support", description: "Measure what matters, improve every release, and keep your digital presence moving forward.", href: "/services" },
 ]
 
 const principles = [
@@ -59,7 +59,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      <section className={styles.section} id="capabilities"><div className={styles.sectionHeading}><div><span className={styles.kicker}>01 / What we do</span><h2>Capabilities<br />with momentum.</h2></div><p>One connected ecosystem for turning sharp ideas into useful, lasting work.</p></div><div className={styles.capabilities}>{capabilities.map((capability) => <Link href={capability.href} className={styles.capability} key={capability.number}><span className={styles.capabilityNumber}>{capability.number}</span><h3>{capability.title}</h3><p>{capability.description}</p><span className={styles.arrow}>↗</span></Link>)}</div></section>
+      <section className={styles.section} id="services"><div className={styles.sectionHeading}><div><span className={styles.kicker}>01 / What we do</span><h2>Services built<br />to move.</h2></div><p>From strategy to infrastructure, we help ambitious teams turn ideas into useful digital work that keeps moving forward.</p></div><div className={styles.capabilities}>{services.map((service) => <Link href={service.href} className={styles.capability} key={service.number}><span className={styles.capabilityNumber}>{service.number}</span><h3>{service.title}</h3><p>{service.description}</p><span className={styles.arrow}>↗</span></Link>)}</div></section>
 
       <section className={`${styles.section} ${styles.offWhite}`} id="about"><div className={styles.sectionHeading}><div><span className={styles.kicker}>02 / Who we are</span><h2>Useful by<br />design.</h2></div><p>Technology should open doors. Our work brings product thinking, creative craft, and community into the same room.</p></div><div className={styles.principles}>{principles.map((principle, index) => <article key={principle.title}><span className={styles.swatch}>{String(index + 1).padStart(2, "0")}</span><h3>{principle.title}</h3><p>{principle.description}</p></article>)}</div></section>
 
