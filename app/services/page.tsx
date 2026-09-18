@@ -1,175 +1,199 @@
-"use client";
+"use client"
 
-import { useEffect, useRef, useState } from "react";
-import Head from "next/head";
-import Link from "next/link";
-import { motion } from "framer-motion";
-import styles from "./services.module.css";
-import type { JSX } from "react/jsx-runtime";
-import CustomSelect from "@/components/CustomSelect";
-const services = [{
-  category: "Software Engineering",
-  icon: "⚙️",
-  items: [{
-    title: "Frontend Development",
-    desc: "React, Next.js, TypeScript — pixel-perfect, accessible UIs with performance-first architecture"
-  }, {
-    title: "Backend Engineering",
-    desc: "Node.js, Python, Go — scalable APIs, microservices, event-driven systems"
-  }, {
-    title: "Full-Stack Applications",
-    desc: "End-to-end ownership — database to deployment, with real-time capabilities"
-  }, {
-    title: "API Development",
-    desc: "REST, GraphQL, webhooks — robust, documented, versioned interfaces"
-  }]
-}, {
-  category: "Platform & Infrastructure",
-  icon: "☁️",
-  items: [{
-    title: "Cloud Architecture",
-    desc: "AWS, GCP, Azure — serverless, containerized, auto-scaling infrastructure"
-  }, {
-    title: "DevOps & CI/CD",
-    desc: "GitHub Actions, Docker, Terraform — automated pipelines, zero-downtime deploys"
-  }, {
-    title: "Database Design",
-    desc: "PostgreSQL, MongoDB, Redis — normalized schemas, indexing strategies, replication"
-  }, {
-    title: "Monitoring & Observability",
-    desc: "Sentry, Datadog, logs/metrics/traces — proactive issue detection"
-  }]
-}, {
-  category: "Strategy & Creative",
-  icon: "🎨",
-  items: [{
-    title: "Product Strategy",
-    desc: "Roadmapping, MVP definition, user research — product-market fit focused"
-  }, {
-    title: "UI/UX Design",
-    desc: "Figma design systems, prototyping, usability testing — intuitive user journeys"
-  }, {
-    title: "Brand Identity",
-    desc: "Logo, typography, color systems, voice — cohesive brand experiences"
-  }, {
-    title: "Digital Marketing",
-    desc: "SEO, content strategy, analytics — growth-oriented campaigns"
-  }]
-}, {
-  category: "Security & Compliance",
-  icon: "🔒",
-  items: [{
-    title: "Application Security",
-    desc: "OWASP, penetration testing, secure coding practices — SDLC integrated"
-  }, {
-    title: "Authentication & Authorization",
-    desc: "OAuth, JWT, RBAC — identity management, session handling"
-  }, {
-    title: "Compliance & Audits",
-    desc: "GDPR, SOC2, HIPAA — documentation, policies, certifications"
-  }, {
-    title: "Infrastructure Security",
-    desc: "VPCs, firewalls, WAF, DDoS protection — defense in depth"
-  }]
-}];
-const processSteps = [{
-  number: "01",
-  title: "Discovery",
-  desc: "We dive deep into your business, users, and technical requirements to define success criteria."
-}, {
-  number: "02",
-  title: "Design",
-  desc: "Wireframes, prototypes, and design systems that align with your brand and user needs."
-}, {
-  number: "03",
-  title: "Build",
-  desc: "Agile development with weekly demos, transparent progress, and quality gates."
-}, {
-  number: "04",
-  title: "Launch",
-  desc: "Staged rollouts, monitoring, and handoff documentation — we ensure smooth deployment."
-}, {
-  number: "05",
-  title: "Evolve",
-  desc: "Ongoing maintenance, feature iterations, and optimization based on real data."
-}];
+import { useEffect, useRef, useState, type FormEvent, type PointerEvent } from "react"
+import Head from "next/head"
+import { AnimatePresence, motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion"
+import { ArrowDown, ArrowUpRight, Cloud, Code2, Palette, ShieldCheck, Sparkles } from "lucide-react"
+import styles from "./services.module.css"
+import CustomSelect from "@/components/CustomSelect"
+
+const services = [
+  {
+    id: "software",
+    icon: Code2,
+    number: "01",
+    category: "Software Engineering",
+    positioning: "Interfaces that feel inevitable.",
+    items: [
+      { title: "Frontend Development", desc: "React, Next.js, TypeScript — pixel-perfect, accessible UIs with performance-first architecture" },
+      { title: "Backend Engineering", desc: "Node.js, Python, Go — scalable APIs, microservices, event-driven systems" },
+      { title: "Full-Stack Applications", desc: "End-to-end ownership — database to deployment, with real-time capabilities" },
+      { title: "API Development", desc: "REST, GraphQL, webhooks — robust, documented, versioned interfaces" },
+    ],
+  },
+  {
+    id: "platform",
+    icon: Cloud,
+    number: "02",
+    category: "Platform & Infrastructure",
+    positioning: "Systems that disappear when they work.",
+    items: [
+      { title: "Cloud Architecture", desc: "AWS, GCP, Azure — serverless, containerized, auto-scaling infrastructure" },
+      { title: "DevOps & CI/CD", desc: "GitHub Actions, Docker, Terraform — automated pipelines, zero-downtime deploys" },
+      { title: "Database Design", desc: "PostgreSQL, MongoDB, Redis — normalized schemas, indexing strategies, replication" },
+      { title: "Monitoring & Observability", desc: "Sentry, Datadog, logs/metrics/traces — proactive issue detection" },
+    ],
+  },
+  {
+    id: "creative",
+    icon: Palette,
+    number: "03",
+    category: "Strategy & Creative",
+    positioning: "Clarity with a pulse.",
+    items: [
+      { title: "Product Strategy", desc: "Roadmapping, MVP definition, user research — product-market fit focused" },
+      { title: "UI/UX Design", desc: "Figma design systems, prototyping, usability testing — intuitive user journeys" },
+      { title: "Brand Identity", desc: "Logo, typography, color systems, voice — cohesive brand experiences" },
+      { title: "Digital Marketing", desc: "SEO, content strategy, analytics — growth-oriented campaigns" },
+    ],
+  },
+  {
+    id: "security",
+    icon: ShieldCheck,
+    number: "04",
+    category: "Security & Compliance",
+    positioning: "Trust engineered into every layer.",
+    items: [
+      { title: "Application Security", desc: "OWASP, penetration testing, secure coding practices — SDLC integrated" },
+      { title: "Authentication & Authorization", desc: "OAuth, JWT, RBAC — identity management, session handling" },
+      { title: "Compliance & Audits", desc: "GDPR, SOC2, HIPAA — documentation, policies, certifications" },
+      { title: "Infrastructure Security", desc: "VPCs, firewalls, WAF, DDoS protection — defense in depth" },
+    ],
+  },
+] as const
+
+const processSteps = [
+  { number: "01", title: "Discovery", desc: "We find the signal inside the brief and define what success actually looks like." },
+  { number: "02", title: "Design", desc: "We turn ambiguity into a tangible product language, prototype by prototype." },
+  { number: "03", title: "Build", desc: "We ship in tight loops, with visible progress and quality gates at every turn." },
+  { number: "04", title: "Launch", desc: "We move from staging to the real world without losing the plot." },
+  { number: "05", title: "Evolve", desc: "We keep learning from usage and make the next version sharper than the last." },
+]
+
+type Service = typeof services[number]
+
+function CapabilityCard({ service, index }: { service: Service; index: number }) {
+  const Icon = service.icon
+  const rotateX = useMotionValue(0)
+  const rotateY = useMotionValue(0)
+
+  const handlePointerMove = (event: PointerEvent<HTMLElement>) => {
+    const bounds = event.currentTarget.getBoundingClientRect()
+    const x = (event.clientX - bounds.left) / bounds.width
+    const y = (event.clientY - bounds.top) / bounds.height
+    event.currentTarget.style.setProperty("--spotlight-x", `${x * 100}%`)
+    event.currentTarget.style.setProperty("--spotlight-y", `${y * 100}%`)
+    rotateX.set((0.5 - y) * 6)
+    rotateY.set((x - 0.5) * 6)
+  }
+
+  const handlePointerLeave = () => {
+    rotateX.set(0)
+    rotateY.set(0)
+  }
+
+  return (
+    <motion.article
+      className={styles.capabilityCard}
+      data-motion-interactive
+      initial={{ opacity: 0, y: 44 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.7, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+      style={{ rotateX, rotateY, transformPerspective: 1000 }}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={handlePointerLeave}
+    >
+      <div className={styles.cardGlow} aria-hidden="true" />
+      <div className={styles.cardTop}>
+        <span className={styles.cardIcon}><Icon size={24} strokeWidth={1.7} /></span>
+        <span className={styles.cardNumber}>{service.number}</span>
+      </div>
+      <div className={styles.cardBody}>
+        <span className={styles.cardKicker}>Capability / {service.number}</span>
+        <h3>{service.category}</h3>
+        <p className={styles.cardPositioning}>{service.positioning}</p>
+        <ul className={styles.cardList}>
+          {service.items.map((item) => (
+            <li key={item.title}>
+              <span>{item.title}</span>
+              <p>{item.desc}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className={styles.cardFooter}><ArrowUpRight size={18} /> Built to compound</div>
+    </motion.article>
+  )
+}
+
+function ProcessStep({ step, index }: { step: typeof processSteps[number]; index: number }) {
+  return (
+    <motion.div
+      className={styles.processStep}
+      initial={{ opacity: 0, x: index % 2 === 0 ? -32 : 32 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, amount: 0.35 }}
+      transition={{ duration: 0.65, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }}
+    >
+      <span className={styles.processNumber}>{step.number}</span>
+      <div>
+        <h3>{step.title}</h3>
+        <p>{step.desc}</p>
+      </div>
+      <ArrowUpRight className={styles.processArrow} size={20} />
+    </motion.div>
+  )
+}
+
 export default function ServicesPage() {
-  const sectionRefs = useRef<{
-    [key: string]: HTMLElement | null;
-  }>({});
-  const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
-  const [showRequestForm, setShowRequestForm] = useState(false);
+  const [showRequestForm, setShowRequestForm] = useState(false)
   const [formData, setFormData] = useState({
     userName: "",
     userEmail: "",
     serviceType: "fullstack",
     budget: "",
     timeline: "",
-    message: ""
-  });
-  const [submitting, setSubmitting] = useState(false);
-  const [submitMessage, setSubmitMessage] = useState<{
-    type: "success" | "error";
-    text: string;
-  } | null>(null);
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitting(true);
-    setSubmitMessage(null);
+    message: "",
+  })
+  const [submitting, setSubmitting] = useState(false)
+  const [submitMessage, setSubmitMessage] = useState<{ type: "success" | "error"; text: string } | null>(null)
+  const processRef = useRef<HTMLElement>(null)
+  const requestFormRef = useRef<HTMLElement>(null)
+  const reducedMotion = useReducedMotion()
+  const { scrollYProgress } = useScroll({ target: processRef, offset: ["start end", "end start"] })
+  const processLine = useTransform(scrollYProgress, [0, 1], [0, 1])
+  const processLineSpring = useSpring(processLine, { stiffness: 70, damping: 20, mass: 0.4 })
+
+  useEffect(() => {
+    if (showRequestForm) requestFormRef.current?.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "start" })
+  }, [reducedMotion, showRequestForm])
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault()
+    setSubmitting(true)
+    setSubmitMessage(null)
     try {
-      const res = await fetch("/api/service-requests", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(formData)
-      });
+      const res = await fetch("/api/service-requests", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(formData) })
       if (res.ok) {
-        setSubmitMessage({
-          type: "success",
-          text: "Service request submitted successfully! We'll get back to you soon."
-        });
-        setFormData({
-          userName: "",
-          userEmail: "",
-          serviceType: "fullstack",
-          budget: "",
-          timeline: "",
-          message: ""
-        });
-        setShowRequestForm(false);
+        setSubmitMessage({ type: "success", text: "Service request submitted successfully! We'll get back to you soon." })
+        setFormData({ userName: "", userEmail: "", serviceType: "fullstack", budget: "", timeline: "", message: "" })
+        setShowRequestForm(false)
       } else {
-        const data = await res.json();
-        setSubmitMessage({
-          type: "error",
-          text: data.error || "Failed to submit request"
-        });
+        const data = await res.json()
+        setSubmitMessage({ type: "error", text: data.error || "Failed to submit request" })
       }
     } catch (error) {
-      setSubmitMessage({
-        type: "error",
-        text: "Something went wrong. Please try again."
-      });
+      setSubmitMessage({ type: "error", text: "Something went wrong. Please try again." })
     } finally {
-      setSubmitting(false);
+      setSubmitting(false)
     }
-  };
-  useEffect(() => {
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          setVisibleSections(prev => new Set(prev).add(entry.target.id));
-        }
-      });
-    }, {
-      threshold: 0.1
-    });
-    Object.values(sectionRefs.current).forEach(ref => {
-      if (ref) observer.observe(ref);
-    });
-    return () => observer.disconnect();
-  }, []);
-  return <>
+  }
+
+  const updateFormField = (field: keyof typeof formData, value: string) => setFormData((current) => ({ ...current, [field]: value }))
+
+  return (
+    <>
       <Head>
         <title>Services | Lumyn Technologies — Full-Stack Development & Digital Solutions</title>
         <meta name="description" content="Comprehensive technology services: full-stack development, cloud infrastructure, product strategy, UI/UX design, security & compliance. End-to-end solutions for modern businesses." />
@@ -185,230 +209,104 @@ export default function ServicesPage() {
       </Head>
 
       <div className={styles.servicesPage}>
-        {/* Hero */}
-        <section className={styles.hero}>
+        <motion.section className={styles.hero} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7 }}>
+          <div className={styles.heroBackground} aria-hidden="true">
+            <div className={styles.heroGrid} />
+            <div className={styles.heroGlow} />
+            <div className={styles.heroRing} />
+            <div className={styles.heroRingSecond} />
+            {["Strategy", "Engineering", "Cloud", "Security"].map((label, index) => (
+              <motion.span key={label} className={styles.floatingChip} initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65, delay: 0.45 + index * 0.08, ease: [0.16, 1, 0.3, 1] }}>{label}</motion.span>
+            ))}
+          </div>
+
           <div className={styles.heroContent}>
-            <motion.h1 className={styles.heroTitle} initial={{
-            opacity: 0,
-            y: 30
-          }} animate={{
-            opacity: 1,
-            y: 0
-          }} transition={{
-            duration: 0.6
-          }}>
-              What We <span className={styles.highlight}>Build</span>
-            </motion.h1>
-            <motion.p className={styles.heroSubtitle} initial={{
-            opacity: 0,
-            y: 20
-          }} animate={{
-            opacity: 1,
-            y: 0
-          }} transition={{
-            duration: 0.6,
-            delay: 0.1
-          }}>
-              End-to-end technology solutions engineered for scale, security, and speed.
-            </motion.p>
-          </div>
-        </section>
-
-        {/* Services Grid */}
-        <section className={styles.servicesSection} id="services">
-          <div className={styles.container}>
-            <div className={styles.sectionHeader}>
-              <h2 className={styles.sectionTitle}>Our Services</h2>
-              <p className={styles.sectionSubtitle}>
-                Full-stack capabilities across engineering, infrastructure, and strategy
-              </p>
-            </div>
-
-            <div className={styles.servicesGrid}>
-              {services.map((category, catIndex) => <motion.div key={catIndex} className={styles.serviceColumn} initial={{
-              opacity: 0,
-              y: 40
-            }} whileInView={{
-              opacity: 1,
-              y: 0
-            }} viewport={{
-              once: true
-            }} transition={{
-              duration: 0.6,
-              delay: catIndex * 0.1
-            }}>
-                  <div className={styles.categoryHeader}>
-                    <span className={styles.categoryIcon}>{category.icon}</span>
-                    <h3 className={styles.categoryTitle}>{category.category}</h3>
-                  </div>
-                  <div className={styles.serviceList}>
-                    {category.items.map((item, itemIndex) => <div key={itemIndex} className={styles.serviceItem}>
-                        <h4 className={styles.serviceItemTitle}>{item.title}</h4>
-                        <p className={styles.serviceItemDesc}>{item.desc}</p>
-                      </div>)}
-                  </div>
-                </motion.div>)}
-            </div>
-          </div>
-        </section>
-
-        {/* Process Section */}
-        <section className={styles.processSection} id="process">
-          <div className={styles.container}>
-            <div className={styles.sectionHeader}>
-              <h2 className={styles.sectionTitle}>How We Work</h2>
-              <p className={styles.sectionSubtitle}>
-                A proven process from discovery to ongoing evolution
-              </p>
-            </div>
-
-            <div className={styles.processGrid}>
-              {processSteps.map((step, index) => <motion.div key={index} className={styles.processCard} initial={{
-              opacity: 0,
-              y: 30
-            }} whileInView={{
-              opacity: 1,
-              y: 0
-            }} viewport={{
-              once: true
-            }} transition={{
-              duration: 0.5,
-              delay: index * 0.1
-            }}>
-                  <div className={styles.stepNumber}>{step.number}</div>
-                  <h3 className={styles.stepTitle}>{step.title}</h3>
-                  <p className={styles.stepDesc}>{step.desc}</p>
-                </motion.div>)}
-            </div>
-          </div>
-        </section>
-
-        {/* CTA */}
-        <section className={styles.ctaSection}>
-          <div className={styles.container}>
-            <motion.div className={styles.ctaContent} initial={{
-            opacity: 0,
-            y: 30
-          }} whileInView={{
-            opacity: 1,
-            y: 0
-          }} viewport={{
-            once: true
-          }} transition={{
-            duration: 0.6
-          }}>
-              <h2 className={styles.ctaTitle}>Ready to start your project?</h2>
-              <p className={styles.ctaText}>
-                Let&apos;s discuss your goals and craft a tailored solution — no templates, no fluff.
-              </p>
-              <button onClick={() => setShowRequestForm(!showRequestForm)} className={styles.ctaButton}>
-                Request a Service
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M7.5 5L12.5 10L7.5 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </button>
+            <motion.div className={styles.heroKicker} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.12 }}>
+              <Sparkles size={16} /> Service system / 001
+            </motion.div>
+            <h1 className={styles.heroTitle} aria-label="We build the impossible into momentum.">
+              {["We build", "the impossible", "into momentum."].map((line, index) => (
+                <span className={styles.heroLine} key={line}>
+                  <motion.span initial={{ y: "115%" }} animate={{ y: "0%" }} transition={{ duration: 0.85, delay: 0.18 + index * 0.1, ease: [0.16, 1, 0.3, 1] }} className={index === 2 ? styles.heroAccent : ""}>{line}</motion.span>
+                </span>
+              ))}
+            </h1>
+            <motion.p className={styles.heroSubtitle} initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65, delay: 0.58, ease: [0.16, 1, 0.3, 1] }}>Four disciplines. One team. We take the hard, messy, ambitious parts of your product and turn them into systems people love to use.</motion.p>
+            <motion.div className={styles.heroActions} initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65, delay: 0.72, ease: [0.16, 1, 0.3, 1] }}>
+              <button type="button" className={styles.heroPrimary} onClick={() => setShowRequestForm(true)}>Start a request <ArrowUpRight size={18} /></button>
+              <a href="#capabilities" className={styles.heroGhost}>Explore capabilities <ArrowDown size={18} /></a>
             </motion.div>
           </div>
-        </section>
 
-        {/* Service Request Form */}
-        {showRequestForm && <section className={styles.requestSection}>
-            <div className={styles.container}>
-              <motion.div initial={{
-            opacity: 0,
-            y: 30
-          }} animate={{
-            opacity: 1,
-            y: 0
-          }} className={styles.requestFormWrapper}>
+          <div className={styles.heroMetrics} aria-label="Service scope">
+            <div><strong>04</strong><span>disciplines</span></div>
+            <div><strong>16</strong><span>capabilities</span></div>
+            <div><strong>01</strong><span>team in your corner</span></div>
+          </div>
+          <div className={styles.heroScroll} aria-hidden="true"><span>Scroll to explore</span><ArrowDown size={16} /></div>
+        </motion.section>
+
+        <motion.section id="capabilities" className={styles.capabilitiesSection} data-service-section="capabilities" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.15 }} transition={{ duration: 0.7 }}>
+          <div className={styles.sectionIntro}>
+            <div>
+              <span className={styles.sectionKicker}>01 / The toolkit</span>
+              <h2 className={styles.sectionTitle}>Not a menu.<br /><span>A movement.</span></h2>
+            </div>
+            <p>Every capability is a lever. Pull the right ones and your product starts moving faster than the market around it.</p>
+          </div>
+          <div className={styles.capabilityGrid}>
+            {services.map((service, index) => <CapabilityCard service={service} index={index} key={service.id} />)}
+          </div>
+        </motion.section>
+
+        <motion.section ref={processRef} className={styles.processSection} data-service-section="process" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.15 }} transition={{ duration: 0.7 }}>
+          <div className={styles.processBackground} aria-hidden="true"><div className={styles.processGrid} /><div className={styles.processLine}><motion.span className={styles.processLineFill} style={{ scaleY: processLineSpring }} /></div></div>
+          <div className={styles.processContent}>
+            <div className={styles.processHeading}>
+              <span className={styles.sectionKickerLight}>02 / The method</span>
+              <h2 className={styles.processTitle}>From signal<br /><span>to launch.</span></h2>
+              <p>We do not hide behind jargon. You get a visible path, a working rhythm, and a team that ships.</p>
+            </div>
+            <div className={styles.processList}>{processSteps.map((step, index) => <ProcessStep step={step} index={index} key={step.number} />)}</div>
+          </div>
+        </motion.section>
+
+        <motion.section className={styles.ctaSection} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.7 }}>
+          <div className={styles.ctaRings} aria-hidden="true"><span /><span /><span /></div>
+          <span className={styles.sectionKickerLight}>03 / Your move</span>
+          <motion.h2 className={styles.ctaTitle} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.65, delay: 0.08 }}>Bring us the hard part.</motion.h2>
+          <motion.p className={styles.ctaText} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.65, delay: 0.16 }}>A rough idea is enough. We will help you find the shape, the stack, and the first useful version.</motion.p>
+          <motion.button type="button" className={styles.ctaButton} whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }} onClick={() => setShowRequestForm(true)} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.24 }}>Request a service <ArrowUpRight size={18} /></motion.button>
+        </motion.section>
+
+        <AnimatePresence>
+          {showRequestForm && (
+            <motion.section ref={requestFormRef} className={styles.requestSection} initial={{ opacity: 0, y: 36 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 24 }} transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}>
+              <div className={styles.requestFormWrapper}>
                 <div className={styles.requestHeader}>
-                  <h2 className={styles.requestTitle}>Request a Service</h2>
-                  <p className={styles.requestSubtitle}>
-                    Tell us about your project and we&apos;ll get back to you within 24 hours.
-                  </p>
+                  <span className={styles.sectionKicker}>04 / The brief</span>
+                  <h2 className={styles.requestTitle}>Tell us what keeps you up at night.</h2>
+                  <p className={styles.requestSubtitle}>The more honest the brief, the sharper the first move.</p>
                 </div>
-
-                {submitMessage && <div className={`${styles.requestMessage} ${submitMessage.type === "success" ? styles.requestMessageSuccess : styles.requestMessageError}`}>
-                    {submitMessage.text}
-                  </div>}
-
+                {submitMessage && <div className={`${styles.requestMessage} ${submitMessage.type === "success" ? styles.requestMessageSuccess : styles.requestMessageError}`} role="status">{submitMessage.text}</div>}
                 <form onSubmit={handleSubmit} className={styles.requestForm}>
                   <div className={styles.formGrid}>
-                    <div className={styles.formGroup}>
-                      <label htmlFor="userName" className={styles.formLabel}>
-                        Full Name
-                      </label>
-                      <input type="text" id="userName" value={formData.userName} onChange={e => setFormData({
-                    ...formData,
-                    userName: e.target.value
-                  })} className={styles.formInput} placeholder="joshua mwendwa" />
-                    </div>
-
-                    <div className={styles.formGroup}>
-                      <label htmlFor="userEmail" className={styles.formLabel}>
-                        Email Address *
-                      </label>
-                      <input type="email" id="userEmail" value={formData.userEmail} onChange={e => setFormData({
-                    ...formData,
-                    userEmail: e.target.value
-                  })} className={styles.formInput} placeholder="joshua@gmail.com" required />
-                    </div>
+                    <div className={styles.formGroup}><label htmlFor="userName">Full name</label><input id="userName" value={formData.userName} onChange={(event) => updateFormField("userName", event.target.value)} className={styles.formInput} placeholder="Joshua Mwendwa" /></div>
+                    <div className={styles.formGroup}><label htmlFor="userEmail">Email address *</label><input id="userEmail" type="email" value={formData.userEmail} onChange={(event) => updateFormField("userEmail", event.target.value)} className={styles.formInput} placeholder="joshua@lumyn.co.ke" required /></div>
                   </div>
-
                   <div className={styles.formGrid}>
-                    <div className={styles.formGroup}>
-                      <label htmlFor="serviceType" className={styles.formLabel}>
-                        Service Type *
-                      </label>
-                      <CustomSelect value={formData.serviceType} onChange={value => setFormData({
-                    ...formData,
-                    serviceType: value
-                  })} className={styles.formInput} />
-                    </div>
-
-                    <div className={styles.formGroup}>
-                      <label htmlFor="budget" className={styles.formLabel}>
-                        Budget Range (KES)
-                      </label>
-                      <input type="text" id="budget" value={formData.budget} onChange={e => setFormData({
-                    ...formData,
-                    budget: e.target.value
-                  })} className={styles.formInput} placeholder="e.g., 50,000 - 100,000" />
-                    </div>
+                    <div className={styles.formGroup}><label htmlFor="serviceType">Service type *</label><CustomSelect value={formData.serviceType} onChange={(value) => updateFormField("serviceType", value)} className={styles.formInput} /></div>
+                    <div className={styles.formGroup}><label htmlFor="budget">Budget range (KES)</label><input id="budget" value={formData.budget} onChange={(event) => updateFormField("budget", event.target.value)} className={styles.formInput} placeholder="e.g., 50,000 - 100,000" /></div>
                   </div>
-
-                  <div className={styles.formGroup}>
-                    <label htmlFor="timeline" className={styles.formLabel}>
-                      Expected Timeline
-                    </label>
-                    <input type="text" id="timeline" value={formData.timeline} onChange={e => setFormData({
-                  ...formData,
-                  timeline: e.target.value
-                })} className={styles.formInput} placeholder="e.g., 2-3 months" />
-                  </div>
-
-                  <div className={styles.formGroup}>
-                    <label htmlFor="message" className={styles.formLabel}>
-                      Project Details *
-                    </label>
-                    <textarea id="message" value={formData.message} onChange={e => setFormData({
-                  ...formData,
-                  message: e.target.value
-                })} rows={6} className={styles.formTextarea} placeholder="Describe your project, goals, and any specific requirements..." required />
-                  </div>
-
-                  <div className={styles.formActions}>
-                    <button type="submit" disabled={submitting} className={styles.submitButton}>
-                      {submitting ? "Submitting..." : "Submit Request"}
-                    </button>
-                    <button type="button" onClick={() => setShowRequestForm(false)} className={styles.cancelButton}>
-                      Cancel
-                    </button>
-                  </div>
+                  <div className={styles.formGroup}><label htmlFor="timeline">Expected timeline</label><input id="timeline" value={formData.timeline} onChange={(event) => updateFormField("timeline", event.target.value)} className={styles.formInput} placeholder="e.g., 2-3 months" /></div>
+                  <div className={styles.formGroup}><label htmlFor="message">Project details *</label><textarea id="message" rows={6} value={formData.message} onChange={(event) => updateFormField("message", event.target.value)} className={styles.formTextarea} placeholder="Describe the problem, the ambition, and what success looks like..." required /></div>
+                  <div className={styles.formActions}><button type="submit" disabled={submitting} className={styles.submitButton}>{submitting ? "Sending..." : "Submit request"} <ArrowUpRight size={18} /></button><button type="button" onClick={() => setShowRequestForm(false)} className={styles.cancelButton}>Cancel</button></div>
                 </form>
-              </motion.div>
-            </div>
-          </section>}
+              </div>
+            </motion.section>
+          )}
+        </AnimatePresence>
       </div>
-    </>;
+    </>
+  )
 }

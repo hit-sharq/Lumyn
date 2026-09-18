@@ -6,6 +6,7 @@ import Link from "next/link"
 import { useUser } from "@clerk/nextjs"
 import { SignInButton } from "@clerk/nextjs"
 import styles from "../studio.module.css"
+import LoadingState from "@/components/LoadingState"
 
 interface Purchase {
   id: string
@@ -43,10 +44,7 @@ export default function StudioDashboardPage() {
 
   if (!isLoaded || loading) {
     return (
-      <div className={styles.loading} style={{ paddingTop: 120 }}>
-        <div className={styles.spinner} />
-        <p>Loading your library...</p>
-      </div>
+      <LoadingState variant="page" label="Loading your library" tone="dark" />
     )
   }
 

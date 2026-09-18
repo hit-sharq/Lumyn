@@ -6,6 +6,7 @@ import Link from "next/link"
 import { useUser } from "@clerk/nextjs"
 import { SignInButton } from "@clerk/nextjs"
 import styles from "../studio.module.css"
+import LoadingState from "@/components/LoadingState"
 
 type Template = {
   id: string
@@ -67,10 +68,7 @@ export default function CreatorDashboardPage() {
 
   if (!isLoaded || loading) {
     return (
-      <div className={styles.loading} style={{ paddingTop: 120 }}>
-        <div className={styles.spinner} />
-        <p>Loading creator dashboard...</p>
-      </div>
+      <LoadingState variant="page" label="Loading creator dashboard" tone="dark" />
     )
   }
 

@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import LoadingState from "@/components/LoadingState"
 import { getProposals, approveProposal, generateBusinessCase } from "@/app/actions/proposal"
 import styles from "../growth.module.css"
 
@@ -179,7 +180,7 @@ export default function ProposalsManager() {
             </div>
 
             {initialLoading ? (
-              <p className={styles.growthEmpty}>Loading proposals...</p>
+              <LoadingState variant="compact" label="proposals" />
             ) : proposals.length === 0 ? (
               <p className={styles.growthEmpty}>
                 No proposals generated yet. Use the form to create your first enterprise business case.

@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import LoadingState from "@/components/LoadingState"
 import styles from "../growth.module.css"
 
 type AnalyticsData = {
@@ -45,7 +46,7 @@ export default function AnalyticsManager() {
   }, [])
 
   if (loading) {
-    return <p className={styles.growthEmpty}>Loading analytics...</p>
+    return <LoadingState variant="compact" label="analytics" />
   }
 
   if (error) {

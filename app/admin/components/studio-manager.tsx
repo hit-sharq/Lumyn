@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import Image from "next/image"
+import LoadingState from "@/components/LoadingState"
 import styles from "./manager.module.css"
 import RichTextEditor from "./RichTextEditor"
 
@@ -98,7 +99,7 @@ export default function StudioManager() {
     fetchTemplates()
   }
 
-  if (loading) return <div className={styles.loading}>Loading templates...</div>
+  if (loading) return <LoadingState variant="compact" label="templates" />
 
   return (
     <div>

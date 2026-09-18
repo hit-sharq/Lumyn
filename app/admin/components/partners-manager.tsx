@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import LoadingState from "@/components/LoadingState"
 import { getPartnerStats, generatePartnerCode } from "@/lib/marketing/partners"
 import { Plus, ExternalLink, Copy, TrendingUp, Users, DollarSign, MousePointer, Trash2 } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
@@ -170,13 +171,7 @@ export default function PartnersManager() {
   const totalRevenue = partners.reduce((sum, p) => sum + p.revenue, 0)
 
   if (loading) {
-    return (
-      <div className={styles.growthPage}>
-        <div className="flex items-center justify-center h-64">
-          <p className={styles.growthEmpty}>Loading partners...</p>
-        </div>
-      </div>
-    )
+    return <LoadingState variant="compact" label="partners" />
   }
 
   return (

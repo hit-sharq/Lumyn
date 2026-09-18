@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import LoadingState from "@/components/LoadingState"
 import styles from "../growth.module.css"
 
 interface Campaign {
@@ -67,7 +68,7 @@ export function AICampaignsHistory() {
   return (
     <div>
       {loading ? (
-        <p className={styles.growthEmpty}>Loading campaigns...</p>
+        <LoadingState variant="compact" label="campaigns" />
       ) : campaigns.length === 0 ? (
         <p className={styles.growthEmpty}>No saved campaigns yet. Build a campaign to see it here.</p>
       ) : (

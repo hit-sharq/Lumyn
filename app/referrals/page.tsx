@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Copy, Check, Users, Gift, TrendingUp } from "lucide-react";
 import { motion } from "framer-motion";
+import LoadingState from "@/components/LoadingState";
 interface ReferralData {
   code: string;
   stats: {
@@ -99,9 +100,7 @@ export default function ReferralDashboard() {
     }
   };
   if (loading) {
-    return <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-slate-900"></div>
-      </div>;
+    return <LoadingState variant="page" label="Loading referral dashboard" />;
   }
   if (!data) {
     return <div className="min-h-screen bg-slate-50 flex items-center justify-center">

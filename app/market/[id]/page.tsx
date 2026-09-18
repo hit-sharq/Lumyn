@@ -6,6 +6,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useUser, SignInButton } from "@clerk/nextjs"
 import styles from "../market.module.css"
+import LoadingState from "@/components/LoadingState"
 
 interface Product {
   id: string
@@ -110,10 +111,7 @@ export default function MarketProductPage() {
 
   if (loading) {
     return (
-      <div className={styles.loading} style={{ paddingTop: 120 }}>
-        <div className={styles.spinner} />
-        <p>Loading product...</p>
-      </div>
+      <LoadingState variant="page" label="Loading product" tone="dark" />
     )
   }
 

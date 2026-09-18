@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumyn Technologies — Building Tomorrow's Technology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --white:#ffffff;
+    --off:#f4f3ef;
+    --black:#0a0a0a;
+    --ink-dim:#54524d;
+    --line:#e2e0d8;
+    --signal:#ff4d00;
+    --signal-deep:#d43f00;
+    --radius:0px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--white);color:var(--black);font-family:'Inter',sans-serif;font-size:16px;line-height:1.55;overflow-x:hidden;}
+  h1,h2,h3,.display{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;margin:0;letter-spacing:-0.01em;text-transform:uppercase;}
+  a{color:inherit;text-decoration:none;}
+  img,svg{display:block;max-width:100%;}
+  .wrap{max-width:1280px;margin:0 auto;padding:0 32px;}
+  ul{list-style:none;margin:0;padding:0;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important;animation-iteration-count:1 !important;transition-duration:0.001ms !important;}
+  }
+
+  /* ---------- HEADER ---------- */
+  header{position:sticky;top:0;z-index:60;background:var(--white);border-bottom:2px solid var(--black);}
+  nav{display:flex;align-items:center;justify-content:space-between;padding:18px 32px;max-width:1280px;margin:0 auto;gap:32px;}
+  .brand{display:flex;align-items:center;gap:10px;font-family:'Bricolage Grotesque';font-size:1.5rem;font-weight:800;text-transform:uppercase;}
+  .brand .mark{width:30px;height:30px;background:var(--black);display:flex;align-items:center;justify-content:center;color:var(--white);font-size:1rem;}
+  .nav-links{display:flex;gap:30px;font-size:0.85rem;font-weight:600;text-transform:uppercase;letter-spacing:0.02em;}
+  .nav-links a{position:relative;padding-bottom:3px;}
+  .nav-links a::after{content:'';position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--signal);transition:width .3s ease;}
+  .nav-links a:hover::after{width:100%;}
+  .btn-primary{
+    background:var(--black);color:var(--white);font-weight:700;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.02em;
+    padding:13px 24px;transition:background .25s;display:inline-block;
+  }
+  .btn-primary:hover{background:var(--signal);}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:70px 32px 0;max-width:1280px;margin:0 auto;border-bottom:2px solid var(--black);}
+  .hero-eyebrow{
+    display:flex;align-items:center;gap:10px;font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;
+    margin-bottom:24px;opacity:0;animation:fadeUp .7s ease forwards;animation-delay:.05s;
+  }
+  .hero-eyebrow .dot{width:9px;height:9px;background:var(--signal);border-radius:50%;}
+  @keyframes fadeUp{to{opacity:1;}}
+  .hero h1{font-size:clamp(2.8rem,8vw,6.4rem);line-height:0.94;}
+  .hero h1 .row{display:block;overflow:hidden;}
+  .hero h1 .row span{display:block;transform:translateY(108%);opacity:0;animation:lineUp .85s cubic-bezier(.2,.8,.2,1) forwards;}
+  .hero h1 .row:nth-child(1) span{animation-delay:.12s;}
+  .hero h1 .row:nth-child(2) span{animation-delay:.22s;-webkit-text-stroke:2px var(--black);color:var(--white);}
+  .hero h1 .row:nth-child(3) span{animation-delay:.32s;color:var(--signal);}
+  @keyframes lineUp{to{transform:translateY(0);opacity:1;}}
+
+  .hero-sub{display:grid;grid-template-columns:1fr 1fr;gap:60px;padding:44px 0 0;align-items:end;}
+  .hero-sub p{font-size:1.08rem;color:var(--ink-dim);max-width:44ch;opacity:0;animation:fadeUp .8s ease forwards;animation-delay:.55s;}
+  .hero-actions{display:flex;gap:16px;justify-content:flex-end;opacity:0;animation:fadeUp .8s ease forwards;animation-delay:.68s;}
+  .btn-outline{border:2px solid var(--black);padding:11px 22px;font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.02em;transition:background .25s,color .25s;}
+  .btn-outline:hover{background:var(--black);color:var(--white);}
+
+  .stats-row{margin-top:48px;display:grid;grid-template-columns:repeat(4,1fr);border-top:2px solid var(--black);}
+  .stat{padding:26px 20px;border-right:2px solid var(--black);}
+  .stat:last-child{border-right:none;}
+  .stat .num{font-family:'Bricolage Grotesque';font-size:2.6rem;font-weight:800;}
+  .stat .num span{color:var(--signal);}
+  .stat .label{font-size:0.78rem;color:var(--ink-dim);text-transform:uppercase;letter-spacing:0.03em;margin-top:4px;}
+
+  /* ---------- TICKER ---------- */
+  .ticker{background:var(--signal);border-bottom:2px solid var(--black);overflow:hidden;padding:14px 0;}
+  .ticker-track{display:flex;gap:0;width:max-content;animation:scroll 22s linear infinite;}
+  .ticker-item{
+    font-family:'Bricolage Grotesque';font-weight:700;font-size:1.1rem;text-transform:uppercase;color:var(--white);
+    white-space:nowrap;padding:0 28px;display:flex;align-items:center;gap:28px;
+  }
+  .ticker-item::after{
+    content:'';
+    width:10px;
+    height:10px;
+    border:2px solid currentColor;
+    border-radius:50%;
+    display:block;
+    opacity:0.9;
+  }
+  @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+  /* ---------- CAPABILITIES (numbered rows) ---------- */
+  .cap-list{border-bottom:2px solid var(--black);}
+  .cap-row{
+    display:grid;grid-template-columns:110px 1fr 1.4fr 140px;align-items:center;gap:24px;
+    padding:36px 32px;border-top:2px solid var(--black);
+    transition:background .3s,color .3s;cursor:pointer;
+  }
+  .cap-row:hover{background:var(--black);color:var(--white);}
+  .cap-row:hover .cap-arrow{transform:translateX(6px);color:var(--signal);}
+  .cap-num{font-family:'Bricolage Grotesque';font-size:1.1rem;font-weight:700;color:var(--ink-dim);}
+  .cap-row:hover .cap-num{color:var(--signal);}
+  .cap-title{font-family:'Bricolage Grotesque';font-size:1.9rem;font-weight:800;text-transform:uppercase;}
+  .cap-desc{font-size:0.95rem;color:var(--ink-dim);max-width:52ch;}
+  .cap-row:hover .cap-desc{color:#cfcfcf;}
+  .cap-arrow{font-size:1.6rem;transition:transform .3s,color .3s;text-align:right;}
+
+  /* ---------- WHO WE ARE ---------- */
+  .section-block{padding:90px 0;border-bottom:2px solid var(--black);}
+  .section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:50px;}
+  .section-head h2{font-size:clamp(1.9rem,3.6vw,3rem);max-width:16ch;}
+  .section-head .kicker{font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:var(--signal);margin-bottom:12px;}
+
+  .who-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--black);border:2px solid var(--black);}
+  .who-card{background:var(--white);padding:32px 28px;transition:background .3s,color .3s;}
+  .who-card:hover{background:var(--black);color:var(--white);}
+  .who-card .swatch{width:36px;height:36px;background:var(--signal);margin-bottom:20px;}
+  .who-card h3{font-size:1.2rem;margin-bottom:10px;text-transform:uppercase;}
+  .who-card p{color:var(--ink-dim);font-size:0.9rem;}
+  .who-card:hover p{color:#cfcfcf;}
+
+  /* ---------- INSIGHTS ---------- */
+  .insight-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--black);border:2px solid var(--black);}
+  .insight-card{background:var(--white);transition:background .3s;}
+  .insight-card:hover{background:var(--off);}
+  .insight-thumb{height:130px;background:var(--black);display:flex;align-items:center;justify-content:center;}
+  .insight-thumb span{font-family:'Bricolage Grotesque';font-size:2.4rem;color:var(--signal);font-weight:800;}
+  .insight-body{padding:22px 22px 26px;}
+  .insight-tag{font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.03em;color:var(--signal);margin-bottom:10px;}
+  .insight-body h4{font-family:'Bricolage Grotesque';font-size:1.1rem;text-transform:none;font-weight:700;line-height:1.3;}
+
+  /* ---------- CTA ---------- */
+  .cta-band{background:var(--black);color:var(--white);padding:90px 32px;text-align:center;}
+  .cta-band h2{font-size:clamp(2.2rem,6vw,4.2rem);color:var(--white);max-width:18ch;margin:0 auto;}
+  .cta-band h2 .accent{color:var(--signal);}
+  .cta-band p{color:#adadad;margin-top:20px;max-width:44ch;margin-left:auto;margin-right:auto;font-size:1rem;}
+  .cta-actions{margin-top:36px;display:flex;gap:16px;justify-content:center;}
+  .btn-signal{background:var(--signal);color:var(--white);font-weight:700;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.02em;padding:15px 28px;transition:background .25s,transform .25s;}
+  .btn-signal:hover{background:#ff6a2b;transform:translateY(-2px);}
+  .btn-outline-white{border:2px solid var(--white);color:var(--white);padding:13px 26px;font-size:0.85rem;font-weight:700;text-transform:uppercase;letter-spacing:0.02em;transition:background .25s,color .25s;}
+  .btn-outline-white:hover{background:var(--white);color:var(--black);}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--off);}
+  .footer-top{padding:64px 0 48px;}
+  .footer-grid{display:grid;grid-template-columns:1.3fr repeat(4,1fr);gap:36px;}
+  .footer-brand p{margin-top:16px;font-size:0.88rem;color:var(--ink-dim);max-width:30ch;}
+  .footer-col h5{font-size:0.76rem;text-transform:uppercase;letter-spacing:0.04em;color:var(--black);margin-bottom:16px;font-weight:800;font-family:'Bricolage Grotesque';}
+  .footer-col ul li{margin-bottom:10px;}
+  .footer-col a{font-size:0.86rem;color:var(--ink-dim);transition:color .25s;}
+  .footer-col a:hover{color:var(--signal);}
+  .footer-bottom{border-top:2px solid var(--black);padding:22px 0;}
+  .fb-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;}
+  .fb-legal{display:flex;gap:20px;font-size:0.8rem;color:var(--ink-dim);}
+  .fb-legal a:hover{color:var(--black);}
+  .fb-copy{font-size:0.8rem;color:var(--ink-dim);}
+
+  /* ---------- SCROLL REVEAL ---------- */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:980px){
+    .nav-links{display:none;}
+    .hero-sub{grid-template-columns:1fr;gap:20px;}
+    .hero-actions{justify-content:flex-start;}
+    .stats-row{grid-template-columns:1fr 1fr;}
+    .stat{border-bottom:2px solid var(--black);}
+    .cap-row{grid-template-columns:60px 1fr;row-gap:10px;}
+    .cap-desc{grid-column:2;}
+    .cap-arrow{display:none;}
+    .who-grid,.insight-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:560px){
+    .footer-grid{grid-template-columns:1fr;}
+  }
+
+  :focus-visible{outline:2px solid var(--signal);outline-offset:3px;}
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="brand"><span class="mark">L</span>Lumyn</div>
+    <div class="nav-links">
+      <a href="#capabilities">Capabilities</a>
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#insights">Blog</a>
+    </div>
+    <a href="#contact" class="btn-primary">Start a project</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <div class="hero-eyebrow"><span class="dot"></span>REDEFINING DIGITAL INNOVATION</div>
+  <h1>
+    <span class="row"><span>Building</span></span>
+    <span class="row"><span>Tomorrow's</span></span>
+    <span class="row"><span>Technology</span></span>
+  </h1>
+  <div class="hero-sub">
+    <p>Lumyn Technologies is a Nairobi-based studio crafting enterprise-grade software — from M-Pesa-integrated platforms to AI-assisted products — for businesses ready to move faster than their market.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Start your project</a>
+      <a href="#work" class="btn-outline">Explore our work</a>
+    </div>
+  </div>
+  <div class="stats-row">
+    <div class="stat"><div class="num">12<span>+</span></div><div class="label">Projects Delivered</div></div>
+    <div class="stat"><div class="num">4<span>+</span></div><div class="label">Team Members</div></div>
+    <div class="stat"><div class="num">3<span>+</span></div><div class="label">Events Hosted</div></div>
+    <div class="stat"><div class="num">2<span>+</span></div><div class="label">Years of Innovation</div></div>
+  </div>
+</div>
+
+<div class="ticker">
+  <div class="ticker-track">
+    <div class="ticker-item">AVAILABLE FOR NEW PROJECTS</div>
+    <div class="ticker-item">LAUNCH</div>
+    <div class="ticker-item">MARKET</div>
+    <div class="ticker-item">STUDIO</div>
+    <div class="ticker-item">HIRE</div>
+    <div class="ticker-item">AVAILABLE FOR NEW PROJECTS</div>
+    <div class="ticker-item">LAUNCH</div>
+    <div class="ticker-item">MARKET</div>
+    <div class="ticker-item">STUDIO</div>
+    <div class="ticker-item">HIRE</div>
+  </div>
+</div>
+
+<div class="cap-list" id="capabilities">
+  <div class="cap-row reveal">
+    <div class="cap-num">01</div>
+    <div class="cap-title">Launch</div>
+    <div class="cap-desc">Build stunning, high-performance websites and web applications on our platform.</div>
+    <div class="cap-arrow">→</div>
+  </div>
+  <div class="cap-row reveal">
+    <div class="cap-num">02</div>
+    <div class="cap-title">Market</div>
+    <div class="cap-desc">Launch and scale digital products with our comprehensive marketplace ecosystem.</div>
+    <div class="cap-arrow">→</div>
+  </div>
+  <div class="cap-row reveal">
+    <div class="cap-num">03</div>
+    <div class="cap-title">Studio</div>
+    <div class="cap-desc">Premium templates, assets, and tools for creators and developers.</div>
+    <div class="cap-arrow">→</div>
+  </div>
+  <div class="cap-row reveal">
+    <div class="cap-num">04</div>
+    <div class="cap-title">Hire</div>
+    <div class="cap-desc">Connect with top talent and discover opportunities in our growing network.</div>
+    <div class="cap-arrow">→</div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="section-block" id="about">
+    <div class="section-head reveal">
+      <div>
+        <div class="kicker">WHO WE ARE</div>
+        <h2>Pioneering the future of digital innovation</h2>
+      </div>
+    </div>
+    <div class="who-grid">
+      <div class="who-card reveal">
+        <div class="swatch"></div>
+        <h3>Enterprise Solutions</h3>
+        <p>Scalable architecture built for mission-critical requirements, from M-Pesa payment rails to multi-tenant platforms.</p>
+      </div>
+      <div class="who-card reveal">
+        <div class="swatch"></div>
+        <h3>Cutting-Edge Technology</h3>
+        <p>Leveraging AI, cloud-native architectures, and modern development practices across every build.</p>
+      </div>
+      <div class="who-card reveal">
+        <div class="swatch"></div>
+        <h3>Global Impact</h3>
+        <p>Trusted by businesses across Kenya and beyond to drive real digital transformation, not just websites.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-block" id="insights">
+    <div class="section-head reveal">
+      <div>
+        <div class="kicker">LATEST INSIGHTS</div>
+        <h2>Stay updated with Lumyn Technologies</h2>
+      </div>
+    </div>
+    <div class="insight-grid">
+      <div class="insight-card reveal">
+        <div class="insight-thumb"><span>01</span></div>
+        <div class="insight-body"><div class="insight-tag">Product</div><h4>Why we're building Synthos for Kenya's creative talent</h4></div>
+      </div>
+      <div class="insight-card reveal">
+        <div class="insight-thumb"><span>02</span></div>
+        <div class="insight-body"><div class="insight-tag">Engineering</div><h4>Integrating M-Pesa Daraja: lessons from three builds</h4></div>
+      </div>
+      <div class="insight-card reveal">
+        <div class="insight-thumb"><span>03</span></div>
+        <div class="insight-body"><div class="insight-tag">Studio</div><h4>A look inside the Lumyn Studio template system</h4></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="work" class="cta-band">
+  <h2 class="reveal">Ready to transform <span class="accent">your vision?</span></h2>
+  <p class="reveal">Partner with Lumyn Technologies and let's build the future together. We turn ambitious ideas into reality.</p>
+  <div class="cta-actions reveal">
+    <a href="#contact" class="btn-signal">Start a project</a>
+    <a href="#about" class="btn-outline-white">Meet Lumyn Technologies</a>
+  </div>
+</div>
+
+<footer id="contact">
+  <div class="wrap footer-top">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand"><span class="mark">L</span>Lumyn</div>
+        <p>A digital innovation studio engineering bespoke platforms, products, and experiences that move ambitious businesses forward.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Team</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Company Profile</a></li>
+          <li><a href="#">Projects</a></li>
+          <li><a href="#">Partners</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Products</h5>
+        <ul>
+          <li><a href="#">Lumyn Studio</a></li>
+          <li><a href="#">Lumyn Launch</a></li>
+          <li><a href="#">Lumyn Market</a></li>
+          <li><a href="#">Lumyn Hire</a></li>
+          <li><a href="#">AI Marketing</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Resources</h5>
+        <ul>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Events</a></li>
+          <li><a href="#">News</a></li>
+          <li><a href="#">Gallery</a></li>
+          <li><a href="#">Newsletter</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="mailto:info@lumyn.co.ke">info@lumyn.co.ke</a></li>
+          <li><a href="mailto:support@lumyn.co.ke">support@lumyn.co.ke</a></li>
+          <li><a href="#">Nairobi, Kenya</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="wrap fb-row">
+      <div class="fb-copy">© 2026 LUMYN TECHNOLOGIES. ALL RIGHTS RESERVED.</div>
+      <div class="fb-legal">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>

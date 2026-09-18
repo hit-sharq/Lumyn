@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import LoadingState from "@/components/LoadingState"
 import styles from "../growth.module.css"
 
 interface AITemplate {
@@ -114,7 +115,7 @@ export function AITemplatesManager() {
       </div>
 
       {loading ? (
-        <p className={styles.growthEmpty}>Loading templates...</p>
+        <LoadingState variant="compact" label="templates" />
       ) : searched.length === 0 ? (
         <p className={styles.growthEmpty}>No templates found. Generate content and save it as a template.</p>
       ) : (

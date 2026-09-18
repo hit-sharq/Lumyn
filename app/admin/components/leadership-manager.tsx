@@ -3,6 +3,7 @@
 import type React from "react"
 
 import { useState, useEffect } from "react"
+import LoadingState from "@/components/LoadingState"
 import styles from "./manager.module.css"
 import RichTextEditor from "./RichTextEditor"
 import { markdownToHtml } from "@/lib/markdown"
@@ -156,7 +157,7 @@ export default function LeadershipManager() {
   }
 
   if (loading) {
-    return <div className={styles.loading}>Loading leadership team...</div>
+    return <LoadingState variant="compact" label="leadership" />
   }
 
   if (error) {

@@ -6,6 +6,7 @@ import { useParams, useRouter } from "next/navigation";
 import Head from "next/head";
 import ShareButton from "@/components/ShareButton";
 import styles from "../apply.module.css";
+import LoadingState from "@/components/LoadingState";
 interface Career {
   id: string;
   title: string;
@@ -168,10 +169,7 @@ export default function JobApplicationPage() {
     }
   };
   if (loading) {
-    return <div className={styles.loading}>
-        <div className={styles.loadingSpinner}></div>
-        <p>Loading application form...</p>
-      </div>;
+    return <LoadingState variant="page" label="Loading application form" />;
   }
   if (!career) {
     return <div className={styles.error}>

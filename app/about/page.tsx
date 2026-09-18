@@ -8,6 +8,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import styles from "./about.module.css";
 import type { JSX } from "react/jsx-runtime";
 import { markdownToHtml } from "@/lib/markdown";
+import LoadingState from "@/components/LoadingState";
 interface Section {
   id: string;
   title: string;
@@ -267,14 +268,9 @@ export default function AboutPage() {
     content: <div style={{
       marginTop: '24px'
     }}>
-          {loading ? <motion.div className={styles.loadingCard} initial={{
-        opacity: 0
-      }} animate={{
-        opacity: 1
-      }}>
-              <div className={styles.spinner}></div>
-              <p>Loading team members...</p>
-            </motion.div> : leaders.length > 0 ? <motion.div className={styles.teamGrid} initial="hidden" whileInView="visible" viewport={{
+          {loading ? (
+              <LoadingState variant="page" label="Loading team" />
+            ) : leaders.length > 0 ? <motion.div className={styles.teamGrid} initial="hidden" whileInView="visible" viewport={{
         once: true
       }}>
               {leaders.map((leader, index) => <motion.div key={leader.id} className={styles.teamCard} initial={{

@@ -1,0 +1,70 @@
+.progress {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--orange);
+  box-shadow: 0 0 16px color-mix(in srgb, var(--orange) 55%, transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.cursorGlow,
+.cursorRingShell,
+.cursorDotShell {
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.cursorGlow {
+  width: 260px;
+  height: 260px;
+  margin: -130px 0 0 -130px;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--orange) 13%, transparent), transparent 68%);
+  mix-blend-mode: multiply;
+}
+
+.cursorRingShell,
+.cursorDotShell {
+  margin: -18px 0 0 -18px;
+}
+
+.cursorDotShell {
+  margin: -4px 0 0 -4px;
+}
+
+.cursorRing,
+.cursorDot {
+  display: block;
+  border-radius: 50%;
+}
+
+.cursorRing {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--orange);
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.cursorRingShell[data-motion-interactive="true"] .cursorRing,
+.cursorRingShell:hover .cursorRing {
+  background: color-mix(in srgb, var(--orange) 12%, transparent);
+}
+
+.cursorDot {
+  width: 8px;
+  height: 8px;
+  background: var(--orange);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--orange) 14%, transparent);
+}
+@media (pointer: coarse) {
+  .cursorGlow,
+  .cursorRingShell,
+  .cursorDotShell { display: none; }
+}

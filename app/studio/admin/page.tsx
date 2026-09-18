@@ -5,6 +5,7 @@ import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./studio-admin.module.css";
+import LoadingState from "@/components/LoadingState";
 interface Template {
   id: string;
   title: string;
@@ -140,12 +141,7 @@ export default function StudioAdminPage() {
     } catch {}
   };
   if (!isLoaded || loading) {
-    return <div className={styles.loading}>
-        <div className={styles.loadingBox}>
-          <div className={styles.spinner} />
-          <p className={styles.loadingText}>Loading…</p>
-        </div>
-      </div>;
+    return <LoadingState variant="page" label="Loading admin dashboard" />;
   }
   if (!isAdmin) {
     return <div className={styles.error}>

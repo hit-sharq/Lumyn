@@ -2,6 +2,7 @@
 
 import type React from "react";
 import { useState, useEffect } from "react";
+import LoadingState from "@/components/LoadingState";
 import styles from "./manager.module.css";
 import RichTextEditor from "./RichTextEditor";
 interface GalleryItem {
@@ -109,7 +110,7 @@ export default function GalleryManager() {
     setPreviewUrl("");
   };
   if (loading) {
-    return <div className={styles.loading}>Loading...</div>;
+    return <LoadingState variant="compact" label="gallery" />;
   }
   return <div className={styles.manager}>
       <div className={styles.header}>

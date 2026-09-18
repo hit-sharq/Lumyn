@@ -7,6 +7,7 @@ import Link from "next/link"
 import { useUser } from "@clerk/nextjs"
 import { SignInButton } from "@clerk/nextjs"
 import styles from "../studio.module.css"
+import LoadingState from "@/components/LoadingState"
 
 interface Template {
   id: string
@@ -109,10 +110,7 @@ export default function TemplateDetailPage() {
 
   if (loading) {
     return (
-      <div className={styles.loading} style={{ paddingTop: 120 }}>
-        <div className={styles.spinner} />
-        <p>Loading template...</p>
-      </div>
+      <LoadingState variant="page" label="Loading template" tone="dark" />
     )
   }
 

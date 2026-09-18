@@ -5,6 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useUser, SignInButton } from "@clerk/nextjs"
 import styles from "./market.module.css"
+import LoadingState from "@/components/LoadingState"
 
 const CATEGORIES = ["All", "Templates", "UI Kits", "Icons", "Fonts", "eBooks", "Courses", "Tools", "Other"]
 
@@ -122,10 +123,7 @@ export default function MarketPage() {
           </div>
 
           {loading ? (
-            <div className={styles.loading}>
-              <div className={styles.spinner} />
-              <p>Loading products...</p>
-            </div>
+            <LoadingState variant="page" label="Loading products..." />
           ) : products.length === 0 ? (
             <div className={styles.emptyState}>
               <h3>No products yet</h3>

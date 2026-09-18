@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import LoadingState from '@/components/LoadingState';
 interface Creator {
   id: string;
   displayName: string;
@@ -80,12 +81,7 @@ export default function CreatorProfile() {
     }
   }, [username]);
   if (loading) {
-    return <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center">
-        <div className="text-center">
-          <div className="inline-block animate-spin">⏳</div>
-          <p className="text-slate-300 mt-4">Loading creator profile...</p>
-        </div>
-      </div>;
+    return <LoadingState variant="page" label="Loading creator profile" tone="dark" />;
   }
   if (error || !creator) {
     return <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center">

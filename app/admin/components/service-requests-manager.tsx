@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
+import LoadingState from "@/components/LoadingState"
 import styles from "./service-requests.module.css"
 import RichTextEditor from "./RichTextEditor"
 
@@ -89,13 +90,7 @@ export default function ServiceRequestsManager() {
   }
 
   if (loading) {
-    return (
-      <div className={styles.serviceRequestsPage}>
-        <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-slate-900"></div>
-        </div>
-      </div>
-    )
+    return <LoadingState variant="compact" label="service requests" />
   }
 
   return (

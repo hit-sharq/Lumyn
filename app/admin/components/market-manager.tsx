@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import LoadingState from "@/components/LoadingState"
 import styles from "./manager.module.css"
 
 export default function MarketManager() {
@@ -38,7 +39,7 @@ export default function MarketManager() {
     setMessage("Product deleted.")
   }
 
-  if (loading) return <div className={styles.loading}>Loading products...</div>
+  if (loading) return <LoadingState variant="compact" label="products" />
 
   return (
     <div>

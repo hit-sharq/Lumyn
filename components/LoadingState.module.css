@@ -1,0 +1,318 @@
+.root {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: var(--white);
+  color: var(--black);
+}
+
+.progressTrack {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--black) 10%, var(--white));
+}
+
+.progressSignal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 38%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, var(--signal), transparent);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--signal) 60%, transparent);
+}
+
+.page {
+  min-height: min(72vh, 760px);
+}
+
+.pageStage {
+  display: grid;
+  min-height: inherit;
+  place-items: center;
+  align-content: center;
+  gap: 28px;
+  padding: 72px 24px;
+  text-align: center;
+}
+
+.signalMark {
+  position: relative;
+  width: 104px;
+  aspect-ratio: 1;
+}
+
+.signalCore,
+.signalRing,
+.signalRingDelay {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.signalCore {
+  inset: 38px;
+  background: var(--signal);
+  box-shadow: 0 0 34px color-mix(in srgb, var(--signal) 65%, transparent);
+  animation: signalCorePulse 1.6s ease-in-out infinite;
+}
+
+.signalRing,
+.signalRingDelay {
+  inset: 0;
+  border: 1px solid color-mix(in srgb, var(--signal) 55%, transparent);
+  animation: signalRingSpin 2.4s linear infinite;
+}
+
+.signalRing::before,
+.signalRing::after {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  content: "";
+  background: var(--signal);
+  box-shadow: 0 0 12px var(--signal);
+}
+
+.signalRing::before {
+  top: 12px;
+  left: 16px;
+}
+
+.signalRing::after {
+  right: 12px;
+  bottom: 18px;
+}
+
+.signalRingDelay {
+  inset: 15px;
+  border-style: dashed;
+  animation-direction: reverse;
+  animation-duration: 3.4s;
+}
+
+.pageCopy {
+  display: grid;
+  gap: 8px;
+}
+
+.label {
+  margin: 0;
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.detail {
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.skeletonGrid {
+  display: grid;
+  min-height: 460px;
+  padding: 32px 0;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2px;
+  background: var(--black);
+  border: 2px solid var(--black);
+}
+
+.skeletonCard {
+  position: relative;
+  min-width: 0;
+  background: var(--white);
+}
+
+.skeletonMedia {
+  position: relative;
+  height: 190px;
+  overflow: hidden;
+  background: var(--black);
+}
+
+.skeletonShimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, color-mix(in srgb, var(--black) 82%, var(--white)) 22%, color-mix(in srgb, var(--black) 58%, var(--white)) 42%, color-mix(in srgb, var(--black) 82%, var(--white)) 62%);
+  background-size: 240% 100%;
+  animation: skeletonDrift 1.55s linear infinite;
+}
+
+.skeletonShimmer::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: radial-gradient(circle at 72% 28%, color-mix(in srgb, var(--signal) 30%, transparent), transparent 32%);
+}
+
+.skeletonBadge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 64px;
+  height: 18px;
+  border: 1px solid color-mix(in srgb, var(--white) 18%, transparent);
+  background: color-mix(in srgb, var(--signal) 70%, var(--black));
+  opacity: 0.72;
+}
+
+.skeletonBody {
+  display: grid;
+  gap: 12px;
+  padding: 22px;
+}
+
+.skeletonLine {
+  display: block;
+  width: 100%;
+  height: 12px;
+  background: linear-gradient(90deg, var(--off), color-mix(in srgb, var(--black) 8%, var(--white)), var(--off));
+  background-size: 220% 100%;
+  animation: skeletonDrift 1.35s linear infinite reverse;
+}
+
+.skeletonLineShort {
+  width: 44%;
+  height: 18px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--signal) 32%, var(--white)), color-mix(in srgb, var(--signal) 12%, var(--white)), color-mix(in srgb, var(--signal) 32%, var(--white)));
+  background-size: 220% 100%;
+}
+
+.skeletonLineMeta {
+  width: 66%;
+  height: 9px;
+}
+
+.dark {
+  background: #0a0a0a;
+  color: #ffffe3;
+}
+
+.dark .detail {
+  color: rgba(255, 255, 227, 0.54);
+}
+
+.dark .progressTrack {
+  background: rgba(255, 255, 227, 0.09);
+}
+
+.dark .skeletonGrid {
+  background: #ffffe3;
+  border-color: #ffffe3;
+}
+
+.dark .skeletonCard {
+  background: #11110f;
+}
+
+.dark .skeletonMedia {
+  background: #171715;
+}
+
+.dark .skeletonShimmer {
+  background: linear-gradient(105deg, #292925 22%, #3b3b35 42%, #292925 62%);
+}
+
+.dark .skeletonShimmer::after {
+  background: radial-gradient(circle at 72% 28%, rgba(255, 77, 0, 0.22), transparent 32%);
+}
+
+.dark .skeletonBadge {
+  border-color: rgba(255, 255, 227, 0.18);
+  background: color-mix(in srgb, var(--signal) 70%, #11110f);
+}
+
+.dark .skeletonBody {
+  color: #ffffe3;
+}
+
+.dark .skeletonLine {
+  background: linear-gradient(90deg, #292925, #3b3b35, #292925);
+}
+
+.dark .skeletonLineShort {
+  background: linear-gradient(90deg, rgba(255, 77, 0, 0.42), rgba(255, 77, 0, 0.16), rgba(255, 77, 0, 0.42));
+}
+
+.editorial .skeletonMedia,
+.portfolio .skeletonMedia {
+  height: 180px;
+}
+
+.compact {
+  min-height: 260px;
+}
+
+.compact .skeletonGrid {
+  min-height: 180px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.compact .skeletonMedia {
+  height: 110px;
+}
+
+@keyframes signalCorePulse {
+  0%, 100% { transform: scale(0.78); opacity: 0.7; }
+  50% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes signalRingSpin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes skeletonDrift {
+  to { background-position: -240% 0; }
+}
+
+@media (max-width: 800px) {
+  .skeletonGrid,
+  .compact .skeletonGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .skeletonMedia,
+  .editorial .skeletonMedia,
+  .portfolio .skeletonMedia {
+    height: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page {
+    min-height: 58vh;
+  }
+
+  .pageStage {
+    min-height: 58vh;
+    padding: 54px 20px;
+  }
+
+  .skeletonGrid,
+  .compact .skeletonGrid {
+    min-height: 300px;
+    padding: 18px 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progressSignal,
+  .signalCore,
+  .signalRing,
+  .signalRingDelay,
+  .skeletonShimmer,
+  .skeletonLine {
+    animation: none !important;
+  }
+}

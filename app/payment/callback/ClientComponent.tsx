@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import styles from "./callback.module.css"
+import LoadingState from "@/components/LoadingState"
 // PaymentStatusData type moved to page.tsx, no longer needed here
 
 interface ClientComponentProps {
@@ -66,13 +67,9 @@ export default function PaymentCallbackClient({
   return (
     <div className={styles.page}>
       <div className={styles.card}>
-        {status === "loading" && (
-          <>
-            <div className={styles.spinner} />
-            <h1 className={styles.title}>Verifying Payment...</h1>
-            <p className={styles.text}>Please wait while we confirm your payment with Pesapal.</p>
-          </>
-        )}
+{status === "loading" && (
+            <LoadingState variant="page" label="Verifying payment" />
+          )}
 
         {status === "success" && (
           <>

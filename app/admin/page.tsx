@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { useUser } from "@clerk/nextjs"
+import LoadingState from "@/components/LoadingState"
 import styles from "./admin.module.css"
 import NewsManager from "./components/news-manager"
 import BlogManager from "./components/blog-manager"
@@ -63,13 +64,7 @@ export default function AdminPage() {
   }
 
   if (!isLoaded || isChecking) {
-    return (
-      <div className={styles.loginPage}>
-        <div className={styles.loginBox}>
-          <p>Loading...</p>
-        </div>
-      </div>
-    )
+    return <LoadingState variant="page" label="Checking admin access" />
   }
 
   if (!isAdmin) {

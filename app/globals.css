@@ -250,6 +250,17 @@ html, body {
   animation: scroll 22s linear infinite;
 }
 
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  body,
+  a,
+  button,
+  input,
+  textarea,
+  select {
+    cursor: none;
+  }
+}
+
 /* No-radius utility for shadcn components in the new system */
 .no-radius {
   border-radius: 0px !important;

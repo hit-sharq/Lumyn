@@ -5,6 +5,7 @@ import { useAuth } from "@clerk/nextjs";
 import Link from "next/link";
 import styles from "./hire.module.css";
 import ErrorMessage from "@/components/ErrorMessage";
+import LoadingState from "@/components/LoadingState";
 const CATEGORIES = ["All", "Technology", "Design", "Marketing", "Finance", "Healthcare", "Education", "Operations", "Sales", "Other"];
 const JOB_TYPES = ["Full-time", "Part-time", "Contract", "Freelance", "Internship"];
 const PLANS = [{
@@ -163,19 +164,30 @@ export default function HirePage() {
                 </button>)}
             </div>
 
-            {loading ? <div className={styles.emptyState}>
-                <div className={styles.spinner} />
-                <p>Loading jobs...</p>
-              </div> : jobs.length === 0 ? <div className={styles.emptyState}>
+            {loading ? (
+              <LoadingState variant="page" label="Loading jobs" />
+            ) : jobs.length === 0 ? (
+              <div className={styles.emptyState}>
                 <div className={styles.emptyIcon}>💼</div>
                 <h3>No jobs posted yet</h3>
                 <p>Be the first company to reach Lumyn Technologies&apos;s audience.</p>
                 <button className={styles.ctaBtn} onClick={() => setView("post")}>Post a Job</button>
-              </div> : <div className={styles.jobGrid}>
-                {jobs.map(job => <div key={job.id} className={`${styles.jobCard} ${job.isFeatured ? styles.featured : ""}`} onClick={() => setSelectedJob(job)}>
+              </div>
+            ) : (
+              <div className={styles.jobGrid}>
+                {jobs.map(job => (
+                  <div
+                    key={job.id}
+                    className={`${styles.jobCard} ${job.isFeatured ? styles.featured : ""}`}
+                    onClick={() => setSelectedJob(job)}
+                  >
                     {job.isFeatured && <span className={styles.featuredBadge}>⭐ Featured</span>}
                     <div className={styles.jobMeta}>
-                      {job.companyLogo ? <img src={job.companyLogo} alt={job.companyName} className={styles.companyLogo} /> : <div className={styles.companyInitial}>{job.companyName[0]}</div>}
+                      {job.companyLogo ? (
+                        <img src={job.companyLogo} alt={job.companyName} className={styles.companyLogo} />
+                      ) : (
+                        <div className={styles.companyInitial}>{job.companyName[0]}</div>
+                      )}
                       <div>
                         <h3 className={styles.jobTitle}>{job.jobTitle}</h3>
                         <p className={styles.companyName}>{job.companyName}</p>
@@ -191,8 +203,10 @@ export default function HirePage() {
                       <span className={styles.category}>{job.category}</span>
                       <span className={styles.applyBtn}>View & Apply →</span>
                     </div>
-                  </div>)}
-              </div>}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>}
 

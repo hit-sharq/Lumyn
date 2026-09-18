@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import { useUser, SignInButton } from "@clerk/nextjs"
 import styles from "../launch.module.css"
+import LoadingState from "@/components/LoadingState"
 
 interface Portfolio {
   id: string
@@ -56,10 +57,7 @@ export default function LaunchDashboardPage() {
 
   if (!isLoaded || loading) {
     return (
-      <div className={styles.loading} style={{ paddingTop: 120 }}>
-        <div className={styles.spinner} />
-        <p>Loading your portfolios...</p>
-      </div>
+      <LoadingState variant="page" label="Loading your portfolios" />
     )
   }
 

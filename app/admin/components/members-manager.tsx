@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import LoadingState from "@/components/LoadingState"
 import styles from "./manager.module.css"
 
 interface Member {
@@ -44,7 +45,7 @@ export default function MembersManager() {
   )
 
   if (loading) {
-    return <div className={styles.loading}>Loading...</div>
+    return <LoadingState variant="compact" label="members" />
   }
 
   return (

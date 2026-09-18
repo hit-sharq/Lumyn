@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import LoadingState from "@/components/LoadingState";
 import styles from "./manager.module.css";
 import RichTextEditor from "./RichTextEditor";
 interface Project {
@@ -151,7 +152,7 @@ export default function ProjectsManager() {
   };
   const categories = ["website", "web-app", "mobile-app", "e-commerce", "api", "other"];
   if (loading) {
-    return <div className={styles.loading}>Loading projects...</div>;
+    return <LoadingState variant="compact" label="projects" />;
   }
   return <div className={styles.manager}>
       <div className={styles.header}>

@@ -2,6 +2,7 @@
 
 import type React from "react";
 import { useState, useEffect } from "react";
+import LoadingState from "@/components/LoadingState";
 import styles from "./manager.module.css";
 import ToastNotification from "@/components/toast-notification";
 import RichTextEditor from "./RichTextEditor";
@@ -169,7 +170,7 @@ export default function CareersManager() {
     setPreviewUrl("");
   };
   if (loading) {
-    return <div className={styles.loading}>Loading...</div>;
+    return <LoadingState variant="compact" label="careers" />;
   }
   return <>
       {toasts.map(toast => <ToastNotification key={toast.id} message={toast.message} type={toast.type} onClose={() => removeToast(toast.id)} />)}

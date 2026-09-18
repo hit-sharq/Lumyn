@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation"
 import { useUser, SignInButton } from "@clerk/nextjs"
 import Link from "next/link"
 import styles from "./builder.module.css"
+import LoadingState from "@/components/LoadingState"
 
 interface Project {
   id?: string
@@ -122,22 +123,21 @@ function BuilderContent() {
     } catch {}
   }
 
-  if (!isLoaded || !isSignedIn) {
+if (!isLoaded) {
+    return (
+      <LoadingState variant="page" label="Loading builder" />
+    )
+  }
+  if (!isSignedIn) {
     return (
       <div className={styles.page} style={{ height: "calc(100vh - 64px)", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <div className={styles.noAccess}>
-          <div className={styles.noAccessIcon}>{!isLoaded ? "⏳" : "🔒"}</div>
-          <h2 className={styles.noAccessTitle}>
-            {!isLoaded ? "Loading…" : "Sign in to build your portfolio"}
-          </h2>
-          {isLoaded && (
-            <>
-              <p className={styles.noAccessText}>Create a free account to get started in minutes.</p>
-              <SignInButton mode="modal">
-                <button className={styles.noAccessBtn}>Sign In to Continue →</button>
-              </SignInButton>
-            </>
-          )}
+          <div className={styles.noAccessIcon}>🔒</div>
+          <h2 className={styles.noAccessTitle}>Sign in to build your portfolio</h2>
+          <p className={styles.noAccessText}>Create a free account to get started in minutes.</p>
+          <SignInButton mode="modal">
+            <button className={styles.noAccessBtn}>Sign In to Continue →</button>
+          </SignInButton>
         </div>
       </div>
     )

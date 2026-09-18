@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import LoadingState from '@/components/LoadingState';
 
 interface EarningsData {
   marketEarnings: number;
@@ -224,10 +225,7 @@ export default function CreatorDashboard() {
           </CardHeader>
           <CardContent>
             {loading ? (
-              <div className="text-center py-8">
-                <div className="inline-block animate-spin">⏳</div>
-                <p className="text-slate-400 mt-2">Loading transactions...</p>
-              </div>
+              <LoadingState variant="page" label="Loading transactions" tone="dark" />
             ) : transactions.length === 0 ? (
               <div className="text-center py-8">
                 <p className="text-slate-400">No transactions yet. Start selling to see activity here!</p>
