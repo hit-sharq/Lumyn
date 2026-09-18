@@ -2,6 +2,7 @@
 
 import type React from "react";
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import styles from "./contact.module.css";
 
 // Enhanced contact form with phone number and areas of interest for well-detailed submissions
@@ -54,48 +55,77 @@ export default function ContactPage() {
       setErrorMessage("An error occurred. Please try again later.");
     }
   };
-  return <div className={styles.contactPage}>
+return (
+    <div className={styles.contactPage}>
       <section className={styles.hero}>
         <div className={styles.heroContent}>
-          <h1 className={styles.heroTitle}>Get In Touch</h1>
-          <p className={styles.heroSubtitle}>We&apos;d love to hear from you. Send us a message!</p>
+          <motion.h1
+            className={styles.heroTitle}
+            initial={{ opacity: 0, y: 36 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          >
+            Get In Touch
+          </motion.h1>
+          <motion.p
+            className={styles.heroSubtitle}
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+          >
+            We&apos;d love to hear from you. Send us a message!
+          </motion.p>
         </div>
       </section>
 
       <section className={styles.contactSection}>
         <div className={styles.container}>
           <div className={styles.contactGrid}>
-            <div className={styles.contactInfo}>
-              <h2 className={styles.infoTitle}>Contact Information</h2>
+            <motion.div
+              className={styles.contactInfo}
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <motion.h2
+                className={styles.infoTitle}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              >
+                Contact Information
+              </motion.h2>
               <p className={styles.infoText}>
                 Have questions about our services? Want to discuss a project? Reach out to us and we&apos;ll get back to you as soon as
                 possible.
               </p>
 
               <div className={styles.infoCards}>
-                <div className={styles.infoCard}>
-                  <div className={styles.infoIcon}>📧</div>
-                  <h3 className={styles.infoCardTitle}>General Inquiries</h3>
-                  <a href="mailto:info@lumyn.co.ke" className={styles.infoCardLink}>info@lumyn.co.ke</a>
-                </div>
-
-                <div className={styles.infoCard}>
-                  <div className={styles.infoIcon}>🛟</div>
-                  <h3 className={styles.infoCardTitle}>Technical Support</h3>
-                  <a href="mailto:support@lumyn.co.ke" className={styles.infoCardLink}>support@lumyn.co.ke</a>
-                </div>
-
-                <div className={styles.infoCard}>
-                  <div className={styles.infoIcon}>📍</div>
-                  <h3 className={styles.infoCardTitle}>Location</h3>
-                  <p className={styles.infoCardText}>Remote & On-site Services</p>
-                </div>
-
-                <div className={styles.infoCard}>
-                  <div className={styles.infoIcon}>🕐</div>
-                  <h3 className={styles.infoCardTitle}>Response Time</h3>
-                  <p className={styles.infoCardText}>Within 24 hours</p>
-                </div>
+                {[
+                  { icon: "📧", title: "General Inquiries", link: "mailto:info@lumyn.co.ke", text: "info@lumyn.co.ke" },
+                  { icon: "🛟", title: "Technical Support", link: "mailto:support@lumyn.co.ke", text: "support@lumyn.co.ke" },
+                  { icon: "📍", title: "Location", text: "Remote &amp; On-site Services" },
+                  { icon: "🕐", title: "Response Time", text: "Within 24 hours" },
+                ].map((card, index) => (
+                  <motion.div
+                    key={card.title}
+                    className={styles.infoCard}
+                    initial={{ opacity: 0, y: 28 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 0.55, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    <div className={styles.infoIcon}>{card.icon}</div>
+                    <h3 className={styles.infoCardTitle}>{card.title}</h3>
+                    {card.link ? (
+                      <a href={card.link} className={styles.infoCardLink}>{card.text}</a>
+                    ) : (
+                      <p className={styles.infoCardText}>{card.text}</p>
+                    )}
+                  </motion.div>
+                ))}
               </div>
 
               <div className={styles.socialSection}>
@@ -106,20 +136,43 @@ export default function ContactPage() {
                   </a>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
-            <div className={styles.contactForm}>
+            <motion.div
+              className={styles.contactForm}
+              initial={{ opacity: 0, x: 40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.7, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+            >
               <h2 className={styles.formTitle}>Send Us a Message</h2>
 
-              {status === "success" && <div className={styles.successMessage}>
-                  <p>Thank you for your message! We&apos;ll get back to you soon.</p>
-                </div>}
+              <AnimatePresence>
+                {status === "success" && (
+                  <motion.div
+                    className={styles.successMessage}
+                    initial={{ opacity: 0, y: -16, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -12, scale: 0.98 }}
+                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    <p>Thank you for your message! We&apos;ll get back to you soon.</p>
+                  </motion.div>
+                )}
+                {status === "error" && (
+                  <motion.div
+                    className={styles.errorMessage}
+                    initial={{ opacity: 0, y: -16, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -12, scale: 0.98 }}
+                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    <p>{errorMessage}</p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
-              {status === "error" && <div className={styles.errorMessage}>
-                  <p>{errorMessage}</p>
-                </div>}
-
-              <form onSubmit={handleSubmit}>
+<form onSubmit={handleSubmit}>
                 <div className={styles.formGroup}>
                   <label htmlFor="name" className={styles.label}>
                     Full Name *
@@ -167,7 +220,7 @@ export default function ContactPage() {
                     <option value="mobile-apps">Mobile Applications</option>
                     <option value="e-commerce">E-commerce Solutions</option>
                     <option value="digital-strategy">Digital Strategy</option>
-                    <option value="branding">Branding & Design</option>
+                    <option value="branding">Branding &amp; Design</option>
                     <option value="consulting">Technical Consulting</option>
                     <option value="maintenance">Ongoing Maintenance</option>
                     <option value="other">Other Services</option>
@@ -186,9 +239,10 @@ export default function ContactPage() {
                   {status === "loading" ? "Sending..." : "Send Message"}
                 </button>
               </form>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
-    </div>;
+    </div>
+  )
 }

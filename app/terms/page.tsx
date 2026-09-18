@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Head from "next/head";
 import styles from "./terms.module.css";
+import { motion } from "framer-motion";
 import type { JSX } from "react/jsx-runtime"; // Added import for JSX
 
 interface Section {
@@ -166,22 +167,24 @@ export default function TermsPage() {
       <div className={styles.termsPage}>
         <section className={styles.hero}>
           <div className={styles.heroContent}>
-            <h1 className={styles.heroTitle}>Terms and Conditions</h1>
-            <p className={styles.heroSubtitle}>Please read these terms carefully before using our services</p>
+            <motion.h1 initial={{ opacity: 0, y: 36 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }} className={styles.heroTitle}>Terms and Conditions</motion.h1>
+            <motion.p initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.12, ease: [0.16, 1, 0.3, 1] }} className={styles.heroSubtitle}>Please read these terms carefully before using our services</motion.p>
             <p className={styles.lastUpdated}>Last Updated: {new Date().toLocaleDateString()}</p>
           </div>
         </section>
 
       <section className={styles.contentSection}>
         <div className={styles.container}>
-          {sections.map((section, index) => <section key={section.id} id={section.id} ref={el => {
-            sectionRefs.current[section.id] = el;
-          }} className={`${styles.sectionCard} ${visibleSections.has(section.id) ? styles.visible : ""}`} style={{
-            animationDelay: `${index * 0.1}s`
-          }}>
+{sections.map((section, index) => <motion.div key={section.id} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}>
+            <section id={section.id} ref={el => {
+              sectionRefs.current[section.id] = el;
+            }} className={`${styles.sectionCard} ${visibleSections.has(section.id) ? styles.visible : ""}`} style={{
+              animationDelay: `${index * 0.1}s`
+            }}>
               <h2 className={styles.sectionTitle}>{section.title}</h2>
               <div className={styles.sectionContent}>{section.content}</div>
-            </section>)}
+            </section>
+          </motion.div>)}
         </div>
       </section>
     </div>

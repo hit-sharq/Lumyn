@@ -1,6 +1,9 @@
-import { prisma } from "@/lib/prisma"
+"use client"
+
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import type { Metadata } from "next"
+import { motion } from "framer-motion"
 import styles from "../about/about.module.css"
 import TeamCard from "./TeamCard"
 import { breadcrumbJsonLd } from "@/lib/seo"
@@ -28,50 +31,35 @@ export const metadata: Metadata = {
   },
 }
 
-async function getLeadershipTeam() {
-  return prisma.leadershipTeam.findMany({
-    orderBy: { order: "asc" },
-  })
+interface Leader {
+  id: string
+  name: string
+  position: string
+  role: string
+  imageUrl?: string | null
 }
 
-export default async function TeamPage() {
-  const leaders = await getLeadershipTeam()
+export default function TeamPage() {
+  const [leaders, setLeaders] = useState<Leader[]>([])
+  const [loading, setLoading] = useState(true)
 
-  const jsonLd = [
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      name: "Lumyn Technologies",
-      url: BASE_URL,
-      logo: `${BASE_URL}/logo.png`,
-      sameAs: [
-        "https://x.com/LumynTec",
-        "https://www.linkedin.com/company/lumyn-technologies",
-        "https://www.instagram.com/lumyn_technologies",
-        "https://github.com/lumyntechnologies-oss",
-      ],
-      contactPoint: {
-        "@type": "ContactPoint",
-        telephone: "+254-700-000000",
-        contactType: "customer service",
-        availableLanguage: ["English", "Swahili"],
-      },
-    },
-    ...leaders.map((leader) => ({
-      "@context": "https://schema.org",
-      "@type": "Person",
-      name: leader.name,
-      jobTitle: leader.position,
-      description: leader.role,
-      image: leader.imageUrl,
-      url: `${BASE_URL}/team`,
-      worksFor: {
-        "@type": "Organization",
-        name: "Lumyn Technologies",
-        url: BASE_URL,
-      },
-    })),
-  ]
+  useEffect(() => {
+    let mounted = true
+    ;(async () => {
+      try {
+        const res = await fetch("/api/leadership")
+        const data = await res.json()
+        if (mounted) setLeaders(Array.isArray(data) ? data : [])
+      } catch (_) {
+        if (mounted) setLeaders([])
+      } finally {
+        if (mounted) setLoading(false)
+      }
+    })()
+    return () => {
+      mounted = false
+    }
+  }, [])
 
   return (
     <>
@@ -81,28 +69,89 @@ export default async function TeamPage() {
       ])}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([
+            {
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Lumyn Technologies",
+              url: BASE_URL,
+              logo: `${BASE_URL}/logo.png`,
+              sameAs: [
+                "https://x.com/LumynTec",
+                "https://www.linkedin.com/company/lumyn-technologies",
+                "https://www.instagram.com/lumyn_technologies",
+                "https://github.com/lumyntechnologies-oss",
+              ],
+              contactPoint: {
+                "@type": "ContactPoint",
+                telephone: "+254-700-000000",
+                contactType: "customer service",
+                availableLanguage: ["English", "Swahili"],
+              },
+            },
+            ...leaders.map((leader) => ({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              name: leader.name,
+              jobTitle: leader.position,
+              description: leader.role,
+              image: leader.imageUrl,
+              url: `${BASE_URL}/team`,
+              worksFor: {
+                "@type": "Organization",
+                name: "Lumyn Technologies",
+                url: BASE_URL,
+              },
+            })),
+          ]),
+        }}
       />
 
       <div className={styles.aboutPage}>
         <section className={styles.hero}>
-          <div className={styles.heroBg}> 
+          <div className={styles.heroBg}>
             <div className={styles.gradientOrb1}></div>
             <div className={styles.gradientOrb2}></div>
             <div className={styles.gradientOrb3}></div>
           </div>
           <div className={styles.heroContent}>
-            <h1 className={styles.heroTitle}>Meet the Team</h1>
-            <p className={styles.heroSubtitle}>The people shaping Lumyn Technologies</p>
-            <p className={styles.heroDescription}>
+            <motion.h1
+              className={styles.heroTitle}
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+            >
+              Meet the Team
+            </motion.h1>
+            <motion.p
+              className={styles.heroSubtitle}
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+            >
+              The people shaping Lumyn Technologies
+            </motion.p>
+            <motion.p
+              className={styles.heroDescription}
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
+            >
               Discover the creative leaders, engineers, and strategists behind Lumyn Technologies’s digital products and services.
-            </p>
+            </motion.p>
           </div>
         </section>
 
         <section className={styles.contentSection}>
           <div className={styles.container}>
-            <div className={styles.sectionWrapper} style={{ opacity: 1, transform: 'translateY(0)' }}>
+            <motion.div
+              className={styles.sectionWrapper}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            >
               <div className={styles.sectionHeader}>
                 <h2 className={styles.sectionTitle}>Our Leadership</h2>
                 <div className={styles.sectionLine}></div>
@@ -112,12 +161,24 @@ export default async function TeamPage() {
                   Lumyn Technologies is powered by a diverse team of makers, designers, and product thinkers. Here you can explore their roles, backgrounds, and what they bring to our mission.
                 </p>
               </div>
-            </div>
+            </motion.div>
 
-            {leaders.length > 0 ? (
+            {loading ? (
+              <div className={styles.loadingCard}>
+                <p>Loading team members…</p>
+              </div>
+            ) : leaders.length > 0 ? (
               <div className={styles.teamGrid}>
-                {leaders.map((leader) => (
-                  <TeamCard key={leader.id} leader={leader} showFullPageButton={false} />
+                {leaders.map((leader, index) => (
+                  <motion.div
+                    key={leader.id}
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 0.65, delay: (index % 3) * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    <TeamCard leader={leader} showFullPageButton={false} />
+                  </motion.div>
                 ))}
               </div>
             ) : (
@@ -126,11 +187,17 @@ export default async function TeamPage() {
               </div>
             )}
 
-            <div style={{ marginTop: '50px', textAlign: 'center' }}>
+            <motion.div
+              style={{ marginTop: "50px", textAlign: "center" }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            >
               <Link href="/about" className={styles.ctaButton}>
                 Back to About
               </Link>
-            </div>
+            </motion.div>
           </div>
         </section>
       </div>

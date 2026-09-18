@@ -1,10 +1,11 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { AnimatePresence, motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
 import styles from "./blog.module.css"
-
+import LoadingState from "@/components/LoadingState"
 
 interface BlogPost {
   id: string
@@ -50,28 +51,50 @@ export default function BlogPage() {
       <div className={styles.blogPage}>
         <section className={styles.hero}>
           <div className={styles.heroContent}>
-            <h1 className={styles.heroTitle}>Lumyn Technologies Blog</h1>
-            <p className={styles.heroSubtitle}>Stories, insights, and experiences from our community</p>
+            <motion.h1
+              className={styles.heroTitle}
+              initial={{ opacity: 0, y: 32 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            >
+              Lumyn Technologies Blog
+            </motion.h1>
+            <motion.p
+              className={styles.heroSubtitle}
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+            >
+              Stories, insights, and experiences from our community
+            </motion.p>
           </div>
         </section>
 
         <section className={styles.blogSection}>
           <div className={styles.container}>
             {loading ? (
-              <div className={styles.loading}>
-                <div className={styles.spinner}></div>
-                <p>Loading blog posts...</p>
-              </div>
+              <LoadingState variant="editorial" label="Loading stories" count={6} />
             ) : posts.length === 0 ? (
-              <div className={styles.emptyState}>
+              <motion.div
+                className={styles.emptyState}
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              >
                 <h3>No blog posts yet</h3>
                 <p>Check back soon for stories and insights from our community</p>
-              </div>
+              </motion.div>
             ) : (
-
               <div className={styles.blogGrid}>
-                {posts.map((post) => (
-                  <article key={post.id} className={styles.blogCard}>
+                {posts.map((post, index) => (
+                  <motion.article
+                    key={post.id}
+                    className={styles.blogCard}
+                    initial={{ opacity: 0, y: 36 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 0.65, delay: (index % 3) * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                  >
                     <div className={styles.blogImageWrapper}>
                       <Image
                         src={post.image || "/placeholder.svg?height=300&width=500&query=blog"}
@@ -106,28 +129,43 @@ export default function BlogPage() {
                         Read More
                       </button>
                     </div>
-                  </article>
+                  </motion.article>
                 ))}
               </div>
             )}
 
-            {selectedPost && (
-              <div className={styles.modalOverlay} onClick={() => setSelectedPost(null)}>
-                <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-                  <button className={styles.modalClose} onClick={() => setSelectedPost(null)}>
-                    ×
-                  </button>
-                  <div className={styles.modalImageWrapper}>
-                    <Image
-                      src={selectedPost.image || "/placeholder.svg?height=300&width=500&query=blog"}
-                      alt={selectedPost.title}
-                      fill
-                      className={styles.modalImage}
-                    />
-                  </div>
-                  <div className={styles.modalBody}>
-                    <h3 className={styles.modalTitle}>{selectedPost.title}</h3>
-                    <div className={`${styles.modalDescription} ${styles.richText}`} dangerouslySetInnerHTML={{ __html: selectedPost.content }} />
+            <AnimatePresence>
+              {selectedPost && (
+                <motion.div
+                  className={styles.modalOverlay}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.25 }}
+                  onClick={() => setSelectedPost(null)}
+                >
+                  <motion.div
+                    className={styles.modalContent}
+                    initial={{ opacity: 0, y: 40, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 24, scale: 0.98 }}
+                    transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <button className={styles.modalClose} onClick={() => setSelectedPost(null)}>
+                      ×
+                    </button>
+                    <div className={styles.modalImageWrapper}>
+                      <Image
+                        src={selectedPost.image || "/placeholder.svg?height=300&width=500&query=blog"}
+                        alt={selectedPost.title}
+                        fill
+                        className={styles.modalImage}
+                      />
+                    </div>
+                    <div className={styles.modalBody}>
+                      <h3 className={styles.modalTitle}>{selectedPost.title}</h3>
+                      <div className={`${styles.modalDescription} ${styles.richText}`} dangerouslySetInnerHTML={{ __html: selectedPost.content }} />
                       <div className={styles.blogMeta}>
                         <div className={styles.blogMetaItem}>
                           <span className={styles.blogMetaIcon}>👤</span>
@@ -142,13 +180,14 @@ export default function BlogPage() {
                           <span>{selectedPost.category}</span>
                         </div>
                       </div>
-                    <Link href={`/blog/${selectedPost.id}`} className={styles.viewFullArticle}>
-                      View Full Article →
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            )}
+                      <Link href={`/blog/${selectedPost.id}`} className={styles.viewFullArticle}>
+                        View Full Article →
+                      </Link>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </section>
       </div>

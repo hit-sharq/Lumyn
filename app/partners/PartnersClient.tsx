@@ -1,7 +1,9 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { motion } from "framer-motion"
 import styles from "./partners.module.css"
+import LoadingState from "@/components/LoadingState"
 
 interface Partner {
   id: string
@@ -45,9 +47,7 @@ export default function PartnersClient() {
 
   if (loading) {
     return (
-      <div className={styles.partnersGrid}>
-        <div className={styles.loading}>Loading partners...</div>
-      </div>
+      <LoadingState variant="page" label="Loading partners" />
     )
   }
 
@@ -72,8 +72,15 @@ export default function PartnersClient() {
           No partners yet. Check back soon!
         </p>
       ) : (
-        partners.map((partner) => (
-          <div key={partner.id} className={styles.partnerCard}>
+        partners.map((partner, index) => (
+          <motion.div
+            key={partner.id}
+            className={styles.partnerCard}
+            initial={{ opacity: 0, y: 36 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, delay: (index % 4) * 0.08, ease: [0.16, 1, 0.3, 1] }}
+          >
             <div className={styles.partnerLogo}>
               {partner.logoUrl ? (
                 <img src={partner.logoUrl} alt={`${partner.name} logo`} />
@@ -95,7 +102,7 @@ export default function PartnersClient() {
                 </a>
               )}
             </div>
-          </div>
+          </motion.div>
         ))
       )}
     </div>

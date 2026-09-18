@@ -1,9 +1,11 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
 import styles from "./news.module.css"
+import LoadingState from "@/components/LoadingState"
 
 interface NewsItem {
   id: string
@@ -114,18 +116,7 @@ export default function NewsPage() {
 
   if (loading) {
     return (
-      <div className={styles.newsPage}>
-        <div className={styles.hero}>
-          <div className={styles.heroContent}>
-            <h1 className={styles.heroTitle}>Latest News</h1>
-            <p className={styles.heroSubtitle}>Stay updated with our latest announcements and insights</p>
-          </div>
-        </div>
-        <div className={styles.loading}>
-          <div className={styles.spinner}></div>
-          <p>Loading news...</p>
-        </div>
-      </div>
+      <LoadingState variant="page" label="Loading news" />
     )
   }
 
@@ -133,38 +124,52 @@ export default function NewsPage() {
     <div className={styles.newsPage}>
       <div className={styles.hero}>
         <div className={styles.heroContent}>
-          <h1 className={styles.heroTitle}>Latest News</h1>
-          <p className={styles.heroSubtitle}>Stay updated with our latest announcements and insights</p>
+          <motion.h1 className={styles.heroTitle} initial={{ opacity: 0, y: 36 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>Latest News</motion.h1>
+          <motion.p className={styles.heroSubtitle} initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}>Stay updated with our latest announcements and insights</motion.p>
         </div>
       </div>
 
       <div className={styles.newsSection}>
         <div className={styles.container}>
           <div className={styles.filterBar}>
-            {CATEGORIES.map((category) => (
-              <button
+            {CATEGORIES.map((category, index) => (
+              <motion.button
                 key={category}
                 className={`${styles.filterBtn} ${selectedCategory === category ? styles.filterBtnActive : ""}`}
                 onClick={() => setSelectedCategory(category)}
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }}
               >
                 {category}
-              </button>
+              </motion.button>
             ))}
           </div>
 
           {filteredItems.length === 0 ? (
-            <div className={styles.emptyState}>
+            <motion.div
+              className={styles.emptyState}
+              initial={{ opacity: 0, scale: 0.97 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            >
               <h3>No articles found</h3>
               <p>Try selecting a different category or check back later for updates.</p>
-            </div>
+            </motion.div>
           ) : (
             <div className={styles.newsGrid}>
-              {filteredItems.map((item) => (
-                <article 
-                  key={`${item.source}-${item.id}`} 
+{filteredItems.map((item, index) => (
+                <motion.article
+                  key={`${item.source}-${item.id}`}
                   className={styles.newsCard}
                   onClick={() => handleItemClick(item)}
                   style={{ cursor: 'pointer' }}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.15 }}
+                  transition={{ duration: 0.6, delay: (index % 3) * 0.08, ease: [0.16, 1, 0.3, 1] }}
                 >
                   <div className={styles.newsImageWrapper}>
                     <Image
@@ -203,16 +208,31 @@ export default function NewsPage() {
                       {item.source === "blog" ? "Read Blog Post" : "Read More"} →
                     </button>
                   </div>
-                </article>
+                </motion.article>
               ))}
             </div>
           )}
         </div>
       </div>
 
-      {selectedItem && (
-        <div className={styles.modalOverlay} onClick={() => setSelectedItem(null)}>
-          <div className={styles.detailCard} onClick={(e) => e.stopPropagation()}>
+      <AnimatePresence>
+        {selectedItem && (
+          <motion.div
+            className={styles.modalOverlay}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            onClick={() => setSelectedItem(null)}
+          >
+            <motion.div
+              className={styles.detailCard}
+              initial={{ opacity: 0, y: 40, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 24, scale: 0.98 }}
+              transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+              onClick={(e) => e.stopPropagation()}
+            >
             <button className={styles.detailClose} onClick={() => setSelectedItem(null)}>
               ×
             </button>
@@ -249,9 +269,10 @@ export default function NewsPage() {
                 View Full Article →
               </button>
             </div>
-          </div>
-        </div>
-      )}
+          </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

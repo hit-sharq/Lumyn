@@ -154,10 +154,12 @@
   object-fit: cover;
   width: 100%;
   height: 100%;
+  transition: transform 0.6s cubic-bezier(0.16,1,0.3,1), filter 0.6s ease;
 }
 
 .galleryItem:hover .image {
-  transform: scale(1.05);
+  transform: scale(1.07);
+  filter: saturate(1.12);
 }
 
 .overlay {
@@ -245,6 +247,7 @@
   object-fit: contain;
   width: 100%;
   height: 100%;
+  transition: transform 0.6s cubic-bezier(0.16,1,0.3,1), filter 0.6s ease;
 }
 
 .lightboxInfo {

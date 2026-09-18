@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import Head from "next/head";
-import Image from "next/image";
-import { motion } from "framer-motion";
+import Head from "next/head"
+import Image from "next/image"
+import { motion } from "framer-motion"
 import styles from "./company-profile.module.css";
 
 interface Section {
@@ -13,28 +12,6 @@ interface Section {
 }
 
 export default function CompanyProfilePage() {
-  const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
-  const sectionRefs = useRef<{ [key: string]: HTMLElement | null }>({});
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setVisibleSections((prev) => new Set(prev).add(entry.target.id));
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-
-    Object.values(sectionRefs.current).forEach((ref) => {
-      if (ref) observer.observe(ref);
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
   const sections: Section[] = [
     {
       id: "about",
@@ -240,21 +217,21 @@ export default function CompanyProfilePage() {
 
           <div className={styles.content}>
             {sections.map((section, idx) => (
-              <section
+              <motion.section
                 key={section.id}
                 id={section.id}
-                ref={(el) => {
-                  sectionRefs.current[section.id] = el;
-                }}
-                className={`${styles.section} ${visibleSections.has(section.id) ? styles.visible : ""}`}
-                style={{ animationDelay: `${idx * 0.08}s` }}
+                className={styles.section}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.65, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
               >
                 <div className={styles.sectionHeader}>
                   <h2 className={styles.sectionTitle}>{section.title}</h2>
                   <div className={styles.sectionLine} />
                 </div>
                 <div className={styles.sectionBody}>{section.content}</div>
-              </section>
+              </motion.section>
             ))}
           </div>
 

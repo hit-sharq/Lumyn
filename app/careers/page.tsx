@@ -2,12 +2,14 @@
 
 
 import { useEffect, useState } from "react"
+import { AnimatePresence, motion } from "framer-motion"
 import Head from "next/head"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { ToastProvider, useToast } from "@/components/toast"
 import ShareButton from "@/components/ShareButton"
 import styles from "./careers.module.css"
+import LoadingState from "@/components/LoadingState"
 
 interface Career {
   id: string
@@ -132,39 +134,67 @@ function CareersPageContent() {
       <div className={styles.careersPage}>
         <section className={styles.hero}>
           <div className={styles.heroContent}>
-            <h1 className={styles.heroTitle}>Career Opportunities</h1>
-            <p className={styles.heroSubtitle}>Build your career and shape the future of digital innovation</p>
+            <motion.h1
+              className={styles.heroTitle}
+              initial={{ opacity: 0, y: 36 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            >
+              Career Opportunities
+            </motion.h1>
+            <motion.p
+              className={styles.heroSubtitle}
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+            >
+              Build your career and shape the future of digital innovation
+            </motion.p>
           </div>
         </section>
 
         <section className={styles.careersSection}>
           <div className={styles.container}>
             <div className={styles.filterBar}>
-              {careerTypes.map((type) => (
-                <button
+              {careerTypes.map((type, index) => (
+                <motion.button
                   key={type}
                   className={`${styles.filterBtn} ${filter === type ? styles.filterBtnActive : ""}`}
                   onClick={() => setFilter(type)}
+                  initial={{ opacity: 0, y: 14 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }}
                 >
                   {type === "all" ? "All Positions" : type.replace("-", " ").replace(/\b\w/g, (l) => l.toUpperCase())}
-                </button>
+                </motion.button>
               ))}
             </div>
 
             {loading ? (
-              <div className={styles.loading}>
-                <div className={styles.spinner}></div>
-                <p>Loading career opportunities...</p>
-              </div>
+              <LoadingState variant="page" label="Loading careers" />
             ) : filteredCareers.length === 0 ? (
-              <div className={styles.emptyState}>
+              <motion.div
+                className={styles.emptyState}
+                initial={{ opacity: 0, scale: 0.97 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              >
                 <h3>No career opportunities yet</h3>
                 <p>Check back soon for new positions or contact us with your resume</p>
-              </div>
+              </motion.div>
             ) : (
               <div className={styles.careersGrid}>
-                {filteredCareers.map((career) => (
-                  <article key={career.id} className={styles.careerCard}>
+                {filteredCareers.map((career, index) => (
+                  <motion.article
+                    key={career.id}
+                    className={styles.careerCard}
+                    initial={{ opacity: 0, y: 44 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.15 }}
+                    transition={{ duration: 0.65, delay: (index % 3) * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                  >
                     <div className={styles.careerImageWrapper}>
                       <Image
                         src={career.image || "/placeholder.svg?height=300&width=400&query=career"}
@@ -223,7 +253,7 @@ function CareersPageContent() {
                         />
                       </div>
                     </div>
-                  </article>
+                  </motion.article>
                 ))}
               </div>
             )}

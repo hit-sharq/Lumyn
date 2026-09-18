@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./projects.module.css";
+import LoadingState from "@/components/LoadingState";
 interface Project {
   id: string;
   title: string;
@@ -77,156 +79,300 @@ export default function ProjectsPage() {
         {/* Hero Section */}
         <section className={styles.hero}>
           <div className={styles.heroContent}>
-            <p className={styles.heroSubtitle}>01 / Selected work</p>
-            <h1 className={styles.heroTitle}>Our Projects</h1>
-            <p className={styles.heroDescription}>
+            <motion.p
+              className={styles.heroSubtitle}
+              initial={{ opacity: 0, x: -18 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            >
+              01 / Selected work
+            </motion.p>
+            <motion.h1
+              className={styles.heroTitle}
+              initial={{ opacity: 0, y: 36 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            >
+              Our Projects
+            </motion.h1>
+            <motion.p
+              className={styles.heroDescription}
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            >
               Discover our portfolio of successful digital solutions, from web applications to mobile experiences.
-            </p>
+            </motion.p>
           </div>
         </section>
 
         {/* Featured Projects Section */}
-        {featuredProjects.length > 0 && <section className={styles.featuredSection}>
+        {(loading || featuredProjects.length > 0) && (
+          <motion.section
+            className={styles.featuredSection}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          >
             <div className={styles.container}>
-              <h2 className={styles.sectionTitle}>Featured Projects</h2>
-              <div className={styles.featuredGrid}>
-                {featuredProjects.map(project => <div key={project.id} className={styles.featuredCard}>
-                    <div className={styles.featuredImage}>
-                      <Image src={project.image || "/placeholder.svg"} alt={project.title} fill style={{
-                  objectFit: "cover"
-                }} />
-                    </div>
-                    <div className={styles.featuredContent}>
-                      <h3 className={styles.featuredTitle}>{project.title}</h3>
-                      <p className={styles.featuredDescription}>{project.description}</p>
-                      <div className={styles.featuredTech}>
-                        {project.technologies.map(tech => <span key={tech} className={styles.techTag}>
-                            {tech}
-                          </span>)}
+              <motion.h2
+                className={styles.sectionTitle}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.4 }}
+                transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+              >
+                Featured Projects
+              </motion.h2>
+              {loading ? (
+                <LoadingState variant="portfolio" label="Loading featured work" count={3} />
+              ) : (
+                <div className={styles.featuredGrid}>
+                  {featuredProjects.map((project, index) => (
+                    <motion.div
+                      key={project.id}
+                      className={styles.featuredCard}
+                      initial={{ opacity: 0, y: 40 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, amount: 0.2 }}
+                      transition={{ duration: 0.65, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                      <div className={styles.featuredImage}>
+                        <Image src={project.image || "/placeholder.svg"} alt={project.title} fill style={{ objectFit: "cover" }} />
                       </div>
-                      <div className={styles.featuredLinks}>
-                        {project.liveUrl && <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className={styles.liveLink}>
-                            View Live →
-                          </a>}
-                        {project.githubUrl && <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className={styles.githubLink}>
-                            GitHub →
-                          </a>}
+                      <div className={styles.featuredContent}>
+                        <h3 className={styles.featuredTitle}>{project.title}</h3>
+                        <p className={styles.featuredDescription}>{project.description}</p>
+                        <div className={styles.featuredTech}>
+                          {project.technologies.map((tech) => (
+                            <span key={tech} className={styles.techTag}>
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                        <div className={styles.featuredLinks}>
+                          {project.liveUrl && (
+                            <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className={styles.liveLink}>
+                              View Live →
+                            </a>
+                          )}
+                          {project.githubUrl && (
+                            <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className={styles.githubLink}>
+                              GitHub →
+                            </a>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  </div>)}
-              </div>
+                    </motion.div>
+                  ))}
+                </div>
+              )}
             </div>
-          </section>}
+          </motion.section>
+        )}
 
         {/* All Projects Section */}
-        <section className={styles.projectsSection}>
+        <motion.section
+          className={styles.projectsSection}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        >
           <div className={styles.container}>
             <div className={styles.sectionHeader}>
-              <h2 className={styles.sectionTitle}>All Projects</h2>
+              <motion.h2
+                className={styles.sectionTitle}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.4 }}
+                transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+              >
+                All Projects
+              </motion.h2>
               <div className={styles.filterButtons}>
-                {categories.map(category => <button key={category} className={`${styles.filterButton} ${filter === category ? styles.active : ""}`} onClick={() => setFilter(category)}>
+                {categories.map((category, index) => (
+                  <motion.button
+                    key={category}
+                    className={`${styles.filterButton} ${filter === category ? styles.active : ""}`}
+                    onClick={() => setFilter(category)}
+                    initial={{ opacity: 0, y: 14 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                  >
                     {category === "all" ? "All" : category.replace("-", " ").replace(/\b\w/g, l => l.toUpperCase())}
-                  </button>)}
+                  </motion.button>
+                ))}
               </div>
             </div>
 
-            {loading ? <div className={styles.loading}>
-                <p>Loading projects...</p>
-              </div> : filteredProjects.length > 0 ? <div className={styles.projectsGrid}>
-                {filteredProjects.map(project => <div key={project.id} className={styles.projectCard}>
-                    <div className={styles.projectImage}>
-                      <Image src={project.image || "/placeholder.svg"} alt={project.title} fill style={{
-                  objectFit: "cover"
-                }} />
-                      <div className={styles.projectCategory}>
-                        {project.category.replace("-", " ").replace(/\b\w/g, l => l.toUpperCase())}
+            {loading ? (
+                <LoadingState variant="portfolio" label="Loading selected work" count={6} />
+              ) : filteredProjects.length > 0 ? (
+                <div className={styles.projectsGrid}>
+                  {filteredProjects.map((project, index) => (
+                    <motion.div
+                      key={project.id}
+                      className={styles.projectCard}
+                      initial={{ opacity: 0, y: 40 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, amount: 0.15 }}
+                      transition={{ duration: 0.6, delay: (index % 3) * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                      <div className={styles.projectImage}>
+                        <Image src={project.image || "/placeholder.svg"} alt={project.title} fill style={{ objectFit: "cover" }} />
+                        <div className={styles.projectCategory}>
+                          {project.category.replace("-", " ").replace(/\b\w/g, l => l.toUpperCase())}
+                        </div>
                       </div>
-                    </div>
-                    <div className={styles.projectContent}>
-                      <h3 className={styles.projectTitle}>{project.title}</h3>
-                      <p className={styles.projectDescription}>
-                        {project.description.length > 80 ? `${project.description.substring(0, 80)}...` : project.description}
-                      </p>
-                      <div className={styles.projectTech}>
-                        {project.technologies.slice(0, 2).map(tech => <span key={tech} className={styles.techTag}>
-                            {tech}
-                          </span>)}
-                        {project.technologies.length > 2 && <span className={styles.techTag}>+{project.technologies.length - 2}</span>}
+                      <div className={styles.projectContent}>
+                        <h3 className={styles.projectTitle}>{project.title}</h3>
+                        <p className={styles.projectDescription}>
+                          {project.description.length > 80 ? `${project.description.substring(0, 80)}...` : project.description}
+                        </p>
+                        <div className={styles.projectTech}>
+                          {project.technologies.slice(0, 2).map((tech) => (
+                            <span key={tech} className={styles.techTag}>
+                              {tech}
+                            </span>
+                          ))}
+                          {project.technologies.length > 2 && <span className={styles.techTag}>+{project.technologies.length - 2}</span>}
+                        </div>
+                        <button className={styles.readMoreBtn} onClick={() => {
+                          setSelectedProject(project);
+                          setShowDetailModal(true);
+                        }}>
+                          Read More →
+                        </button>
                       </div>
-                      <button className={styles.readMoreBtn} onClick={() => {
-                  setSelectedProject(project);
-                  setShowDetailModal(true);
-                }}>
-                        Read More →
-                      </button>
-                    </div>
-                  </div>)}
-              </div> : <div className={styles.noProjects}>
-                <p>No projects found in this category.</p>
-                <button className={styles.resetFilter} onClick={() => setFilter("all")}>
-                  Show All Projects
-                </button>
-              </div>}
+                    </motion.div>
+                  ))}
+                </div>
+              ) : (
+                <motion.div
+                  className={styles.noProjects}
+                  initial={{ opacity: 0, scale: 0.97 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <p>No projects found in this category.</p>
+                  <button className={styles.resetFilter} onClick={() => setFilter("all")}>
+                    Show All Projects
+                  </button>
+                </motion.div>
+              )}
           </div>
-        </section>
+        </motion.section>
 
         {/* CTA Section */}
-        <section className={styles.ctaSection}>
+        <motion.section
+          className={styles.ctaSection}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        >
           <div className={styles.ctaOverlay}></div>
           <div className={`${styles.container} ${styles.ctaContainer}`}>
-            <h2 className={styles.ctaTitle}>Ready to Start Your Project?</h2>
-            <p className={styles.ctaText}>
+            <motion.h2
+              className={styles.ctaTitle}
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.65, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            >
+              Ready to Start Your Project?
+            </motion.h2>
+            <motion.p
+              className={styles.ctaText}
+              initial={{ opacity: 0, y: 22 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.65, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
+            >
               Let&apos;s discuss your vision and bring it to life with our expert team.
-            </p>
-            <Link href="/get-started" className={styles.ctaButton}>
-              Start Your Project
-            </Link>
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 22 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <Link href="/get-started" className={styles.ctaButton}>
+                Start Your Project
+              </Link>
+            </motion.div>
           </div>
-        </section>
+        </motion.section>
 
         {/* Project Detail Modal */}
-        {showDetailModal && selectedProject && <div className={styles.modal} onClick={() => setShowDetailModal(false)}>
-            <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
-              <div className={styles.modalHeader}>
-                <h2 className={styles.modalTitle}>{selectedProject.title}</h2>
-                <button className={styles.modalClose} onClick={() => setShowDetailModal(false)}>
-                  ×
-                </button>
-              </div>
-              <div className={styles.modalBody}>
-                <div className={styles.modalImage}>
-                  <Image src={selectedProject.image || "/placeholder.svg"} alt={selectedProject.title} fill style={{
-                objectFit: "cover"
-              }} />
+        <AnimatePresence>
+          {showDetailModal && selectedProject && (
+            <motion.div
+              className={styles.modal}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              onClick={() => setShowDetailModal(false)}
+            >
+              <motion.div
+                className={styles.modalContent}
+                initial={{ opacity: 0, y: 40, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 24, scale: 0.98 }}
+                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className={styles.modalHeader}>
+                  <h2 className={styles.modalTitle}>{selectedProject.title}</h2>
+                  <button className={styles.modalClose} onClick={() => setShowDetailModal(false)}>
+                    ×
+                  </button>
                 </div>
-                <div className={styles.modalDetails}>
-                  <div className={styles.modalMeta}>
-                    <span className={styles.modalCategory}>
-                      {selectedProject.category.replace("-", " ").replace(/\b\w/g, l => l.toUpperCase())}
-                    </span>
-                    {selectedProject.featured && <span className={styles.featuredBadge}>Featured</span>}
+                <div className={styles.modalBody}>
+                  <div className={styles.modalImage}>
+                    <Image src={selectedProject.image || "/placeholder.svg"} alt={selectedProject.title} fill style={{ objectFit: "cover" }} />
                   </div>
-                  <p className={styles.modalDescription}>{selectedProject.description}</p>
-                  <div className={styles.modalTech}>
-                    <h4>Technologies:</h4>
-                    <div className={styles.modalTechTags}>
-                      {selectedProject.technologies.map(tech => <span key={tech} className={styles.modalTechTag}>
-                          {tech}
-                        </span>)}
+                  <div className={styles.modalDetails}>
+                    <div className={styles.modalMeta}>
+                      <span className={styles.modalCategory}>
+                        {selectedProject.category.replace("-", " ").replace(/\b\w/g, l => l.toUpperCase())}
+                      </span>
+                      {selectedProject.featured && <span className={styles.featuredBadge}>Featured</span>}
+                    </div>
+                    <p className={styles.modalDescription}>{selectedProject.description}</p>
+                    <div className={styles.modalTech}>
+                      <h4>Technologies:</h4>
+                      <div className={styles.modalTechTags}>
+                        {selectedProject.technologies.map((tech) => (
+                          <span key={tech} className={styles.modalTechTag}>
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    <div className={styles.modalLinks}>
+                      {selectedProject.liveUrl && (
+                        <a href={selectedProject.liveUrl} target="_blank" rel="noopener noreferrer" className={styles.liveLink}>
+                          View Live →
+                        </a>
+                      )}
+                      {selectedProject.githubUrl && (
+                        <a href={selectedProject.githubUrl} target="_blank" rel="noopener noreferrer" className={styles.githubLink}>
+                          GitHub →
+                        </a>
+                      )}
                     </div>
                   </div>
-                  <div className={styles.modalLinks}>
-                    {selectedProject.liveUrl && <a href={selectedProject.liveUrl} target="_blank" rel="noopener noreferrer" className={styles.liveLink}>
-                        View Live →
-                      </a>}
-                    {selectedProject.githubUrl && <a href={selectedProject.githubUrl} target="_blank" rel="noopener noreferrer" className={styles.githubLink}>
-                        GitHub →
-                      </a>}
-                  </div>
                 </div>
-              </div>
-            </div>
-          </div>}
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </>;
 }

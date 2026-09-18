@@ -10,6 +10,7 @@ import "./globals.css"
 import { GeistSans } from 'geist/font/sans';
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider"
+import MotionSystem from "@/components/MotionSystem"
 
 // GeistSans is already an object, no need to call it as a function
 const geist = GeistSans;
@@ -81,11 +82,6 @@ export default function RootLayout({
             href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap"
             rel="stylesheet"
           />
-          <Script
-            async
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6640250879995161"
-            crossOrigin="anonymous"
-          />
           {process.env.NEXT_PUBLIC_GA4_ID && (
             <>
               <Script
@@ -149,6 +145,7 @@ export default function RootLayout({
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
             <JsonLd />
             <Header />
+            <MotionSystem />
             <main>{children}</main>
             <Footer />
             <CookieConsentBanner />
