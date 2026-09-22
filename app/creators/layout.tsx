@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { pageMetadata, breadcrumbJsonLd } from "@/lib/seo"
+import { BASE_URL, pageMetadata, breadcrumbJsonLd } from "@/lib/seo"
 
 export const metadata: Metadata = pageMetadata({
   title: "Creators | Discover African Creators on Lumyn Technologies",
@@ -13,8 +13,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       {breadcrumbJsonLd([
-        { name: "Home", url: "https://www.lumyn.co.ke" },
-        { name: "Creators", url: "https://www.lumyn.co.ke/creators" },
+        { name: "Home", url: BASE_URL },
+        { name: "Creators", url: `${BASE_URL}/creators` },
       ])}
       {children}
     </>

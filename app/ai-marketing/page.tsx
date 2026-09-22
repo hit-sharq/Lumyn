@@ -2,19 +2,38 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Head from "next/head";
 import { useUser, SignInButton } from "@clerk/nextjs";
 import styles from "./page.module.css";
 import { PublicContentGenerator } from "./components/public-content-generator";
 import ErrorMessage from "@/components/ErrorMessage";
 
-const SITE_URL = process.env.NEXT_PUBLIC_APP_URL || "https://www.lumyn.co.ke"
-
-  const pageMetadata = {
-  title: "AI Marketing Suite | Lumyn Technologies — AI-Powered Content Generator & Campaign Builder",
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "Lumyn Technologies AI Marketing",
   description: "Generate marketing copy, build multi-channel campaigns, and optimize content with AI. Start free, upgrade for unlimited access.",
-  url: `${SITE_URL}/ai-marketing`,
-  ogImage: `${SITE_URL}/og-image.png`,
+  url: `${process.env.NEXT_PUBLIC_BASE_URL || "https://www.lumyn.co.ke"}/ai-marketing`,
+  applicationCategory: "BusinessApplication",
+  operatingSystem: "Web Browser",
+  offers: [
+    {
+      "@type": "Offer",
+      name: "Free",
+      price: "0",
+      priceCurrency: "KES",
+    },
+    {
+      "@type": "Offer",
+      name: "Pro",
+      price: "2900",
+      priceCurrency: "KES",
+    },
+  ],
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "4.8",
+    ratingCount: "120",
+  },
 }
 
 export default function AIMarketingPage() {
@@ -81,8 +100,8 @@ export default function AIMarketingPage() {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: "Lumyn Technologies AI Marketing",
-    description: pageMetadata.description,
-    url: pageMetadata.url,
+    description: "Generate marketing copy, build multi-channel campaigns, and optimize content with AI. Start free, upgrade for unlimited access.",
+    url: `${process.env.NEXT_PUBLIC_BASE_URL || "https://www.lumyn.co.ke"}/ai-marketing`,
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web Browser",
     offers: [
@@ -108,21 +127,6 @@ export default function AIMarketingPage() {
 
   return (
     <>
-      <Head>
-        <title>{pageMetadata.title}</title>
-        <meta name="description" content={pageMetadata.description} />
-        <link rel="canonical" href={pageMetadata.url} />
-        <meta property="og:title" content={pageMetadata.title} />
-        <meta property="og:description" content={pageMetadata.description} />
-        <meta property="og:url" content={pageMetadata.url} />
-        <meta property="og:image" content={pageMetadata.ogImage} />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={pageMetadata.title} />
-        <meta name="twitter:description" content={pageMetadata.description} />
-        <meta name="twitter:image" content={pageMetadata.ogImage} />
-      </Head>
-
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

@@ -15,6 +15,18 @@ interface PageMetadataInput {
   breadcrumbs?: BreadcrumbItem[]
 }
 
+interface FAQItem {
+  question: string
+  answer: string
+}
+
+interface ArticleRef {
+  title: string
+  url: string
+  datePublished?: string
+  description?: string
+}
+
 export function pageMetadata({
   title,
   description,
@@ -83,3 +95,47 @@ export function breadcrumbJsonLd(breadcrumbs: BreadcrumbItem[]) {
 }
 
 export { BASE_URL }
+
+export function faqJsonLd(faqs: FAQItem[]) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+  )
+}
+
+export function articleListJsonLd(articles: ArticleRef[]) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: articles.map((article, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: article.title,
+      url: article.url,
+      ...(article.datePublished ? { datePublished: article.datePublished } : {}),
+      ...(article.description ? { description: article.description } : {}),
+    })),
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+  )
+}
