@@ -67,6 +67,9 @@ export const metadata: Metadata = {
   },
 }
 
+const GA4_ID = process.env.NEXT_PUBLIC_GA4_ID
+const GSC_VERIFICATION = process.env.NEXT_PUBLIC_GSC_VERIFICATION
+
 export default function RootLayout({
   children,
 }: {
@@ -139,6 +142,9 @@ export default function RootLayout({
                 `,
               }}
             />
+          )}
+          {GSC_VERIFICATION && (
+            <meta name="google-site-verification" content={GSC_VERIFICATION} />
           )}
         </head>
         <body>
