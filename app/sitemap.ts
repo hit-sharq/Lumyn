@@ -13,7 +13,6 @@ export const revalidate = 3600
 const EXCLUDED_DIRS = new Set(['api', 'admin', 'studio/admin', '_components', 'components'])
 
 // Routes that are private/auth-gated/dashboards and must never be indexed.
-// Kept in sync with the disallow list in app/robots.ts.
 const EXCLUDED_PATHS = new Set([
   '/studio/admin',
   '/market/dashboard',
