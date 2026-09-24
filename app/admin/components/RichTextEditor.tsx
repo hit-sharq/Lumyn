@@ -24,8 +24,11 @@ export default function RichTextEditor({
   }>({ bold: false, italic: false, underline: false })
 
   useEffect(() => {
-    if (editorRef.current && !isUserEditing && value !== editorRef.current.innerHTML) {
-      editorRef.current.innerHTML = value
+    if (editorRef.current) {
+      const cleanValue = cleanHtml(value)
+      if (!isUserEditing && cleanValue !== cleanHtml(editorRef.current.innerHTML)) {
+        editorRef.current.innerHTML = cleanValue || ""
+      }
     }
   }, [value, isUserEditing])
 
@@ -53,9 +56,16 @@ export default function RichTextEditor({
     document.execCommand(command, false, value)
   }
 
+  const cleanHtml = (html: string): string => {
+    const trimmed = html.trim()
+    if (!trimmed || /^(<br\s*\/?>|<div>\s*<br\s*\/?>\s*<\/div>|<div>\s*<\/div>)$/i.test(trimmed)) return ""
+    const unwrapped = trimmed.replace(/^<div[^>]*>([\s\S]*)<\/div>$/, "$1")
+    return unwrapped.trim()
+  }
+
   const handleInput = () => {
     if (editorRef.current) {
-      onChange(editorRef.current.innerHTML)
+      onChange(cleanHtml(editorRef.current.innerHTML))
     }
   }
 
