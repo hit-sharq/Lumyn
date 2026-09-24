@@ -13,6 +13,7 @@
   --line: #e2e0d8;
   --signal: #ff4d00;
   --signal-deep: #d43f00;
+  --orange: var(--signal);
   --surface: var(--white);
   --surface-soft: var(--off);
   --ink: var(--black);
