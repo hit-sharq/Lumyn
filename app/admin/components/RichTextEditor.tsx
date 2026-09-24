@@ -17,17 +17,40 @@ export default function RichTextEditor({
   const editorRef = useRef<HTMLDivElement>(null)
   const [isActive, setIsActive] = useState(false)
   const [isUserEditing, setIsUserEditing] = useState(false)
+  const [activeFormats, setActiveFormats] = useState<{
+    bold: boolean
+    italic: boolean
+    underline: boolean
+  }>({ bold: false, italic: false, underline: false })
 
-  // Initialize content on mount
   useEffect(() => {
     if (editorRef.current && !isUserEditing && value !== editorRef.current.innerHTML) {
       editorRef.current.innerHTML = value
     }
   }, [value, isUserEditing])
 
+  useEffect(() => {
+    if (!isActive) {
+      setActiveFormats({ bold: false, italic: false, underline: false })
+      return
+    }
+
+    const updateActiveFormats = () => {
+      setActiveFormats({
+        bold: document.queryCommandState("bold"),
+        italic: document.queryCommandState("italic"),
+        underline: document.queryCommandState("underline"),
+      })
+    }
+
+    document.addEventListener("selectionchange", updateActiveFormats)
+    updateActiveFormats()
+    return () => document.removeEventListener("selectionchange", updateActiveFormats)
+  }, [isActive])
+
   const applyFormat = (command: string, value?: string) => {
-    document.execCommand(command, false, value)
     editorRef.current?.focus()
+    document.execCommand(command, false, value)
   }
 
   const handleInput = () => {
@@ -42,8 +65,23 @@ export default function RichTextEditor({
     document.execCommand("insertText", false, text)
   }
 
-  const isFormatActive = (command: string): boolean => {
-    return document.queryCommandState(command)
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.ctrlKey || e.metaKey) {
+      switch (e.key.toLowerCase()) {
+        case "b":
+          e.preventDefault()
+          applyFormat("bold")
+          break
+        case "i":
+          e.preventDefault()
+          applyFormat("italic")
+          break
+        case "u":
+          e.preventDefault()
+          applyFormat("underline")
+          break
+      }
+    }
   }
 
   return (
@@ -51,7 +89,7 @@ export default function RichTextEditor({
       <div className={styles.toolbar}>
         <button
           type="button"
-          className={`${styles.toolbarBtn} ${isFormatActive("bold") ? styles.active : ""}`}
+          className={`${styles.toolbarBtn} ${activeFormats.bold ? styles.active : ""}`}
           onClick={() => applyFormat("bold")}
           title="Bold (Ctrl+B)"
         >
@@ -59,7 +97,7 @@ export default function RichTextEditor({
         </button>
         <button
           type="button"
-          className={`${styles.toolbarBtn} ${isFormatActive("italic") ? styles.active : ""}`}
+          className={`${styles.toolbarBtn} ${activeFormats.italic ? styles.active : ""}`}
           onClick={() => applyFormat("italic")}
           title="Italic (Ctrl+I)"
         >
@@ -67,7 +105,7 @@ export default function RichTextEditor({
         </button>
         <button
           type="button"
-          className={`${styles.toolbarBtn} ${isFormatActive("underline") ? styles.active : ""}`}
+          className={`${styles.toolbarBtn} ${activeFormats.underline ? styles.active : ""}`}
           onClick={() => applyFormat("underline")}
           title="Underline (Ctrl+U)"
         >
@@ -102,6 +140,7 @@ export default function RichTextEditor({
         suppressContentEditableWarning
         onInput={handleInput}
         onPaste={handlePaste}
+        onKeyDown={handleKeyDown}
         onFocus={() => {
           setIsActive(true)
           setIsUserEditing(true)
