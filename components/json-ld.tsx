@@ -8,7 +8,18 @@ export default function JsonLd() {
       '@context': 'https://schema.org',
       '@type': 'Organization',
       name: 'Lumyn Technologies',
-      alternateName: 'Lumyn Technologies',
+      alternateName: [
+        'Lumyn',
+        'Lumyn Tec',
+        'Lumyn Technologies Kenya',
+        'Luymn',
+        'Luym',
+        'Lumin',
+        'Lumen',
+        'Lumn',
+        'Lumyn Tech',
+        'Lumyn Technologies Limited',
+      ],
       description:
         'The complete creative platform for African creators. Build portfolios, sell products, find jobs, and access premium templates.',
       url: BASE_URL,
@@ -18,6 +29,7 @@ export default function JsonLd() {
         'https://www.linkedin.com/company/lumyn-technologies',
         'https://www.instagram.com/lumyn_technologies',
         'https://github.com/lumyntechnologies-oss',
+        'https://blogs.lumyn.co.ke/',
       ],
       contactPoint: {
         '@type': 'ContactPoint',

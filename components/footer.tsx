@@ -51,7 +51,7 @@ export default function Footer() {
           <div className={styles.footerCol}>
             <h5>Resources</h5>
             <nav className={styles.footerLinks}>
-              <Link href="/blog" className={styles.footerLink}>Blog</Link>
+              <a href="https://blogs.lumyn.co.ke/" target="_blank" rel="noopener noreferrer" className={styles.footerLink}>Blog</a>
               <Link href="/events" className={styles.footerLink}>Events</Link>
               <Link href="/news" className={styles.footerLink}>News</Link>
               <Link href="/gallery" className={styles.footerLink}>Gallery</Link>
