@@ -7,6 +7,7 @@ export const metadata: Metadata = pageMetadata({
     "Build and launch a beautiful professional portfolio in minutes with Lumyn Technologies Launch. Choose from designer-made templates and showcase your work to the world.",
   path: "/launch",
   keywords: ["portfolio builder", "personal website", "creative portfolio", "Lumyn Technologies Launch", "templates"],
+  noindex: true,
 })
 
 export default function Layout({ children }: { children: React.ReactNode }) {

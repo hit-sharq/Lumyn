@@ -202,10 +202,6 @@ export default function TemplateDetailPage() {
                 </button>
               )}
 
-              <Link href="/launch" className={styles.detailBtnSecondary}>
-                Build a Portfolio with Lumyn Technologies Launch →
-              </Link>
-
               <div className={styles.detailMeta}>
                 <div className={styles.detailMetaItem}>
                   <span className={styles.detailMetaLabel}>Category</span>

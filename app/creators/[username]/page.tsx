@@ -90,9 +90,9 @@ export default function CreatorProfile() {
             <p className="text-2xl mb-2">😕</p>
             <h2 className="text-xl font-bold mb-2">{error || 'Creator not found'}</h2>
             <p className="text-slate-400 mb-6">The creator profile you&apos;re looking for doesn&apos;t exist.</p>
-            <Link href="/market">
+            <Link href="/">
               <Button className="bg-amber-500 hover:bg-amber-600 text-black">
-                Back to Market
+                Back to Homepage
               </Button>
             </Link>
           </CardContent>

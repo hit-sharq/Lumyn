@@ -13,6 +13,7 @@ interface PageMetadataInput {
   path?: string
   keywords?: string[]
   breadcrumbs?: BreadcrumbItem[]
+  noindex?: boolean
 }
 
 interface FAQItem {
@@ -33,6 +34,7 @@ export function pageMetadata({
   path = "/",
   keywords,
   breadcrumbs,
+  noindex = false,
 }: PageMetadataInput): Metadata {
   const url = `${BASE_URL}${path}`
   const breadcrumbList = breadcrumbs || [
@@ -49,6 +51,9 @@ export function pageMetadata({
     publisher: "Lumyn Technologies",
     applicationName: "Lumyn Technologies",
     alternates: { canonical: url },
+    robots: noindex
+      ? { index: false, follow: true }
+      : { index: true, follow: true },
     openGraph: {
       title,
       description,
@@ -60,7 +65,7 @@ export function pageMetadata({
           url: "/og-image.png",
           width: 1200,
           height: 630,
-          alt: "Lumyn Technologies - Creative Platform for African Creators",
+          alt: "Lumyn Technologies - Digital Innovation Studio",
         },
       ],
     },

@@ -15,9 +15,13 @@ const EXCLUDED_DIRS = new Set(['api', 'admin', 'studio/admin', '_components', 'c
 // Routes that are private/auth-gated/dashboards and must never be indexed.
 const EXCLUDED_PATHS = new Set([
   '/studio/admin',
+  '/market',
   '/market/dashboard',
+  '/hire',
+  '/launch',
   '/launch/dashboard',
   '/launch/builder',
+  '/ai-marketing',
   '/studio/dashboard',
   '/creators/dashboard',
   '/notifications',
@@ -28,12 +32,8 @@ const EXCLUDED_PATHS = new Set([
 
 const PRIORITY_RULES: Record<string, { priority: number; frequency: 'weekly' | 'monthly' | 'yearly' }> = {
   '/': { priority: 1, frequency: 'weekly' },
-  '/ai-marketing': { priority: 0.8, frequency: 'weekly' },
   '/services': { priority: 0.8, frequency: 'monthly' },
   '/studio': { priority: 0.8, frequency: 'weekly' },
-  '/launch': { priority: 0.8, frequency: 'weekly' },
-  '/market': { priority: 0.8, frequency: 'weekly' },
-  '/hire': { priority: 0.8, frequency: 'weekly' },
   '/about': { priority: 0.8, frequency: 'monthly' },
   '/contact': { priority: 0.8, frequency: 'monthly' },
   '/careers': { priority: 0.8, frequency: 'weekly' },
@@ -165,14 +165,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const dynamicUrls: MetadataRoute.Sitemap = []
 
   try {
-    const [blogs, news, events, projects, portfolios, templates, marketProducts, careers] = await Promise.all([
+    const [blogs, news, events, projects, templates, careers] = await Promise.all([
       prisma.blog.findMany({ where: { isPublished: true }, select: { id: true, updatedAt: true } }),
       prisma.news.findMany({ select: { id: true, publishedAt: true } }),
       prisma.event.findMany({ select: { id: true, date: true } }),
       prisma.project.findMany({ where: { featured: true }, select: { id: true, updatedAt: true } }),
-      prisma.launchPortfolio.findMany({ where: { isPublished: true }, select: { username: true, updatedAt: true } }),
       prisma.studioTemplate.findMany({ where: { isPublished: true }, select: { id: true, updatedAt: true } }),
-      prisma.marketProduct.findMany({ where: { isPublished: true }, select: { id: true, updatedAt: true } }),
       prisma.career.findMany({ select: { id: true, updatedAt: true } }),
     ])
 
@@ -192,16 +190,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       dynamicUrls.push({ url: `${MAIN_BASE_URL}/projects/${project.id}`, lastModified: project.updatedAt, changeFrequency: 'monthly', priority: 0.7 })
     })
 
-    portfolios.forEach((portfolio) => {
-      dynamicUrls.push({ url: `${MAIN_BASE_URL}/portfolio/${portfolio.username}`, lastModified: portfolio.updatedAt, changeFrequency: 'weekly', priority: 0.6 })
-    })
-
     templates.forEach((template) => {
       dynamicUrls.push({ url: `${MAIN_BASE_URL}/studio/${template.id}`, lastModified: template.updatedAt, changeFrequency: 'monthly', priority: 0.7 })
-    })
-
-    marketProducts.forEach((product) => {
-      dynamicUrls.push({ url: `${MAIN_BASE_URL}/market/${product.id}`, lastModified: product.updatedAt, changeFrequency: 'monthly', priority: 0.7 })
     })
 
     careers.forEach((career) => {

@@ -7,6 +7,7 @@ export const metadata: Metadata = pageMetadata({
     "Post jobs or find top creative talent across Africa. Lumyn Technologies Hire connects companies with designers, developers, marketers, and creators.",
   path: "/hire",
   keywords: ["job board", "hire creatives", "freelance jobs", "creative talent", "Africa jobs", "Lumyn Technologies Hire"],
+  noindex: true,
 })
 
 export default function Layout({ children }: { children: React.ReactNode }) {

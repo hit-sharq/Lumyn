@@ -21,7 +21,7 @@ export default function JsonLd() {
         'Lumyn Technologies Limited',
       ],
       description:
-        'The complete creative platform for African creators. Build portfolios, sell products, find jobs, and access premium templates.',
+        'Digital innovation studio engineering bespoke platforms, products, and experiences for ambitious businesses.',
       url: BASE_URL,
       logo: `${BASE_URL}/placeholder-logo.png`,
       sameAs: [
@@ -70,38 +70,6 @@ export default function JsonLd() {
         price: '0',
         priceCurrency: 'USD',
       },
-    },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'WebApplication',
-      name: 'Lumyn Technologies Launch',
-      description: 'Build and launch your professional portfolio in minutes',
-      url: `${BASE_URL}/launch`,
-      applicationCategory: 'BusinessApplication',
-      operatingSystem: 'Web Browser',
-      offers: {
-        '@type': 'Offer',
-        price: '0',
-        priceCurrency: 'USD',
-      },
-    },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'WebApplication',
-      name: 'Lumyn Technologies Market',
-      description: "Buy and sell digital products in Africa's largest marketplace",
-      url: `${BASE_URL}/market`,
-      applicationCategory: 'BusinessApplication',
-      operatingSystem: 'Web Browser',
-    },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'WebApplication',
-      name: 'Lumyn Technologies Hire',
-      description: 'Find jobs or hire top creative talent in Africa',
-      url: `${BASE_URL}/hire`,
-      applicationCategory: 'BusinessApplication',
-      operatingSystem: 'Web Browser',
     },
   ]
 

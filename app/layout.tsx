@@ -19,11 +19,11 @@ const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.lumyn.co.ke'
 
 export const metadata: Metadata = {
   title: {
-    default: 'Lumyn Technologies - The Complete Creative Platform',
+    default: 'Lumyn Technologies - Digital Innovation Studio',
     template: '%s | Lumyn Technologies',
   },
-  description: 'Lumyn Technologies is a complete platform for African creators. Build portfolios with Launch, sell products on Market, find jobs on Hire, and access premium templates on Studio.',
-  keywords: ['creative platform', 'African creators', 'Lumyn Technologies Studio', 'Lumyn Technologies Launch', 'Lumyn Technologies Market', 'Lumyn Technologies Hire', 'digital products', 'job board', 'portfolio builder', 'templates', 'creators Africa'],
+  description: 'Lumyn Technologies is a digital innovation studio engineering bespoke platforms, products, and experiences for ambitious businesses.',
+  keywords: ['digital innovation studio', 'software engineering', 'web development', 'custom software', 'Lumyn Technologies', 'technology studio Nairobi', 'product development', 'digital products'],
   authors: [{ name: 'Lumyn Technologies' }],
   creator: 'Lumyn Technologies',
   publisher: 'Lumyn Technologies',
@@ -35,21 +35,21 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: BASE_URL,
     siteName: 'Lumyn Technologies',
-    title: 'Lumyn Technologies - The Complete Creative Platform',
-    description: 'Build portfolios, sell products, find jobs, access templates. The all-in-one platform for African creators.',
+    title: 'Lumyn Technologies - Digital Innovation Studio',
+    description: 'We engineer bespoke platforms, products, and experiences that move ambitious businesses forward.',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Lumyn Technologies - Creative Platform for African Creators',
+            alt: 'Lumyn Technologies - Digital Innovation Studio',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Lumyn Technologies - The Complete Creative Platform',
-    description: 'Build portfolios, sell products, find jobs, access templates. The all-in-one platform for African creators.',
+    title: 'Lumyn Technologies - Digital Innovation Studio',
+    description: 'We engineer bespoke platforms, products, and experiences that move ambitious businesses forward.',
     images: ['/og-image.png'],
     creator: '@LumynTec',
   },
