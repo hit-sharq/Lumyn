@@ -20,7 +20,7 @@ const services = [
   { number: "01", title: "Strategy & Product", description: "Turn sharp ideas into clear roadmaps, useful experiences, and products people can actually use.", href: "/services" },
   { number: "02", title: "Web & Digital Products", description: "Design and engineer fast, accessible websites and platforms that scale with your ambitions.", href: "/services" },
   { number: "03", title: "Platforms & Infrastructure", description: "Build reliable cloud systems, APIs, data foundations, and operations for lasting growth.", href: "/services" },
-  { number: "04", title: "Growth & Support", description: "Measure what matters, improve every release, and keep your digital presence moving forward.", href: "/services" },
+  { number: "04", title: "Growth & Support", description: "Measure what matters, improve every release, and keep your digital presence moving forward with technical digital marketing.", href: "/services" },
 ]
 
 const principles = [

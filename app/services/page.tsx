@@ -43,8 +43,8 @@ const services = [
     items: [
       { title: "Product Strategy", desc: "Roadmapping, MVP definition, user research — product-market fit focused" },
       { title: "UI/UX Design", desc: "Figma design systems, prototyping, usability testing — intuitive user journeys" },
-      { title: "Brand Identity", desc: "Logo, typography, color systems, voice — cohesive brand experiences" },
-      { title: "Digital Marketing", desc: "SEO, content strategy, analytics — growth-oriented campaigns" },
+{ title: "Brand Identity", desc: "Logo, typography, color systems, voice — cohesive brand experiences" },
+{ title: "Technical Digital Marketing", desc: "SEO, technical SEO, content strategy, analytics, marketing automation — growth-oriented campaigns" },
     ],
   },
   {

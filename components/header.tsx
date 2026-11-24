@@ -101,7 +101,6 @@ export default function Header() {
     >
       <div className={styles.container}>
         <Link href="/" className={styles.brand} aria-label="Lumyn Technologies home">
-          <span className={styles.brandMark} aria-hidden="true">L</span>
           <span className={styles.brandText}>Lumyn</span>
         </Link>
 

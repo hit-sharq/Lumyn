@@ -10,7 +10,6 @@ export default function Footer() {
           {/* Brand */}
           <div className={styles.footerBrand}>
             <div className={styles.brand}>
-              <span className={styles.brandMark} aria-hidden="true">L</span>
               <span className={styles.brandText}>Lumyn</span>
             </div>
             <p className={styles.footerText}>
